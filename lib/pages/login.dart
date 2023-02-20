@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sandbox_frontend/pages/test_page.dart';
 
-import 'desktop_home_page.dart';
+import 'home.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -10,7 +9,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cinema Project Manager"),
+        title: const Text('Cinema Project Manager'),
         centerTitle: true,
       ),
       body: Center(
