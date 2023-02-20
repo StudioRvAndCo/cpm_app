@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class DesktopHomePage extends StatefulWidget {
-  const DesktopHomePage({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return DesktopHomePageState();
+    return HomeState();
   }
 }
 
-class DesktopHomePageState extends State<DesktopHomePage> {
+class HomeState extends State<Home> {
   int index = 0;
   bool expanded = false;
 
