@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/project_card.dart';
+
 class DesktopHomePage extends StatefulWidget {
   const DesktopHomePage({super.key});
 
@@ -15,6 +17,13 @@ class DesktopHomePageState extends State<DesktopHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final ProjectCard project = ProjectCard(
+      title: 'En Sursis',
+      favorite: false,
+      image: Image.asset('assets/en-sursis.png'),
+      shotsCompleted: 3,
+      shotsTotal: 12,
+    );
     return LayoutBuilder(
       builder: (BuildContext, BoxConstraints) {
         return Scaffold(
@@ -53,14 +62,22 @@ class DesktopHomePageState extends State<DesktopHomePage> {
                   extended: expanded,
                 ),
               )),
-              Expanded(child: Builder(
-                builder: (context) {
-                  if (BoxConstraints.maxWidth > 600) {
-                    return const Text('Large');
-                  } else {
-                    return const Text('Small');
-                  }
-                },
+              Expanded(
+                  child: ListView(
+                children: [
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                ],
               ))
             ]));
       },
