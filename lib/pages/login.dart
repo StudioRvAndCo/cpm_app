@@ -26,10 +26,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(
                 width: 200,
                 child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                      labelText: 'Login'),
+                  decoration: InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Login'),
                 ),
               ),
               const SizedBox(
@@ -38,37 +35,28 @@ class LoginPage extends StatelessWidget {
                   enableSuggestions: false,
                   autocorrect: false,
                   obscureText: true,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      isDense: true,
-                      labelText: 'Password'),
+                  decoration: InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Password'),
                 ),
               ),
               Wrap(
                 alignment: WrapAlignment.spaceAround,
                 spacing: 20,
                 children: [
-                  TextButton(
-                      onPressed: () {}, child: const Text('Forgot password?')),
+                  TextButton(onPressed: () {}, child: const Text('Forgot password?')),
                   SizedBox(
                     width: 100,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation,
+                            pageBuilder: (BuildContext context, Animation<double> animation,
                                 Animation<double> secondaryAnimation) {
                               return const DesktopHomePage();
                             },
-                            transitionsBuilder: (BuildContext context,
-                                Animation<double> animation,
-                                Animation<double> secondaryAnimation,
-                                Widget child) {
-                              return FadeTransition(
-                                  opacity: animation, child: child);
+                            transitionsBuilder: (BuildContext context, Animation<double> animation,
+                                Animation<double> secondaryAnimation, Widget child) {
+                              return FadeTransition(opacity: animation, child: child);
                             },
-                            transitionDuration:
-                                const Duration(milliseconds: 100)));
+                            transitionDuration: const Duration(milliseconds: 100)));
                       },
                       child: const Text('Log in'),
                     ),

@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: dart-format
+        name: Format Dart Code
+        entry: dart format -l 120
+        language: system
+        files: \.dart$
