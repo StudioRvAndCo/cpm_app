@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'home.dart';
 
@@ -44,12 +45,8 @@ class Login extends StatelessWidget {
                 width: 300,
                 child: FilledButton(
                   onPressed: () {
-                    Navigator.of(context).push(PageRouteBuilder<Home>(
-                      pageBuilder:
-                          (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-                        return const Home();
-                      },
-                    ));
+                    Navigator.push(
+                        context, PageTransition<Home>(type: PageTransitionType.topToBottom, child: const Home()));
                   },
                   child: const Text('Log in'),
                 ),
