@@ -16,11 +16,11 @@ class DesktopHomePageState extends State<DesktopHomePage> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (BuildContext, BoxConstraints) {
+      builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
             appBar: AppBar(
               title: const Text('Cinema Project Manager'),
-              centerTitle: BoxConstraints.maxWidth < 600,
+              centerTitle: boxConstraints.maxWidth < 600,
             ),
             body: Row(children: [
               SafeArea(
@@ -44,9 +44,9 @@ class DesktopHomePageState extends State<DesktopHomePage> {
                     NavigationRailDestination(
                         icon: Icon(Icons.settings), label: Text('Settings')),
                     NavigationRailDestination(
-                        icon: Icon(Icons.info), label: Text('Informations'))
+                        icon: Icon(Icons.info), label: Text('Information'))
                   ],
-                  onDestinationSelected: (value) => setState(() {
+                  onDestinationSelected: (int value) => setState(() {
                     index = value;
                   }),
                   selectedIndex: index,
@@ -55,7 +55,7 @@ class DesktopHomePageState extends State<DesktopHomePage> {
               )),
               Expanded(child: Builder(
                 builder: (context) {
-                  if (BoxConstraints.maxWidth > 600) {
+                  if (boxConstraints.maxWidth > 600) {
                     return const Text('Large');
                   } else {
                     return const Text('Small');
