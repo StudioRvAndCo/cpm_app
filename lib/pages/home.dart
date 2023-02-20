@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class DesktopHomePage extends StatefulWidget {
-  const DesktopHomePage({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return DesktopHomePageState();
+    return HomeState();
   }
 }
 
-class DesktopHomePageState extends State<DesktopHomePage> {
+class HomeState extends State<Home> {
   int index = 0;
   bool expanded = false;
 
@@ -22,7 +22,7 @@ class DesktopHomePageState extends State<DesktopHomePage> {
               title: const Text('Cinema Project Manager'),
               centerTitle: boxConstraints.maxWidth < 600,
             ),
-            body: Row(children: [
+            body: Row(children: <Widget>[
               SafeArea(
                   child: MouseRegion(
                 onEnter: (_) => setState(() => expanded = true),
@@ -33,7 +33,7 @@ class DesktopHomePageState extends State<DesktopHomePage> {
                     width: 50,
                     filterQuality: FilterQuality.high,
                   ),
-                  destinations: const [
+                  destinations: const <NavigationRailDestination>[
                     NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
                     NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
                     NavigationRailDestination(icon: Icon(Icons.map), label: Text('Locations')),
@@ -48,7 +48,7 @@ class DesktopHomePageState extends State<DesktopHomePage> {
                 ),
               )),
               Expanded(child: Builder(
-                builder: (context) {
+                builder: (BuildContext context) {
                   if (boxConstraints.maxWidth > 600) {
                     return const Text('Large');
                   } else {
