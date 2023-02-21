@@ -31,13 +31,13 @@ class HomeState extends State<Home> {
     return LayoutBuilder(
       builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
-            appBar: Platform.isAndroid || Platform.isMacOS ? const CustomAppBar() : null,
-            drawer: Platform.isAndroid || Platform.isMacOS ? const CustomDrawer() : null,
-            body: Row(children: [
-              if (!Platform.isAndroid && !Platform.isMacOS) const SafeArea(child: CustomRail(index: 0)),
+            appBar: Platform.isAndroid || Platform.isIOS ? const CustomAppBar() : null,
+            drawer: Platform.isAndroid || Platform.isIOS ? const CustomDrawer() : null,
+            body: Row(children: <Widget>[
+              if (!Platform.isAndroid && !Platform.isIOS) const SafeArea(child: CustomRail(index: 0)),
               Expanded(
                   child: ListView(
-                children: [
+                children: <ProjectCard>[
                   project,
                   project,
                   project,
