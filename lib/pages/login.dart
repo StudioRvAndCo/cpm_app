@@ -47,7 +47,7 @@ class Login extends StatelessWidget {
                 child: FilledButton(
                   onPressed: () {
                     Navigator.push(
-                        context, PageTransition<Home>(type: PageTransitionType.topToBottom, child: const Home()));
+                        context, PageTransition<Home>(type: PageTransitionType.bottomToTop, child: const Home()));
                   },
                   child: const Text('Log in'),
                 ),
