@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+
+class DesktopHomePage extends StatefulWidget {
+  const DesktopHomePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return DesktopHomePageState();
+  }
+}
+
+class DesktopHomePageState extends State<DesktopHomePage> {
+  int index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext, BoxConstraints) {
+        return Scaffold(
+            appBar: MediaQuery.of(context).size.width <= 600
+                ? AppBar(
+                    title: const Text('Cinema Project Manager'),
+                    centerTitle: true,
+                  )
+                : null,
+            drawer: MediaQuery.of(context).size.width <= 600
+                ? SafeArea(
+                    child: NavigationDrawer(children: [
+                      Image.asset('assets/logo-cpm-alpha.png'),
+                      NavigationDrawerDestination(
+                          icon: Icon(Icons.home_outlined), label: Text('Home')),
+                      NavigationDrawerDestination(
+                          icon: Icon(Icons.people_outline),
+                          label: Text('Members')),
+                      NavigationDrawerDestination(
+                          icon: Icon(Icons.map), label: Text('Locations')),
+                      NavigationDrawerDestination(
+                          icon: Icon(Icons.settings), label: Text('Settings')),
+                      NavigationDrawerDestination(
+                          icon: Icon(Icons.info), label: Text('Informations'))
+                    ]),
+                  )
+                : null,
+            body: Row(children: [
+              if (MediaQuery.of(context).size.width > 600)
+                SafeArea(
+                  child: NavigationRail(
+                      leading: Image.asset(
+                        'assets/logo-cpm-alpha.png',
+                        width: 50,
+                        filterQuality: FilterQuality.high,
+                      ),
+                      labelType: NavigationRailLabelType.all,
+                      destinations: const [
+                        NavigationRailDestination(
+                            icon: Icon(Icons.home_outlined),
+                            label: Text('Home')),
+                        NavigationRailDestination(
+                            icon: Icon(Icons.people_outline),
+                            label: Text('Members')),
+                        NavigationRailDestination(
+                            icon: Icon(Icons.map), label: Text('Locations')),
+                        NavigationRailDestination(
+                            icon: Icon(Icons.settings),
+                            label: Text('Settings')),
+                        NavigationRailDestination(
+                            icon: Icon(Icons.info), label: Text('Informations'))
+                      ],
+                      onDestinationSelected: (value) => setState(() {
+                            index = value;
+                          }),
+                      selectedIndex: index),
+                )
+              else
+                SizedBox.shrink(),
+              Expanded(child: Builder(
+                builder: (context) {
+                  if (BoxConstraints.maxWidth > 600) {
+                    return const Text('Large');
+                  } else {
+                    return const Text('Small');
+                  }
+                },
+              ))
+            ]));
+      },
+    );
+  }
+}

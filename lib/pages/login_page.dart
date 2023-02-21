@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sandbox_frontend/pages/test_page.dart';
 
-import 'desktop_home_page.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -10,7 +9,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cinema Project Manager"),
+        title: const Text('Cinema Project Manager'),
         centerTitle: true,
       ),
       body: Center(
@@ -22,7 +21,7 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: WrapCrossAlignment.center,
             direction: Axis.vertical,
             spacing: 15,
-            children: [
+            children: <Widget>[
               Image.asset('assets/logo-camera.png', fit: BoxFit.fitWidth),
               const SizedBox(
                 width: 200,
