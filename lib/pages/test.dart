@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/details_pane.dart';
 import '../widgets/tabbed_info_sheet.dart';
 
 class Test extends StatelessWidget {
