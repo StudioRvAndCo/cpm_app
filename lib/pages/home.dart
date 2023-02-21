@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/custom-appbar.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -18,10 +20,7 @@ class HomeState extends State<Home> {
     return LayoutBuilder(
       builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
-            appBar: AppBar(
-              title: const Text('Cinema Project Manager'),
-              centerTitle: boxConstraints.maxWidth < 600,
-            ),
+            appBar: const CustomAppBar(),
             body: Row(children: <Widget>[
               SafeArea(
                   child: MouseRegion(
