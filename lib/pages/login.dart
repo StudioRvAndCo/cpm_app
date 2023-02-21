@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'home.dart';
+import 'test.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -49,6 +50,19 @@ class Login extends StatelessWidget {
                         context, PageTransition<Home>(type: PageTransitionType.topToBottom, child: const Home()));
                   },
                   child: const Text('Log in'),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: SizedBox(
+                width: 300,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context, PageTransition<Test>(type: PageTransitionType.topToBottom, child: const Test()));
+                  },
+                  child: const Text('Test page'),
                 ),
               ),
             ),
