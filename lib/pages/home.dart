@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_appbar.dart';
@@ -29,13 +31,10 @@ class HomeState extends State<Home> {
     return LayoutBuilder(
       builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
-            appBar: MediaQuery.of(context).size.width <= 600 ? const CustomAppBar() : null,
-            drawer: MediaQuery.of(context).size.width <= 600 ? const CustomDrawer() : null,
+            appBar: Platform.isAndroid || Platform.isMacOS ? const CustomAppBar() : null,
+            drawer: Platform.isAndroid || Platform.isMacOS ? const CustomDrawer() : null,
             body: Row(children: [
-              if (MediaQuery.of(context).size.width > 600)
-                const SafeArea(child: CustomRail(index: 0))
-              else
-                const SizedBox.shrink(),
+              if (!Platform.isAndroid && !Platform.isMacOS) const SafeArea(child: CustomRail(index: 0)),
               Expanded(
                   child: ListView(
                 children: [
