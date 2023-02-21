@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sandbox_frontend/pages/login_page.dart';
-import 'package:sandbox_frontend/theme.dart';
+import 'pages/login.dart';
+import 'theme.dart';
 
 void main() => runApp(const MyApp());
 
@@ -19,9 +19,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Frontend sandbox',
-        theme: CPMThemeLight().theme,
-        home: const LoginPage());
+    return MaterialApp(title: 'CPM', theme: CPMThemeLight().theme, home: const Login());
   }
 }
