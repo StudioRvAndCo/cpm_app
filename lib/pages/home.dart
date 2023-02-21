@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/project_card.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -14,6 +16,13 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final ProjectCard project = ProjectCard(
+      title: 'En Sursis',
+      favorite: false,
+      image: Image.asset('assets/en-sursis.png'),
+      shotsCompleted: 3,
+      shotsTotal: 12,
+    );
     return LayoutBuilder(
       builder: (BuildContext, BoxConstraints) {
         return Scaffold(
@@ -73,14 +82,22 @@ class HomeState extends State<Home> {
                 )
               else
                 SizedBox.shrink(),
-              Expanded(child: Builder(
-                builder: (context) {
-                  if (BoxConstraints.maxWidth > 600) {
-                    return const Text('Large');
-                  } else {
-                    return const Text('Small');
-                  }
-                },
+              Expanded(
+                  child: ListView(
+                children: [
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                  project,
+                ],
               ))
             ]));
       },
