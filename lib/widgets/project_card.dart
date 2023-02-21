@@ -17,11 +17,7 @@ class ProjectCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _ProjectCardState(
-      title: title,
-      image: image,
-      favorite: favorite,
-      shotsTotal: shotsTotal,
-      shotsCompleted: shotsCompleted);
+      title: title, image: image, favorite: favorite, shotsTotal: shotsTotal, shotsCompleted: shotsCompleted);
 }
 
 class _ProjectCardState extends State<ProjectCard> {
@@ -44,12 +40,11 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    var favIcon = favorite ? Icon(Icons.star) : Icon(Icons.star_border);
+    Icon favIcon = favorite ? const Icon(Icons.star) : const Icon(Icons.star_border);
     return Card(
         child: SizedBox(
             height: 100,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: <Widget>[
                 Expanded(
                   child: Row(
@@ -67,8 +62,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       Flexible(
                         child: Text(
                           title,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -81,7 +75,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       onPressed: () {
                         toggleFavorite();
                         setState(() {
-                          favIcon = Icon(Icons.star);
+                          favIcon = const Icon(Icons.star);
                         });
                       },
                       icon: favIcon),
@@ -90,8 +84,7 @@ class _ProjectCardState extends State<ProjectCard> {
               ]),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child:
-                    LinearProgressIndicator(value: shotsCompleted / shotsTotal),
+                child: LinearProgressIndicator(value: shotsCompleted / shotsTotal),
               )
             ])));
   }

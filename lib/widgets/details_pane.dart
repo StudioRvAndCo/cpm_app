@@ -63,8 +63,7 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
             ),
             TextField(
               style: Theme.of(context).textTheme.bodyMedium,
-              decoration:
-                  const InputDecoration.collapsed(hintText: 'Description'),
+              decoration: const InputDecoration.collapsed(hintText: 'Description'),
               controller: descriptionController,
               onChanged: setDescription,
               keyboardType: TextInputType.multiline,
@@ -76,11 +75,10 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
             GestureDetector(
               onTap: () async {
                 final DateTimeRange? pickedRange = await showDateRangePicker(
-                  context: context,
+                    context: context,
                     initialDateRange: DateTimeRange(start: firstDate, end: lastDate), //get today's date
-                  firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                  lastDate: DateTime(2101)
-                );
+                    firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                    lastDate: DateTime(2101));
                 if (pickedRange != null) {
                   firstDate = pickedRange.start;
                   lastDate = pickedRange.end;
@@ -92,14 +90,17 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
                 children: <Widget>[
                   const Icon(Icons.event_outlined),
                   const SizedBox(width: 8),
-                  Text(dateText, style: TextStyle(color: Theme.of(context).colorScheme.primary),)
+                  Text(
+                    dateText,
+                    style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                  )
                 ],
               ),
             )
           ],
         ));
   }
-  
+
   @override
   bool get wantKeepAlive => true;
 }
