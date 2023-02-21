@@ -34,7 +34,7 @@ class HomeState extends State<Home> {
             appBar: Platform.isAndroid || Platform.isIOS ? const CustomAppBar() : null,
             drawer: Platform.isAndroid || Platform.isIOS ? const CustomDrawer() : null,
             body: Row(children: <Widget>[
-              if (!Platform.isAndroid && !Platform.isIOS) const SafeArea(child: CustomRail(index: 0)),
+              if (!Platform.isAndroid && !Platform.isIOS) const SafeArea(child: CustomRail()),
               Expanded(
                   child: ListView(
                 children: <ProjectCard>[
