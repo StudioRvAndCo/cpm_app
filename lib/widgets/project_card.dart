@@ -44,7 +44,9 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    var favIcon = favorite ? Icon(Icons.star) : Icon(Icons.star_border);
+    var favIcon = favorite
+        ? Icon(Icons.star, color: Theme.of(context).colorScheme.primary)
+        : Icon(Icons.star_border);
     return Card(
         child: SizedBox(
             height: 100,

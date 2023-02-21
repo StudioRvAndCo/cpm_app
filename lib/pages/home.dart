@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/project_card.dart';
+import '../widgets/subproject_card.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -96,7 +97,13 @@ class HomeState extends State<Home> {
                   project,
                   project,
                   project,
-                  project,
+                  SubProjectCard(
+                      number: 1,
+                      title: 'Titre',
+                      description:
+                          'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM',
+                      shotsTotal: 15,
+                      shotsCompleted: 2),
                 ],
               ))
             ]));
