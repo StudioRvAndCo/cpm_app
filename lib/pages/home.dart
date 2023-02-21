@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class DesktopHomePage extends StatefulWidget {
-  const DesktopHomePage({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return DesktopHomePageState();
+    return HomeState();
   }
 }
 
-class DesktopHomePageState extends State<DesktopHomePage> {
+class HomeState extends State<Home> {
   int index = 0;
 
   @override
@@ -27,16 +27,16 @@ class DesktopHomePageState extends State<DesktopHomePage> {
                 ? SafeArea(
                     child: NavigationDrawer(children: [
                       Image.asset('assets/logo-cpm-alpha.png'),
-                      NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
                           icon: Icon(Icons.home_outlined), label: Text('Home')),
-                      NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
                           icon: Icon(Icons.people_outline),
                           label: Text('Members')),
-                      NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
                           icon: Icon(Icons.map), label: Text('Locations')),
-                      NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
                           icon: Icon(Icons.settings), label: Text('Settings')),
-                      NavigationDrawerDestination(
+                      const NavigationDrawerDestination(
                           icon: Icon(Icons.info), label: Text('Informations'))
                     ]),
                   )
