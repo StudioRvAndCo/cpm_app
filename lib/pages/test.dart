@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/details_pane.dart';
+import '../widgets/tabbed_info_sheet.dart';
 
 class Test extends StatelessWidget {
   const Test({super.key});
@@ -17,30 +18,7 @@ class Test extends StatelessWidget {
                 showModalBottomSheet(
                     context: context,
                     builder: (BuildContext context) {
-                      return DefaultTabController(
-                          length: 3,
-                          child: Column(
-                            children: const <Widget>[
-                              TabBar(tabs: <Tab>[
-                                Tab(
-                                  text: 'Details',
-                                ),
-                                Tab(
-                                  text: 'Members',
-                                ),
-                                Tab(
-                                  text: 'Locations',
-                                ),
-                              ]),
-                              Expanded(
-                                  child: TabBarView(children: <Widget>[
-                                  DetailsPane(),
-                                  Text('Members'),
-                                  Text('Locations')
-                                ]),
-                              )
-                            ],
-                          ));
+                      return const TabbedInfoSheet();
                     });
               },
               child: const Text('Bottom sheet')),
