@@ -1,8 +1,10 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../widgets/custom_appbar.dart';
+import 'login.dart';
 import 'projects.dart';
 import 'test.dart';
 
@@ -76,6 +78,20 @@ class HomeState extends State<Home> {
         NavigationRailDestination(icon: Icon(Icons.info), label: Text('Information')),
         NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
       ],
+      trailing: Expanded(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: IconButton(
+                icon: const Icon(Icons.logout),
+                onPressed: () {
+                  Navigator.push(
+                      context, PageTransition<Login>(type: PageTransitionType.topToBottom, child: const Login()));
+                }),
+          ),
+        ),
+      ),
       selectedIndex: _selectedIndex,
       onDestinationSelected: (int index) {
         setState(() {

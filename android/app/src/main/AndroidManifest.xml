@@ -2,7 +2,7 @@
     package="com.example.sandbox">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="sandbox"
+        android:label="CPM"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
