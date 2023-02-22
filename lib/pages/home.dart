@@ -29,7 +29,8 @@ class HomeState extends State<Home> {
             appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? const CustomAppBar() : null,
             drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? buildNavigationDrawer() : null,
             body: Row(children: <Widget>[
-              if (kIsWeb || !Platform.isAndroid && !Platform.isIOS) SafeArea(child: buildNavigationRail()),
+              if (kIsWeb || Platform.isWindows && Platform.isMacOS || Platform.isFuchsia)
+                SafeArea(child: buildNavigationRail()),
               _pageAtIndex(_selectedIndex),
             ]));
       },
