@@ -6,6 +6,7 @@ import '../widgets/custom_appbar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_rail.dart';
 import '../widgets/project_card.dart';
+import '../widgets/subproject_card.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -37,7 +38,7 @@ class HomeState extends State<Home> {
               if (!Platform.isAndroid && !Platform.isIOS) const SafeArea(child: CustomRail()),
               Expanded(
                   child: ListView(
-                children: <ProjectCard>[
+                children: <Widget>[
                   project,
                   project,
                   project,
@@ -49,7 +50,13 @@ class HomeState extends State<Home> {
                   project,
                   project,
                   project,
-                  project,
+                  SubProjectCard(
+                      number: 1,
+                      title: 'Titre',
+                      description:
+                          'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM',
+                      shotsTotal: 15,
+                      shotsCompleted: 2),
                 ],
               ))
             ]));

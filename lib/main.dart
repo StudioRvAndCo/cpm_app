@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
 import 'pages/login.dart';
 import 'theme.dart';
+
 void main() async {
   Intl.systemLocale = await findSystemLocale();
   runApp(const MyApp());
