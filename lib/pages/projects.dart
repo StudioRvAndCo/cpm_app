@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/project_card.dart';
+import '../widgets/subproject_card.dart';
 
 class Projects extends StatelessWidget {
   const Projects({super.key});
@@ -15,9 +16,21 @@ class Projects extends StatelessWidget {
       shotsTotal: 12,
     );
 
+    const SubProjectCard subProjectCard = SubProjectCard(
+        number: 1,
+        title: 'Titre',
+        description:
+            'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM',
+        shotsTotal: 15,
+        shotsCompleted: 2);
+
     return Expanded(
         child: Column(
-      children: [project, project],
+      children: <Widget>[
+        project,
+        project,
+        subProjectCard,
+      ],
     ));
   }
 }
