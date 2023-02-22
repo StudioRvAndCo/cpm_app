@@ -26,10 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             icon: const Icon(Icons.logout),
             onPressed: () {
               Navigator.push(
-                  context,
-                  PageTransition<Login>(
-                      type: PageTransitionType.topToBottom,
-                      child: const Login()));
+                  context, PageTransition<Login>(type: PageTransitionType.topToBottom, child: const Login()));
             }),
       ],
     );

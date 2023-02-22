@@ -32,15 +32,10 @@ class HomeState extends State<Home> {
     return LayoutBuilder(
       builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
-            appBar: Platform.isAndroid || Platform.isIOS
-                ? const CustomAppBar()
-                : null,
-            drawer: Platform.isAndroid || Platform.isIOS
-                ? const CustomDrawer()
-                : null,
+            appBar: Platform.isAndroid || Platform.isIOS ? const CustomAppBar() : null,
+            drawer: Platform.isAndroid || Platform.isIOS ? const CustomDrawer() : null,
             body: Row(children: <Widget>[
-              if (!Platform.isAndroid && !Platform.isIOS)
-                const SafeArea(child: CustomRail()),
+              if (!Platform.isAndroid && !Platform.isIOS) const SafeArea(child: CustomRail()),
               Expanded(
                   child: ListView(
                 children: <Widget>[
