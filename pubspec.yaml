@@ -1,5 +1,5 @@
-name: sandbox_frontend
-description: A new Flutter project.
+name: cpm
+description: Cinema Project Manager is a tool to efficiently manage the production of a cinema project.
 publish_to: 'none'
 version: 0.1.0
 
