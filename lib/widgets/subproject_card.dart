@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../theme.dart';
-
 class SubProjectCard extends StatefulWidget {
   const SubProjectCard(
       {super.key,
@@ -51,7 +49,7 @@ class _SubProjectCardState extends State<SubProjectCard> {
                       width: 30,
                       decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.secondary,
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                          borderRadius: const BorderRadius.all(Radius.circular(15))),
                       child: Text(number.toString(),
                           textAlign: TextAlign.center,
                           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
@@ -67,9 +65,9 @@ class _SubProjectCardState extends State<SubProjectCard> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Flexible(
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
                   child: Text(
                     description,
                     style: const TextStyle(

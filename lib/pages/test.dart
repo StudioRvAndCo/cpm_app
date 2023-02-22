@@ -6,21 +6,16 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Cinema Project Manager'),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: TextButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const TabbedInfoSheet();
-                    });
-              },
-              child: const Text('Bottom sheet')),
-        ));
+    return Center(
+      child: TextButton(
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return const TabbedInfoSheet();
+                });
+          },
+          child: const Text('Bottom sheet')),
+    );
   }
 }

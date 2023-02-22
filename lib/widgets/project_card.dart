@@ -40,7 +40,8 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    var favIcon = favorite ? Icon(Icons.star, color: Theme.of(context).colorScheme.primary) : Icon(Icons.star_border);
+    Icon favIcon =
+        favorite ? Icon(Icons.star, color: Theme.of(context).colorScheme.primary) : const Icon(Icons.star_border);
     return Card(
         child: SizedBox(
             height: 100,
@@ -75,7 +76,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       onPressed: () {
                         toggleFavorite();
                         setState(() {
-                          favIcon = Icon(Icons.star);
+                          favIcon = const Icon(Icons.star);
                         });
                       },
                       icon: favIcon),
