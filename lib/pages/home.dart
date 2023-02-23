@@ -4,10 +4,11 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../models/Participant.dart';
 import '../widgets/custom_appbar.dart';
 import 'locations.dart';
 import 'login.dart';
-import 'members.dart';
+import 'participants.dart';
 import 'projects.dart';
 import 'test.dart';
 
@@ -110,7 +111,9 @@ class HomeState extends State<Home> {
       case 0:
         return const Projects();
       case 1:
-        return const Members();
+        return Participants(
+          participants: <Participant>[Participant('Jean', 'Neymar', '0123456789')],
+        );
       case 2:
         return const Locations();
       case 5:
