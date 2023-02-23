@@ -25,7 +25,11 @@ class TabbedInfoSheet extends StatelessWidget {
               ),
             ]),
             Expanded(
-              child: TabBarView(children: <Widget>[DetailsPane(), Text('Members'), Text('Locations')]),
+              child: TabBarView(children: <Widget>[
+                DetailsPane(),
+                Text('Members'),
+                Text('Locations')
+              ]),
             )
           ],
         ));
