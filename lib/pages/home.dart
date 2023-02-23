@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../widgets/custom_appbar.dart';
+import 'locations.dart';
 import 'login.dart';
+import 'members.dart';
 import 'projects.dart';
 import 'test.dart';
 
@@ -105,6 +107,10 @@ class HomeState extends State<Home> {
     switch (index) {
       case 0:
         return const Projects();
+      case 1:
+        return const Members();
+      case 2:
+        return const Locations();
       case 5:
         return const Test();
       default:
