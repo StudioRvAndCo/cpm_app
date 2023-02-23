@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/Participant.dart';
 
@@ -33,7 +34,7 @@ class _ParticipantTileState extends State<ParticipantTile> {
         children: <Widget>[
           IconButton(
               onPressed: () {
-                print('call');
+                launchUrl(Uri.parse('tel://0607706869'));
               },
               icon: const Icon(Icons.phone)),
           IconButton(
