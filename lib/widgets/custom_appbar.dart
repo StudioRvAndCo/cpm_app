@@ -18,9 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Scaffold.of(context).openDrawer();
         },
       ),
-      title: const OutlineSearchBar(
-        maxHeight: 50,
-      ),
+      title: const OutlineSearchBar(),
       actions: <IconButton>[
         IconButton(
             icon: const Icon(Icons.logout),
