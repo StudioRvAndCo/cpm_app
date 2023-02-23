@@ -39,7 +39,7 @@ class _ParticipantTileState extends State<ParticipantTile> {
               icon: const Icon(Icons.phone)),
           IconButton(
               onPressed: () {
-                print('call');
+                launchUrl(Uri.parse('sms://0607706869'));
               },
               icon: const Icon(Icons.message)),
           PopupMenuButton<MenuAction>(
