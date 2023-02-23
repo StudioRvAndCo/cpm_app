@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'icon_label.dart';
+
 class DetailsPane extends StatefulWidget {
   const DetailsPane({super.key});
 
@@ -86,15 +88,10 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
                 }
               },
               behavior: HitTestBehavior.translucent,
-              child: Row(
-                children: <Widget>[
-                  const Icon(Icons.event_outlined),
-                  const SizedBox(width: 8),
-                  Text(
-                    dateText,
-                    style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                  )
-                ],
+              child: IconLabel(
+                text: dateText,
+                icon: Icons.event_outlined,
+                textStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
             )
           ],

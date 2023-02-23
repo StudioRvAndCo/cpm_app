@@ -39,10 +39,10 @@ class _SubProjectCardState extends State<SubProjectCard> {
     return Card(
         child: SizedBox(
             height: 100,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
               Row(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
