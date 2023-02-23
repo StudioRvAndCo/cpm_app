@@ -1,21 +1,20 @@
+name: Analyse and format Dart code
 on: [pull_request]
-
 jobs:
   linter:
     runs-on: ubuntu-latest
-    name: Analyse and format Dart code
     steps:
     - name: Setup Repository
       uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.ref }}
-    - name: Flutter action
+    - name: Add flutter-action
       uses: subosito/flutter-action@v2.8.0
     - name: Install Pub Dependencies
       run: flutter pub get
-    - name: Verify Formatting
+    - name: Format Dart code
       run: dart format -l 120 .
-    - name: Analyze Project Source
+    - name: Analyze Dart code
       run: dart analyze
     - name: Add & Commit
       uses: EndBug/add-and-commit@v9.1.1

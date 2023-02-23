@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -27,10 +28,11 @@ class HomeState extends State<Home> {
     return LayoutBuilder(
       builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
-            appBar: Platform.isAndroid || Platform.isIOS ? const CustomAppBar() : null,
-            drawer: Platform.isAndroid || Platform.isIOS ? buildNavigationDrawer() : null,
+            appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? const CustomAppBar() : null,
+            drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? buildNavigationDrawer() : null,
             body: Row(children: <Widget>[
-              if (!Platform.isAndroid && !Platform.isIOS) SafeArea(child: buildNavigationRail()),
+              if (kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isFuchsia)
+                SafeArea(child: buildNavigationRail()),
               _pageAtIndex(_selectedIndex),
             ]));
       },
