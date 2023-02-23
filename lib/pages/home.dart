@@ -26,17 +26,10 @@ class HomeState extends State<Home> {
     return LayoutBuilder(
       builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
-            appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS)
-                ? const CustomAppBar()
-                : null,
-            drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS)
-                ? buildNavigationDrawer()
-                : null,
+            appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? const CustomAppBar() : null,
+            drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? buildNavigationDrawer() : null,
             body: Row(children: <Widget>[
-              if (kIsWeb ||
-                  Platform.isWindows ||
-                  Platform.isMacOS ||
-                  Platform.isFuchsia)
+              if (kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isFuchsia)
                 SafeArea(child: buildNavigationRail()),
               _pageAtIndex(_selectedIndex),
             ]));
@@ -60,18 +53,12 @@ class HomeState extends State<Home> {
               child: Image.asset(
             'assets/logo-cpm-alpha.png',
           )),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.home_outlined), label: Text('Home')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.people_outline), label: Text('Members')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.map), label: Text('Locations')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.settings), label: Text('Settings')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.info), label: Text('Information')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.quiz), label: Text('Test')),
+          const NavigationDrawerDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
+          const NavigationDrawerDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
+          const NavigationDrawerDestination(icon: Icon(Icons.map), label: Text('Locations')),
+          const NavigationDrawerDestination(icon: Icon(Icons.settings), label: Text('Settings')),
+          const NavigationDrawerDestination(icon: Icon(Icons.info), label: Text('Information')),
+          const NavigationDrawerDestination(icon: Icon(Icons.quiz), label: Text('Test')),
         ],
       ),
     );
@@ -86,16 +73,11 @@ class HomeState extends State<Home> {
       ),
       labelType: NavigationRailLabelType.all,
       destinations: const <NavigationRailDestination>[
-        NavigationRailDestination(
-            icon: Icon(Icons.home_outlined), label: Text('Home')),
-        NavigationRailDestination(
-            icon: Icon(Icons.people_outline), label: Text('Members')),
-        NavigationRailDestination(
-            icon: Icon(Icons.map), label: Text('Locations')),
-        NavigationRailDestination(
-            icon: Icon(Icons.settings), label: Text('Settings')),
-        NavigationRailDestination(
-            icon: Icon(Icons.info), label: Text('Information')),
+        NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
+        NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
+        NavigationRailDestination(icon: Icon(Icons.map), label: Text('Locations')),
+        NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
+        NavigationRailDestination(icon: Icon(Icons.info), label: Text('Information')),
         NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
       ],
       trailing: Expanded(
@@ -107,10 +89,7 @@ class HomeState extends State<Home> {
                 icon: const Icon(Icons.logout),
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      PageTransition<Login>(
-                          type: PageTransitionType.topToBottom,
-                          child: const Login()));
+                      context, PageTransition<Login>(type: PageTransitionType.topToBottom, child: const Login()));
                 }),
           ),
         ),

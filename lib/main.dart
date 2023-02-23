@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/intl_standalone.dart'
-    if (dart.library.html) 'package:intl/intl_browser.dart';
+import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
 import 'pages/login.dart';
 import 'theme.dart';
 
@@ -27,7 +26,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'CPM', theme: CPMThemeLight().theme, home: const Login());
+    return MaterialApp(title: 'CPM', theme: CPMThemeLight().theme, home: const Login());
   }
 }

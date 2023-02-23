@@ -17,11 +17,7 @@ class SubProjectCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _SubProjectCardState(
-      number: number,
-      title: title,
-      description: description,
-      shotsTotal: shotsTotal,
-      shotsCompleted: shotsCompleted);
+      number: number, title: title, description: description, shotsTotal: shotsTotal, shotsCompleted: shotsCompleted);
 }
 
 class _SubProjectCardState extends State<SubProjectCard> {
@@ -43,55 +39,49 @@ class _SubProjectCardState extends State<SubProjectCard> {
     return Card(
         child: SizedBox(
             height: 100,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+              Row(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 30,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondary,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(15))),
-                          child: Text(number.toString(),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
-                          title,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(
-                        description,
-                        style: const TextStyle(
-                          fontSize: 12,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: LinearProgressIndicator(
-                        value: shotsCompleted / shotsTotal),
-                  )
-                ])));
+                    child: Container(
+                      width: 30,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.secondary,
+                          borderRadius: const BorderRadius.all(Radius.circular(15))),
+                      child: Text(number.toString(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      title,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    description,
+                    style: const TextStyle(
+                      fontSize: 12,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LinearProgressIndicator(value: shotsCompleted / shotsTotal),
+              )
+            ])));
   }
 }
