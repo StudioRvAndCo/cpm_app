@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,8 +13,7 @@ class NewProjectDialog extends StatefulWidget {
   State<StatefulWidget> createState() => _NewProjectDialogState();
 }
 
-class _NewProjectDialogState extends State<NewProjectDialog>
-    with AutomaticKeepAliveClientMixin<NewProjectDialog> {
+class _NewProjectDialogState extends State<NewProjectDialog> {
   _NewProjectDialogState();
 
   String? title;
@@ -24,7 +26,7 @@ class _NewProjectDialogState extends State<NewProjectDialog>
   @override
   void initState() {
     updateDateText();
-    super.initState();
+    return super.initState();
   }
 
   void updateDateText() {
@@ -45,7 +47,6 @@ class _NewProjectDialogState extends State<NewProjectDialog>
 
   @override
   Widget build(BuildContext context) {
-    String dateDisplayed = 'Enter production dates';
     return SimpleDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,8 +62,26 @@ class _NewProjectDialogState extends State<NewProjectDialog>
             ],
           ),
           IconButton(
-            icon: const Icon(Icons.add_a_photo_outlined, size: 40),
-            onPressed: () {},
+            style: IconButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10))),
+            icon: Builder(builder: (context) {
+              if (image != null) {
+                return SizedBox(height: 80, width: 80, child: image!);
+              } else {
+                return const Icon(Icons.add_a_photo_outlined, size: 80);
+              }
+            }),
+            onPressed: () async {
+              FilePickerResult? result =
+                  await FilePicker.platform.pickFiles(type: FileType.image);
+              if (result != null) {
+                File file = File(result.files.single.path!);
+                setState(() {
+                  image = Image.file(file);
+                });
+              }
+            },
           ),
         ],
       ),
@@ -119,7 +138,7 @@ class _NewProjectDialogState extends State<NewProjectDialog>
                           }
                         },
                         icon: Icon(Icons.calendar_month),
-                        label: Text(dateDisplayed),
+                        label: Text(dateText),
                       ),
                     ),
                   ),
@@ -129,13 +148,13 @@ class _NewProjectDialogState extends State<NewProjectDialog>
                       width: 300,
                       child: SegmentedButton(
                         segments: [
-                          ButtonSegment(
+                          const ButtonSegment(
                               label: Text('Movie'), value: ProjectType.movie),
                           ButtonSegment(
                               label: Text('Series'), value: ProjectType.series)
                         ],
                         selected: {type},
-                        onSelectionChanged: (newSelection) {
+                        onSelectionChanged: (Set<ProjectType> newSelection) {
                           setState(() {
                             type = newSelection.first;
                           });
@@ -143,14 +162,14 @@ class _NewProjectDialogState extends State<NewProjectDialog>
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextButton(onPressed: () {}, child: Text('Cancel')),
-                      TextButton(onPressed: () {}, child: Text('OK'))
+                      TextButton(onPressed: () {}, child: const Text('Cancel')),
+                      TextButton(onPressed: () {}, child: const Text('OK'))
                     ],
                   )
                 ]),
@@ -159,7 +178,4 @@ class _NewProjectDialogState extends State<NewProjectDialog>
       ],
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

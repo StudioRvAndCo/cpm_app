@@ -64,21 +64,6 @@ class Login extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: SizedBox(
-                width: 300,
-                child: TextButton(
-                  onPressed: () => showDialog(
-                    builder: (context) {
-                      return NewProjectDialog();
-                    },
-                    context: context,
-                  ),
-                  child: const Text('Test page'),
-                ),
-              ),
-            ),
             const Spacer()
           ],
         ),
