@@ -112,7 +112,10 @@ class HomeState extends State<Home> {
         return const Projects();
       case 1:
         return Participants(
-          participants: <Participant>[Participant('Jean', 'Neymar', '0123456789')],
+          participants: <Participant>[
+            Participant('Jean', 'Neymar', '0123456789'),
+            Participant('Paul', 'Issier', '0123456788')
+          ],
         );
       case 2:
         return const Locations();

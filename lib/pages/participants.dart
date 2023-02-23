@@ -16,22 +16,23 @@ class _ParticipantsState extends State<Participants> {
   final Divider divider = const Divider(
     thickness: 1,
     color: Colors.grey,
-    indent: 64,
+    indent: 16,
     endIndent: 16,
     height: 16,
   );
 
   @override
   Widget build(BuildContext context) {
-    final Iterable<ParticipantTile> participantTiles = widget.participants.map((e) => ParticipantTile(participant: e));
+    final Iterable<ParticipantTile> participantTiles =
+        widget.participants.map((Participant participantTile) => ParticipantTile(participant: participantTile));
 
     return Expanded(
         child: ListView.separated(
-      itemBuilder: (BuildContext context, int index) {
-        return Column(children: <ParticipantTile>[...participantTiles]);
-      },
       separatorBuilder: (BuildContext context, int index) => divider,
-      itemCount: 1,
+      itemCount: participantTiles.length,
+      itemBuilder: (BuildContext context, int index) {
+        return participantTiles.elementAt(index);
+      },
     ));
   }
 }
