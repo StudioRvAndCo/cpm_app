@@ -22,7 +22,7 @@ class Test extends StatelessWidget {
                 const IconLabel(text: 'Bastien', icon: Icons.movie_outlined),
             rightLabel: const IconLabel(
                 text: 'Maxence', icon: Icons.description_outlined),
-            image: Image.asset('en-sursis.png'),
+            image: Image.asset('assets/en-sursis.png'),
             progress: 0.3,
             cornerButton:
                 IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
