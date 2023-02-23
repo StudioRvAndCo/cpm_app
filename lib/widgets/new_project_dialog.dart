@@ -65,7 +65,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
             style: IconButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
-            icon: Builder(builder: (context) {
+            icon: Builder(builder: (BuildContext context) {
               if (image != null) {
                 return SizedBox(height: 80, width: 80, child: image!);
               } else {
@@ -73,10 +73,10 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
               }
             }),
             onPressed: () async {
-              FilePickerResult? result =
-                  await FilePicker.platform.pickFiles(type: FileType.image);
+              final FilePickerResult? result = await FilePicker.platform
+                  .pickFiles(type: FileType.image, lockParentWindow: true);
               if (result != null) {
-                File file = File(result.files.single.path!);
+                final File file = File(result.files.single.path!);
                 setState(() {
                   image = Image.file(file);
                 });
@@ -168,8 +168,16 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TextButton(onPressed: () {}, child: const Text('Cancel')),
-                      TextButton(onPressed: () {}, child: const Text('OK'))
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Cancel')),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('OK'))
                     ],
                   )
                 ]),
