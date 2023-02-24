@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../dialogs/confirm_dialog.dart';
 import '../exceptions/invalid_direction_exception.dart';
-import '../models/participant.dart';
-import '../widgets/participant_tile.dart';
+import '../models/location.dart';
+import '../widgets/location_tile.dart';
 
-class Participants extends StatefulWidget {
-  const Participants({super.key, required this.participants});
+class Locations extends StatefulWidget {
+  const Locations({super.key, required this.locations});
 
-  final List<Participant> participants;
+  final List<Location> locations;
 
   @override
-  State<Participants> createState() => _ParticipantsState();
+  State<Locations> createState() => _LocationsState();
 }
 
-class _ParticipantsState extends State<Participants> {
+class _LocationsState extends State<Locations> {
   final Divider divider = const Divider(
     thickness: 1,
     color: Colors.grey,
@@ -25,35 +25,34 @@ class _ParticipantsState extends State<Participants> {
 
   @override
   Widget build(BuildContext context) {
-    final Iterable<ParticipantTile> participantsTiles =
-        widget.participants.map((Participant participant) => ParticipantTile(
-              participant: participant,
-              onEdit: (Participant participant) {
-                edit(participant);
-              },
-              onDelete: (Participant participant) async {
-                if (await showConfirmationDialog(context, 'delete') ?? false) {
-                  delete(participant);
-                }
-              },
-            ));
+    final Iterable<LocationTile> locationsTiles = widget.locations.map((Location location) => LocationTile(
+          location: location,
+          onEdit: (Location location) {
+            edit(location);
+          },
+          onDelete: (Location location) async {
+            if (await showConfirmationDialog(context, 'delete') ?? false) {
+              delete(location);
+            }
+          },
+        ));
 
     return Expanded(
         child: ListView.separated(
       separatorBuilder: (BuildContext context, int index) => divider,
-      itemCount: participantsTiles.length,
+      itemCount: locationsTiles.length,
       itemBuilder: (BuildContext context, int index) => ClipRRect(
         clipBehavior: Clip.hardEdge,
         child: Dismissible(
           key: UniqueKey(),
           onDismissed: (DismissDirection direction) {
-            final Participant participant = participantsTiles.elementAt(index).participant;
+            final Location location = locationsTiles.elementAt(index).location;
             switch (direction) {
               case DismissDirection.endToStart:
-                edit(participant);
+                edit(location);
                 break;
               case DismissDirection.startToEnd:
-                delete(participant);
+                delete(location);
                 break;
               case DismissDirection.vertical:
               case DismissDirection.horizontal:
@@ -80,21 +79,21 @@ class _ParticipantsState extends State<Participants> {
           },
           background: deleteBackground(),
           secondaryBackground: editBackground(),
-          child: participantsTiles.elementAt(index),
+          child: locationsTiles.elementAt(index),
         ),
       ),
     ));
   }
 
-  void edit(Participant participant) {
+  void edit(Location location) {
     setState(() {
-      print('edit $participant');
+      print('edit $location');
     });
   }
 
-  void delete(Participant participant) {
+  void delete(Location location) {
     setState(() {
-      widget.participants.remove(participant);
+      widget.locations.remove(location);
     });
   }
 }

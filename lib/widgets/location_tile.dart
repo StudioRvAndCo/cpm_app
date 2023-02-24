@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
-import '../models/participant.dart';
+import '../models/location.dart';
 
 enum MenuAction { edit, delete }
 
-class ParticipantTile extends StatefulWidget {
-  const ParticipantTile({super.key, required this.participant, required this.onEdit, required this.onDelete});
+class LocationTile extends StatefulWidget {
+  const LocationTile({super.key, required this.location, required this.onEdit, required this.onDelete});
 
-  final Participant participant;
+  final Location location;
 
-  final Function(Participant) onEdit;
-  final Function(Participant) onDelete;
+  final Function(Location) onEdit;
+  final Function(Location) onDelete;
 
   @override
-  State<ParticipantTile> createState() => _ParticipantTileState();
+  State<LocationTile> createState() => _LocationTileState();
 }
 
-class _ParticipantTileState extends State<ParticipantTile> {
+class _LocationTileState extends State<LocationTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(backgroundImage: AssetImage('assets/placeholder_profile_picture.jpg')),
       title: Text(
-        '${widget.participant.firstName} ${widget.participant.lastName.toUpperCase()}',
+        widget.location.name,
         maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: Text(
-        widget.participant.phone,
-        maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
       trailing: Row(
@@ -37,14 +31,9 @@ class _ParticipantTileState extends State<ParticipantTile> {
         children: <Widget>[
           IconButton(
               onPressed: () {
-                launchUrl(Uri.parse('tel://${widget.participant.phone}'));
+                MapsLauncher.launchQuery(widget.location.address);
               },
-              icon: const Icon(Icons.phone)),
-          IconButton(
-              onPressed: () {
-                launchUrl(Uri.parse('sms://${widget.participant.phone}'));
-              },
-              icon: const Icon(Icons.message)),
+              icon: const Icon(Icons.map)),
           PopupMenuButton<MenuAction>(
             icon: const Icon(Icons.more_horiz),
             itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuAction>>[
@@ -65,10 +54,10 @@ class _ParticipantTileState extends State<ParticipantTile> {
               setState(() {
                 switch (action) {
                   case MenuAction.edit:
-                    widget.onEdit(widget.participant);
+                    widget.onEdit(widget.location);
                     break;
                   case MenuAction.delete:
-                    widget.onDelete(widget.participant);
+                    widget.onDelete(widget.location);
                     break;
                 }
               });
