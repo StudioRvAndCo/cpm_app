@@ -128,23 +128,23 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: DropdownMenu(
-                        width: 330,
-                        label: Text('Location'),
-                        dropdownMenuEntries: locations
-                            .map<DropdownMenuEntry<String>>((String value) {
-                          return DropdownMenuEntry<String>(
+                      child: DropdownButton(
+                        isExpanded: true,
+                        hint: const Text('Value'),
+                        items: locations
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
                             value: value,
-                            label: value,
+                            child: Text(value),
                           );
                         }).toList(),
-                        onSelected: (value) {
-                          selectedLocation = value;
+                        value: selectedLocation,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedLocation = value;
+                          });
                         },
                       ),
                     ),

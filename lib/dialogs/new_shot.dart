@@ -12,7 +12,7 @@ class _NewShotDialogState extends State<NewShotDialog> {
 
   String? title;
   String? description;
-  final List<String> valuesList = [
+  final List<String> values = [
     'Full shot',
     'Medium full shot',
     'Cowboy shot',
@@ -24,7 +24,7 @@ class _NewShotDialogState extends State<NewShotDialog> {
     'Sequence',
     'Landscape'
   ];
-  String? value;
+  String? selectedValue;
   String? line;
 
   @override
@@ -57,73 +57,91 @@ class _NewShotDialogState extends State<NewShotDialog> {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Form(
-            child: SizedBox(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 330,
-                        child: TextFormField(
-                          maxLength: 64,
-                          decoration: const InputDecoration(
-                              labelText: 'Title',
-                              border: OutlineInputBorder(),
-                              isDense: true),
-                        ),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 330,
+                      child: TextFormField(
+                        maxLength: 64,
+                        decoration: const InputDecoration(
+                            labelText: 'Title',
+                            border: OutlineInputBorder(),
+                            isDense: true),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 330,
-                        child: TextFormField(
-                          maxLength: 280,
-                          maxLines: 4,
-                          decoration: const InputDecoration(
-                              labelText: 'Description',
-                              border: OutlineInputBorder(),
-                              isDense: true),
-                        ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 330,
+                      child: TextFormField(
+                        maxLength: 280,
+                        maxLines: 4,
+                        decoration: const InputDecoration(
+                            labelText: 'Description',
+                            border: OutlineInputBorder(),
+                            isDense: true),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 330,
+                      child: TextFormField(
+                        maxLength: 64,
+                        decoration: const InputDecoration(
+                            labelText: 'Line',
+                            border: OutlineInputBorder(),
+                            isDense: true),
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DropdownMenu(
-                          width: 330,
-                          label: Text('Value'),
-                          dropdownMenuEntries: valuesList
-                              .map<DropdownMenuEntry<String>>((String value) {
-                            return DropdownMenuEntry<String>(
-                              value: value,
-                              label: value,
-                            );
-                          }).toList()),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 330,
+                      child: DropdownButton(
+                        isExpanded: true,
+                        hint: Text('Value'),
+                        items: values
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        value: selectedValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedValue = value;
+                          });
+                        },
+                      ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Cancel')),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('OK'))
-                      ],
-                    )
-                  ]),
-            ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Cancel')),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('OK'))
+                    ],
+                  )
+                ]),
           ),
         )
       ],
