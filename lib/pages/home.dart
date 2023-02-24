@@ -4,8 +4,10 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../models/Participant.dart';
+import '../models/location.dart';
+import '../models/participant.dart';
 import '../widgets/custom_appbar.dart';
+import 'locations.dart';
 import 'login.dart';
 import 'participants.dart';
 import 'projects.dart';
@@ -118,7 +120,13 @@ class HomeState extends State<Home> {
           ],
         );
       case 2:
-        return const Center(child: Text('Locations'));
+        return Locations(
+          locations: <Location>[
+            Location('Polytech Grenoble',
+                "Polytech Grenoble, 14 Place du Conseil National de la Résistance, 38400 Saint-Martin-d'Hères"),
+            Location('Tour Perret', 'Tour Perret, Parc Paul Mistral, Bd Jean Pain, 38000 Grenoble'),
+          ],
+        );
       case 5:
         return const Test();
       default:
