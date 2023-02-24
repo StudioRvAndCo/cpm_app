@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../dialogs/new_project.dart';
 import '../dialogs/new_sequence.dart';
+import '../dialogs/new_shot.dart';
 import '../widgets/tabbed_info_sheet.dart';
 
 class Test extends StatelessWidget {
@@ -43,7 +44,16 @@ class Test extends StatelessWidget {
                   return const NewProjectDialog();
                 });
           },
-          child: const Text('New Project'))
+          child: const Text('New Project')),
+      TextButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const NewShotDialog();
+                });
+          },
+          child: const Text('New Shot')),
     ]);
   }
 }

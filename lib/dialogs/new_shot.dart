@@ -1,53 +1,35 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import '../models/project.dart';
 
 class NewShotDialog extends StatefulWidget {
-  const NewShotDialog({super.key, required this.locations});
-
-  final List<String> locations;
+  const NewShotDialog({super.key});
 
   @override
-  State<StatefulWidget> createState() =>
-      _NewShotDialogState(locations: locations);
+  State<StatefulWidget> createState() => _NewShotDialogState();
 }
 
 class _NewShotDialogState extends State<NewShotDialog> {
-  _NewShotDialogState({required this.locations});
+  _NewShotDialogState();
 
   String? title;
-  Image? image;
   String? description;
-  DateTimeRange? dates;
-  final List<String> locations;
+  final List<String> valuesList = [
+    'Full shot',
+    'Medium full shot',
+    'Cowboy shot',
+    'Medium shot',
+    'Medium closeup shot',
+    'Closeup shot',
+    'Extreme closeup shot',
+    'Insert',
+    'Sequence',
+    'Landscape'
+  ];
   String? value;
-  String dateText = '';
+  String? line;
 
   @override
   void initState() {
-    updateDateText();
-    value = locations.first;
     return super.initState();
-  }
-
-  void updateDateText() {
-    String res;
-    if (dates != null) {
-      final String firstText =
-          DateFormat.yMd(Intl.systemLocale).format(dates!.start);
-      final String lastText =
-          DateFormat.yMd(Intl.systemLocale).format(dates!.end);
-      res = '$firstText - $lastText';
-    } else {
-      res = 'Enter production dates';
-    }
-    setState(() {
-      dateText = res;
-    });
   }
 
   @override
@@ -61,9 +43,9 @@ class _NewShotDialogState extends State<NewShotDialog> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Text>[
-                Text('New Sequence'),
+                Text('New Shot'),
                 Text(
-                  'Create a new sequence',
+                  'Create a new shot',
                   style: TextStyle(fontSize: 12),
                 )
               ],
@@ -106,29 +88,6 @@ class _NewShotDialogState extends State<NewShotDialog> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 330,
-                        child: OutlinedButton.icon(
-                          onPressed: () async {
-                            final DateTimeRange? picked =
-                                await showDateRangePicker(
-                                    context: context,
-                                    firstDate: DateTime(1970),
-                                    lastDate: DateTime(3000),
-                                    initialDateRange: dates);
-                            if (picked != null) {
-                              dates = DateTimeRange(
-                                  start: picked.start, end: picked.end);
-                              updateDateText();
-                            }
-                          },
-                          icon: Icon(Icons.calendar_month),
-                          label: Text(dateText),
-                        ),
-                      ),
-                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -136,8 +95,8 @@ class _NewShotDialogState extends State<NewShotDialog> {
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownMenu(
                           width: 330,
-                          label: Text('Locations'),
-                          dropdownMenuEntries: locations
+                          label: Text('Value'),
+                          dropdownMenuEntries: valuesList
                               .map<DropdownMenuEntry<String>>((String value) {
                             return DropdownMenuEntry<String>(
                               value: value,

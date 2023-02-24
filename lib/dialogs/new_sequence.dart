@@ -20,17 +20,16 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
   _NewSequenceDialogState({required this.locations});
 
   String? title;
-  Image? image;
   String? description;
   DateTimeRange? dates;
   final List<String> locations;
-  String? value;
+  String? selectedLocation;
   String dateText = '';
 
   @override
   void initState() {
     updateDateText();
-    value = locations.first;
+    selectedLocation = locations.first;
     return super.initState();
   }
 
@@ -135,15 +134,19 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownMenu(
-                          width: 330,
-                          label: Text('Locations'),
-                          dropdownMenuEntries: locations
-                              .map<DropdownMenuEntry<String>>((String value) {
-                            return DropdownMenuEntry<String>(
-                              value: value,
-                              label: value,
-                            );
-                          }).toList()),
+                        width: 330,
+                        label: Text('Location'),
+                        dropdownMenuEntries: locations
+                            .map<DropdownMenuEntry<String>>((String value) {
+                          return DropdownMenuEntry<String>(
+                            value: value,
+                            label: value,
+                          );
+                        }).toList(),
+                        onSelected: (value) {
+                          selectedLocation = value;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
