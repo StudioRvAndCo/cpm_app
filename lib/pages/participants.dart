@@ -20,7 +20,7 @@ class _ParticipantsState extends State<Participants> {
     color: Colors.grey,
     indent: 16,
     endIndent: 16,
-    height: 16,
+    height: 0,
   );
 
   @override
