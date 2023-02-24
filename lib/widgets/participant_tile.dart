@@ -6,9 +6,12 @@ import '../models/Participant.dart';
 enum MenuAction { edit, delete }
 
 class ParticipantTile extends StatefulWidget {
-  const ParticipantTile({super.key, required this.participant});
+  const ParticipantTile({super.key, required this.participant, required this.onEdit, required this.onDelete});
 
   final Participant participant;
+
+  final Function(Participant) onEdit;
+  final Function(Participant) onDelete;
 
   @override
   State<ParticipantTile> createState() => _ParticipantTileState();
@@ -34,12 +37,12 @@ class _ParticipantTileState extends State<ParticipantTile> {
         children: <Widget>[
           IconButton(
               onPressed: () {
-                launchUrl(Uri.parse('tel://0607706869'));
+                launchUrl(Uri.parse('tel://${widget.participant.phone}'));
               },
               icon: const Icon(Icons.phone)),
           IconButton(
               onPressed: () {
-                launchUrl(Uri.parse('sms://0607706869'));
+                launchUrl(Uri.parse('sms://${widget.participant.phone}'));
               },
               icon: const Icon(Icons.message)),
           PopupMenuButton<MenuAction>(
@@ -60,7 +63,14 @@ class _ParticipantTileState extends State<ParticipantTile> {
             ],
             onSelected: (MenuAction action) {
               setState(() {
-                print(action);
+                switch (action) {
+                  case MenuAction.edit:
+                    widget.onEdit(widget.participant);
+                    break;
+                  case MenuAction.delete:
+                    widget.onDelete(widget.participant);
+                    break;
+                }
               });
             },
           )
