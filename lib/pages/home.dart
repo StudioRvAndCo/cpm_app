@@ -68,6 +68,7 @@ class HomeState extends State<Home> {
 
   NavigationRail buildNavigationRail() {
     return NavigationRail(
+      elevation: 2,
       leading: Image.asset(
         'assets/logo-cpm-alpha.png',
         width: 50,

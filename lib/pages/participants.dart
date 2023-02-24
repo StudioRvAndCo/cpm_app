@@ -43,32 +43,46 @@ class _ParticipantsState extends State<Participants> {
         child: ListView.separated(
       separatorBuilder: (BuildContext context, int index) => divider,
       itemCount: participantTiles.length,
-      itemBuilder: (BuildContext context, int index) => Dismissible(
-        key: UniqueKey(),
-        onDismissed: (DismissDirection direction) {
-          final Participant participant = participantTiles.elementAt(index).participant;
-          switch (direction) {
-            case DismissDirection.endToStart:
-              edit(participant);
-              break;
-            case DismissDirection.startToEnd:
-              delete(participant);
-              break;
-            case DismissDirection.vertical:
-              throw InvalidDirectionException('Invalid direction: ${DismissDirection.vertical}');
-            case DismissDirection.horizontal:
-              throw InvalidDirectionException('Invalid direction: ${DismissDirection.horizontal}');
-            case DismissDirection.up:
-              throw InvalidDirectionException('Invalid direction: ${DismissDirection.up}');
-            case DismissDirection.down:
-              throw InvalidDirectionException('Invalid direction: ${DismissDirection.down}');
-            case DismissDirection.none:
-              throw InvalidDirectionException('Invalid direction: ${DismissDirection.none}');
-          }
-        },
-        background: deleteBackground(),
-        secondaryBackground: editBackground(),
-        child: participantTiles.elementAt(index),
+      itemBuilder: (BuildContext context, int index) => ClipRRect(
+        clipBehavior: Clip.hardEdge,
+        child: Dismissible(
+          key: UniqueKey(),
+          onDismissed: (DismissDirection direction) {
+            final Participant participant = participantTiles.elementAt(index).participant;
+            switch (direction) {
+              case DismissDirection.endToStart:
+                edit(participant);
+                break;
+              case DismissDirection.startToEnd:
+                delete(participant);
+                break;
+              case DismissDirection.vertical:
+              case DismissDirection.horizontal:
+              case DismissDirection.up:
+              case DismissDirection.down:
+              case DismissDirection.none:
+                throw InvalidDirectionException('Invalid direction');
+            }
+          },
+          confirmDismiss: (DismissDirection dismissDirection) async {
+            switch (dismissDirection) {
+              case DismissDirection.endToStart:
+                return true;
+              case DismissDirection.startToEnd:
+                return await _showConfirmationDialog(context, 'delete') == true;
+              case DismissDirection.horizontal:
+              case DismissDirection.vertical:
+              case DismissDirection.up:
+              case DismissDirection.down:
+              case DismissDirection.none:
+                assert(false);
+            }
+            return false;
+          },
+          background: deleteBackground(),
+          secondaryBackground: editBackground(),
+          child: participantTiles.elementAt(index),
+        ),
       ),
     ));
   }
@@ -96,6 +110,31 @@ class _ParticipantsState extends State<Participants> {
     return const ColoredBox(
       color: Colors.blue,
       child: Align(alignment: Alignment.centerLeft, child: ListTile(trailing: Icon(Icons.edit, color: Colors.white))),
+    );
+  }
+
+  Future<bool?> _showConfirmationDialog(BuildContext context, String action) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Do you want to $action this item?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+            ElevatedButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
