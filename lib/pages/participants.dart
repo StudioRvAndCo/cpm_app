@@ -69,7 +69,7 @@ class _ParticipantsState extends State<Participants> {
               case DismissDirection.endToStart:
                 return true;
               case DismissDirection.startToEnd:
-                return await _showConfirmationDialog(context, 'delete') == true;
+                return await _showConfirmationDialog(context, 'delete') ?? false == true;
               case DismissDirection.horizontal:
               case DismissDirection.vertical:
               case DismissDirection.up:
