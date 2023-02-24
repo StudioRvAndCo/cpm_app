@@ -4,8 +4,10 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../models/Participant.dart';
 import '../widgets/custom_appbar.dart';
 import 'login.dart';
+import 'participants.dart';
 import 'projects.dart';
 import 'test.dart';
 
@@ -54,7 +56,7 @@ class HomeState extends State<Home> {
             'assets/logo-cpm-alpha.png',
           )),
           const NavigationDrawerDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
-          const NavigationDrawerDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
+          const NavigationDrawerDestination(icon: Icon(Icons.people_outline), label: Text('Participants')),
           const NavigationDrawerDestination(icon: Icon(Icons.map), label: Text('Locations')),
           const NavigationDrawerDestination(icon: Icon(Icons.settings), label: Text('Settings')),
           const NavigationDrawerDestination(icon: Icon(Icons.info), label: Text('Information')),
@@ -66,6 +68,7 @@ class HomeState extends State<Home> {
 
   NavigationRail buildNavigationRail() {
     return NavigationRail(
+      elevation: 2,
       leading: Image.asset(
         'assets/logo-cpm-alpha.png',
         width: 50,
@@ -74,7 +77,7 @@ class HomeState extends State<Home> {
       labelType: NavigationRailLabelType.all,
       destinations: const <NavigationRailDestination>[
         NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
-        NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
+        NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Participants')),
         NavigationRailDestination(icon: Icon(Icons.map), label: Text('Locations')),
         NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
         NavigationRailDestination(icon: Icon(Icons.info), label: Text('Information')),
@@ -107,6 +110,15 @@ class HomeState extends State<Home> {
     switch (index) {
       case 0:
         return const Projects();
+      case 1:
+        return Participants(
+          participants: <Participant>[
+            Participant('Jean', 'Neymar', '0123456789'),
+            Participant('Paul', 'Issier', '0123456788')
+          ],
+        );
+      case 2:
+        return const Center(child: Text('Locations'));
       case 5:
         return const Test();
       default:
