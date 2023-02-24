@@ -20,7 +20,7 @@ class Information extends StatelessWidget {
                 textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
             verticalPadding,
             const Text(
-                'CPM is a tool to efficiently manage the production of a cinema project. It is developed as an open-source project by the Studio Rv & Co, which is a non-profit organisation that produces audiovisual projects.',
+                'CPM is a tool to efficiently manage the production of a cinema project. It is developed as an open-source project by Studio Rv & Co, which is a non-profit organisation that produces audiovisual projects.',
                 textAlign: TextAlign.center),
             verticalPadding,
             const Text('More about CPM', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)),
