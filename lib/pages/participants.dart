@@ -121,13 +121,13 @@ class _ParticipantsState extends State<Participants> {
           title: Text('Do you want to $action this item?'),
           actions: <Widget>[
             TextButton(
-              child: const Text('No'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.pop(context, false);
               },
             ),
             ElevatedButton(
-              child: const Text('Yes'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.pop(context, true);
               },
