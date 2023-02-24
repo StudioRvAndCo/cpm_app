@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../models/project.dart';
-import '../widgets/new_project_dialog.dart';
+import '../dialogs/new_project.dart';
 import 'home.dart';
 
 class Login extends StatelessWidget {

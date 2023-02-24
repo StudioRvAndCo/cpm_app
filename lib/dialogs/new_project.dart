@@ -95,7 +95,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      width: 300,
+                      width: 330,
                       child: TextFormField(
                         maxLength: 64,
                         decoration: const InputDecoration(
@@ -108,7 +108,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      width: 300,
+                      width: 330,
                       child: TextFormField(
                         maxLength: 280,
                         maxLines: 4,
@@ -122,7 +122,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      width: 300,
+                      width: 330,
                       child: OutlinedButton.icon(
                         onPressed: () async {
                           final DateTimeRange? picked =
@@ -145,7 +145,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      width: 300,
+                      width: 330,
                       child: SegmentedButton(
                         segments: [
                           const ButtonSegment(

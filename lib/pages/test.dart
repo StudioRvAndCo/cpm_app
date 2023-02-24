@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/new_project_dialog.dart';
+import '../dialogs/new_project.dart';
+import '../dialogs/new_sequence.dart';
 import '../widgets/tabbed_info_sheet.dart';
 
 class Test extends StatelessWidget {
@@ -18,6 +19,22 @@ class Test extends StatelessWidget {
                 });
           },
           child: const Text('Bottom sheet')),
+      TextButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const NewSequenceDialog(locations: [
+                    'Maison de Bastien1',
+                    'Maison de Bastien2',
+                    'Maison de Bastien3',
+                    'Maison de Bastien4',
+                    'Maison de Bastien5',
+                    'Maison de Bastien6',
+                  ]);
+                });
+          },
+          child: const Text('New Sequence')),
       TextButton(
           onPressed: () {
             showDialog(
