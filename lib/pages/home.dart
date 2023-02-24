@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import '../models/location.dart';
 import '../models/participant.dart';
 import '../widgets/custom_appbar.dart';
+import 'information.dart';
 import 'locations.dart';
 import 'login.dart';
 import 'participants.dart';
@@ -127,6 +128,8 @@ class HomeState extends State<Home> {
             Location('Tour Perret', 'Tour Perret, Parc Paul Mistral, Bd Jean Pain, 38000 Grenoble'),
           ],
         );
+      case 4:
+        return const Information();
       case 5:
         return const Test();
       default:
