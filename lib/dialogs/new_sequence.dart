@@ -62,7 +62,7 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
               children: const <Text>[
                 Text('New Sequence'),
                 Text(
-                  'Create a new sequence',
+                  'Create a new sequence.',
                   style: TextStyle(fontSize: 12),
                 )
               ],

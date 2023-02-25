@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../dialogs/new_edit_member.dart';
 import '../dialogs/new_episode.dart';
 import '../dialogs/new_project.dart';
 import '../dialogs/new_sequence.dart';
@@ -64,6 +65,28 @@ class Test extends StatelessWidget {
                 });
           },
           child: const Text('New episode')),
+      TextButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const MemberDialog(edit: false);
+                });
+          },
+          child: const Text('New member')),
+      TextButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return MemberDialog(
+                      edit: true,
+                      name: 'Damian',
+                      telephone: '0836656565',
+                      image: Image.asset('assets/logo-cpm-alpha.png'));
+                });
+          },
+          child: const Text('Edit member')),
     ]);
   }
 }

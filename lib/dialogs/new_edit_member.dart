@@ -6,43 +6,37 @@ import 'package:intl/intl.dart';
 
 import '../models/project.dart';
 
-class NewProjectDialog extends StatefulWidget {
-  const NewProjectDialog({super.key});
+class MemberDialog extends StatefulWidget {
+  const MemberDialog(
+      {super.key, required this.edit, this.name, this.telephone, this.image});
+
+  final String? name;
+  final String? telephone;
+  final Image? image;
+  final bool edit;
 
   @override
-  State<StatefulWidget> createState() => _NewProjectDialogState();
+  State<StatefulWidget> createState() => _MemberDialogState(
+      edit: edit, name: name, telephone: telephone, image: image);
 }
 
-class _NewProjectDialogState extends State<NewProjectDialog> {
-  _NewProjectDialogState();
+class _MemberDialogState extends State<MemberDialog> {
+  _MemberDialogState(
+      {required this.edit, this.name, this.telephone, this.image});
 
-  String? title;
+  String? name;
   Image? image;
-  String? description;
-  DateTimeRange? dates;
-  ProjectType type = ProjectType.movie;
-  String dateText = '';
+  String? telephone;
+  final bool edit;
+
+  late String title;
+  late String subtitle;
 
   @override
   void initState() {
-    updateDateText();
+    title = edit ? 'Edit Member' : 'New Member';
+    subtitle = edit ? 'Edit a member.' : 'Create a new member.';
     return super.initState();
-  }
-
-  void updateDateText() {
-    String res;
-    if (dates != null) {
-      final String firstText =
-          DateFormat.yMd(Intl.systemLocale).format(dates!.start);
-      final String lastText =
-          DateFormat.yMd(Intl.systemLocale).format(dates!.end);
-      res = '$firstText - $lastText';
-    } else {
-      res = 'Enter production dates';
-    }
-    setState(() {
-      dateText = res;
-    });
   }
 
   @override
@@ -53,11 +47,11 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Text>[
-              Text('New Project'),
+            children: <Text>[
+              Text(title),
               Text(
-                'Create a new project.',
-                style: TextStyle(fontSize: 12),
+                subtitle,
+                style: const TextStyle(fontSize: 12),
               )
             ],
           ),
@@ -97,9 +91,10 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                     child: SizedBox(
                       width: 330,
                       child: TextFormField(
+                        initialValue: name,
                         maxLength: 64,
                         decoration: const InputDecoration(
-                            labelText: 'Title',
+                            labelText: 'Name',
                             border: OutlineInputBorder(),
                             isDense: true),
                       ),
@@ -110,55 +105,12 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                     child: SizedBox(
                       width: 330,
                       child: TextFormField(
-                        maxLength: 280,
-                        maxLines: 4,
+                        initialValue: telephone,
+                        maxLength: 12,
                         decoration: const InputDecoration(
-                            labelText: 'Description',
+                            labelText: 'Telephone',
                             border: OutlineInputBorder(),
                             isDense: true),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: OutlinedButton.icon(
-                        onPressed: () async {
-                          final DateTimeRange? picked =
-                              await showDateRangePicker(
-                                  context: context,
-                                  firstDate: DateTime(1970),
-                                  lastDate: DateTime(3000),
-                                  initialDateRange: dates);
-                          if (picked != null) {
-                            dates = DateTimeRange(
-                                start: picked.start, end: picked.end);
-                            updateDateText();
-                          }
-                        },
-                        icon: Icon(Icons.calendar_month),
-                        label: Text(dateText),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: SegmentedButton(
-                        segments: [
-                          const ButtonSegment(
-                              label: Text('Movie'), value: ProjectType.movie),
-                          ButtonSegment(
-                              label: Text('Series'), value: ProjectType.series)
-                        ],
-                        selected: {type},
-                        onSelectionChanged: (Set<ProjectType> newSelection) {
-                          setState(() {
-                            type = newSelection.first;
-                          });
-                        },
                       ),
                     ),
                   ),

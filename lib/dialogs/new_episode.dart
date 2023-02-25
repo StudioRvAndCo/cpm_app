@@ -58,7 +58,7 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
               children: const <Text>[
                 Text('New Episode'),
                 Text(
-                  'Create a new episode',
+                  'Create a new episode.',
                   style: TextStyle(fontSize: 12),
                 )
               ],

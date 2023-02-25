@@ -28,11 +28,6 @@ class _NewShotDialogState extends State<NewShotDialog> {
   String? line;
 
   @override
-  void initState() {
-    return super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SimpleDialog(
       title: SizedBox(
@@ -45,7 +40,7 @@ class _NewShotDialogState extends State<NewShotDialog> {
               children: const <Text>[
                 Text('New Shot'),
                 Text(
-                  'Create a new shot',
+                  'Create a new shot.',
                   style: TextStyle(fontSize: 12),
                 )
               ],
