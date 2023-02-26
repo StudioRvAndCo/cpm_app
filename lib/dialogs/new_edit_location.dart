@@ -14,8 +14,7 @@ class LocationDialog extends StatefulWidget {
   final bool edit;
 
   @override
-  State<StatefulWidget> createState() =>
-      _LocationDialogState(edit: edit, name: name, link: link);
+  State<StatefulWidget> createState() => _LocationDialogState(edit: edit, name: name, link: link);
 }
 
 class _LocationDialogState extends State<LocationDialog> {
@@ -57,55 +56,47 @@ class _LocationDialogState extends State<LocationDialog> {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Form(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    initialValue: name,
+                    maxLength: 64,
+                    decoration: const InputDecoration(labelText: 'Name', border: OutlineInputBorder(), isDense: true),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    initialValue: link,
+                    decoration: const InputDecoration(labelText: 'Link', border: OutlineInputBorder(), isDense: true),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: TextFormField(
-                        initialValue: name,
-                        maxLength: 64,
-                        decoration: const InputDecoration(
-                            labelText: 'Name',
-                            border: OutlineInputBorder(),
-                            isDense: true),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: TextFormField(
-                        initialValue: link,
-                        decoration: const InputDecoration(
-                            labelText: 'Link',
-                            border: OutlineInputBorder(),
-                            isDense: true),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Cancel')),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('OK'))
-                    ],
-                  )
-                ]),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancel')),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('OK'))
+                ],
+              )
+            ]),
           ),
         )
       ],
