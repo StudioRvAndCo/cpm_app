@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/icon_label.dart';
+import '../widgets/info_header.dart';
 
 import '../dialogs/new_edit_location.dart';
 import '../dialogs/new_edit_member.dart';
@@ -13,105 +15,124 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      TextButton(
-          onPressed: () {
-            showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) {
-                  return const TabbedInfoSheet();
-                });
-          },
-          child: const Text('Bottom sheet')),
-      TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const NewSequenceDialog(locations: [
-                    'Maison de Bastien1',
-                    'Maison de Bastien2',
-                    'Maison de Bastien3',
-                    'Maison de Bastien4',
-                    'Maison de Bastien5',
-                    'Maison de Bastien6',
-                  ]);
-                });
-          },
-          child: const Text('New Sequence')),
-      TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const NewProjectDialog();
-                });
-          },
-          child: const Text('New Project')),
-      TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const NewShotDialog();
-                });
-          },
-          child: const Text('New Shot')),
-      TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const NewEpisodeDialog();
-                });
-          },
-          child: const Text('New episode')),
-      TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const MemberDialog(edit: false);
-                });
-          },
-          child: const Text('New member')),
-      TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return MemberDialog(
-                      edit: true,
-                      name: 'Damian',
-                      telephone: '0836656565',
-                      image: Image.asset('assets/logo-cpm-alpha.png'));
-                });
-          },
-          child: const Text('Edit member')),
-      TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return const LocationDialog(
-                    edit: false,
-                  );
-                });
-          },
-          child: const Text('New location')),
-      TextButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return LocationDialog(
-                    edit: true,
-                    name: 'Tour Perret',
-                    link: 'https://goo.gl/maps/h781vPcmbBjHhqmY9',
-                  );
-                });
-          },
-          child: const Text('Edit location')),
-    ]);
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          InfoHeader(
+            title: 'Test',
+            description:
+                'This is a project, and this is a very long description that takes multiples lines, this project is a very good project that will be awesome',
+            dateRange: DateTimeRange(
+                start: DateTime(2023, 9, 19), end: DateTime(2023, 9, 24)),
+            leftLabel:
+                const IconLabel(text: 'Bastien', icon: Icons.movie_outlined),
+            rightLabel: const IconLabel(
+                text: 'Maxence', icon: Icons.description_outlined),
+            image: Image.asset('assets/en-sursis.png'),
+            progress: 0.3,
+            cornerButton:
+                IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+          ),
+          TextButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const TabbedInfoSheet();
+                    });
+              },
+              child: const Text('Bottom sheet')),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const NewSequenceDialog(locations: [
+                        'Maison de Bastien1',
+                        'Maison de Bastien2',
+                        'Maison de Bastien3',
+                        'Maison de Bastien4',
+                        'Maison de Bastien5',
+                        'Maison de Bastien6',
+                      ]);
+                    });
+              },
+              child: const Text('New Sequence')),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const NewProjectDialog();
+                    });
+              },
+              child: const Text('New Project')),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const NewShotDialog();
+                    });
+              },
+              child: const Text('New Shot')),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const NewEpisodeDialog();
+                    });
+              },
+              child: const Text('New episode')),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const MemberDialog(edit: false);
+                    });
+              },
+              child: const Text('New member')),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return MemberDialog(
+                          edit: true,
+                          name: 'Damian',
+                          telephone: '0836656565',
+                          image: Image.asset('assets/logo-cpm-alpha.png'));
+                    });
+              },
+              child: const Text('Edit member')),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const LocationDialog(
+                        edit: false,
+                      );
+                    });
+              },
+              child: const Text('New location')),
+          TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return LocationDialog(
+                        edit: true,
+                        name: 'Tour Perret',
+                        link: 'https://goo.gl/maps/h781vPcmbBjHhqmY9',
+                      );
+                    });
+              },
+              child: const Text('Edit location'))
+        ],
+      ),
+    );
   }
 }

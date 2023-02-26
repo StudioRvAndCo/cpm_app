@@ -40,53 +40,40 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    Icon favIcon =
-        favorite ? Icon(Icons.star, color: Theme.of(context).colorScheme.primary) : const Icon(Icons.star_border);
+    Icon favIcon = favorite ? const Icon(Icons.star) : const Icon(Icons.star_border);
     return Card(
-        child: SizedBox(
-            height: 100,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(children: <Widget>[
-                Expanded(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            height: 60,
-                            child: image,
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: Text(
-                          title,
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  IconButton(
-                      onPressed: () {
-                        toggleFavorite();
-                        setState(() {
-                          favIcon = const Icon(Icons.star);
-                        });
-                      },
-                      icon: favIcon),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.event))
-                ])
-              ]),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: LinearProgressIndicator(value: shotsCompleted / shotsTotal),
-              )
-            ])));
+        child: Padding(
+      padding: const EdgeInsets.all(8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+        Row(children: <Widget>[
+          SizedBox(
+            height: 80,
+            width: 80,
+            child: image,
+          ),
+          const SizedBox(width: 8),
+          Flexible(
+            fit: FlexFit.tight,
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                toggleFavorite();
+                setState(() {
+                  favIcon = const Icon(Icons.star);
+                });
+              },
+              icon: favIcon),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.event))
+        ]),
+        const SizedBox(height: 8),
+        LinearProgressIndicator(value: shotsCompleted / shotsTotal),
+      ]),
+    ));
   }
 }
