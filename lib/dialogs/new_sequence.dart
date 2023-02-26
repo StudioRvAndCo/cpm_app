@@ -54,20 +54,23 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
     return SimpleDialog(
       title: SizedBox(
         width: 300,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Text>[
-                Text('New Sequence'),
-                Text(
-                  'Create a new sequence.',
-                  style: TextStyle(fontSize: 12),
-                )
-              ],
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(6.8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Text>[
+                  Text('New Sequence'),
+                  Text(
+                    'Create a new sequence.',
+                    style: TextStyle(fontSize: 12),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       children: <Widget>[

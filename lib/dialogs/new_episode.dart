@@ -50,20 +50,23 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
     return SimpleDialog(
       title: SizedBox(
         width: 300,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Text>[
-                Text('New Episode'),
-                Text(
-                  'Create a new episode.',
-                  style: TextStyle(fontSize: 12),
-                )
-              ],
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(6.8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Text>[
+                  Text('New Episode'),
+                  Text(
+                    'Create a new episode.',
+                    style: TextStyle(fontSize: 12),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       children: <Widget>[

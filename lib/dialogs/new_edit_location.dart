@@ -38,20 +38,23 @@ class _LocationDialogState extends State<LocationDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Text>[
-              Text(title),
-              Text(
-                subtitle,
-                style: const TextStyle(fontSize: 12),
-              )
-            ],
-          ),
-        ],
+      title: Padding(
+        padding: const EdgeInsets.all(6.8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Text>[
+                Text(title),
+                Text(
+                  subtitle,
+                  style: const TextStyle(fontSize: 12),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
       children: <Widget>[
         Padding(

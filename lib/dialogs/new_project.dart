@@ -48,42 +48,45 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Text>[
-              Text('New Project'),
-              Text(
-                'Create a new project.',
-                style: TextStyle(fontSize: 12),
-              )
-            ],
-          ),
-          IconButton(
-            style: IconButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10))),
-            icon: Builder(builder: (BuildContext context) {
-              if (image != null) {
-                return SizedBox(height: 80, width: 80, child: image!);
-              } else {
-                return const Icon(Icons.add_a_photo_outlined, size: 80);
-              }
-            }),
-            onPressed: () async {
-              final FilePickerResult? result = await FilePicker.platform
-                  .pickFiles(type: FileType.image, lockParentWindow: true);
-              if (result != null) {
-                final File file = File(result.files.single.path!);
-                setState(() {
-                  image = Image.file(file);
-                });
-              }
-            },
-          ),
-        ],
+      title: Padding(
+        padding: const EdgeInsets.all(6.8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const <Text>[
+                Text('New Project'),
+                Text(
+                  'Create a new project.',
+                  style: TextStyle(fontSize: 12),
+                )
+              ],
+            ),
+            IconButton(
+              style: IconButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              icon: Builder(builder: (BuildContext context) {
+                if (image != null) {
+                  return SizedBox(height: 80, width: 80, child: image!);
+                } else {
+                  return const Icon(Icons.add_a_photo_outlined, size: 80);
+                }
+              }),
+              onPressed: () async {
+                final FilePickerResult? result = await FilePicker.platform
+                    .pickFiles(type: FileType.image, lockParentWindow: true);
+                if (result != null) {
+                  final File file = File(result.files.single.path!);
+                  setState(() {
+                    image = Image.file(file);
+                  });
+                }
+              },
+            ),
+          ],
+        ),
       ),
       children: <Widget>[
         Padding(

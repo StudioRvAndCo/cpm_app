@@ -30,8 +30,8 @@ class _NewShotDialogState extends State<NewShotDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: SizedBox(
-        width: 300,
+      title: Padding(
+        padding: const EdgeInsets.all(6.8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
