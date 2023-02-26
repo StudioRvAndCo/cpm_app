@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../dialogs/new_edit_location.dart';
 import '../dialogs/new_edit_member.dart';
 import '../dialogs/new_episode.dart';
 import '../dialogs/new_project.dart';
@@ -87,6 +88,30 @@ class Test extends StatelessWidget {
                 });
           },
           child: const Text('Edit member')),
+      TextButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const LocationDialog(
+                    edit: false,
+                  );
+                });
+          },
+          child: const Text('New location')),
+      TextButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return LocationDialog(
+                    edit: true,
+                    name: 'Tour Perret',
+                    link: 'https://goo.gl/maps/h781vPcmbBjHhqmY9',
+                  );
+                });
+          },
+          child: const Text('Edit location')),
     ]);
   }
 }
