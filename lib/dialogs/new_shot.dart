@@ -52,91 +52,80 @@ class _NewShotDialogState extends State<NewShotDialog> {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Form(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    maxLength: 64,
+                    decoration: const InputDecoration(labelText: 'Title', border: OutlineInputBorder(), isDense: true),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    maxLength: 280,
+                    maxLines: 4,
+                    decoration:
+                        const InputDecoration(labelText: 'Description', border: OutlineInputBorder(), isDense: true),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    maxLength: 64,
+                    decoration: const InputDecoration(labelText: 'Line', border: OutlineInputBorder(), isDense: true),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: DropdownButton(
+                    isExpanded: true,
+                    hint: Text('Value'),
+                    items: values.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    value: selectedValue,
+                    onChanged: (String? value) {
+                      setState(() {
+                        selectedValue = value;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: TextFormField(
-                        maxLength: 64,
-                        decoration: const InputDecoration(
-                            labelText: 'Title',
-                            border: OutlineInputBorder(),
-                            isDense: true),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: TextFormField(
-                        maxLength: 280,
-                        maxLines: 4,
-                        decoration: const InputDecoration(
-                            labelText: 'Description',
-                            border: OutlineInputBorder(),
-                            isDense: true),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: TextFormField(
-                        maxLength: 64,
-                        decoration: const InputDecoration(
-                            labelText: 'Line',
-                            border: OutlineInputBorder(),
-                            isDense: true),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: DropdownButton(
-                        isExpanded: true,
-                        hint: Text('Value'),
-                        items: values
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        value: selectedValue,
-                        onChanged: (String? value) {
-                          setState(() {
-                            selectedValue = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Cancel')),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('OK'))
-                    ],
-                  )
-                ]),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancel')),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('OK'))
+                ],
+              )
+            ]),
           ),
         )
       ],

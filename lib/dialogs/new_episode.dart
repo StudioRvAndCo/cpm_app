@@ -32,10 +32,8 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
   void updateDateText() {
     String res;
     if (dates != null) {
-      final String firstText =
-          DateFormat.yMd(Intl.systemLocale).format(dates!.start);
-      final String lastText =
-          DateFormat.yMd(Intl.systemLocale).format(dates!.end);
+      final String firstText = DateFormat.yMd(Intl.systemLocale).format(dates!.start);
+      final String lastText = DateFormat.yMd(Intl.systemLocale).format(dates!.end);
       res = '$firstText - $lastText';
     } else {
       res = 'Enter production dates';
@@ -74,78 +72,70 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
           padding: const EdgeInsets.all(20.0),
           child: Form(
             child: SizedBox(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: TextFormField(
+                      maxLength: 64,
+                      decoration:
+                          const InputDecoration(labelText: 'Title', border: OutlineInputBorder(), isDense: true),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: TextFormField(
+                      maxLength: 280,
+                      maxLines: 4,
+                      decoration:
+                          const InputDecoration(labelText: 'Description', border: OutlineInputBorder(), isDense: true),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: OutlinedButton.icon(
+                      onPressed: () async {
+                        final DateTimeRange? picked = await showDateRangePicker(
+                            context: context,
+                            firstDate: DateTime(1970),
+                            lastDate: DateTime(3000),
+                            initialDateRange: dates);
+                        if (picked != null) {
+                          dates = DateTimeRange(start: picked.start, end: picked.end);
+                          updateDateText();
+                        }
+                      },
+                      icon: Icon(Icons.calendar_month),
+                      label: Text(dateText),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 330,
-                        child: TextFormField(
-                          maxLength: 64,
-                          decoration: const InputDecoration(
-                              labelText: 'Title',
-                              border: OutlineInputBorder(),
-                              isDense: true),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 330,
-                        child: TextFormField(
-                          maxLength: 280,
-                          maxLines: 4,
-                          decoration: const InputDecoration(
-                              labelText: 'Description',
-                              border: OutlineInputBorder(),
-                              isDense: true),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 330,
-                        child: OutlinedButton.icon(
-                          onPressed: () async {
-                            final DateTimeRange? picked =
-                                await showDateRangePicker(
-                                    context: context,
-                                    firstDate: DateTime(1970),
-                                    lastDate: DateTime(3000),
-                                    initialDateRange: dates);
-                            if (picked != null) {
-                              dates = DateTimeRange(
-                                  start: picked.start, end: picked.end);
-                              updateDateText();
-                            }
-                          },
-                          icon: Icon(Icons.calendar_month),
-                          label: Text(dateText),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Cancel')),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('OK'))
-                      ],
-                    )
-                  ]),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Cancel')),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('OK'))
+                  ],
+                )
+              ]),
             ),
           ),
         )
