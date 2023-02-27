@@ -25,18 +25,17 @@ class _MembersState extends State<Members> {
 
   @override
   Widget build(BuildContext context) {
-    final Iterable<MemberTile> membersTiles =
-        widget.members.map((Member member) => MemberTile(
-              member: member,
-              onEdit: (Member member) {
-                edit(member);
-              },
-              onDelete: (Member member) async {
-                if (await showConfirmationDialog(context, 'delete') ?? false) {
-                  delete(member);
-                }
-              },
-            ));
+    final Iterable<MemberTile> membersTiles = widget.members.map((Member member) => MemberTile(
+          member: member,
+          onEdit: (Member member) {
+            edit(member);
+          },
+          onDelete: (Member member) async {
+            if (await showConfirmationDialog(context, 'delete') ?? false) {
+              delete(member);
+            }
+          },
+        ));
 
     return Expanded(
         child: ListView.separated(
