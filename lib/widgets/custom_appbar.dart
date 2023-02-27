@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:outline_search_bar/outline_search_bar.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../pages/login.dart';
@@ -18,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Scaffold.of(context).openDrawer();
         },
       ),
-      title: const OutlineSearchBar(),
+      title: const Center(child: Text('CPM')),
       actions: <IconButton>[
         IconButton(
             icon: const Icon(Icons.logout),

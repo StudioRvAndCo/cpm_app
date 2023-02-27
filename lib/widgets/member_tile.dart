@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../models/participant.dart';
+import '../models/member.dart';
 
 enum MenuAction { edit, delete }
 
-class ParticipantTile extends StatefulWidget {
-  const ParticipantTile({super.key, required this.participant, required this.onEdit, required this.onDelete});
+class MemberTile extends StatefulWidget {
+  const MemberTile({super.key, required this.member, required this.onEdit, required this.onDelete});
 
-  final Participant participant;
+  final Member member;
 
-  final Function(Participant) onEdit;
-  final Function(Participant) onDelete;
+  final Function(Member) onEdit;
+  final Function(Member) onDelete;
 
   @override
-  State<ParticipantTile> createState() => _ParticipantTileState();
+  State<MemberTile> createState() => _MemberTileState();
 }
 
-class _ParticipantTileState extends State<ParticipantTile> {
+class _MemberTileState extends State<MemberTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: const CircleAvatar(backgroundImage: AssetImage('assets/placeholder_profile_picture.jpg')),
       title: Text(
-        '${widget.participant.firstName} ${widget.participant.lastName.toUpperCase()}',
+        '${widget.member.firstName} ${widget.member.lastName.toUpperCase()}',
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        widget.participant.phone,
+        widget.member.phone,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -37,12 +37,12 @@ class _ParticipantTileState extends State<ParticipantTile> {
         children: <Widget>[
           IconButton(
               onPressed: () {
-                launchUrl(Uri.parse('tel://${widget.participant.phone}'));
+                launchUrl(Uri.parse('tel://${widget.member.phone}'));
               },
               icon: const Icon(Icons.phone)),
           IconButton(
               onPressed: () {
-                launchUrl(Uri.parse('sms://${widget.participant.phone}'));
+                launchUrl(Uri.parse('sms://${widget.member.phone}'));
               },
               icon: const Icon(Icons.message)),
           PopupMenuButton<MenuAction>(
@@ -65,10 +65,10 @@ class _ParticipantTileState extends State<ParticipantTile> {
               setState(() {
                 switch (action) {
                   case MenuAction.edit:
-                    widget.onEdit(widget.participant);
+                    widget.onEdit(widget.member);
                     break;
                   case MenuAction.delete:
-                    widget.onDelete(widget.participant);
+                    widget.onDelete(widget.member);
                     break;
                 }
               });
