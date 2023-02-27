@@ -30,10 +30,12 @@ class _LocationsState extends State<Locations> {
           onEdit: (Location location) {
             edit(location);
           },
-          onDelete: (Location location) async {
-            if (await showConfirmationDialog(context, 'delete') ?? false) {
-              delete(location);
-            }
+          onDelete: (Location location) {
+            showConfirmationDialog(context, 'delete').then((bool? result) {
+              if (result ?? false) {
+                delete(location);
+              }
+            });
           },
         ));
 
