@@ -6,7 +6,11 @@ import '../models/location.dart';
 enum MenuAction { edit, delete }
 
 class LocationTile extends StatefulWidget {
-  const LocationTile({super.key, required this.location, required this.onEdit, required this.onDelete});
+  const LocationTile(
+      {super.key,
+      required this.location,
+      required this.onEdit,
+      required this.onDelete});
 
   final Location location;
 
@@ -31,7 +35,14 @@ class _LocationTileState extends State<LocationTile> {
         children: <Widget>[
           IconButton(
               onPressed: () {
-                MapsLauncher.launchQuery(widget.location.address);
+                if (widget.location.position != null) {
+                  MapsLauncher.launchQuery(widget.location.position!);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('No position available.'),
+                    behavior: SnackBarBehavior.floating,
+                  ));
+                }
               },
               icon: const Icon(Icons.map)),
           PopupMenuButton<MenuAction>(

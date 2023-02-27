@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../dialogs/confirm_dialog.dart';
+import '../dialogs/new_edit_location.dart';
 import '../exceptions/invalid_direction_exception.dart';
 import '../models/location.dart';
 import '../widgets/location_tile.dart';
@@ -25,19 +26,20 @@ class _LocationsState extends State<Locations> {
 
   @override
   Widget build(BuildContext context) {
-    final Iterable<LocationTile> locationsTiles = widget.locations.map((Location location) => LocationTile(
-          location: location,
-          onEdit: (Location location) {
-            edit(location);
-          },
-          onDelete: (Location location) {
-            showConfirmationDialog(context, 'delete').then((bool? result) {
-              if (result ?? false) {
-                delete(location);
-              }
-            });
-          },
-        ));
+    final Iterable<LocationTile> locationsTiles =
+        widget.locations.map((Location location) => LocationTile(
+              location: location,
+              onEdit: (Location location) {
+                edit(location);
+              },
+              onDelete: (Location location) {
+                showConfirmationDialog(context, 'delete').then((bool? result) {
+                  if (result ?? false) {
+                    delete(location);
+                  }
+                });
+              },
+            ));
 
     return Expanded(
         child: ListView.separated(
@@ -69,7 +71,8 @@ class _LocationsState extends State<Locations> {
               case DismissDirection.endToStart:
                 return true;
               case DismissDirection.startToEnd:
-                return await showConfirmationDialog(context, 'delete') ?? false == true;
+                return await showConfirmationDialog(context, 'delete') ??
+                    false == true;
               case DismissDirection.horizontal:
               case DismissDirection.vertical:
               case DismissDirection.up:
@@ -88,9 +91,24 @@ class _LocationsState extends State<Locations> {
   }
 
   void edit(Location location) {
-    setState(() {
-      print('edit $location');
-    });
+    showDialog<Location>(
+        context: context,
+        builder: (BuildContext context) {
+          return LocationDialog(
+            edit: true,
+            name: location.name,
+            position: location.position,
+          );
+        }).then(
+      (Location? result) {
+        if (result != null) {
+          setState(() {
+            location.name = result.name;
+            location.position = result.position;
+          });
+        }
+      },
+    );
   }
 
   void delete(Location location) {
