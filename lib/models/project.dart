@@ -1,0 +1,1 @@
+enum ProjectType { movie, series }
