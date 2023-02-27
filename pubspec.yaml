@@ -15,6 +15,7 @@ dependencies:
   url_launcher: ^6.1.10
   maps_launcher: ^2.2.0
   file_picker: ^5.2.5
+  table_calendar: ^3.0.9
 
 dev_dependencies:
   flutter_test:

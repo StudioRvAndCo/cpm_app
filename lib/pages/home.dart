@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../models/location.dart';
-import '../models/member.dart';
 import '../widgets/custom_appbar.dart';
 import 'information.dart';
 import 'locations.dart';
@@ -115,7 +114,7 @@ class HomeState extends State<Home> {
         return const Projects();
       case 1:
         return Members(
-          members: <Member>[Member('Jean', 'Neymar', '0123456789'), Member('Paul', 'Issier', '0123456788')],
+          members: [],
         );
       case 2:
         return Locations(
