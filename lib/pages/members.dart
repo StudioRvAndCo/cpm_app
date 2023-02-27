@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../dialogs/confirm_dialog.dart';
 import '../exceptions/invalid_direction_exception.dart';
-import '../models/participant.dart';
-import '../widgets/participant_tile.dart';
+import '../models/member.dart';
+import '../widgets/member_tile.dart';
 
-class Participants extends StatefulWidget {
-  const Participants({super.key, required this.participants});
+class Members extends StatefulWidget {
+  const Members({super.key, required this.members});
 
-  final List<Participant> participants;
+  final List<Member> members;
 
   @override
-  State<Participants> createState() => _ParticipantsState();
+  State<Members> createState() => _MembersState();
 }
 
-class _ParticipantsState extends State<Participants> {
+class _MembersState extends State<Members> {
   final Divider divider = const Divider(
     thickness: 1,
     color: Colors.grey,
@@ -25,35 +25,34 @@ class _ParticipantsState extends State<Participants> {
 
   @override
   Widget build(BuildContext context) {
-    final Iterable<ParticipantTile> participantsTiles =
-        widget.participants.map((Participant participant) => ParticipantTile(
-              participant: participant,
-              onEdit: (Participant participant) {
-                edit(participant);
-              },
-              onDelete: (Participant participant) async {
-                if (await showConfirmationDialog(context, 'delete') ?? false) {
-                  delete(participant);
-                }
-              },
-            ));
+    final Iterable<MemberTile> membersTiles = widget.members.map((Member member) => MemberTile(
+          member: member,
+          onEdit: (Member member) {
+            edit(member);
+          },
+          onDelete: (Member member) async {
+            if (await showConfirmationDialog(context, 'delete') ?? false) {
+              delete(member);
+            }
+          },
+        ));
 
     return Expanded(
         child: ListView.separated(
       separatorBuilder: (BuildContext context, int index) => divider,
-      itemCount: participantsTiles.length,
+      itemCount: membersTiles.length,
       itemBuilder: (BuildContext context, int index) => ClipRRect(
         clipBehavior: Clip.hardEdge,
         child: Dismissible(
           key: UniqueKey(),
           onDismissed: (DismissDirection direction) {
-            final Participant participant = participantsTiles.elementAt(index).participant;
+            final Member member = membersTiles.elementAt(index).member;
             switch (direction) {
               case DismissDirection.endToStart:
-                edit(participant);
+                edit(member);
                 break;
               case DismissDirection.startToEnd:
-                delete(participant);
+                delete(member);
                 break;
               case DismissDirection.vertical:
               case DismissDirection.horizontal:
@@ -80,21 +79,21 @@ class _ParticipantsState extends State<Participants> {
           },
           background: deleteBackground(),
           secondaryBackground: editBackground(),
-          child: participantsTiles.elementAt(index),
+          child: membersTiles.elementAt(index),
         ),
       ),
     ));
   }
 
-  void edit(Participant participant) {
+  void edit(Member member) {
     setState(() {
-      print('edit $participant');
+      print('edit $member');
     });
   }
 
-  void delete(Participant participant) {
+  void delete(Member member) {
     setState(() {
-      widget.participants.remove(participant);
+      widget.members.remove(member);
     });
   }
 }
