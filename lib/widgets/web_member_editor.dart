@@ -54,10 +54,7 @@ class WebMemberEditor extends StatelessWidget {
                     child: Stack(
                       children: <Widget>[
                         Positioned.fill(
-                          child: FittedBox(
-                              fit: BoxFit.cover,
-                              clipBehavior: Clip.hardEdge,
-                              child: _getPicture()),
+                          child: FittedBox(fit: BoxFit.cover, clipBehavior: Clip.hardEdge, child: _getPicture()),
                         ),
                         Material(
                           color: Colors.transparent,
@@ -72,20 +69,14 @@ class WebMemberEditor extends StatelessWidget {
             ),
             TextFormField(
               initialValue: name,
-              decoration: const InputDecoration(
-                  labelText: 'Name',
-                  border: OutlineInputBorder(),
-                  isDense: true),
+              decoration: const InputDecoration(labelText: 'Name', border: OutlineInputBorder(), isDense: true),
             ),
             const SizedBox(
               height: 16,
             ),
             TextFormField(
               initialValue: phone,
-              decoration: const InputDecoration(
-                  labelText: 'Phone number',
-                  border: OutlineInputBorder(),
-                  isDense: true),
+              decoration: const InputDecoration(labelText: 'Phone number', border: OutlineInputBorder(), isDense: true),
             ),
             const SizedBox(
               height: 32,
@@ -97,8 +88,7 @@ class WebMemberEditor extends StatelessWidget {
                   onPressed: onEdit,
                   style: OutlinedButton.styleFrom(
                       foregroundColor: Theme.of(context).colorScheme.error,
-                      side: BorderSide(
-                          color: Theme.of(context).colorScheme.error)),
+                      side: BorderSide(color: Theme.of(context).colorScheme.error)),
                   child: const Text('Delete'),
                 ),
                 const SizedBox(
