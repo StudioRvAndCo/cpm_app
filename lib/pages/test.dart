@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/icon_label.dart';
-import '../widgets/info_header.dart';
 
 import '../dialogs/new_edit_location.dart';
 import '../dialogs/new_edit_member.dart';
@@ -8,6 +6,8 @@ import '../dialogs/new_episode.dart';
 import '../dialogs/new_project.dart';
 import '../dialogs/new_sequence.dart';
 import '../dialogs/new_shot.dart';
+import '../widgets/icon_label.dart';
+import '../widgets/info_header.dart';
 import '../widgets/tabbed_info_sheet.dart';
 
 class Test extends StatelessWidget {
@@ -22,12 +22,16 @@ class Test extends StatelessWidget {
             title: 'Test',
             description:
                 'This is a project, and this is a very long description that takes multiples lines, this project is a very good project that will be awesome',
-            dateRange: DateTimeRange(start: DateTime(2023, 9, 19), end: DateTime(2023, 9, 24)),
-            leftLabel: const IconLabel(text: 'Bastien', icon: Icons.movie_outlined),
-            rightLabel: const IconLabel(text: 'Maxence', icon: Icons.description_outlined),
+            dateRange: DateTimeRange(
+                start: DateTime(2023, 9, 19), end: DateTime(2023, 9, 24)),
+            leftLabel:
+                const IconLabel(text: 'Bastien', icon: Icons.movie_outlined),
+            rightLabel: const IconLabel(
+                text: 'Maxence', icon: Icons.description_outlined),
             image: Image.asset('assets/en-sursis.png'),
             progress: 0.3,
-            cornerButton: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
+            cornerButton:
+                IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
           ),
           TextButton(
               onPressed: () {
@@ -43,7 +47,7 @@ class Test extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const NewSequenceDialog(locations: [
+                      return const NewSequenceDialog(locations: <String>[
                         'Maison de Bastien1',
                         'Maison de Bastien2',
                         'Maison de Bastien3',
@@ -119,7 +123,7 @@ class Test extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return LocationDialog(
+                      return const LocationDialog(
                         edit: true,
                         name: 'Tour Perret',
                         link: 'https://goo.gl/maps/h781vPcmbBjHhqmY9',

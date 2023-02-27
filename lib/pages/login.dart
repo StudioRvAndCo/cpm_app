@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../models/project.dart';
-import '../dialogs/new_project.dart';
 import 'home.dart';
 
 class Login extends StatelessWidget {
@@ -18,14 +16,18 @@ class Login extends StatelessWidget {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 64.0),
-              child: Image.asset('assets/logo-camera.png', fit: BoxFit.fitWidth, width: 250),
+              child: Image.asset('assets/logo-camera.png',
+                  fit: BoxFit.fitWidth, width: 250),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 8.0),
               child: SizedBox(
                 width: 300,
                 child: TextField(
-                  decoration: InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Login'),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                      labelText: 'Login'),
                 ),
               ),
             ),
@@ -37,7 +39,10 @@ class Login extends StatelessWidget {
                   enableSuggestions: false,
                   autocorrect: false,
                   obscureText: true,
-                  decoration: InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Password'),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      isDense: true,
+                      labelText: 'Password'),
                 ),
               ),
             ),
@@ -48,7 +53,10 @@ class Login extends StatelessWidget {
                 child: FilledButton(
                   onPressed: () {
                     Navigator.push(
-                        context, PageTransition<Home>(type: PageTransitionType.bottomToTop, child: const Home()));
+                        context,
+                        PageTransition<Home>(
+                            type: PageTransitionType.bottomToTop,
+                            child: const Home()));
                   },
                   child: const Text('Log in'),
                 ),
