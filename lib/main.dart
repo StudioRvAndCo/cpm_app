@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:cpm/routes/route.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
 
-import 'pages/login.dart';
 import 'theme.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -19,11 +19,13 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   Intl.systemLocale = await findSystemLocale();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final AppRouter _appRouter = AppRouter();
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -38,6 +40,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'CPM', theme: CPMThemeLight().theme, home: const Login());
+    return MaterialApp.router(
+        routerDelegate: widget._appRouter.delegate(),
+        routeInformationParser: widget._appRouter.defaultRouteParser(),
+        title: 'CPM',
+        theme: CPMThemeLight().theme);
   }
 }
