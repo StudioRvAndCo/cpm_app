@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WebMemberCard extends StatelessWidget {
-  const WebMemberCard(
-      {super.key,
-      required this.name,
-      required this.phone,
-      required this.picture});
+  const WebMemberCard({super.key, required this.name, required this.phone, required this.picture});
 
   final String name;
   final String phone;
@@ -20,10 +16,7 @@ class WebMemberCard extends StatelessWidget {
             SizedBox(
                 width: 120,
                 height: 120,
-                child: FittedBox(
-                    fit: BoxFit.cover,
-                    clipBehavior: Clip.hardEdge,
-                    child: picture)),
+                child: FittedBox(fit: BoxFit.cover, clipBehavior: Clip.hardEdge, child: picture)),
             const SizedBox(width: 16),
             Flexible(
                 fit: FlexFit.tight,
