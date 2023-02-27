@@ -16,7 +16,7 @@ class WebMemberCard extends StatelessWidget {
     return Card(
         clipBehavior: Clip.antiAlias,
         child: Row(
-          children: [
+          children: <Widget>[
             SizedBox(
                 width: 120,
                 height: 120,
@@ -29,7 +29,7 @@ class WebMemberCard extends StatelessWidget {
                 fit: FlexFit.tight,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
+                  children: <Widget>[
                     Text(name, style: Theme.of(context).textTheme.titleLarge),
                     Text(phone, style: Theme.of(context).textTheme.labelLarge)
                   ],

@@ -37,7 +37,7 @@ class WebMemberEditor extends StatelessWidget {
       child: SizedBox(
         width: 200,
         child: Column(
-          children: [
+          children: <Widget>[
             Text(
               'Edit member',
               style: Theme.of(context).textTheme.headlineLarge,
@@ -52,7 +52,7 @@ class WebMemberEditor extends StatelessWidget {
                     width: 170,
                     height: 170,
                     child: Stack(
-                      children: [
+                      children: <Widget>[
                         Positioned.fill(
                           child: FittedBox(
                               fit: BoxFit.cover,
@@ -92,7 +92,7 @@ class WebMemberEditor extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 OutlinedButton(
                   onPressed: onEdit,
                   style: OutlinedButton.styleFrom(
