@@ -2,14 +2,13 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
+import '../main.dart';
 import '../models/location.dart';
 import '../models/member.dart';
 import '../widgets/custom_appbar.dart';
 import 'information.dart';
 import 'locations.dart';
-import 'login.dart';
 import 'members.dart';
 import 'projects.dart';
 import 'test.dart';
@@ -97,8 +96,7 @@ class HomeState extends State<Home> {
                   child: IconButton(
                       icon: const Icon(Icons.logout),
                       onPressed: () {
-                        Navigator.push(
-                            context, PageTransition<Login>(type: PageTransitionType.topToBottom, child: const Login()));
+                        loginState.logout();
                       }),
                 ),
               ),
@@ -120,8 +118,8 @@ class HomeState extends State<Home> {
       case 0:
         return const Projects();
       case 1:
-        return Members(
-          members: <Member>[Member('Jean', 'Neymar', '0123456789'), Member('Paul', 'Issier', '0123456788')],
+        return const Members(
+          members: <Member>[Member(firstName: 'Paul', lastName: 'Issière', phone: '69')],
         );
       case 2:
         return Locations(
