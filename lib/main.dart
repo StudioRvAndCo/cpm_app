@@ -88,6 +88,7 @@ class _CPMState extends State<CPM> {
   Future<void> _handleLogin(String username, String password) async {
     loginState.login(username, password).then((void value) {
       final SnackBar snackBar = SnackBar(
+        showCloseIcon: true,
         behavior: SnackBarBehavior.floating,
         backgroundColor: CPMThemeLight().theme.colorScheme.error,
         content: Text(
