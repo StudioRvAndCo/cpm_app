@@ -1,15 +1,15 @@
 import 'dart:io' show Platform;
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
-import '../main.dart';
 import '../models/location.dart';
 import '../models/member.dart';
 import '../widgets/custom_appbar.dart';
 import 'information.dart';
 import 'locations.dart';
+import 'login.dart';
 import 'members.dart';
 import 'projects.dart';
 import 'test.dart';
@@ -50,7 +50,7 @@ class HomeState extends State<Home> {
         onDestinationSelected: (int index) {
           setState(() {
             _selectedIndex = index;
-            context.router.pop();
+            Navigator.pop(context);
           });
         },
         children: <Widget>[
@@ -69,42 +69,49 @@ class HomeState extends State<Home> {
     );
   }
 
-  NavigationRail buildNavigationRail() {
-    return NavigationRail(
-      elevation: 2,
-      leading: Image.asset(
-        'assets/logo-cpm-alpha.png',
-        width: 50,
-        filterQuality: FilterQuality.high,
-      ),
-      labelType: NavigationRailLabelType.all,
-      destinations: const <NavigationRailDestination>[
-        NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
-        NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
-        NavigationRailDestination(icon: Icon(Icons.map), label: Text('Locations')),
-        NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
-        NavigationRailDestination(icon: Icon(Icons.info), label: Text('Information')),
-        NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
-      ],
-      trailing: Expanded(
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: IconButton(
-                icon: const Icon(Icons.logout),
-                onPressed: () {
-                  loginState.logout();
-                }),
+  SingleChildScrollView buildNavigationRail() {
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+        child: IntrinsicHeight(
+          child: NavigationRail(
+            leading: Image.asset(
+              'assets/logo-cpm-alpha.png',
+              width: 50,
+              filterQuality: FilterQuality.high,
+            ),
+            labelType: NavigationRailLabelType.all,
+            destinations: const <NavigationRailDestination>[
+              NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
+              NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
+              NavigationRailDestination(icon: Icon(Icons.map), label: Text('Locations')),
+              NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
+              NavigationRailDestination(icon: Icon(Icons.info), label: Text('Information')),
+              NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
+            ],
+            trailing: Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: IconButton(
+                      icon: const Icon(Icons.logout),
+                      onPressed: () {
+                        Navigator.push(
+                            context, PageTransition<Login>(type: PageTransitionType.topToBottom, child: const Login()));
+                      }),
+                ),
+              ),
+            ),
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
           ),
         ),
       ),
-      selectedIndex: _selectedIndex,
-      onDestinationSelected: (int index) {
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
     );
   }
 
@@ -113,8 +120,8 @@ class HomeState extends State<Home> {
       case 0:
         return const Projects();
       case 1:
-        return const Members(
-          members: <Member>[Member(firstName: 'Paul', lastName: 'Issière', phone: '01')],
+        return Members(
+          members: <Member>[Member('Jean', 'Neymar', '0123456789'), Member('Paul', 'Issier', '0123456788')],
         );
       case 2:
         return Locations(
