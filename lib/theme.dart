@@ -7,7 +7,7 @@ class CPMThemeLight {
           background: Color(0xFFFFFFFF),
           error: Color(0xFFBE0000),
           onBackground: Color(0xFF393939),
-          onError: Color(0xFFFFFFFF),
+          onError: Color(0xFF393939),
           onPrimary: Color(0xFFFFFFFF),
           onSecondary: Color(0xFF393939),
           onSurface: Color(0xFF393939),

@@ -61,13 +61,22 @@ class _LocationDialogState extends State<LocationDialog> {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: 330,
-                    child: TextField(
-                      controller: nameController,
-                      maxLength: 64,
-                      decoration: const InputDecoration(
-                          labelText: 'Name',
-                          border: OutlineInputBorder(),
-                          isDense: true),
+                    child: ValueListenableBuilder<TextEditingValue>(
+                      valueListenable: nameController,
+                      builder:
+                          (BuildContext context, TextEditingValue value, __) {
+                        return TextField(
+                          controller: nameController,
+                          maxLength: 64,
+                          decoration: InputDecoration(
+                              labelText: 'Name',
+                              errorText: nameController.text.trim().isEmpty
+                                  ? "Can't be empty."
+                                  : null,
+                              border: const OutlineInputBorder(),
+                              isDense: true),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -97,6 +106,9 @@ class _LocationDialogState extends State<LocationDialog> {
                         child: const Text('Cancel')),
                     TextButton(
                         onPressed: () {
+                          if (nameController.text.trim().isEmpty) {
+                            return;
+                          }
                           Navigator.pop(
                               context,
                               Location(

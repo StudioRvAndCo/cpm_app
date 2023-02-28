@@ -106,13 +106,22 @@ class _MemberDialogState extends State<MemberDialog> {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: 330,
-                    child: TextField(
-                      controller: firstNameController,
-                      maxLength: 64,
-                      decoration: const InputDecoration(
-                          labelText: 'First name',
-                          border: OutlineInputBorder(),
-                          isDense: true),
+                    child: ValueListenableBuilder<TextEditingValue>(
+                      valueListenable: firstNameController,
+                      builder:
+                          (BuildContext context, TextEditingValue value, __) {
+                        return TextField(
+                          controller: firstNameController,
+                          maxLength: 64,
+                          decoration: InputDecoration(
+                              labelText: 'First name',
+                              errorText: firstNameController.text.trim().isEmpty
+                                  ? "Can't be empty."
+                                  : null,
+                              border: const OutlineInputBorder(),
+                              isDense: true),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -157,6 +166,9 @@ class _MemberDialogState extends State<MemberDialog> {
                         child: const Text('Cancel')),
                     TextButton(
                         onPressed: () {
+                          if (firstNameController.text.trim().isEmpty) {
+                            return;
+                          }
                           Navigator.pop(
                               context,
                               Member(
