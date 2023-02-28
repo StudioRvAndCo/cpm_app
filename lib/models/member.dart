@@ -1,7 +1,15 @@
 class Member {
-  Member(this.firstName, this.lastName, this.phone);
+  const Member({required this.firstName, required this.lastName, required this.phone});
 
-  String firstName;
-  String lastName;
-  String phone;
+  factory Member.fromJson(Map<String, dynamic> json) {
+    return Member(
+      firstName: json['firstName'].toString(),
+      lastName: json['lastName'].toString(),
+      phone: json['phone'].toString(),
+    );
+  }
+
+  final String firstName;
+  final String lastName;
+  final String phone;
 }
