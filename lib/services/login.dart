@@ -14,10 +14,10 @@ class LoginService {
         body: jsonEncode(<String, String>{'Username': username, 'Password': password}));
 
     if (response.statusCode == 200) {
-      return <dynamic>[true, response.statusCode];
+      return <dynamic>[true, response.body, response.statusCode];
     } else {
       debugPrint(response.toString());
-      return <dynamic>[false, response.statusCode];
+      return <dynamic>[false, response.body, response.statusCode];
     }
   }
 

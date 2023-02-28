@@ -30,17 +30,20 @@ final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<Scaffol
 
 class LoginState extends ChangeNotifier {
   bool authenticated = false;
+  String apiToken = '';
   int statusCode = 0;
 
   Future<void> login(String username, String password) async {
     final List<dynamic> result = await LoginService().login(username, password);
     authenticated = result[0] as bool;
-    statusCode = result[1] as int;
+    apiToken = result[1] as String;
+    statusCode = result[2] as int;
     notifyListeners();
   }
 
   Future<void> logout() async {
     authenticated = false;
+    apiToken = '';
     statusCode = 0;
     notifyListeners();
   }
