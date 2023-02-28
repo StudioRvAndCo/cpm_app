@@ -1,15 +1,15 @@
 import 'dart:io' show Platform;
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
+import '../main.dart';
 import '../models/location.dart';
 import '../models/member.dart';
 import '../widgets/custom_appbar.dart';
 import 'information.dart';
 import 'locations.dart';
-import 'login.dart';
 import 'members.dart';
 import 'projects.dart';
 import 'test.dart';
@@ -50,7 +50,7 @@ class HomeState extends State<Home> {
         onDestinationSelected: (int index) {
           setState(() {
             _selectedIndex = index;
-            Navigator.pop(context);
+            context.router.pop();
           });
         },
         children: <Widget>[
@@ -94,8 +94,7 @@ class HomeState extends State<Home> {
             child: IconButton(
                 icon: const Icon(Icons.logout),
                 onPressed: () {
-                  Navigator.push(
-                      context, PageTransition<Login>(type: PageTransitionType.topToBottom, child: const Login()));
+                  loginState.logout();
                 }),
           ),
         ),

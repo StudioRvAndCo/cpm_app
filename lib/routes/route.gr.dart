@@ -28,20 +28,24 @@ class AppRouter extends _i6.RootStackRouter {
 
   @override
   final Map<String, _i6.PageFactory> pagesMap = {
-    Login.name: (routeData) {
+    LoginRoute.name: (routeData) {
+      final args = routeData.argsAs<LoginRouteArgs>();
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i1.Login(),
+        child: _i1.Login(
+          key: args.key,
+          onLogin: args.onLogin,
+        ),
       );
     },
-    Home.name: (routeData) {
+    HomeRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.Home(),
       );
     },
-    Members.name: (routeData) {
-      final args = routeData.argsAs<MembersArgs>();
+    MembersRoute.name: (routeData) {
+      final args = routeData.argsAs<MembersRouteArgs>();
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i3.Members(
@@ -50,13 +54,13 @@ class AppRouter extends _i6.RootStackRouter {
         ),
       );
     },
-    Information.name: (routeData) {
+    InformationRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.Information(),
       );
     },
-    Test.name: (routeData) {
+    TestRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.Test(),
@@ -67,23 +71,29 @@ class AppRouter extends _i6.RootStackRouter {
   @override
   List<_i6.RouteConfig> get routes => [
         _i6.RouteConfig(
-          Login.name,
+          '/#redirect',
           path: '/',
+          redirectTo: '/login',
+          fullMatch: true,
         ),
         _i6.RouteConfig(
-          Home.name,
-          path: '/Home',
+          LoginRoute.name,
+          path: '/login',
         ),
         _i6.RouteConfig(
-          Members.name,
+          HomeRoute.name,
+          path: '/home',
+        ),
+        _i6.RouteConfig(
+          MembersRoute.name,
           path: '/Members',
         ),
         _i6.RouteConfig(
-          Information.name,
+          InformationRoute.name,
           path: '/Information',
         ),
         _i6.RouteConfig(
-          Test.name,
+          TestRoute.name,
           path: '/Test',
         ),
       ];
@@ -91,48 +101,77 @@ class AppRouter extends _i6.RootStackRouter {
 
 /// generated route for
 /// [_i1.Login]
-class Login extends _i6.PageRouteInfo<void> {
-  const Login()
-      : super(
-          Login.name,
-          path: '/',
+class LoginRoute extends _i6.PageRouteInfo<LoginRouteArgs> {
+  LoginRoute({
+    _i8.Key? key,
+    required void Function(
+      String,
+      String,
+    )
+        onLogin,
+  }) : super(
+          LoginRoute.name,
+          path: '/login',
+          args: LoginRouteArgs(
+            key: key,
+            onLogin: onLogin,
+          ),
         );
 
-  static const String name = 'Login';
+  static const String name = 'LoginRoute';
+}
+
+class LoginRouteArgs {
+  const LoginRouteArgs({
+    this.key,
+    required this.onLogin,
+  });
+
+  final _i8.Key? key;
+
+  final void Function(
+    String,
+    String,
+  ) onLogin;
+
+  @override
+  String toString() {
+    return 'LoginRouteArgs{key: $key, onLogin: $onLogin}';
+  }
 }
 
 /// generated route for
 /// [_i2.Home]
-class Home extends _i6.PageRouteInfo<void> {
-  const Home()
+class HomeRoute extends _i6.PageRouteInfo<void> {
+  const HomeRoute()
       : super(
-          Home.name,
-          path: '/Home',
+          HomeRoute.name,
+          path: '/home',
         );
 
-  static const String name = 'Home';
+  static const String name = 'HomeRoute';
 }
 
 /// generated route for
 /// [_i3.Members]
-class Members extends _i6.PageRouteInfo<MembersArgs> {
-  Members({
+class MembersRoute extends _i6.PageRouteInfo<MembersRouteArgs> {
+  MembersRoute({
     _i8.Key? key,
     required List<_i9.Member> members,
   }) : super(
-          Members.name,
+          MembersRoute.name,
           path: '/Members',
-          args: MembersArgs(
+          args: MembersRouteArgs(
             key: key,
             members: members,
           ),
         );
 
-  static const String name = 'Members';
+  static const String name = 'MembersRoute';
 }
 
-class MembersArgs {
-  const MembersArgs({
+class MembersRouteArgs {
+  const MembersRouteArgs({
     this.key,
     required this.members,
   });
@@ -143,30 +182,30 @@ class MembersArgs {
 
   @override
   String toString() {
-    return 'MembersArgs{key: $key, members: $members}';
+    return 'MembersRouteArgs{key: $key, members: $members}';
   }
 }
 
 /// generated route for
 /// [_i4.Information]
-class Information extends _i6.PageRouteInfo<void> {
-  const Information()
+class InformationRoute extends _i6.PageRouteInfo<void> {
+  const InformationRoute()
       : super(
-          Information.name,
+          InformationRoute.name,
           path: '/Information',
         );
 
-  static const String name = 'Information';
+  static const String name = 'InformationRoute';
 }
 
 /// generated route for
 /// [_i5.Test]
-class Test extends _i6.PageRouteInfo<void> {
-  const Test()
+class TestRoute extends _i6.PageRouteInfo<void> {
+  const TestRoute()
       : super(
-          Test.name,
+          TestRoute.name,
           path: '/Test',
         );
 
-  static const String name = 'Test';
+  static const String name = 'TestRoute';
 }

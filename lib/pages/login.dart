@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-
-import '../services/login.dart';
-import 'home.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  const Login({super.key, required this.onLogin});
+
+  final void Function(String, String) onLogin;
 
   @override
   State<Login> createState() => _LoginState();
@@ -55,13 +53,8 @@ class _LoginState extends State<Login> {
               child: SizedBox(
                 width: 300,
                 child: FilledButton(
-                  onPressed: () {
-                    LoginService().connect(usernameController.text, passwordController.text).then((bool connect) {
-                      if (connect) {
-                        Navigator.push(
-                            context, PageTransition<Home>(type: PageTransitionType.bottomToTop, child: const Home()));
-                      }
-                    });
+                  onPressed: () async {
+                    widget.onLogin(usernameController.text, passwordController.text);
                   },
                   child: const Text('Log in'),
                 ),
