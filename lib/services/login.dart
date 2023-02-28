@@ -8,16 +8,16 @@ import 'api.dart';
 class LoginService {
   final API api = API();
 
-  Future<bool> login(String username, String password) async {
+  Future<List<dynamic>> login(String username, String password) async {
     final Response response = await post(Uri.parse(api.login),
         headers: <String, String>{'accept': '*/*', 'content-type': 'application/json'},
         body: jsonEncode(<String, String>{'Username': username, 'Password': password}));
 
     if (response.statusCode == 200) {
-      return true;
+      return <dynamic>[true, response.statusCode];
     } else {
       debugPrint(response.toString());
-      return false;
+      return <dynamic>[false, response.statusCode];
     }
   }
 

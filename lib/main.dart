@@ -10,7 +10,7 @@ import 'routes/route.gr.dart';
 import 'services/login.dart';
 import 'theme.dart';
 
-// TODO create certificate
+// TODO(mael): create certificate
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -22,36 +22,40 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   Intl.systemLocale = await findSystemLocale();
-  runApp(MyApp());
+  runApp(CPM());
 }
 
 final LoginState loginState = LoginState();
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class LoginState extends ChangeNotifier {
   bool authenticated = false;
+  int statusCode = 0;
 
   Future<void> login(String username, String password) async {
-    authenticated = await LoginService().login(username, password);
-    print(authenticated);
+    final List<dynamic> result = await LoginService().login(username, password);
+    authenticated = result[0] as bool;
+    statusCode = result[1] as int;
     notifyListeners();
   }
 
   Future<void> logout() async {
     authenticated = false;
+    statusCode = 0;
     notifyListeners();
   }
 }
 
-class MyApp extends StatefulWidget {
-  MyApp({super.key});
+class CPM extends StatefulWidget {
+  CPM({super.key});
 
   final AppRouter _appRouter = AppRouter();
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<CPM> createState() => _CPMState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _CPMState extends State<CPM> {
   @override
   void initState() {
     super.initState();
@@ -79,6 +83,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _handleLogin(String username, String password) async {
-    await loginState.login(username, password);
+    loginState.login(username, password).then((void value) {
+      final SnackBar snackBar = SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: CPMThemeLight().theme.colorScheme.error,
+        content: Text(
+            'Invalid username of password${loginState.statusCode != 0 ? ' (status code: ${loginState.statusCode})' : ''}'),
+      );
+      if (loginState.statusCode != 200 && scaffoldMessengerKey.currentContext != null) {
+        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(snackBar);
+      }
+    });
   }
 }
