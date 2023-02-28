@@ -34,25 +34,23 @@ class _LocationsState extends State<Locations> {
 
   @override
   Widget build(BuildContext context) {
-    final Iterable<LocationTile> locationsTiles =
-        locations.map((Location location) => LocationTile(
-              location: location,
-              onEdit: (Location location) {
-                edit(location);
-              },
-              onDelete: (Location location) {
-                showConfirmationDialog(context, 'delete').then((bool? result) {
-                  if (result ?? false) {
-                    delete(location);
-                  }
-                });
-              },
-            ));
+    final Iterable<LocationTile> locationsTiles = locations.map((Location location) => LocationTile(
+          location: location,
+          onEdit: (Location location) {
+            edit(location);
+          },
+          onDelete: (Location location) {
+            showConfirmationDialog(context, 'delete').then((bool? result) {
+              if (result ?? false) {
+                delete(location);
+              }
+            });
+          },
+        ));
 
     return Expanded(
         child: Scaffold(
-      floatingActionButton:
-          FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
       body: ListView.separated(
         separatorBuilder: (BuildContext context, int index) => divider,
         itemCount: locationsTiles.length,
@@ -61,8 +59,7 @@ class _LocationsState extends State<Locations> {
           child: Dismissible(
             key: UniqueKey(),
             onDismissed: (DismissDirection direction) {
-              final Location location =
-                  locationsTiles.elementAt(index).location;
+              final Location location = locationsTiles.elementAt(index).location;
               switch (direction) {
                 case DismissDirection.endToStart:
                   edit(location);
@@ -83,8 +80,7 @@ class _LocationsState extends State<Locations> {
                 case DismissDirection.endToStart:
                   return true;
                 case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(context, 'delete') ??
-                      false == true;
+                  return await showConfirmationDialog(context, 'delete') ?? false == true;
                 case DismissDirection.horizontal:
                 case DismissDirection.vertical:
                 case DismissDirection.up:
@@ -141,8 +137,7 @@ class _LocationsState extends State<Locations> {
       (Location? result) {
         if (result != null) {
           setState(() {
-            final Location location =
-                Location(name: result.name, position: result.position);
+            final Location location = Location(name: result.name, position: result.position);
             locations.add(location);
           });
         }

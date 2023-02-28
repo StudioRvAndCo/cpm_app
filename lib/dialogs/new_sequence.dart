@@ -29,10 +29,8 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
   void updateDateText() {
     String res;
     if (dates != null) {
-      final String firstText =
-          DateFormat.yMd(Intl.systemLocale).format(dates!.start);
-      final String lastText =
-          DateFormat.yMd(Intl.systemLocale).format(dates!.end);
+      final String firstText = DateFormat.yMd(Intl.systemLocale).format(dates!.start);
+      final String lastText = DateFormat.yMd(Intl.systemLocale).format(dates!.end);
       res = '$firstText - $lastText';
     } else {
       res = 'Enter production dates';
@@ -70,104 +68,91 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: SizedBox(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: TextField(
+                    maxLength: 64,
+                    controller: titleController,
+                    decoration: const InputDecoration(labelText: 'Title', border: OutlineInputBorder(), isDense: true),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: TextFormField(
+                    maxLength: 280,
+                    maxLines: 4,
+                    controller: descriptionController,
+                    decoration:
+                        const InputDecoration(labelText: 'Description', border: OutlineInputBorder(), isDense: true),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 330,
+                  child: OutlinedButton.icon(
+                    onPressed: () async {
+                      final DateTimeRange? picked = await showDateRangePicker(
+                          context: context,
+                          firstDate: DateTime(1970),
+                          lastDate: DateTime(3000),
+                          initialDateRange: dates);
+                      if (picked != null) {
+                        dates = DateTimeRange(start: picked.start, end: picked.end);
+                        updateDateText();
+                      }
+                    },
+                    icon: const Icon(Icons.calendar_month),
+                    label: Text(dateText),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  hint: const Text('Value'),
+                  items: locations.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  value: selectedLocation,
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectedLocation = value;
+                    });
+                  },
+                  decoration: const InputDecoration(labelText: 'Position', border: OutlineInputBorder(), isDense: true),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: TextField(
-                        maxLength: 64,
-                        controller: titleController,
-                        decoration: const InputDecoration(
-                            labelText: 'Title',
-                            border: OutlineInputBorder(),
-                            isDense: true),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: TextFormField(
-                        maxLength: 280,
-                        maxLines: 4,
-                        controller: descriptionController,
-                        decoration: const InputDecoration(
-                            labelText: 'Description',
-                            border: OutlineInputBorder(),
-                            isDense: true),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: 330,
-                      child: OutlinedButton.icon(
-                        onPressed: () async {
-                          final DateTimeRange? picked =
-                              await showDateRangePicker(
-                                  context: context,
-                                  firstDate: DateTime(1970),
-                                  lastDate: DateTime(3000),
-                                  initialDateRange: dates);
-                          if (picked != null) {
-                            dates = DateTimeRange(
-                                start: picked.start, end: picked.end);
-                            updateDateText();
-                          }
-                        },
-                        icon: const Icon(Icons.calendar_month),
-                        label: Text(dateText),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      hint: const Text('Value'),
-                      items: locations
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      value: selectedLocation,
-                      onChanged: (String? value) {
-                        setState(() {
-                          selectedLocation = value;
-                        });
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
                       },
-                      decoration: const InputDecoration(
-                          labelText: 'Position',
-                          border: OutlineInputBorder(),
-                          isDense: true),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Cancel')),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('OK'))
-                    ],
-                  )
-                ]),
+                      child: const Text('Cancel')),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('OK'))
+                ],
+              )
+            ]),
           ),
         )
       ],
