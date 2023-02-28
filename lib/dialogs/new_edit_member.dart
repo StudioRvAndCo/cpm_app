@@ -162,7 +162,7 @@ class _MemberDialogState extends State<MemberDialog> {
                               Member(
                                   firstName: firstNameController.text,
                                   lastName: lastNameController.text,
-                                  telephone: telephoneController.text,
+                                  phone: telephoneController.text,
                                   image: image));
                         },
                         child: const Text('OK'))

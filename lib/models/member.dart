@@ -5,12 +5,19 @@ class Member {
       {this.id,
       required this.firstName,
       this.lastName,
-      this.telephone,
+      this.phone,
       this.image});
+  factory Member.fromJson(Map<String, dynamic> json) {
+    return Member(
+      firstName: json['firstName'].toString(),
+      lastName: json['lastName'].toString(),
+      phone: json['phone'].toString(),
+    );
+  }
 
   final String? id;
   String firstName;
   String? lastName;
-  String? telephone;
+  String? phone;
   Image? image;
 }

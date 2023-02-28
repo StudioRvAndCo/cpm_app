@@ -42,8 +42,9 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    Icon favIcon =
-        favorite ? const Icon(Icons.star) : const Icon(Icons.star_border);
+    Icon favIcon = favorite
+        ? Icon(Icons.star, color: Theme.of(context).colorScheme.primary)
+        : const Icon(Icons.star_border);
     return Card(
         child: Padding(
       padding: const EdgeInsets.all(8),

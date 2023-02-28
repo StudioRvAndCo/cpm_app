@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
-import '../pages/login.dart';
+import '../main.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -22,8 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              Navigator.push(
-                  context, PageTransition<Login>(type: PageTransitionType.topToBottom, child: const Login()));
+              loginState.logout();
             }),
       ],
     );

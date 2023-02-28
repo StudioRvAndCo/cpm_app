@@ -108,7 +108,7 @@ class _MembersState extends State<Members> {
               edit: true,
               firstName: member.firstName,
               lastName: member.lastName,
-              telephone: member.telephone,
+              telephone: member.phone,
               image: member.image);
         }).then(
       (Member? result) {
@@ -116,7 +116,7 @@ class _MembersState extends State<Members> {
           setState(() {
             member.firstName = result.firstName;
             member.lastName = result.lastName;
-            member.telephone = result.telephone;
+            member.phone = result.phone;
             member.image = result.image;
           });
         }
@@ -144,7 +144,7 @@ class _MembersState extends State<Members> {
             final Member member = Member(
                 firstName: result.firstName,
                 lastName: result.lastName,
-                telephone: result.telephone,
+                phone: result.phone,
                 image: result.image);
             members.add(member);
           });
