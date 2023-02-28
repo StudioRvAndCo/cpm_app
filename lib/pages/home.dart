@@ -145,8 +145,10 @@ class HomeState extends State<Home> {
       case 1:
         return Members(
           members: <Member>[
-            Member('Jean', 'Neymar', '0123456789'),
-            Member('Paul', 'Issier', '0123456788')
+            Member(
+                firstName: 'Jean', lastName: 'Neymar', telephone: '0123456789'),
+            Member(
+                firstName: 'Paul', lastName: 'Issier', telephone: '0123456788')
           ],
         );
       case 2:

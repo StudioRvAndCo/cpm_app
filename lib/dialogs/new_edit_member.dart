@@ -4,11 +4,19 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
+import '../models/member.dart';
+
 class MemberDialog extends StatefulWidget {
   const MemberDialog(
-      {super.key, required this.edit, this.name, this.telephone, this.image});
+      {super.key,
+      required this.edit,
+      this.firstName,
+      this.lastName,
+      this.telephone,
+      this.image});
 
-  final String? name;
+  final String? firstName;
+  final String? lastName;
   final String? telephone;
   final Image? image;
   final bool edit;
@@ -18,8 +26,9 @@ class MemberDialog extends StatefulWidget {
 }
 
 class _MemberDialogState extends State<MemberDialog> {
-  late final TextEditingController nameController;
-  late final TextEditingController phoneController;
+  late final TextEditingController firstNameController;
+  late final TextEditingController lastNameController;
+  late final TextEditingController telephoneController;
   Image? image;
 
   late String title;
@@ -27,8 +36,9 @@ class _MemberDialogState extends State<MemberDialog> {
 
   @override
   void initState() {
-    nameController = TextEditingController(text: widget.name);
-    phoneController = TextEditingController(text: widget.telephone);
+    firstNameController = TextEditingController(text: widget.firstName);
+    lastNameController = TextEditingController(text: widget.lastName);
+    telephoneController = TextEditingController(text: widget.telephone);
     image = widget.image;
     title = widget.edit ? 'Edit Member' : 'New Member';
     subtitle = widget.edit ? 'Edit a member.' : 'Create a new member.';
@@ -97,10 +107,10 @@ class _MemberDialogState extends State<MemberDialog> {
                   child: SizedBox(
                     width: 330,
                     child: TextField(
-                      controller: nameController,
+                      controller: firstNameController,
                       maxLength: 64,
                       decoration: const InputDecoration(
-                          labelText: 'Name',
+                          labelText: 'First name',
                           border: OutlineInputBorder(),
                           isDense: true),
                     ),
@@ -111,7 +121,21 @@ class _MemberDialogState extends State<MemberDialog> {
                   child: SizedBox(
                     width: 330,
                     child: TextField(
-                      controller: phoneController,
+                      controller: lastNameController,
+                      maxLength: 64,
+                      decoration: const InputDecoration(
+                          labelText: 'Last name',
+                          border: OutlineInputBorder(),
+                          isDense: true),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: TextField(
+                      controller: telephoneController,
                       maxLength: 12,
                       decoration: const InputDecoration(
                           labelText: 'Telephone',
@@ -133,7 +157,13 @@ class _MemberDialogState extends State<MemberDialog> {
                         child: const Text('Cancel')),
                     TextButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pop(
+                              context,
+                              Member(
+                                  firstName: firstNameController.text,
+                                  lastName: lastNameController.text,
+                                  telephone: telephoneController.text,
+                                  image: image));
                         },
                         child: const Text('OK'))
                   ],

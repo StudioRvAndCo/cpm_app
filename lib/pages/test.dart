@@ -130,7 +130,8 @@ class Test extends StatelessWidget {
                       builder: (BuildContext context) {
                         return MemberDialog(
                             edit: true,
-                            name: 'Damian',
+                            firstName: 'Damian',
+                            lastName: 'Carmona',
                             telephone: '0836656565',
                             image: Image.asset('assets/logo-cpm-alpha.png'));
                       });

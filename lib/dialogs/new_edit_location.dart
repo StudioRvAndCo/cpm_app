@@ -65,7 +65,7 @@ class _LocationDialogState extends State<LocationDialog> {
                       controller: nameController,
                       maxLength: 64,
                       decoration: const InputDecoration(
-                          labelText: 'Position',
+                          labelText: 'Name',
                           border: OutlineInputBorder(),
                           isDense: true),
                     ),

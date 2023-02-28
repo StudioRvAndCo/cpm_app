@@ -34,31 +34,37 @@ class _LocationTileState extends State<LocationTile> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           IconButton(
-              onPressed: () {
-                if (widget.location.position != null) {
-                  MapsLauncher.launchQuery(widget.location.position!);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('No position available.'),
-                    behavior: SnackBarBehavior.floating,
-                  ));
-                }
-              },
+              tooltip: 'View map',
+              color: Theme.of(context).colorScheme.onBackground,
+              onPressed: checkPosition()
+                  ? () {
+                      MapsLauncher.launchQuery(widget.location.position!);
+                    }
+                  : null,
               icon: const Icon(Icons.map)),
           PopupMenuButton<MenuAction>(
-            icon: const Icon(Icons.more_horiz),
+            icon: Icon(
+              Icons.more_horiz,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
             itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuAction>>[
-              const PopupMenuItem<MenuAction>(
+              PopupMenuItem<MenuAction>(
                   value: MenuAction.edit,
                   child: ListTile(
-                    leading: Icon(Icons.edit),
-                    title: Text('Edit'),
+                    leading: Icon(
+                      Icons.edit,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    title: const Text('Edit'),
                   )),
-              const PopupMenuItem<MenuAction>(
+              PopupMenuItem<MenuAction>(
                   value: MenuAction.delete,
                   child: ListTile(
-                    leading: Icon(Icons.delete),
-                    title: Text('Delete'),
+                    leading: Icon(
+                      Icons.delete,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    title: const Text('Delete'),
                   )),
             ],
             onSelected: (MenuAction action) {
@@ -77,5 +83,9 @@ class _LocationTileState extends State<LocationTile> {
         ],
       ),
     );
+  }
+
+  bool checkPosition() {
+    return widget.location.position != null && widget.location.position != '';
   }
 }
