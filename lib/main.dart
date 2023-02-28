@@ -88,7 +88,7 @@ class _CPMState extends State<CPM> {
         behavior: SnackBarBehavior.floating,
         backgroundColor: CPMThemeLight().theme.colorScheme.error,
         content: Text(
-            'Invalid username of password${loginState.statusCode != 0 ? ' (status code: ${loginState.statusCode})' : ''}'),
+            'Invalid username or password${loginState.statusCode != 0 ? ' (status code: ${loginState.statusCode})' : ''}'),
       );
       if (loginState.statusCode != 200 && scaffoldMessengerKey.currentContext != null) {
         ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(snackBar);
