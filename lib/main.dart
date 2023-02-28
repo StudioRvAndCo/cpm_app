@@ -32,12 +32,14 @@ class LoginState extends ChangeNotifier {
   bool authenticated = false;
   String apiToken = '';
   int statusCode = 0;
+  String reasonPhrase = '';
 
   Future<void> login(String username, String password) async {
     final List<dynamic> result = await LoginService().login(username, password);
     authenticated = result[0] as bool;
     apiToken = result[1] as String;
     statusCode = result[2] as int;
+    reasonPhrase = result[3] as String;
     notifyListeners();
   }
 
@@ -45,6 +47,7 @@ class LoginState extends ChangeNotifier {
     authenticated = false;
     apiToken = '';
     statusCode = 0;
+    reasonPhrase = '';
     notifyListeners();
   }
 }
@@ -87,15 +90,8 @@ class _CPMState extends State<CPM> {
 
   Future<void> _handleLogin(String username, String password) async {
     loginState.login(username, password).then((void value) {
-      final SnackBar snackBar = SnackBar(
-        showCloseIcon: true,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: CPMThemeLight().theme.colorScheme.error,
-        content: Text(
-            'Invalid username or password${loginState.statusCode != 0 ? ' (status code: ${loginState.statusCode})' : ''}'),
-      );
       if (loginState.statusCode != 200 && scaffoldMessengerKey.currentContext != null) {
-        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(snackBar);
+        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(LoginSnackBar().generateSnackBar());
       }
     });
   }

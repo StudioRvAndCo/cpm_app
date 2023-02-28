@@ -32,10 +32,18 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: SizedBox(
                     width: 300,
-                    child: TextField(
-                      controller: usernameController,
-                      decoration:
-                          const InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Username'),
+                    child: Focus(
+                      canRequestFocus: false,
+                      child: TextField(
+                        autofocus: true,
+                        textInputAction: TextInputAction.next,
+                        controller: usernameController,
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                        },
+                        decoration:
+                            const InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Username'),
+                      ),
                     ),
                   ),
                 ),
@@ -48,6 +56,10 @@ class _LoginState extends State<Login> {
                       enableSuggestions: false,
                       autocorrect: false,
                       obscureText: true,
+                      onEditingComplete: () {
+                        FocusScope.of(context).unfocus();
+                        submit();
+                      },
                       decoration:
                           const InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Password'),
                     ),
@@ -59,7 +71,7 @@ class _LoginState extends State<Login> {
                     width: 300,
                     child: FilledButton(
                       onPressed: () {
-                        widget.onLogin(usernameController.text, passwordController.text);
+                        submit();
                       },
                       child: const Text('Log in'),
                     ),
@@ -70,5 +82,9 @@ class _LoginState extends State<Login> {
             ),
           ),
         ));
+  }
+
+  void submit() {
+    widget.onLogin(usernameController.text, passwordController.text);
   }
 }
