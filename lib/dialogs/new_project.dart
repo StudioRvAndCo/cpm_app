@@ -17,9 +17,9 @@ class NewProjectDialog extends StatefulWidget {
 class _NewProjectDialogState extends State<NewProjectDialog> {
   _NewProjectDialogState();
 
-  String? title;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   Image? image;
-  String? description;
   DateTimeRange? dates;
   ProjectType type = ProjectType.movie;
   String dateText = '';
@@ -93,89 +93,86 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Form(
-            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 330,
-                  child: TextFormField(
-                    maxLength: 64,
-                    decoration: const InputDecoration(labelText: 'Title', border: OutlineInputBorder(), isDense: true),
-                  ),
+          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                  maxLength: 64,
+                  controller: titleController,
+                  decoration: const InputDecoration(labelText: 'Title', border: OutlineInputBorder(), isDense: true),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 330,
-                  child: TextFormField(
-                    maxLength: 280,
-                    maxLines: 4,
-                    decoration:
-                        const InputDecoration(labelText: 'Description', border: OutlineInputBorder(), isDense: true),
-                  ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                  maxLength: 280,
+                  maxLines: 4,
+                  controller: descriptionController,
+                  decoration:
+                      const InputDecoration(labelText: 'Description', border: OutlineInputBorder(), isDense: true),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 330,
-                  child: OutlinedButton.icon(
-                    onPressed: () async {
-                      final DateTimeRange? picked = await showDateRangePicker(
-                          context: context,
-                          firstDate: DateTime(1970),
-                          lastDate: DateTime(3000),
-                          initialDateRange: dates);
-                      if (picked != null) {
-                        dates = DateTimeRange(start: picked.start, end: picked.end);
-                        updateDateText();
-                      }
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: OutlinedButton.icon(
+                  onPressed: () async {
+                    final DateTimeRange? picked = await showDateRangePicker(
+                        context: context, firstDate: DateTime(1970), lastDate: DateTime(3000), initialDateRange: dates);
+                    if (picked != null) {
+                      dates = DateTimeRange(start: picked.start, end: picked.end);
+                      updateDateText();
+                    }
+                  },
+                  icon: const Icon(Icons.calendar_month),
+                  label: Text(dateText),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: SegmentedButton<ProjectType>(
+                  segments: const <ButtonSegment<ProjectType>>[
+                    ButtonSegment<ProjectType>(label: Text('Movie'), value: ProjectType.movie),
+                    ButtonSegment<ProjectType>(label: Text('Series'), value: ProjectType.series)
+                  ],
+                  selected: <ProjectType>{type},
+                  onSelectionChanged: (Set<ProjectType> newSelection) {
+                    setState(() {
+                      type = newSelection.first;
+                    });
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
-                    icon: const Icon(Icons.calendar_month),
-                    label: Text(dateText),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 330,
-                  child: SegmentedButton<ProjectType>(
-                    segments: const <ButtonSegment<ProjectType>>[
-                      ButtonSegment<ProjectType>(label: Text('Movie'), value: ProjectType.movie),
-                      ButtonSegment<ProjectType>(label: Text('Series'), value: ProjectType.series)
-                    ],
-                    selected: <ProjectType>{type},
-                    onSelectionChanged: (Set<ProjectType> newSelection) {
-                      setState(() {
-                        type = newSelection.first;
-                      });
+                    child: const Text('Cancel')),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Cancel')),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('OK'))
-                ],
-              )
-            ]),
-          ),
+                    child: const Text('OK'))
+              ],
+            )
+          ]),
         )
       ],
     );

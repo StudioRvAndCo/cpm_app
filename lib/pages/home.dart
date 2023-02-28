@@ -118,15 +118,17 @@ class HomeState extends State<Home> {
       case 0:
         return const Projects();
       case 1:
-        return const Members(
+        return Members(
           members: <Member>[Member(firstName: 'Paul', lastName: 'Issière', phone: '69')],
         );
       case 2:
         return Locations(
           locations: <Location>[
-            Location('Polytech Grenoble',
-                "Polytech Grenoble, 14 Place du Conseil National de la Résistance, 38400 Saint-Martin-d'Hères"),
-            Location('Tour Perret', 'Tour Perret, Parc Paul Mistral, Bd Jean Pain, 38000 Grenoble'),
+            Location(id: '1', name: 'Polytech Grenoble', position: "Polytech Grenoble, 38400 Saint-Martin-d'Hères"),
+            Location(
+              id: '2',
+              name: 'Tour Perret',
+            ),
           ],
         );
       case 4:

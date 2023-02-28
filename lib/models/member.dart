@@ -1,6 +1,7 @@
-class Member {
-  const Member({required this.firstName, required this.lastName, required this.phone});
+import 'package:flutter/material.dart';
 
+class Member {
+  Member({this.id, required this.firstName, this.lastName, this.phone, this.image});
   factory Member.fromJson(Map<String, dynamic> json) {
     return Member(
       firstName: json['firstName'].toString(),
@@ -9,7 +10,9 @@ class Member {
     );
   }
 
-  final String firstName;
-  final String lastName;
-  final String phone;
+  final String? id;
+  String firstName;
+  String? lastName;
+  String? phone;
+  Image? image;
 }

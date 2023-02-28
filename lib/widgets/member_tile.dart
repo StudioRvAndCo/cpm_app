@@ -21,14 +21,17 @@ class _MemberTileState extends State<MemberTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(backgroundImage: AssetImage('assets/placeholder_profile_picture.jpg')),
+      leading: CircleAvatar(
+        backgroundImage: AssetImage('assets/default-avatar.png'),
+        foregroundImage: widget.member.image?.image,
+      ),
       title: Text(
-        '${widget.member.firstName} ${widget.member.lastName.toUpperCase()}',
+        '${widget.member.firstName} ${widget.member.lastName!.toUpperCase()}',
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        widget.member.phone,
+        widget.member.phone!,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -36,29 +39,46 @@ class _MemberTileState extends State<MemberTile> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           IconButton(
-              onPressed: () {
-                launchUrl(Uri.parse('tel://${widget.member.phone}'));
-              },
+              tooltip: 'Call',
+              color: Theme.of(context).colorScheme.onBackground,
+              onPressed: checkPhone()
+                  ? () {
+                      launchUrl(Uri.parse('tel://${widget.member.phone}'));
+                    }
+                  : null,
               icon: const Icon(Icons.phone)),
           IconButton(
-              onPressed: () {
-                launchUrl(Uri.parse('sms://${widget.member.phone}'));
-              },
+              tooltip: 'Message',
+              color: Theme.of(context).colorScheme.onBackground,
+              onPressed: checkPhone()
+                  ? () {
+                      launchUrl(Uri.parse('sms://${widget.member.phone}'));
+                    }
+                  : null,
               icon: const Icon(Icons.message)),
           PopupMenuButton<MenuAction>(
-            icon: const Icon(Icons.more_horiz),
+            icon: Icon(
+              Icons.more_horiz,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
             itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuAction>>[
-              const PopupMenuItem<MenuAction>(
+              PopupMenuItem<MenuAction>(
                   value: MenuAction.edit,
                   child: ListTile(
-                    leading: Icon(Icons.edit),
-                    title: Text('Edit'),
+                    leading: Icon(
+                      Icons.edit,
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                    title: const Text('Edit'),
                   )),
-              const PopupMenuItem<MenuAction>(
+              PopupMenuItem<MenuAction>(
                   value: MenuAction.delete,
                   child: ListTile(
-                    leading: Icon(Icons.delete),
-                    title: Text('Delete'),
+                    leading: Icon(
+                      Icons.delete,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    title: const Text('Delete'),
                   )),
             ],
             onSelected: (MenuAction action) {
@@ -77,5 +97,9 @@ class _MemberTileState extends State<MemberTile> {
         ],
       ),
     );
+  }
+
+  bool checkPhone() {
+    return widget.member.phone != null && widget.member.phone != '';
   }
 }

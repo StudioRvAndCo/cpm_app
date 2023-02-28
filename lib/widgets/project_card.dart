@@ -16,23 +16,25 @@ class ProjectCard extends StatefulWidget {
   final int shotsCompleted;
 
   @override
-  State<StatefulWidget> createState() => _ProjectCardState(
-      title: title, image: image, favorite: favorite, shotsTotal: shotsTotal, shotsCompleted: shotsCompleted);
+  State<StatefulWidget> createState() => _ProjectCardState();
 }
 
 class _ProjectCardState extends State<ProjectCard> {
-  _ProjectCardState(
-      {required this.title,
-      required this.image,
-      required this.favorite,
-      required this.shotsTotal,
-      required this.shotsCompleted});
+  late final String title;
+  late final Image image;
+  late bool favorite;
+  late final int shotsTotal;
+  late final int shotsCompleted;
 
-  final String title;
-  final Image image;
-  bool favorite;
-  final int shotsTotal;
-  final int shotsCompleted;
+  @override
+  void initState() {
+    title = widget.title;
+    image = widget.image;
+    favorite = widget.favorite;
+    shotsTotal = widget.shotsTotal;
+    shotsCompleted = widget.shotsCompleted;
+    super.initState();
+  }
 
   void toggleFavorite() {
     favorite = !favorite;

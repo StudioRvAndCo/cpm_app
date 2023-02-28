@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../dialogs/confirm_dialog.dart';
+import '../dialogs/new_edit_location.dart';
 import '../exceptions/invalid_direction_exception.dart';
 import '../models/location.dart';
 import '../widgets/location_tile.dart';
@@ -15,6 +16,8 @@ class Locations extends StatefulWidget {
 }
 
 class _LocationsState extends State<Locations> {
+  late final List<Location> locations;
+
   final Divider divider = const Divider(
     thickness: 1,
     color: Colors.grey,
@@ -24,8 +27,14 @@ class _LocationsState extends State<Locations> {
   );
 
   @override
+  void initState() {
+    locations = widget.locations;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final Iterable<LocationTile> locationsTiles = widget.locations.map((Location location) => LocationTile(
+    final Iterable<LocationTile> locationsTiles = locations.map((Location location) => LocationTile(
           location: location,
           onEdit: (Location location) {
             edit(location);
@@ -40,62 +49,99 @@ class _LocationsState extends State<Locations> {
         ));
 
     return Expanded(
-        child: ListView.separated(
-      separatorBuilder: (BuildContext context, int index) => divider,
-      itemCount: locationsTiles.length,
-      itemBuilder: (BuildContext context, int index) => ClipRRect(
-        clipBehavior: Clip.hardEdge,
-        child: Dismissible(
-          key: UniqueKey(),
-          onDismissed: (DismissDirection direction) {
-            final Location location = locationsTiles.elementAt(index).location;
-            switch (direction) {
-              case DismissDirection.endToStart:
-                edit(location);
-                break;
-              case DismissDirection.startToEnd:
-                delete(location);
-                break;
-              case DismissDirection.vertical:
-              case DismissDirection.horizontal:
-              case DismissDirection.up:
-              case DismissDirection.down:
-              case DismissDirection.none:
-                throw InvalidDirectionException('Invalid direction');
-            }
-          },
-          confirmDismiss: (DismissDirection dismissDirection) async {
-            switch (dismissDirection) {
-              case DismissDirection.endToStart:
-                return true;
-              case DismissDirection.startToEnd:
-                return await showConfirmationDialog(context, 'delete') ?? false == true;
-              case DismissDirection.horizontal:
-              case DismissDirection.vertical:
-              case DismissDirection.up:
-              case DismissDirection.down:
-              case DismissDirection.none:
-                assert(false);
-            }
-            return false;
-          },
-          background: deleteBackground(),
-          secondaryBackground: editBackground(),
-          child: locationsTiles.elementAt(index),
+        child: Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
+      body: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => divider,
+        itemCount: locationsTiles.length,
+        itemBuilder: (BuildContext context, int index) => ClipRRect(
+          clipBehavior: Clip.hardEdge,
+          child: Dismissible(
+            key: UniqueKey(),
+            onDismissed: (DismissDirection direction) {
+              final Location location = locationsTiles.elementAt(index).location;
+              switch (direction) {
+                case DismissDirection.endToStart:
+                  edit(location);
+                  break;
+                case DismissDirection.startToEnd:
+                  delete(location);
+                  break;
+                case DismissDirection.vertical:
+                case DismissDirection.horizontal:
+                case DismissDirection.up:
+                case DismissDirection.down:
+                case DismissDirection.none:
+                  throw InvalidDirectionException('Invalid direction');
+              }
+            },
+            confirmDismiss: (DismissDirection dismissDirection) async {
+              switch (dismissDirection) {
+                case DismissDirection.endToStart:
+                  return true;
+                case DismissDirection.startToEnd:
+                  return await showConfirmationDialog(context, 'delete') ?? false == true;
+                case DismissDirection.horizontal:
+                case DismissDirection.vertical:
+                case DismissDirection.up:
+                case DismissDirection.down:
+                case DismissDirection.none:
+                  assert(false);
+              }
+              return false;
+            },
+            background: deleteBackground(),
+            secondaryBackground: editBackground(),
+            child: locationsTiles.elementAt(index),
+          ),
         ),
       ),
     ));
   }
 
   void edit(Location location) {
-    setState(() {
-      print('edit $location');
-    });
+    showDialog<Location>(
+        context: context,
+        builder: (BuildContext context) {
+          return LocationDialog(
+            edit: true,
+            name: location.name,
+            position: location.position,
+          );
+        }).then(
+      (Location? result) {
+        if (result != null) {
+          setState(() {
+            location.name = result.name;
+            location.position = result.position;
+          });
+        }
+      },
+    );
   }
 
   void delete(Location location) {
     setState(() {
-      widget.locations.remove(location);
+      locations.remove(location);
     });
+  }
+
+  void add() {
+    showDialog<Location>(
+        context: context,
+        builder: (BuildContext context) {
+          return const LocationDialog(
+            edit: false,
+          );
+        }).then(
+      (Location? result) {
+        if (result != null) {
+          setState(() {
+            final Location location = Location(name: result.name, position: result.position);
+            locations.add(location);
+          });
+        }
+      },
+    );
   }
 }

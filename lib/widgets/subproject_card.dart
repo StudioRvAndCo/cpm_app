@@ -16,23 +16,25 @@ class SubProjectCard extends StatefulWidget {
   final int shotsCompleted;
 
   @override
-  State<StatefulWidget> createState() => _SubProjectCardState(
-      number: number, title: title, description: description, shotsTotal: shotsTotal, shotsCompleted: shotsCompleted);
+  State<StatefulWidget> createState() => _SubProjectCardState();
 }
 
 class _SubProjectCardState extends State<SubProjectCard> {
-  _SubProjectCardState(
-      {required this.number,
-      required this.title,
-      required this.description,
-      required this.shotsTotal,
-      required this.shotsCompleted});
+  late int number;
+  late final String title;
+  late final String description;
+  late final int shotsTotal;
+  late final int shotsCompleted;
 
-  int number;
-  final String title;
-  final String description;
-  final int shotsTotal;
-  final int shotsCompleted;
+  @override
+  void initState() {
+    number = widget.number;
+    title = widget.title;
+    description = widget.description;
+    shotsTotal = widget.shotsTotal;
+    shotsCompleted = widget.shotsCompleted;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

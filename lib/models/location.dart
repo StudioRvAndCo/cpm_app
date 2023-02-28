@@ -1,6 +1,7 @@
 class Location {
-  Location(this.name, this.address);
+  Location({this.id, required this.name, this.position});
 
+  final String? id;
   String name;
-  String address;
+  String? position;
 }

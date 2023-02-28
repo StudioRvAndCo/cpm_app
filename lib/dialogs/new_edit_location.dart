@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 
+import '../models/location.dart';
+
 class LocationDialog extends StatefulWidget {
-  const LocationDialog({super.key, required this.edit, this.name, this.link});
+  const LocationDialog({super.key, required this.edit, this.name, this.position});
 
   final String? name;
-  final String? link;
+  final String? position;
   final bool edit;
 
   @override
-  State<StatefulWidget> createState() => _LocationDialogState(edit: edit, name: name, link: link);
+  State<StatefulWidget> createState() => _LocationDialogState();
 }
 
 class _LocationDialogState extends State<LocationDialog> {
-  _LocationDialogState({required this.edit, this.name, this.link});
-
-  String? name;
-  String? link;
-  final bool edit;
+  late final TextEditingController nameController;
+  late final TextEditingController positionController;
 
   late String title;
   late String subtitle;
 
   @override
   void initState() {
-    title = edit ? 'Edit Location' : 'New Location';
-    subtitle = edit ? 'Edit a location.' : 'Create a new location.';
+    title = widget.edit ? 'Edit Location' : 'New Location';
+    subtitle = widget.edit ? 'Edit a location.' : 'Create a new location.';
+    nameController = TextEditingController(text: widget.name);
+    positionController = TextEditingController(text: widget.position);
     return super.initState();
   }
 
@@ -52,49 +53,59 @@ class _LocationDialogState extends State<LocationDialog> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Form(
-            child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 330,
-                  child: TextFormField(
-                    initialValue: name,
-                    maxLength: 64,
-                    decoration: const InputDecoration(labelText: 'Name', border: OutlineInputBorder(), isDense: true),
-                  ),
+          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: nameController,
+                  builder: (BuildContext context, TextEditingValue value, __) {
+                    return TextField(
+                      controller: nameController,
+                      maxLength: 64,
+                      decoration: InputDecoration(
+                          labelText: 'Name',
+                          errorText: nameController.text.trim().isEmpty ? "Can't be empty." : null,
+                          border: const OutlineInputBorder(),
+                          isDense: true),
+                    );
+                  },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 330,
-                  child: TextFormField(
-                    initialValue: link,
-                    decoration: const InputDecoration(labelText: 'Link', border: OutlineInputBorder(), isDense: true),
-                  ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                  controller: positionController,
+                  decoration: const InputDecoration(labelText: 'Position', border: OutlineInputBorder(), isDense: true),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Cancel')),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('OK'))
-                ],
-              )
-            ]),
-          ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel')),
+                TextButton(
+                    onPressed: () {
+                      if (nameController.text.trim().isEmpty) {
+                        return;
+                      }
+                      Navigator.pop(context, Location(name: nameController.text, position: positionController.text));
+                    },
+                    child: const Text('OK'))
+              ],
+            )
+          ]),
         )
       ],
     );
