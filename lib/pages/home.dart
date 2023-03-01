@@ -10,6 +10,7 @@ import '../widgets/custom_appbar.dart';
 import 'information.dart';
 import 'locations.dart';
 import 'members.dart';
+import 'planning.dart';
 import 'projects.dart';
 import 'test.dart';
 
@@ -84,6 +85,7 @@ class HomeState extends State<Home> {
               NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
               NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
               NavigationRailDestination(icon: Icon(Icons.map), label: Text('Locations')),
+              NavigationRailDestination(icon: Icon(Icons.calendar_today), label: Text('Planning')),
               NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
               NavigationRailDestination(icon: Icon(Icons.info), label: Text('Information')),
               NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
@@ -129,6 +131,8 @@ class HomeState extends State<Home> {
             Location('Tour Perret', 'Tour Perret, Parc Paul Mistral, Bd Jean Pain, 38000 Grenoble'),
           ],
         );
+      case 3:
+        return const Planning();
       case 4:
         return const Information();
       case 5:

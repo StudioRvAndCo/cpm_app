@@ -67,7 +67,7 @@ class _LocationsState extends State<Locations> {
           confirmDismiss: (DismissDirection dismissDirection) async {
             switch (dismissDirection) {
               case DismissDirection.endToStart:
-                return true;
+                return false;
               case DismissDirection.startToEnd:
                 return await showConfirmationDialog(context, 'delete') ?? false == true;
               case DismissDirection.horizontal:

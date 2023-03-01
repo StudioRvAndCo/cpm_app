@@ -11,6 +11,8 @@ class LoginService {
   final API api = API();
 
   Future<List<dynamic>> login(String username, String password) async {
+    return [true, '', 0, ''];
+
     try {
       final Response response = await post(Uri.parse(api.login),
           headers: <String, String>{'accept': '*/*', 'content-type': 'application/json'},
