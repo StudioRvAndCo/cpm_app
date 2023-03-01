@@ -120,7 +120,8 @@ class Test extends StatelessWidget {
                       builder: (BuildContext context) {
                         return MemberDialog(
                             edit: true,
-                            name: 'Damian',
+                            firstName: 'Damian',
+                            lastName: 'Carmona',
                             telephone: '0836656565',
                             image: Image.asset('assets/logo-cpm-alpha.png'));
                       });
@@ -145,7 +146,7 @@ class Test extends StatelessWidget {
                         return const LocationDialog(
                           edit: true,
                           name: 'Tour Perret',
-                          link: 'https://goo.gl/maps/h781vPcmbBjHhqmY9',
+                          position: 'https://goo.gl/maps/h781vPcmbBjHhqmY9',
                         );
                       });
                 },
