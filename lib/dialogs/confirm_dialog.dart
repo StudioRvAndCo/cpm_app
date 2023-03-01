@@ -33,14 +33,18 @@ class ConfirmDialog extends StatelessWidget {
 Widget deleteBackground() {
   return const ColoredBox(
     color: Colors.red,
-    child: Align(alignment: Alignment.centerLeft, child: ListTile(leading: Icon(Icons.delete, color: Colors.white))),
+    child: Align(
+        alignment: Alignment.centerLeft,
+        child: ListTile(leading: Icon(Icons.delete, color: Colors.white))),
   );
 }
 
 Widget editBackground() {
   return const ColoredBox(
     color: Colors.blue,
-    child: Align(alignment: Alignment.centerLeft, child: ListTile(trailing: Icon(Icons.edit, color: Colors.white))),
+    child: Align(
+        alignment: Alignment.centerLeft,
+        child: ListTile(trailing: Icon(Icons.edit, color: Colors.white))),
   );
 }
 
@@ -58,6 +62,7 @@ Future<bool?> showConfirmationDialog(BuildContext context, String action) {
             },
           ),
           ElevatedButton(
+            autofocus: true,
             child: const Text('OK'),
             onPressed: () {
               Navigator.pop(context, true);

@@ -7,7 +7,13 @@ import 'package:flutter/material.dart';
 import '../models/member.dart';
 
 class MemberDialog extends StatefulWidget {
-  const MemberDialog({super.key, required this.edit, this.firstName, this.lastName, this.telephone, this.image});
+  const MemberDialog(
+      {super.key,
+      required this.edit,
+      this.firstName,
+      this.lastName,
+      this.telephone,
+      this.image});
 
   final String? firstName;
   final String? lastName;
@@ -58,17 +64,31 @@ class _MemberDialogState extends State<MemberDialog> {
               ],
             ),
             IconButton(
-              style: IconButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-              icon: Builder(builder: (BuildContext context) {
-                if (image != null) {
-                  return SizedBox(height: 80, width: 80, child: image);
-                } else {
-                  return const Icon(Icons.add_a_photo_outlined, size: 80);
-                }
-              }),
+              style: IconButton.styleFrom(shape: const CircleBorder()),
+              icon: SizedBox(
+                width: 100,
+                height: 100,
+                child: Builder(builder: (BuildContext context) {
+                  if (image != null) {
+                    return Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: image!.image, fit: BoxFit.cover)));
+                  } else {
+                    return const Icon(
+                      Icons.add_a_photo_outlined,
+                      size: 80,
+                    );
+                  }
+                }),
+              ),
               onPressed: () async {
-                final FilePickerResult? result =
-                    await FilePicker.platform.pickFiles(type: FileType.image, lockParentWindow: true, withData: kIsWeb);
+                final FilePickerResult? result = await FilePicker.platform
+                    .pickFiles(
+                        type: FileType.image,
+                        lockParentWindow: true,
+                        withData: kIsWeb);
                 if (result != null) {
                   Image imgRes;
                   if (kIsWeb) {
@@ -88,81 +108,96 @@ class _MemberDialogState extends State<MemberDialog> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 330,
-                child: ValueListenableBuilder<TextEditingValue>(
-                  valueListenable: firstNameController,
-                  builder: (BuildContext context, TextEditingValue value, __) {
-                    return TextField(
-                      controller: firstNameController,
-                      maxLength: 64,
-                      decoration: InputDecoration(
-                          labelText: 'First name',
-                          errorText: firstNameController.text.trim().isEmpty ? "Can't be empty." : null,
-                          border: const OutlineInputBorder(),
-                          isDense: true),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 330,
-                child: TextField(
-                  controller: lastNameController,
-                  maxLength: 64,
-                  decoration:
-                      const InputDecoration(labelText: 'Last name', border: OutlineInputBorder(), isDense: true),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 330,
-                child: TextField(
-                  controller: telephoneController,
-                  maxLength: 12,
-                  decoration:
-                      const InputDecoration(labelText: 'Telephone', border: OutlineInputBorder(), isDense: true),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Cancel')),
-                TextButton(
-                    onPressed: () {
-                      if (firstNameController.text.trim().isEmpty) {
-                        return;
-                      }
-                      Navigator.pop(
-                          context,
-                          Member(
-                              firstName: firstNameController.text,
-                              lastName: lastNameController.text,
-                              phone: telephoneController.text,
-                              image: image));
-                    },
-                    child: const Text('OK'))
-              ],
-            )
-          ]),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: ValueListenableBuilder<TextEditingValue>(
+                      valueListenable: firstNameController,
+                      builder:
+                          (BuildContext context, TextEditingValue value, __) {
+                        return TextField(
+                          autofocus: true,
+                          controller: firstNameController,
+                          maxLength: 64,
+                          decoration: InputDecoration(
+                              labelText: 'First name',
+                              errorText: firstNameController.text.trim().isEmpty
+                                  ? "Can't be empty."
+                                  : null,
+                              border: const OutlineInputBorder(),
+                              isDense: true),
+                          onEditingComplete: submit,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: TextField(
+                        controller: lastNameController,
+                        maxLength: 64,
+                        decoration: const InputDecoration(
+                            labelText: 'Last name',
+                            border: OutlineInputBorder(),
+                            isDense: true),
+                        onEditingComplete: () {
+                          submit();
+                        }),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: TextField(
+                        controller: telephoneController,
+                        maxLength: 12,
+                        decoration: const InputDecoration(
+                            labelText: 'Telephone',
+                            border: OutlineInputBorder(),
+                            isDense: true),
+                        onEditingComplete: () {
+                          submit();
+                        }),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Cancel')),
+                    TextButton(onPressed: submit, child: const Text('OK'))
+                  ],
+                )
+              ]),
         )
       ],
     );
+  }
+
+  void submit() {
+    if (firstNameController.text.trim().isEmpty) {
+      return;
+    }
+    Navigator.pop(
+        context,
+        Member(
+            firstName: firstNameController.text,
+            lastName: lastNameController.text,
+            phone: telephoneController.text,
+            image: image));
   }
 }

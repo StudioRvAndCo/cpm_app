@@ -25,10 +25,29 @@ class _MemberTileState extends State<MemberTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: const AssetImage('assets/default-avatar.png'),
-        foregroundImage: widget.member.image?.image,
-      ),
+      leading: SizedBox(
+          width: 50,
+          height: 50,
+          child: Builder(builder: (BuildContext context) {
+            if (widget.member.image != null) {
+              return Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: widget.member.image!.image)));
+            } else {
+              return Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).colorScheme.primary),
+                child: Icon(
+                  Icons.person,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              );
+            }
+          })),
       title: Text(
         '${widget.member.firstName} ${widget.member.lastName!.toUpperCase()}',
         maxLines: 2,

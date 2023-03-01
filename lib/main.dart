@@ -78,7 +78,8 @@ class _CPMState extends State<CPM> {
         routerDelegate: AutoRouterDelegate.declarative(
           widget._appRouter,
           routes: (_) => <PageRouteInfo<dynamic>>[
-            if (loginState.authenticated)
+            // TODO: Remettre l'authentification
+            if (true) //loginState.authenticated
               const HomeRoute()
             else
               LoginRoute(

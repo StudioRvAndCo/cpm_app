@@ -63,12 +63,10 @@ class _MembersState extends State<Members> {
             onDismissed: (DismissDirection direction) {
               final Member member = membersTiles.elementAt(index).member;
               switch (direction) {
-                case DismissDirection.endToStart:
-                  edit(member);
-                  break;
                 case DismissDirection.startToEnd:
                   delete(member);
                   break;
+                case DismissDirection.endToStart:
                 case DismissDirection.vertical:
                 case DismissDirection.horizontal:
                 case DismissDirection.up:
@@ -80,10 +78,12 @@ class _MembersState extends State<Members> {
             confirmDismiss: (DismissDirection dismissDirection) async {
               switch (dismissDirection) {
                 case DismissDirection.endToStart:
-                  return true;
+                  final Member member = membersTiles.elementAt(index).member;
+                  edit(member);
+                  return false;
                 case DismissDirection.startToEnd:
                   return await showConfirmationDialog(context, 'delete') ??
-                      false == true;
+                      false;
                 case DismissDirection.horizontal:
                 case DismissDirection.vertical:
                 case DismissDirection.up:
