@@ -6,7 +6,11 @@ import '../models/member.dart';
 enum MenuAction { edit, delete }
 
 class MemberTile extends StatefulWidget {
-  const MemberTile({super.key, required this.member, required this.onEdit, required this.onDelete});
+  const MemberTile(
+      {super.key,
+      required this.member,
+      required this.onEdit,
+      required this.onDelete});
 
   final Member member;
 
@@ -22,7 +26,7 @@ class _MemberTileState extends State<MemberTile> {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: AssetImage('assets/default-avatar.png'),
+        backgroundImage: const AssetImage('assets/default-avatar.png'),
         foregroundImage: widget.member.image?.image,
       ),
       title: Text(
