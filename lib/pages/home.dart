@@ -11,6 +11,7 @@ import 'information.dart';
 import 'locations.dart';
 import 'members.dart';
 import 'projects.dart';
+import 'settings.dart';
 import 'test.dart';
 
 class Home extends StatefulWidget {
@@ -168,6 +169,8 @@ class HomeState extends State<Home> {
             ),
           ],
         );
+      case 3:
+        return const Settings();
       case 4:
         return const Information();
       case 5:

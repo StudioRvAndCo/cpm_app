@@ -6,6 +6,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart'
     if (dart.library.html) 'package:intl/intl_browser.dart';
+import 'package:provider/provider.dart';
 
 import 'routes/route.gr.dart';
 import 'services/login.dart';
@@ -74,23 +75,32 @@ class _CPMState extends State<CPM> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-        routerDelegate: AutoRouterDelegate.declarative(
-          widget._appRouter,
-          routes: (_) => <PageRouteInfo<dynamic>>[
-            // TODO: Remettre l'authentification
-            if (loginState.authenticated) //loginState.authenticated
-              const HomeRoute()
-            else
-              LoginRoute(
-                onLogin: _handleLogin,
-              ),
-          ],
-        ),
-        routeInformationParser:
-            widget._appRouter.defaultRouteParser(includePrefixMatches: true),
-        title: 'CPM',
-        theme: CPMThemeDark().theme);
+    return ChangeNotifierProvider<ModelTheme>(
+      create: (_) => ModelTheme(),
+      child: Consumer<ModelTheme>(builder:
+          (BuildContext context, ModelTheme themeNotifier, Widget? child) {
+        return MaterialApp.router(
+          routerDelegate: AutoRouterDelegate.declarative(
+            widget._appRouter,
+            routes: (_) => <PageRouteInfo<dynamic>>[
+              // TODO: Remettre l'authentification
+              if (true) //loginState.authenticated
+                const HomeRoute()
+              else
+                LoginRoute(
+                  onLogin: _handleLogin,
+                ),
+            ],
+          ),
+          routeInformationParser:
+              widget._appRouter.defaultRouteParser(includePrefixMatches: true),
+          title: 'CPM',
+          theme: CPMThemeLight().theme,
+          darkTheme: CPMThemeDark().theme,
+          themeMode: themeNotifier.themeMode,
+        );
+      }),
+    );
   }
 
   Future<void> _handleLogin(String username, String password) async {

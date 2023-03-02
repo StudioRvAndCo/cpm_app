@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CPMThemeLight {
   ThemeData theme = ThemeData(
@@ -32,4 +33,49 @@ class CPMThemeDark {
           secondary: Color(0xFF9EA6FC),
           surface: Color(0xFF383A40)),
       useMaterial3: true);
+}
+
+class MyThemePreferences {
+  static const String THEMEOPTION_KEY = 'themeoption_key';
+
+  Future<void> setThemeOption(ThemeMode value) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    sharedPreferences.setInt(THEMEOPTION_KEY, value.index);
+  }
+
+  Future<ThemeMode> getThemeOption() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    final int? result = sharedPreferences.getInt(THEMEOPTION_KEY);
+    if (result == null) {
+      return ThemeMode.system;
+    } else {
+      return ThemeMode.values[result];
+    }
+  }
+}
+
+class ModelTheme extends ChangeNotifier {
+  ModelTheme() {
+    _themeMode = ThemeMode.light;
+    _preferences = MyThemePreferences();
+    getPreferences();
+  }
+
+  late ThemeMode _themeMode;
+  late MyThemePreferences _preferences;
+  ThemeMode get themeMode => _themeMode;
+
+// Switching the themes
+  set themeMode(ThemeMode value) {
+    _themeMode = value;
+    _preferences.setThemeOption(value);
+    notifyListeners();
+  }
+
+  Future<void> getPreferences() async {
+    _themeMode = await _preferences.getThemeOption();
+    notifyListeners();
+  }
 }
