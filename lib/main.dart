@@ -79,7 +79,7 @@ class _CPMState extends State<CPM> {
           widget._appRouter,
           routes: (_) => <PageRouteInfo<dynamic>>[
             // TODO: Remettre l'authentification
-            if (true) //loginState.authenticated
+            if (loginState.authenticated) //loginState.authenticated
               const HomeRoute()
             else
               LoginRoute(
@@ -90,7 +90,7 @@ class _CPMState extends State<CPM> {
         routeInformationParser:
             widget._appRouter.defaultRouteParser(includePrefixMatches: true),
         title: 'CPM',
-        theme: CPMThemeLight().theme);
+        theme: CPMThemeDark().theme);
   }
 
   Future<void> _handleLogin(String username, String password) async {

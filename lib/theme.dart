@@ -16,3 +16,20 @@ class CPMThemeLight {
           surface: Color(0xFFEFF0FF)),
       useMaterial3: true);
 }
+
+class CPMThemeDark {
+  ThemeData theme = ThemeData(
+      colorScheme: const ColorScheme(
+          brightness: Brightness.dark,
+          background: Color(0xFF313338),
+          error: Color(0xFFBE0000),
+          onBackground: Color(0xFFFFFFFF),
+          onError: Color(0xFF393939),
+          onPrimary: Color(0xFFFFFFFF),
+          onSecondary: Color(0xFF393939),
+          onSurface: Color(0xFFDDDDDD),
+          primary: Color(0xFF5865F2),
+          secondary: Color(0xFF9EA6FC),
+          surface: Color(0xFF383A40)),
+      useMaterial3: true);
+}

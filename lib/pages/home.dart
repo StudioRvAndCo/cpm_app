@@ -30,10 +30,17 @@ class HomeState extends State<Home> {
     return LayoutBuilder(
       builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
-            appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? const CustomAppBar() : null,
-            drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? buildNavigationDrawer() : null,
+            appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS)
+                ? const CustomAppBar()
+                : null,
+            drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS)
+                ? buildNavigationDrawer()
+                : null,
             body: Row(children: <Widget>[
-              if (kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isFuchsia)
+              if (kIsWeb ||
+                  Platform.isWindows ||
+                  Platform.isMacOS ||
+                  Platform.isFuchsia)
                 SafeArea(child: buildNavigationRail()),
               _pageAtIndex(_selectedIndex),
             ]));
@@ -57,12 +64,18 @@ class HomeState extends State<Home> {
               child: Image.asset(
             'assets/logo-cpm-alpha.png',
           )),
-          const NavigationDrawerDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
-          const NavigationDrawerDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
-          const NavigationDrawerDestination(icon: Icon(Icons.map), label: Text('Locations')),
-          const NavigationDrawerDestination(icon: Icon(Icons.settings), label: Text('Settings')),
-          const NavigationDrawerDestination(icon: Icon(Icons.info), label: Text('Information')),
-          const NavigationDrawerDestination(icon: Icon(Icons.quiz), label: Text('Test')),
+          const NavigationDrawerDestination(
+              icon: Icon(Icons.home_outlined), label: Text('Home')),
+          const NavigationDrawerDestination(
+              icon: Icon(Icons.people_outline), label: Text('Members')),
+          const NavigationDrawerDestination(
+              icon: Icon(Icons.map), label: Text('Locations')),
+          const NavigationDrawerDestination(
+              icon: Icon(Icons.settings), label: Text('Settings')),
+          const NavigationDrawerDestination(
+              icon: Icon(Icons.info), label: Text('Information')),
+          const NavigationDrawerDestination(
+              icon: Icon(Icons.quiz), label: Text('Test')),
         ],
       ),
     );
@@ -71,22 +84,41 @@ class HomeState extends State<Home> {
   SingleChildScrollView buildNavigationRail() {
     return SingleChildScrollView(
       child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+        constraints:
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         child: IntrinsicHeight(
           child: NavigationRail(
-            leading: Image.asset(
-              'assets/logo-cpm-alpha.png',
-              width: 50,
-              filterQuality: FilterQuality.high,
+            leading: Builder(
+              builder: (BuildContext context) {
+                if (Theme.of(context).brightness == Brightness.light) {
+                  return Image.asset(
+                    'assets/logo-cpm-alpha.png',
+                    width: 50,
+                    filterQuality: FilterQuality.high,
+                  );
+                } else {
+                  return Image.asset(
+                    'assets/logo-cpm-white-alpha.png',
+                    width: 50,
+                    filterQuality: FilterQuality.high,
+                  );
+                }
+              },
             ),
             labelType: NavigationRailLabelType.all,
             destinations: const <NavigationRailDestination>[
-              NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
-              NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
-              NavigationRailDestination(icon: Icon(Icons.map), label: Text('Locations')),
-              NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
-              NavigationRailDestination(icon: Icon(Icons.info), label: Text('Information')),
-              NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.home_outlined), label: Text('Home')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.people_outline), label: Text('Members')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.map), label: Text('Locations')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.settings), label: Text('Settings')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.info), label: Text('Information')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.quiz), label: Text('Test')),
             ],
             trailing: Expanded(
               child: Align(
@@ -119,12 +151,17 @@ class HomeState extends State<Home> {
         return const Projects();
       case 1:
         return Members(
-          members: <Member>[Member(firstName: 'Paul', lastName: 'Issière', phone: '69')],
+          members: <Member>[
+            Member(firstName: 'Paul', lastName: 'Issière', phone: '69')
+          ],
         );
       case 2:
         return Locations(
           locations: <Location>[
-            Location(id: '1', name: 'Polytech Grenoble', position: "Polytech Grenoble, 38400 Saint-Martin-d'Hères"),
+            Location(
+                id: '1',
+                name: 'Polytech Grenoble',
+                position: "Polytech Grenoble, 38400 Saint-Martin-d'Hères"),
             Location(
               id: '2',
               name: 'Tour Perret',
