@@ -16,6 +16,7 @@ dependencies:
   file_picker: ^5.2.5
   table_calendar: ^3.0.9
   auto_route: ^5.0.4
+  calendar_view: ^1.0.2
 
 dev_dependencies:
   flutter_test:
