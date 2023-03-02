@@ -5,6 +5,7 @@ import '../pages/home.dart';
 import '../pages/information.dart';
 import '../pages/login.dart';
 import '../pages/members.dart';
+import '../pages/planning.dart';
 import '../pages/test.dart';
 
 // @CupertinoAutoRouter
@@ -17,6 +18,7 @@ import '../pages/test.dart';
     AutoRoute(page: Home, name: 'HomeRoute', path: '/home'),
     AutoRoute(page: Members, name: 'MembersRoute'),
     AutoRoute(page: Information, name: 'InformationRoute'),
+    AutoRoute(page: Planning, name: 'PlanningRoute'),
     AutoRoute(page: Test, name: 'TestRoute'),
   ],
 )
