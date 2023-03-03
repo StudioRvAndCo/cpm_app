@@ -15,6 +15,7 @@ dependencies:
   maps_launcher: ^2.2.0
   file_picker: ^5.2.5
   auto_route: ^5.0.4
+  yaml: ^3.1.0
   calendar_view: ^1.0.2
 
 dev_dependencies:
