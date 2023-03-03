@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
@@ -68,10 +69,10 @@ class HomeState extends State<Home> {
         children: <Widget>[
           DrawerHeader(
               child: Image.asset(
-            'assets/logo-cpm-alpha.png',
+            'assets/images/logo-cpm-alpha.png',
           )),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.home_outlined), label: Text('Home')),
+          NavigationDrawerDestination(
+              icon: const Icon(Icons.home_outlined), label: Text('home'.tr())),
           const NavigationDrawerDestination(
               icon: Icon(Icons.people_outline), label: Text('Members')),
           const NavigationDrawerDestination(
@@ -100,13 +101,13 @@ class HomeState extends State<Home> {
               builder: (BuildContext context) {
                 if (Theme.of(context).brightness == Brightness.light) {
                   return Image.asset(
-                    'assets/logo-cpm-alpha.png',
+                    'assets/images/logo-cpm-alpha.png',
                     width: 50,
                     filterQuality: FilterQuality.high,
                   );
                 } else {
                   return Image.asset(
-                    'assets/logo-cpm-white-alpha.png',
+                    'assets/images/logo-cpm-white-alpha.png',
                     width: 50,
                     filterQuality: FilterQuality.high,
                   );

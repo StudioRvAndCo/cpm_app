@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -29,10 +30,11 @@ class _LoginState extends State<Login> {
                     child: Builder(
                       builder: (BuildContext context) {
                         if (Theme.of(context).brightness == Brightness.light) {
-                          return Image.asset('assets/logo-camera.png',
+                          return Image.asset('assets/images/logo-camera.png',
                               fit: BoxFit.fitWidth, width: 250);
                         } else {
-                          return Image.asset('assets/logo-camera-blanc.png',
+                          return Image.asset(
+                              'assets/images/logo-camera-blanc.png',
                               filterQuality: FilterQuality.high,
                               fit: BoxFit.fitWidth,
                               width: 250);
@@ -52,10 +54,10 @@ class _LoginState extends State<Login> {
                         onEditingComplete: () {
                           FocusScope.of(context).nextFocus();
                         },
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
                             isDense: true,
-                            labelText: 'Username'),
+                            labelText: 'username'.tr()),
                       ),
                     ),
                   ),
@@ -73,10 +75,10 @@ class _LoginState extends State<Login> {
                         FocusScope.of(context).unfocus();
                         submit();
                       },
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
                           isDense: true,
-                          labelText: 'Password'),
+                          labelText: 'password'.tr()),
                     ),
                   ),
                 ),
@@ -88,7 +90,7 @@ class _LoginState extends State<Login> {
                       onPressed: () {
                         submit();
                       },
-                      child: const Text('Log in'),
+                      child: Text('login'.tr()),
                     ),
                   ),
                 ),

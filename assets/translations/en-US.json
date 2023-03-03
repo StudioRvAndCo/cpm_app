@@ -1,0 +1,26 @@
+{
+    "username":"Username",
+    "password":"Password",
+    "login":"Log in",
+
+    "home":"Home",
+    "information":"Info",
+
+    "members":{
+        "member":{
+            "one":"{} Member",
+            "other":"{} Members"
+        },
+        "call":"Call",
+        "message":"Message"
+    },
+
+    "edit":"Edit",
+    "delete":"Delete",
+
+    "error":{
+        "error":"Error",
+        "timeout":"Request timed out",
+        "username-password":"Invalid username or password"
+    }
+}

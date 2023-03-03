@@ -90,7 +90,7 @@ class _MemberTileState extends State<MemberTile> {
                   child: ListTile(
                     leading: Icon(
                       Icons.edit,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
                     title: const Text('Edit'),
                   )),

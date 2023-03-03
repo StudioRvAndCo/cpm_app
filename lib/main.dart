@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calendar_view/calendar_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +27,19 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   Intl.systemLocale = await findSystemLocale();
-  runApp(CPM());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+        supportedLocales: const <Locale>[
+          Locale('en', 'US'),
+          Locale('fr', 'FR')
+        ],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en', 'US'),
+        child: CPM()),
+  );
 }
 
 final LoginState loginState = LoginState();
@@ -71,7 +84,6 @@ class _CPMState extends State<CPM> {
   void initState() {
     super.initState();
     loginState.addListener(() => setState(() {}));
-    initializeDateFormatting();
   }
 
   @override
@@ -100,6 +112,9 @@ class _CPMState extends State<CPM> {
               theme: CPMThemeLight().theme,
               darkTheme: CPMThemeDark().theme,
               themeMode: themeNotifier.themeMode,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: const Locale('fr', 'FR'),
             ),
           );
         }));
@@ -110,7 +125,7 @@ class _CPMState extends State<CPM> {
       if (loginState.statusCode != 200 &&
           scaffoldMessengerKey.currentContext != null) {
         ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!)
-            .showSnackBar(LoginSnackBar().generateSnackBar());
+            .showSnackBar(LoginSnackBar().generateSnackBar(context));
       }
     });
   }

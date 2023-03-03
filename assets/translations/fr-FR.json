@@ -1,0 +1,26 @@
+{
+    "username":"Identifiant",
+    "password":"Mot de passe",
+    "login":"Connexion",
+
+    "home":"Accueil",
+    "information":"Info",
+
+    "members":{
+        "member":{
+            "one":"{} Membre",
+            "other":"{} Membres"
+        },
+        "call":"Appeler",
+        "message":"Message"
+    },
+
+    "edit":"Éditer",
+    "delete":"Supprimer",
+
+    "error":{
+        "error":"Erreur",
+        "timeout":"Requête expirée",
+        "username-password":"Identifiant ou mot de passe invalide"
+    }
+}

@@ -6,7 +6,11 @@ import '../models/location.dart';
 enum MenuAction { edit, delete }
 
 class LocationTile extends StatefulWidget {
-  const LocationTile({super.key, required this.location, required this.onEdit, required this.onDelete});
+  const LocationTile(
+      {super.key,
+      required this.location,
+      required this.onEdit,
+      required this.onDelete});
 
   final Location location;
 

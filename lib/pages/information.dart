@@ -26,14 +26,14 @@ class Information extends StatelessWidget {
                   builder: (BuildContext context) {
                     if (Theme.of(context).brightness == Brightness.light) {
                       return Image.asset(
-                        'assets/logo-camera.png',
+                        'assets/images/logo-camera.png',
                         fit: BoxFit.fitWidth,
                         width: 250,
                         filterQuality: FilterQuality.high,
                       );
                     } else {
                       return Image.asset(
-                        'assets/logo-camera-blanc.png',
+                        'assets/images/logo-camera-blanc.png',
                         fit: BoxFit.fitWidth,
                         width: 250,
                         filterQuality: FilterQuality.high,
@@ -45,14 +45,14 @@ class Information extends StatelessWidget {
                   builder: (BuildContext context) {
                     if (Theme.of(context).brightness == Brightness.light) {
                       return Image.asset(
-                        'assets/logo-rv&co.png',
+                        'assets/images/logo-rv&co.png',
                         fit: BoxFit.fitWidth,
                         width: 250,
                         filterQuality: FilterQuality.high,
                       );
                     } else {
                       return Image.asset(
-                        'assets/logo-rv&co-blanc.png',
+                        'assets/images/logo-rv&co-blanc.png',
                         fit: BoxFit.fitWidth,
                         width: 250,
                         filterQuality: FilterQuality.high,
