@@ -8,6 +8,7 @@ import 'package:intl/intl_standalone.dart'
     if (dart.library.html) 'package:intl/intl_browser.dart';
 
 import 'routes/route.gr.dart';
+import 'services/config.dart';
 import 'services/login.dart';
 import 'theme.dart';
 
@@ -24,6 +25,8 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   Intl.systemLocale = await findSystemLocale();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Config.init();
   runApp(CPM());
 }
 
