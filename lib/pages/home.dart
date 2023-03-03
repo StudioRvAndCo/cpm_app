@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import '../models/location.dart';
 import '../models/member.dart';
+import '../models/project.dart';
+import '../models/sequence.dart';
 import '../widgets/custom_appbar.dart';
 import 'information.dart';
 import 'locations.dart';
 import 'members.dart';
+import 'planning.dart';
 import 'projects.dart';
 import 'settings.dart';
 import 'test.dart';
@@ -37,14 +40,16 @@ class HomeState extends State<Home> {
             drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS)
                 ? buildNavigationDrawer()
                 : null,
-            body: Row(children: <Widget>[
-              if (kIsWeb ||
-                  Platform.isWindows ||
-                  Platform.isMacOS ||
-                  Platform.isFuchsia)
-                SafeArea(child: buildNavigationRail()),
-              _pageAtIndex(_selectedIndex),
-            ]));
+            body: SafeArea(
+              child: Row(children: <Widget>[
+                if (kIsWeb ||
+                    Platform.isWindows ||
+                    Platform.isMacOS ||
+                    Platform.isFuchsia)
+                  buildNavigationRail(),
+                _pageAtIndex(_selectedIndex),
+              ]),
+            ));
       },
     );
   }
@@ -71,6 +76,8 @@ class HomeState extends State<Home> {
               icon: Icon(Icons.people_outline), label: Text('Members')),
           const NavigationDrawerDestination(
               icon: Icon(Icons.map), label: Text('Locations')),
+          const NavigationDrawerDestination(
+              icon: Icon(Icons.event), label: Text('Planning')),
           const NavigationDrawerDestination(
               icon: Icon(Icons.settings), label: Text('Settings')),
           const NavigationDrawerDestination(
@@ -114,6 +121,8 @@ class HomeState extends State<Home> {
                   icon: Icon(Icons.people_outline), label: Text('Members')),
               NavigationRailDestination(
                   icon: Icon(Icons.map), label: Text('Locations')),
+              NavigationRailDestination(
+                  icon: Icon(Icons.event), label: Text('Planning')),
               NavigationRailDestination(
                   icon: Icon(Icons.settings), label: Text('Settings')),
               NavigationRailDestination(
@@ -170,10 +179,35 @@ class HomeState extends State<Home> {
           ],
         );
       case 3:
-        return const Settings();
+        return Planning(
+          project: Project(
+              projectType: ProjectType.movie,
+              title: 'Jaj',
+              beginDate: DateTime.utc(2023, 2, 25),
+              endDate: DateTime.utc(2023, 3, 11),
+              sequences: <Sequence>[
+                Sequence(
+                    title: 'seq1',
+                    date: DateTime.utc(2023, 2, 27),
+                    startTime: DateTime.utc(2023, 3, 11, 10, 30),
+                    endTime: DateTime.utc(2023, 3, 11, 10, 45)),
+                Sequence(
+                    title: 'seq2',
+                    date: DateTime.utc(2023, 3, 2),
+                    startTime: DateTime.utc(2023, 3, 2, 13, 45),
+                    endTime: DateTime.utc(2023, 3, 2, 15, 55)),
+                Sequence(
+                    title: 'seq3',
+                    date: DateTime.utc(2023, 3, 2),
+                    startTime: DateTime.utc(2023, 3, 2, 16, 45),
+                    endTime: DateTime.utc(2023, 3, 2, 17, 55)),
+              ]),
+        );
       case 4:
-        return const Information();
+        return const Settings();
       case 5:
+        return const Information();
+      case 6:
         return const Test();
       default:
         return const Center(child: Text('TODO'));

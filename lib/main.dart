@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -76,31 +77,32 @@ class _CPMState extends State<CPM> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ModelTheme>(
-      create: (_) => ModelTheme(),
-      child: Consumer<ModelTheme>(builder:
-          (BuildContext context, ModelTheme themeNotifier, Widget? child) {
-        return MaterialApp.router(
-          routerDelegate: AutoRouterDelegate.declarative(
-            widget._appRouter,
-            routes: (_) => <PageRouteInfo<dynamic>>[
-              // TODO: Remettre l'authentification
-              if (true) //loginState.authenticated
-                const HomeRoute()
-              else
-                LoginRoute(
-                  onLogin: _handleLogin,
-                ),
-            ],
-          ),
-          routeInformationParser:
-              widget._appRouter.defaultRouteParser(includePrefixMatches: true),
-          title: 'CPM',
-          theme: CPMThemeLight().theme,
-          darkTheme: CPMThemeDark().theme,
-          themeMode: themeNotifier.themeMode,
-        );
-      }),
-    );
+        create: (_) => ModelTheme(),
+        child: Consumer<ModelTheme>(builder:
+            (BuildContext context, ModelTheme themeNotifier, Widget? child) {
+          return CalendarControllerProvider(
+            controller: EventController(),
+            child: MaterialApp.router(
+              routerDelegate: AutoRouterDelegate.declarative(
+                widget._appRouter,
+                routes: (_) => <PageRouteInfo<dynamic>>[
+                  if (true) //TODO: loginState.authenticated
+                    const HomeRoute()
+                  else
+                    LoginRoute(
+                      onLogin: _handleLogin,
+                    ),
+                ],
+              ),
+              routeInformationParser: widget._appRouter
+                  .defaultRouteParser(includePrefixMatches: true),
+              title: 'CPM',
+              theme: CPMThemeLight().theme,
+              darkTheme: CPMThemeDark().theme,
+              themeMode: themeNotifier.themeMode,
+            ),
+          );
+        }));
   }
 
   Future<void> _handleLogin(String username, String password) async {
