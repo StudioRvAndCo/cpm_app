@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,7 +11,8 @@ class DetailsPane extends StatefulWidget {
   State<DetailsPane> createState() => _DetailsPaneState();
 }
 
-class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClientMixin<DetailsPane> {
+class _DetailsPaneState extends State<DetailsPane>
+    with AutomaticKeepAliveClientMixin<DetailsPane> {
   String title = '';
   String description = '';
   TextEditingController titleController = TextEditingController();
@@ -40,7 +42,8 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
   }
 
   void updateDateText() {
-    final String firstText = DateFormat.yMd(Intl.systemLocale).format(firstDate);
+    final String firstText =
+        DateFormat.yMd(Intl.systemLocale).format(firstDate);
     final String lastText = DateFormat.yMd(Intl.systemLocale).format(lastDate);
     setState(() {
       dateText = '$firstText - $lastText';
@@ -56,7 +59,8 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
           children: <Widget>[
             TextField(
               style: Theme.of(context).textTheme.titleMedium,
-              decoration: const InputDecoration.collapsed(hintText: 'Title'),
+              decoration: InputDecoration.collapsed(
+                  hintText: 'attributes.title.upper'.tr()),
               controller: titleController,
               onChanged: setTitle,
             ),
@@ -65,7 +69,8 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
             ),
             TextField(
               style: Theme.of(context).textTheme.bodyMedium,
-              decoration: const InputDecoration.collapsed(hintText: 'Description'),
+              decoration: InputDecoration.collapsed(
+                  hintText: 'attributes.description.upper'.tr()),
               controller: descriptionController,
               onChanged: setDescription,
               keyboardType: TextInputType.multiline,
@@ -78,8 +83,10 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
               onTap: () async {
                 final DateTimeRange? pickedRange = await showDateRangePicker(
                     context: context,
-                    initialDateRange: DateTimeRange(start: firstDate, end: lastDate), //get today's date
-                    firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                    initialDateRange: DateTimeRange(
+                        start: firstDate, end: lastDate), //get today's date
+                    firstDate: DateTime(
+                        2000), //DateTime.now() - not to allow to choose before today.
                     lastDate: DateTime(2101));
                 if (pickedRange != null) {
                   firstDate = pickedRange.start;
@@ -91,7 +98,8 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
               child: IconLabel(
                 text: dateText,
                 icon: Icons.event_outlined,
-                textStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+                textStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
             )
           ],

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -22,7 +23,6 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
   void initState() {
     updateDateText();
     locations = widget.locations;
-    selectedLocation = locations.first;
     return super.initState();
   }
 
@@ -35,7 +35,7 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
           DateFormat.yMd(Intl.systemLocale).format(dates!.end);
       res = '$firstText - $lastText';
     } else {
-      res = 'Enter production dates';
+      res = 'dates_dialog'.tr();
     }
     setState(() {
       dateText = res;
@@ -54,11 +54,12 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
             children: <Widget>[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Text>[
-                  Text('New Sequence'),
+                children: <Text>[
                   Text(
-                    'Create a new sequence.',
-                    style: TextStyle(fontSize: 12),
+                      '${'new.fem.upper'.tr()} ${'sequences.sequence.lower'.plural(1)}'),
+                  Text(
+                    '${'add.upper'.tr()} ${'articles.a.fem.lower'.tr()} ${'new.fem.lower'.tr()} ${'sequences.sequence.lower'.plural(1)}.',
+                    style: const TextStyle(fontSize: 12),
                   )
                 ],
               ),
@@ -80,9 +81,9 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
                       child: TextField(
                         maxLength: 64,
                         controller: titleController,
-                        decoration: const InputDecoration(
-                            labelText: 'Title',
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            labelText: 'attributes.title.upper'.tr(),
+                            border: const OutlineInputBorder(),
                             isDense: true),
                         autofocus: true,
                         onEditingComplete: submit,
@@ -97,9 +98,9 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
                         maxLength: 280,
                         maxLines: 4,
                         controller: descriptionController,
-                        decoration: const InputDecoration(
-                            labelText: 'Description',
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            labelText: 'attributes.description.upper'.tr(),
+                            border: const OutlineInputBorder(),
                             isDense: true),
                       ),
                     ),
@@ -131,7 +132,7 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
                     padding: const EdgeInsets.all(8.0),
                     child: DropdownButtonFormField<String>(
                       isExpanded: true,
-                      hint: const Text('Value'),
+                      hint: Text('attributes.position.upper'.tr()),
                       items: locations
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
@@ -145,9 +146,9 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
                           selectedLocation = value;
                         });
                       },
-                      decoration: const InputDecoration(
-                          labelText: 'Position',
-                          border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                          labelText: selectedLocation,
+                          border: const OutlineInputBorder(),
                           isDense: true),
                     ),
                   ),
@@ -161,8 +162,9 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text('Cancel')),
-                      TextButton(onPressed: submit, child: const Text('OK'))
+                          child: Text('cancel.upper'.tr())),
+                      TextButton(
+                          onPressed: submit, child: Text('confirm.upper'.tr()))
                     ],
                   )
                 ]),

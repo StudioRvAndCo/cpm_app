@@ -132,7 +132,7 @@ class Test extends StatelessWidget {
                             edit: true,
                             firstName: 'Damian',
                             lastName: 'Carmona',
-                            telephone: '0836656565',
+                            phone: '0836656565',
                             image: Image.asset(
                                 'assets/images/logo-cpm-alpha.png'));
                       });

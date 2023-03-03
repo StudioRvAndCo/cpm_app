@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,7 +18,7 @@ class Information extends StatelessWidget {
           children: <Widget>[
             verticalPadding,
             Wrap(
-              spacing: 100,
+              spacing: 30,
               runSpacing: 30,
               alignment: WrapAlignment.spaceEvenly,
               crossAxisAlignment: WrapCrossAlignment.center,
@@ -28,14 +29,14 @@ class Information extends StatelessWidget {
                       return Image.asset(
                         'assets/images/logo-camera.png',
                         fit: BoxFit.fitWidth,
-                        width: 250,
+                        height: 100,
                         filterQuality: FilterQuality.high,
                       );
                     } else {
                       return Image.asset(
                         'assets/images/logo-camera-blanc.png',
                         fit: BoxFit.fitWidth,
-                        width: 250,
+                        height: 100,
                         filterQuality: FilterQuality.high,
                       );
                     }
@@ -47,14 +48,14 @@ class Information extends StatelessWidget {
                       return Image.asset(
                         'assets/images/logo-rv&co.png',
                         fit: BoxFit.fitWidth,
-                        width: 250,
+                        height: 150,
                         filterQuality: FilterQuality.high,
                       );
                     } else {
                       return Image.asset(
                         'assets/images/logo-rv&co-blanc.png',
                         fit: BoxFit.fitWidth,
-                        width: 250,
+                        height: 150,
                         filterQuality: FilterQuality.high,
                       );
                     }
@@ -67,13 +68,15 @@ class Information extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
             verticalPadding,
-            const Text(
-                'CPM is a tool to efficiently manage the production of a cinema project. It is developed as an open-source project by Studio Rv & Co, which is a non-profit organisation that produces audiovisual projects.',
-                textAlign: TextAlign.center),
+            Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text('informations.description'.tr(),
+                  textAlign: TextAlign.center),
+            ),
             verticalPadding,
-            const Text('More about CPM',
+            Text('${'informations.more_about'.tr()} CPM',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold)),
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             Row(children: <Widget>[
               const Spacer(),
               TextButton(
@@ -83,14 +86,14 @@ class Information extends StatelessWidget {
               const Spacer()
             ]),
             verticalPadding,
-            const Text('More about Studio Rv & Co',
+            Text('${'informations.more_about'.tr()} Studio Rv & Co',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold)),
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             Row(children: <Widget>[
               const Spacer(),
               TextButton(
                   onPressed: () => launchUrl(Uri.parse('https://rvandco.fr')),
-                  child: const Text('Website')),
+                  child: Text('informations.website'.tr())),
               horizontalPadding,
               TextButton(
                   onPressed: () => launchUrl(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
@@ -34,7 +35,7 @@ class _LocationTileState extends State<LocationTile> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           IconButton(
-              tooltip: 'View map',
+              tooltip: 'locations.view'.tr(),
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: checkPosition()
                   ? () {
@@ -55,7 +56,7 @@ class _LocationTileState extends State<LocationTile> {
                       Icons.edit,
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
-                    title: const Text('Edit'),
+                    title: Text('edit.upper'.tr()),
                   )),
               PopupMenuItem<MenuAction>(
                   value: MenuAction.delete,
@@ -64,7 +65,7 @@ class _LocationTileState extends State<LocationTile> {
                       Icons.delete,
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
-                    title: const Text('Delete'),
+                    title: Text('delete.upper'.tr()),
                   )),
             ],
             onSelected: (MenuAction action) {

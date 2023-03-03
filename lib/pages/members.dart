@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../dialogs/confirm_dialog.dart';
@@ -41,7 +42,8 @@ class _MembersState extends State<Members> {
                 edit(member);
               },
               onDelete: (Member member) {
-                showConfirmationDialog(context, 'delete').then((bool? result) {
+                showConfirmationDialog(context, 'delete.lower'.tr())
+                    .then((bool? result) {
                   if (result ?? false) {
                     delete(member);
                   }
@@ -72,7 +74,7 @@ class _MembersState extends State<Members> {
                 case DismissDirection.up:
                 case DismissDirection.down:
                 case DismissDirection.none:
-                  throw InvalidDirectionException('Invalid direction');
+                  throw InvalidDirectionException('error.direction'.tr());
               }
             },
             confirmDismiss: (DismissDirection dismissDirection) async {
@@ -82,7 +84,8 @@ class _MembersState extends State<Members> {
                   edit(member);
                   return false;
                 case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(context, 'delete') ??
+                  return await showConfirmationDialog(
+                          context, 'delete.lower'.tr()) ??
                       false;
                 case DismissDirection.horizontal:
                 case DismissDirection.vertical:
@@ -110,7 +113,7 @@ class _MembersState extends State<Members> {
               edit: true,
               firstName: member.firstName,
               lastName: member.lastName,
-              telephone: member.phone,
+              phone: member.phone,
               image: member.image);
         }).then(
       (Member? result) {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -62,7 +63,7 @@ class _MemberTileState extends State<MemberTile> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           IconButton(
-              tooltip: 'Call',
+              tooltip: 'members.call'.tr(),
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: checkPhone()
                   ? () {
@@ -71,7 +72,7 @@ class _MemberTileState extends State<MemberTile> {
                   : null,
               icon: const Icon(Icons.phone)),
           IconButton(
-              tooltip: 'Message',
+              tooltip: 'members.message'.tr(),
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: checkPhone()
                   ? () {
@@ -92,7 +93,7 @@ class _MemberTileState extends State<MemberTile> {
                       Icons.edit,
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
-                    title: const Text('Edit'),
+                    title: Text('edit.upper'.tr()),
                   )),
               PopupMenuItem<MenuAction>(
                   value: MenuAction.delete,
@@ -101,7 +102,7 @@ class _MemberTileState extends State<MemberTile> {
                       Icons.delete,
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
-                    title: const Text('Delete'),
+                    title: Text('delete.upper'.tr()),
                   )),
             ],
             onSelected: (MenuAction action) {

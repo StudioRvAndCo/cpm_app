@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -12,12 +13,12 @@ class MemberDialog extends StatefulWidget {
       required this.edit,
       this.firstName,
       this.lastName,
-      this.telephone,
+      this.phone,
       this.image});
 
   final String? firstName;
   final String? lastName;
-  final String? telephone;
+  final String? phone;
   final Image? image;
   final bool edit;
 
@@ -28,7 +29,7 @@ class MemberDialog extends StatefulWidget {
 class _MemberDialogState extends State<MemberDialog> {
   late final TextEditingController firstNameController;
   late final TextEditingController lastNameController;
-  late final TextEditingController telephoneController;
+  late final TextEditingController phoneController;
   Image? image;
 
   late String title;
@@ -38,10 +39,14 @@ class _MemberDialogState extends State<MemberDialog> {
   void initState() {
     firstNameController = TextEditingController(text: widget.firstName);
     lastNameController = TextEditingController(text: widget.lastName);
-    telephoneController = TextEditingController(text: widget.telephone);
+    phoneController = TextEditingController(text: widget.phone);
     image = widget.image;
-    title = widget.edit ? 'Edit Member' : 'New Member';
-    subtitle = widget.edit ? 'Edit a member.' : 'Create a new member.';
+    title = widget.edit
+        ? '${'edit.upper'.tr()} ${widget.firstName!}'
+        : '${'new.masc.eau.upper'.tr()} ${'members.member.lower'.plural(1)}';
+    subtitle = widget.edit
+        ? '${'edit.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'members.member.lower'.plural(1)}.'
+        : '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.eau.lower'.tr()} ${'members.member.lower'.plural(1)}.';
     return super.initState();
   }
 
@@ -124,9 +129,9 @@ class _MemberDialogState extends State<MemberDialog> {
                           controller: firstNameController,
                           maxLength: 64,
                           decoration: InputDecoration(
-                              labelText: 'First name',
+                              labelText: 'attributes.firstname.upper'.tr(),
                               errorText: firstNameController.text.trim().isEmpty
-                                  ? "Can't be empty."
+                                  ? 'error.empty'.tr()
                                   : null,
                               border: const OutlineInputBorder(),
                               isDense: true),
@@ -143,9 +148,9 @@ class _MemberDialogState extends State<MemberDialog> {
                     child: TextField(
                         controller: lastNameController,
                         maxLength: 64,
-                        decoration: const InputDecoration(
-                            labelText: 'Last name',
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            labelText: 'attributes.lastname.upper'.tr(),
+                            border: const OutlineInputBorder(),
                             isDense: true),
                         onEditingComplete: () {
                           submit();
@@ -157,11 +162,11 @@ class _MemberDialogState extends State<MemberDialog> {
                   child: SizedBox(
                     width: 330,
                     child: TextField(
-                        controller: telephoneController,
+                        controller: phoneController,
                         maxLength: 12,
-                        decoration: const InputDecoration(
-                            labelText: 'Telephone',
-                            border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                            labelText: 'attributes.phone.upper'.tr(),
+                            border: const OutlineInputBorder(),
                             isDense: true),
                         onEditingComplete: () {
                           submit();
@@ -178,8 +183,8 @@ class _MemberDialogState extends State<MemberDialog> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('Cancel')),
-                    TextButton(onPressed: submit, child: const Text('OK'))
+                        child: Text('cancel'.tr())),
+                    TextButton(onPressed: submit, child: Text('confirm'.tr()))
                   ],
                 )
               ]),
@@ -197,7 +202,7 @@ class _MemberDialogState extends State<MemberDialog> {
         Member(
             firstName: firstNameController.text,
             lastName: lastNameController.text,
-            phone: telephoneController.text,
+            phone: phoneController.text,
             image: image));
   }
 }

@@ -37,6 +37,7 @@ void main() async {
           Locale('fr', 'FR')
         ],
         path: 'assets/translations',
+        startLocale: const Locale('fr', 'FR'),
         fallbackLocale: const Locale('en', 'US'),
         child: CPM()),
   );
@@ -114,7 +115,7 @@ class _CPMState extends State<CPM> {
               themeMode: themeNotifier.themeMode,
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
-              locale: const Locale('fr', 'FR'),
+              locale: context.locale,
             ),
           );
         }));

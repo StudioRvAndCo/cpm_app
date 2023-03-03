@@ -1,4 +1,5 @@
 import 'package:calendar_view/calendar_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/project.dart';
@@ -45,35 +46,49 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
                 color: Theme.of(context).colorScheme.surface,
                 child: TabBar(
                   controller: _tabController,
-                  tabs: const [
-                    Tab(icon: Icon(Icons.calendar_view_month), text: 'Month'),
-                    Tab(icon: Icon(Icons.calendar_view_week), text: 'Week'),
-                    Tab(icon: Icon(Icons.calendar_view_day), text: 'Day')
+                  tabs: <Tab>[
+                    Tab(
+                        icon: const Icon(Icons.calendar_view_month),
+                        text: 'planning.date.month.upper'.tr()),
+                    Tab(
+                        icon: const Icon(Icons.calendar_view_week),
+                        text: 'planning.date.week.upper'.tr()),
+                    Tab(
+                        icon: const Icon(Icons.calendar_view_day),
+                        text: 'planning.date.day.upper'.tr())
                   ],
                 ),
               )
             ],
           ),
           Expanded(
-              child: TabBarView(
-                  controller: _tabController, children: [_buildMonthView(), _buildWeekView(), _buildDayView()])),
+              child: TabBarView(controller: _tabController, children: [
+            _buildMonthView(),
+            _buildWeekView(),
+            _buildDayView()
+          ])),
         ],
       ),
     );
   }
 
   LayoutBuilder _buildMonthView() {
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       return MonthView(
-        headerStyle: HeaderStyle(decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface)),
+        headerStyle: HeaderStyle(
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.surface)),
         minMonth: widget.project.beginDate,
         maxMonth: widget.project.endDate,
         initialMonth: DateTime.now(),
-        onPageChange: (DateTime date, int pageIndex) => print("$date, $pageIndex"),
+        onPageChange: (DateTime date, int pageIndex) =>
+            print("$date, $pageIndex"),
         onCellTap: (List<CalendarEventData<Object?>> events, DateTime date) {
           print(events);
         },
-        onEventTap: (CalendarEventData<Object?> event, DateTime date) => print(event),
+        onEventTap: (CalendarEventData<Object?> event, DateTime date) =>
+            print(event),
         onDateLongPress: (DateTime date) => print(date),
         width: constraints.maxWidth,
       );
@@ -81,14 +96,18 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   }
 
   LayoutBuilder _buildWeekView() {
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       return WeekView(
-        headerStyle: HeaderStyle(decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface)),
+        headerStyle: HeaderStyle(
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.surface)),
         minDay: widget.project.beginDate,
         maxDay: widget.project.endDate,
         initialDay: DateTime.now(),
         eventArranger: const SideEventArranger(),
-        onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) => print(events),
+        onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) =>
+            print(events),
         onDateLongPress: (DateTime date) => print(date),
         width: constraints.maxWidth,
       );
@@ -96,14 +115,18 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   }
 
   LayoutBuilder _buildDayView() {
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       return DayView(
-        headerStyle: HeaderStyle(decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface)),
+        headerStyle: HeaderStyle(
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.surface)),
         minDay: widget.project.beginDate,
         maxDay: widget.project.endDate,
         initialDay: DateTime.now(),
         eventArranger: const SideEventArranger(),
-        onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) => print(events),
+        onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) =>
+            print(events),
         onDateLongPress: (DateTime date) => print(date),
         width: constraints.maxWidth,
       );

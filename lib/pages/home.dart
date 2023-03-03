@@ -67,22 +67,36 @@ class HomeState extends State<Home> {
           });
         },
         children: <Widget>[
-          DrawerHeader(
-              child: Image.asset(
-            'assets/images/logo-cpm-alpha.png',
+          DrawerHeader(child: Builder(
+            builder: (BuildContext context) {
+              if (Theme.of(context).brightness == Brightness.light) {
+                return Image.asset(
+                  'assets/images/logo-cpm-alpha.png',
+                  filterQuality: FilterQuality.high,
+                );
+              } else {
+                return Image.asset(
+                  'assets/images/logo-cpm-white-alpha.png',
+                  filterQuality: FilterQuality.high,
+                );
+              }
+            },
           )),
           NavigationDrawerDestination(
               icon: const Icon(Icons.home_outlined), label: Text('home'.tr())),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.people_outline), label: Text('Members')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.map), label: Text('Locations')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.event), label: Text('Planning')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.settings), label: Text('Settings')),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.info), label: Text('Information')),
+          NavigationDrawerDestination(
+              icon: const Icon(Icons.people_outline),
+              label: Text('members.member.upper'.plural(2))),
+          NavigationDrawerDestination(
+              icon: const Icon(Icons.map),
+              label: Text('locations.location.upper'.plural(2))),
+          NavigationDrawerDestination(
+              icon: const Icon(Icons.event),
+              label: Text('planning.upper'.tr())),
+          NavigationDrawerDestination(
+              icon: const Icon(Icons.settings), label: Text('settings'.tr())),
+          NavigationDrawerDestination(
+              icon: const Icon(Icons.info), label: Text('information'.tr())),
           const NavigationDrawerDestination(
               icon: Icon(Icons.quiz), label: Text('Test')),
         ],
@@ -115,20 +129,26 @@ class HomeState extends State<Home> {
               },
             ),
             labelType: NavigationRailLabelType.all,
-            destinations: const <NavigationRailDestination>[
+            destinations: <NavigationRailDestination>[
               NavigationRailDestination(
-                  icon: Icon(Icons.home_outlined), label: Text('Home')),
+                  icon: const Icon(Icons.home_outlined),
+                  label: Text('home'.tr())),
               NavigationRailDestination(
-                  icon: Icon(Icons.people_outline), label: Text('Members')),
+                  icon: const Icon(Icons.people_outline),
+                  label: Text('members.member.upper'.plural(2))),
               NavigationRailDestination(
-                  icon: Icon(Icons.map), label: Text('Locations')),
+                  icon: const Icon(Icons.map),
+                  label: Text('locations.location.upper'.plural(2))),
               NavigationRailDestination(
-                  icon: Icon(Icons.event), label: Text('Planning')),
+                  icon: const Icon(Icons.event),
+                  label: Text('planning.upper'.tr())),
               NavigationRailDestination(
-                  icon: Icon(Icons.settings), label: Text('Settings')),
+                  icon: const Icon(Icons.settings),
+                  label: Text('settings'.tr())),
               NavigationRailDestination(
-                  icon: Icon(Icons.info), label: Text('Information')),
-              NavigationRailDestination(
+                  icon: const Icon(Icons.info),
+                  label: Text('information'.tr())),
+              const NavigationRailDestination(
                   icon: Icon(Icons.quiz), label: Text('Test')),
             ],
             trailing: Expanded(

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../dialogs/confirm_dialog.dart';
@@ -41,7 +42,8 @@ class _LocationsState extends State<Locations> {
                 edit(location);
               },
               onDelete: (Location location) {
-                showConfirmationDialog(context, 'delete').then((bool? result) {
+                showConfirmationDialog(context, 'delete.lower'.tr())
+                    .then((bool? result) {
                   if (result ?? false) {
                     delete(location);
                   }
@@ -73,7 +75,7 @@ class _LocationsState extends State<Locations> {
                 case DismissDirection.up:
                 case DismissDirection.down:
                 case DismissDirection.none:
-                  throw InvalidDirectionException('Invalid direction');
+                  throw InvalidDirectionException('error.direction'.tr());
               }
             },
             confirmDismiss: (DismissDirection dismissDirection) async {
@@ -84,7 +86,8 @@ class _LocationsState extends State<Locations> {
                   edit(location);
                   return false;
                 case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(context, 'delete') ??
+                  return await showConfirmationDialog(
+                          context, 'delete.lower'.tr()) ??
                       false == true;
                 case DismissDirection.horizontal:
                 case DismissDirection.vertical:
