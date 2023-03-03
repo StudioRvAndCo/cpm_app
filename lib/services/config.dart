@@ -19,7 +19,7 @@ class Config {
     _instance = Config._(yaml);
   }
 
-  static dynamic? get(String key) {
+  static dynamic get(String key) {
     if (_instance == null) {
       throw Exception('Configuration not yet initialized');
     }
