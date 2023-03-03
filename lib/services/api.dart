@@ -1,3 +1,5 @@
+import 'config.dart';
+
 class API {
   API() {
     login = '${_api}Login/login';
@@ -6,7 +8,8 @@ class API {
     projects = '${_api}Projects';
   }
 
-  final String _api = 'https://rymeco.fr:1027/api/';
+  // ignore: avoid_dynamic_calls
+  final String _api = Config.get('api')['url'] as String;
   late final String login;
   late final String members;
   late final String locations;
