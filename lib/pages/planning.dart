@@ -19,7 +19,7 @@ class Planning extends StatefulWidget {
 
 class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   final List<CalendarEventData<String>> _events = <CalendarEventData<String>>[];
-  View view = View.month;
+  View view = View.week;
 
   @override
   void initState() {
