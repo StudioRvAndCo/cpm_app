@@ -1,12 +1,13 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 
+import '../models/event.dart';
 import '../models/project.dart';
 import '../models/sequence.dart';
 
 enum View { month, week, day }
 
-final GlobalKey<MonthViewState> calendarKey = GlobalKey<MonthViewState>();
+final GlobalKey<MonthViewState<Event>> calendarKey = GlobalKey<MonthViewState<Event>>();
 
 class Planning extends StatefulWidget {
   const Planning({super.key, required this.project});
@@ -18,7 +19,7 @@ class Planning extends StatefulWidget {
 }
 
 class _PlanningState extends State<Planning> with TickerProviderStateMixin {
-  final List<CalendarEventData<String>> _events = <CalendarEventData<String>>[];
+  final List<CalendarEventData<Event>> _events = <CalendarEventData<Event>>[];
   View view = View.week;
 
   @override
@@ -26,8 +27,8 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
     super.initState();
 
     for (final Sequence sequence in widget.project.sequences) {
-      _events.add(CalendarEventData<String>(
-          event: sequence.title,
+      _events.add(CalendarEventData<Event>(
+          event: Event(title: sequence.title, description: sequence.description ?? ''),
           title: sequence.title,
           date: sequence.date,
           startTime: sequence.startTime,
@@ -37,7 +38,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    CalendarControllerProvider.of(context).controller.addAll(_events);
+    CalendarControllerProvider.of<Event>(context).controller.addAll(_events);
 
     switch (view) {
       case View.month:
@@ -53,7 +54,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
     return HeaderStyle(
         decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
         leftIcon: Row(
-          children: [
+          children: <Widget>[
             IconButton(
                 onPressed: () {
                   calendarKey.currentState?.previousPage();
@@ -70,7 +71,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
         rightIcon: DropdownButton<View>(
           focusColor: Colors.transparent,
           value: view,
-          items: [
+          items: <DropdownMenuItem<View>>[
             DropdownMenuItem<View>(
                 value: View.month,
                 child: Row(
@@ -109,7 +110,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
 
   LayoutBuilder _buildMonthView() {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-      return MonthView(
+      return MonthView<Event>(
         key: calendarKey,
         headerStyle: _buildHeader(),
         minMonth: widget.project.beginDate,
@@ -128,12 +129,12 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
 
   LayoutBuilder _buildWeekView() {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-      return WeekView(
+      return WeekView<Event>(
         headerStyle: _buildHeader(),
         minDay: widget.project.beginDate,
         maxDay: widget.project.endDate,
         initialDay: DateTime.now(),
-        eventArranger: const SideEventArranger(),
+        eventArranger: const SideEventArranger<Event>(),
         onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) => print(events),
         onDateLongPress: (DateTime date) => print(date),
         width: constraints.maxWidth,
@@ -143,12 +144,12 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
 
   LayoutBuilder _buildDayView() {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-      return DayView(
+      return DayView<Event>(
         headerStyle: _buildHeader(),
         minDay: widget.project.beginDate,
         maxDay: widget.project.endDate,
         initialDay: DateTime.now(),
-        eventArranger: const SideEventArranger(),
+        eventArranger: const SideEventArranger<Event>(),
         onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) => print(events),
         onDateLongPress: (DateTime date) => print(date),
         width: constraints.maxWidth,
