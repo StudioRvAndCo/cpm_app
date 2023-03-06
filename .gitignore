@@ -118,4 +118,4 @@ app.*.symbols
 !/dev/ci/**/Gemfile.lock
 
 # Private settings
-assets/config.yaml
+assets/config/config.yaml
