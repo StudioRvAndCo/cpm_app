@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class NewSequenceDialog extends StatefulWidget {
   const NewSequenceDialog({super.key, required this.locations});

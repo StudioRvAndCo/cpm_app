@@ -2,15 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart'
     if (dart.library.html) 'package:intl/intl_browser.dart';
 import 'package:provider/provider.dart';
 
-import 'models/event.dart';
 import 'routes/route.gr.dart';
-import 'services/config.dart';
 import 'services/login.dart';
 import 'theme.dart';
 

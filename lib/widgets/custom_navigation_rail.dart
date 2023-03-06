@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -18,7 +19,8 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+        constraints:
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         child: IntrinsicHeight(
           child: NavigationRail(
             leading: Image.asset(
@@ -27,13 +29,24 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
               filterQuality: FilterQuality.high,
             ),
             labelType: NavigationRailLabelType.all,
-            destinations: const <NavigationRailDestination>[
-              NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text('Home')),
-              NavigationRailDestination(icon: Icon(Icons.people_outline), label: Text('Members')),
-              NavigationRailDestination(icon: Icon(Icons.map), label: Text('Locations')),
-              NavigationRailDestination(icon: Icon(Icons.settings), label: Text('Settings')),
-              NavigationRailDestination(icon: Icon(Icons.info), label: Text('Information')),
-              NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
+            destinations: <NavigationRailDestination>[
+              NavigationRailDestination(
+                  icon: const Icon(Icons.home_outlined),
+                  label: Text('home'.tr())),
+              NavigationRailDestination(
+                  icon: const Icon(Icons.people_outline),
+                  label: Text('member.member.upper'.plural(2))),
+              NavigationRailDestination(
+                  icon: const Icon(Icons.map),
+                  label: Text('locations.location.upper'.plural(2))),
+              NavigationRailDestination(
+                  icon: const Icon(Icons.settings),
+                  label: Text('settings'.tr())),
+              NavigationRailDestination(
+                  icon: const Icon(Icons.info),
+                  label: Text('information'.tr())),
+              const NavigationRailDestination(
+                  icon: Icon(Icons.quiz), label: Text('Test')),
             ],
             trailing: Expanded(
               child: Align(
