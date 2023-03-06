@@ -7,11 +7,7 @@ import '../models/member.dart';
 enum MenuAction { edit, delete }
 
 class MemberTile extends StatefulWidget {
-  const MemberTile(
-      {super.key,
-      required this.member,
-      required this.onEdit,
-      required this.onDelete});
+  const MemberTile({super.key, required this.member, required this.onEdit, required this.onDelete});
 
   final Member member;
 

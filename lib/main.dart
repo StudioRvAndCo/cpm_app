@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -10,22 +8,13 @@ import 'package:intl/intl_standalone.dart'
     if (dart.library.html) 'package:intl/intl_browser.dart';
 import 'package:provider/provider.dart';
 
+import 'models/event.dart';
 import 'routes/route.gr.dart';
+import 'services/config.dart';
 import 'services/login.dart';
 import 'theme.dart';
 
-// TODO(mael): create certificate
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
-
 void main() async {
-  HttpOverrides.global = MyHttpOverrides();
   Intl.systemLocale = await findSystemLocale();
   WidgetsFlutterBinding.ensureInitialized();
 
