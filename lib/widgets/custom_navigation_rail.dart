@@ -23,11 +23,21 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
             BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         child: IntrinsicHeight(
           child: NavigationRail(
-            leading: Image.asset(
-              'assets/logo-cpm-alpha.png',
-              width: 50,
-              filterQuality: FilterQuality.high,
-            ),
+            leading: Builder(builder: (BuildContext context) {
+              if (Theme.of(context).brightness == Brightness.light) {
+                return Image.asset(
+                  'assets/images/logo-cpm-alpha.png',
+                  width: 50,
+                  filterQuality: FilterQuality.high,
+                );
+              } else {
+                return Image.asset(
+                  'assets/images/logo-cpm-white-alpha.png',
+                  width: 50,
+                  filterQuality: FilterQuality.high,
+                );
+              }
+            }),
             labelType: NavigationRailLabelType.all,
             destinations: <NavigationRailDestination>[
               NavigationRailDestination(
@@ -35,7 +45,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
                   label: Text('home'.tr())),
               NavigationRailDestination(
                   icon: const Icon(Icons.people_outline),
-                  label: Text('member.member.upper'.plural(2))),
+                  label: Text('members.member.upper'.plural(2))),
               NavigationRailDestination(
                   icon: const Icon(Icons.map),
                   label: Text('locations.location.upper'.plural(2))),

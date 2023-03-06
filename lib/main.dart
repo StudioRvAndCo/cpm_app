@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calendar_view/calendar_view.dart';
+import 'package:cpm/services/config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl_standalone.dart'
@@ -13,6 +14,7 @@ import 'theme.dart';
 void main() async {
   Intl.systemLocale = await findSystemLocale();
   WidgetsFlutterBinding.ensureInitialized();
+  await Config.init();
 
   await EasyLocalization.ensureInitialized();
   runApp(
@@ -84,7 +86,7 @@ class _CPMState extends State<CPM> {
               routerDelegate: AutoRouterDelegate.declarative(
                 widget._appRouter,
                 routes: (_) => <PageRouteInfo<dynamic>>[
-                  if (true) //TODO: loginState.authenticated
+                  if (loginState.authenticated) //TODO: loginState.authenticated
                     const HomeRoute()
                   else
                     LoginRoute(

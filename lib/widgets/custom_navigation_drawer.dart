@@ -28,9 +28,22 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
         },
         children: <Widget>[
           DrawerHeader(
-              child: Image.asset(
-            'assets/logo-cpm-alpha.png',
-          )),
+            child: Builder(builder: (BuildContext context) {
+              if (Theme.of(context).brightness == Brightness.light) {
+                return Image.asset(
+                  'assets/images/logo-cpm-alpha.png',
+                  width: 50,
+                  filterQuality: FilterQuality.high,
+                );
+              } else {
+                return Image.asset(
+                  'assets/images/logo-cpm-white-alpha.png',
+                  width: 50,
+                  filterQuality: FilterQuality.high,
+                );
+              }
+            }),
+          ),
           NavigationDrawerDestination(
               icon: const Icon(Icons.home_outlined), label: Text('home'.tr())),
           NavigationDrawerDestination(
