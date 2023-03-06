@@ -131,7 +131,20 @@
         }
     },
     "information":"Info",
-    "settings":"Settings",
+    "settings":{
+        "settings":"Settings",
+        "theme":{
+            "theme":"Theme",
+            "description":"Personalize the general look of the app.",
+            "light":"Light theme",
+            "dark":"Dark theme",
+            "system":"System theme"
+        },
+        "language":{
+            "language":"Language",
+            "description":"Personalize the language used in the app."
+        }
+    },
 
     "confirm_dialog":"Do you really want to {} this item?",
     "dates_dialog":"Enter production dates",

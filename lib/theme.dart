@@ -39,12 +39,14 @@ class MyThemePreferences {
   static const String THEMEOPTION_KEY = 'themeoption_key';
 
   Future<void> setThemeOption(ThemeMode value) async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     sharedPreferences.setInt(THEMEOPTION_KEY, value.index);
   }
 
   Future<ThemeMode> getThemeOption() async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     final int? result = sharedPreferences.getInt(THEMEOPTION_KEY);
     if (result == null) {
       return ThemeMode.system;
