@@ -1,7 +1,7 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'icon_label.dart';
 
@@ -26,9 +26,9 @@ class InfoHeader extends StatelessWidget {
   final double progress;
   final IconButton? cornerButton;
 
-  String _getDateText() {
-    final String firstText = DateFormat.yMd(Intl.systemLocale).format(dateRange.start);
-    final String lastText = DateFormat.yMd(Intl.systemLocale).format(dateRange.end);
+  String _getDateText(BuildContext context) {
+    final String firstText = DateFormat.yMd(context.locale.toString()).format(dateRange.start);
+    final String lastText = DateFormat.yMd(context.locale.toString()).format(dateRange.end);
     return '$firstText - $lastText';
   }
 
@@ -77,7 +77,7 @@ class InfoHeader extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 8),
-        IconLabel(text: _getDateText(), icon: Icons.event),
+        IconLabel(text: _getDateText(context), icon: Icons.event),
         const SizedBox(height: 8),
         _getBottomRow(),
         const SizedBox(height: 8),

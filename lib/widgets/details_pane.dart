@@ -23,7 +23,6 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
   void initState() {
     titleController.text = title;
     descriptionController.text = description;
-    updateDateText();
     return super.initState();
   }
 
@@ -40,8 +39,8 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
   }
 
   void updateDateText() {
-    final String firstText = DateFormat.yMd(Intl.systemLocale).format(firstDate);
-    final String lastText = DateFormat.yMd(Intl.systemLocale).format(lastDate);
+    final String firstText = DateFormat.yMd(context.locale.toString()).format(firstDate);
+    final String lastText = DateFormat.yMd(context.locale.toString()).format(lastDate);
     setState(() {
       dateText = '$firstText - $lastText';
     });
@@ -50,6 +49,7 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    updateDateText();
     return Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(

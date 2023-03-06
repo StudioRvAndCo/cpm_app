@@ -1,17 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calendar_view/calendar_view.dart';
-import 'package:cpm/services/config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
 import 'package:provider/provider.dart';
 
 import 'routes/route.gr.dart';
+import 'services/config.dart';
 import 'services/login.dart';
 import 'theme.dart';
 
 void main() async {
-  Intl.systemLocale = await findSystemLocale();
   WidgetsFlutterBinding.ensureInitialized();
   await Config.init();
 
@@ -20,7 +18,7 @@ void main() async {
     EasyLocalization(
         supportedLocales: const <Locale>[Locale('en', 'US'), Locale('fr', 'FR')],
         path: 'assets/translations',
-        startLocale: const Locale('fr', 'FR'),
+        startLocale: const Locale('en', 'US'),
         fallbackLocale: const Locale('en', 'US'),
         child: CPM()),
   );
