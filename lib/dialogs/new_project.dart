@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../models/project.dart';
 
@@ -37,7 +37,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
       final String lastText = DateFormat.yMd(Intl.systemLocale).format(dates!.end);
       res = '$firstText - $lastText';
     } else {
-      res = 'Enter production dates';
+      res = 'dates_dialog'.tr();
     }
     setState(() {
       dateText = res;
@@ -54,11 +54,11 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Text>[
-                Text('New Project'),
+              children: <Text>[
+                Text('${'new.masc.eau.upper'.tr()} ${'projects.project.lower'.plural(1)}'),
                 Text(
-                  'Create a new project.',
-                  style: TextStyle(fontSize: 12),
+                  '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.eau.lower'.tr()} ${'projects.project.lower'.plural(1)}.',
+                  style: const TextStyle(fontSize: 12),
                 )
               ],
             ),
@@ -101,7 +101,10 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                 child: TextField(
                   maxLength: 64,
                   controller: titleController,
-                  decoration: const InputDecoration(labelText: 'Title', border: OutlineInputBorder(), isDense: true),
+                  decoration: InputDecoration(
+                      labelText: 'attributes.title.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                  autofocus: true,
+                  onEditingComplete: submit,
                 ),
               ),
             ),
@@ -113,8 +116,10 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                   maxLength: 280,
                   maxLines: 4,
                   controller: descriptionController,
-                  decoration:
-                      const InputDecoration(labelText: 'Description', border: OutlineInputBorder(), isDense: true),
+                  decoration: InputDecoration(
+                      labelText: 'attributes.description.upper'.tr(),
+                      border: const OutlineInputBorder(),
+                      isDense: true),
                 ),
               ),
             ),
@@ -141,9 +146,9 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
               child: SizedBox(
                 width: 330,
                 child: SegmentedButton<ProjectType>(
-                  segments: const <ButtonSegment<ProjectType>>[
-                    ButtonSegment<ProjectType>(label: Text('Movie'), value: ProjectType.movie),
-                    ButtonSegment<ProjectType>(label: Text('Series'), value: ProjectType.series)
+                  segments: <ButtonSegment<ProjectType>>[
+                    ButtonSegment<ProjectType>(label: Text('projects.movie.upper'.tr()), value: ProjectType.movie),
+                    ButtonSegment<ProjectType>(label: Text('projects.series.upper'.tr()), value: ProjectType.series)
                   ],
                   selected: <ProjectType>{type},
                   onSelectionChanged: (Set<ProjectType> newSelection) {
@@ -164,17 +169,17 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Cancel')),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('OK'))
+                    child: Text('cancel.upper'.tr())),
+                TextButton(onPressed: submit, child: Text('confirm.upper'.tr()))
               ],
             )
           ]),
         )
       ],
     );
+  }
+
+  void submit() {
+    Navigator.pop(context);
   }
 }

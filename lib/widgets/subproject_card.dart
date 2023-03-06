@@ -54,7 +54,10 @@ class _SubProjectCardState extends State<SubProjectCard> {
                           borderRadius: const BorderRadius.all(Radius.circular(15))),
                       child: Text(number.toString(),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.onSecondary)),
                     ),
                   ),
                   Flexible(

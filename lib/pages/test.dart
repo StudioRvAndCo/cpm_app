@@ -28,18 +28,19 @@ class Test extends StatelessWidget {
               dateRange: DateTimeRange(start: DateTime(2023, 9, 19), end: DateTime(2023, 9, 24)),
               leftLabel: const IconLabel(text: 'Bastien', icon: Icons.movie_outlined),
               rightLabel: const IconLabel(text: 'Maxence', icon: Icons.description_outlined),
-              image: Image.asset('assets/en-sursis.png'),
+              image: Image.asset('assets/images/en-sursis.png'),
               progress: 0.3,
               cornerButton: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
             ),
-            WebMemberCard(name: 'Member', phone: '04 76 87 01 32', picture: Image.asset('assets/logo-camera.png')),
+            WebMemberCard(
+                name: 'Member', phone: '04 76 87 01 32', picture: Image.asset('assets/images/logo-camera.png')),
             WebMemberEditor(
                 onEdit: () {},
                 onSave: () {},
                 onCancel: () {},
                 name: 'Member',
                 phone: '04 76 87 01 32',
-                picture: Image.asset('assets/logo-camera.png')),
+                picture: Image.asset('assets/images/logo-camera.png')),
             ElevatedButton(
                 onPressed: () {},
                 clipBehavior: Clip.antiAlias,
@@ -51,7 +52,9 @@ class Test extends StatelessWidget {
                     width: 170,
                     height: 170,
                     child: FittedBox(
-                        fit: BoxFit.cover, clipBehavior: Clip.hardEdge, child: Image.asset('assets/logo-camera.png')))),
+                        fit: BoxFit.cover,
+                        clipBehavior: Clip.hardEdge,
+                        child: Image.asset('assets/images/logo-camera.png')))),
             TextButton(
                 onPressed: () {
                   showModalBottomSheet(
@@ -122,8 +125,8 @@ class Test extends StatelessWidget {
                             edit: true,
                             firstName: 'Damian',
                             lastName: 'Carmona',
-                            telephone: '0836656565',
-                            image: Image.asset('assets/logo-cpm-alpha.png'));
+                            phone: '0836656565',
+                            image: Image.asset('assets/images/logo-cpm-alpha.png'));
                       });
                 },
                 child: const Text('Edit member')),

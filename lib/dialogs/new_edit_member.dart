@@ -1,15 +1,16 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 class MemberDialog extends StatefulWidget {
-  const MemberDialog({super.key, required this.edit, this.firstName, this.lastName, this.telephone, this.image});
+  const MemberDialog({super.key, required this.edit, this.firstName, this.lastName, this.phone, this.image});
 
   final String? firstName;
   final String? lastName;
-  final String? telephone;
+  final String? phone;
   final Image? image;
   final bool edit;
 
@@ -20,7 +21,7 @@ class MemberDialog extends StatefulWidget {
 class _MemberDialogState extends State<MemberDialog> {
   late final TextEditingController firstNameController;
   late final TextEditingController lastNameController;
-  late final TextEditingController telephoneController;
+  late final TextEditingController phoneController;
   Image? image;
 
   late String title;
@@ -30,10 +31,14 @@ class _MemberDialogState extends State<MemberDialog> {
   void initState() {
     firstNameController = TextEditingController(text: widget.firstName);
     lastNameController = TextEditingController(text: widget.lastName);
-    telephoneController = TextEditingController(text: widget.telephone);
+    phoneController = TextEditingController(text: widget.phone);
     image = widget.image;
-    title = widget.edit ? 'Edit Member' : 'New Member';
-    subtitle = widget.edit ? 'Edit a member.' : 'Create a new member.';
+    title = widget.edit
+        ? '${'edit.upper'.tr()} ${widget.firstName!}'
+        : '${'new.masc.eau.upper'.tr()} ${'members.member.lower'.plural(1)}';
+    subtitle = widget.edit
+        ? '${'edit.upper'.tr()} ${'articles.this.masc.lower'.plural(1)} ${'members.member.lower'.plural(1)}.'
+        : '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.eau.lower'.tr()} ${'members.member.lower'.plural(1)}.';
     return super.initState();
   }
 
@@ -56,14 +61,23 @@ class _MemberDialogState extends State<MemberDialog> {
               ],
             ),
             IconButton(
-              style: IconButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-              icon: Builder(builder: (BuildContext context) {
-                if (image != null) {
-                  return SizedBox(height: 80, width: 80, child: image);
-                } else {
-                  return const Icon(Icons.add_a_photo_outlined, size: 80);
-                }
-              }),
+              style: IconButton.styleFrom(shape: const CircleBorder()),
+              icon: SizedBox(
+                width: 100,
+                height: 100,
+                child: Builder(builder: (BuildContext context) {
+                  if (image != null) {
+                    return Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, image: DecorationImage(image: image!.image, fit: BoxFit.cover)));
+                  } else {
+                    return const Icon(
+                      Icons.add_a_photo_outlined,
+                      size: 80,
+                    );
+                  }
+                }),
+              ),
               onPressed: () async {
                 final FilePickerResult? result =
                     await FilePicker.platform.pickFiles(type: FileType.image, lockParentWindow: true, withData: kIsWeb);
@@ -95,13 +109,15 @@ class _MemberDialogState extends State<MemberDialog> {
                   valueListenable: firstNameController,
                   builder: (BuildContext context, TextEditingValue value, __) {
                     return TextField(
+                      autofocus: true,
                       controller: firstNameController,
                       maxLength: 64,
                       decoration: InputDecoration(
-                          labelText: 'First name',
-                          errorText: firstNameController.text.trim().isEmpty ? "Can't be empty." : null,
+                          labelText: 'attributes.firstname.upper'.tr(),
+                          errorText: firstNameController.text.trim().isEmpty ? 'error.empty'.tr() : null,
                           border: const OutlineInputBorder(),
                           isDense: true),
+                      onEditingComplete: submit,
                     );
                   },
                 ),
@@ -112,11 +128,13 @@ class _MemberDialogState extends State<MemberDialog> {
               child: SizedBox(
                 width: 330,
                 child: TextField(
-                  controller: lastNameController,
-                  maxLength: 64,
-                  decoration:
-                      const InputDecoration(labelText: 'Last name', border: OutlineInputBorder(), isDense: true),
-                ),
+                    controller: lastNameController,
+                    maxLength: 64,
+                    decoration: InputDecoration(
+                        labelText: 'attributes.lastname.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                    onEditingComplete: () {
+                      submit();
+                    }),
               ),
             ),
             Padding(
@@ -124,11 +142,13 @@ class _MemberDialogState extends State<MemberDialog> {
               child: SizedBox(
                 width: 330,
                 child: TextField(
-                  controller: telephoneController,
-                  maxLength: 12,
-                  decoration:
-                      const InputDecoration(labelText: 'Telephone', border: OutlineInputBorder(), isDense: true),
-                ),
+                    controller: phoneController,
+                    maxLength: 12,
+                    decoration: InputDecoration(
+                        labelText: 'attributes.phone.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                    onEditingComplete: () {
+                      submit();
+                    }),
               ),
             ),
             const SizedBox(
@@ -141,23 +161,21 @@ class _MemberDialogState extends State<MemberDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Cancel')),
-                TextButton(
-                    onPressed: () {
-                      if (firstNameController.text.trim().isEmpty) {
-                        return;
-                      }
-                      // TODO(mael): return values to create member
-                      Navigator.pop(
-                        context,
-                      );
-                    },
-                    child: const Text('OK'))
+                    child: Text('cancel'.tr())),
+                TextButton(onPressed: submit, child: Text('confirm'.tr()))
               ],
             )
           ]),
         )
       ],
     );
+  }
+
+  void submit() {
+    if (firstNameController.text.trim().isEmpty) {
+      return;
+    }
+    // TODO(mael): add member via API
+    Navigator.pop(context);
   }
 }

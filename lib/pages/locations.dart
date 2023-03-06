@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../dialogs/confirm_dialog.dart';
@@ -39,7 +40,7 @@ class _LocationsState extends State<Locations> {
             edit(location);
           },
           onDelete: (Location location) {
-            showConfirmationDialog(context, 'delete').then((bool? result) {
+            showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) {
               if (result ?? false) {
                 delete(location);
               }
@@ -60,26 +61,26 @@ class _LocationsState extends State<Locations> {
             onDismissed: (DismissDirection direction) {
               final Location location = locationsTiles.elementAt(index).location;
               switch (direction) {
-                case DismissDirection.endToStart:
-                  edit(location);
-                  break;
                 case DismissDirection.startToEnd:
                   delete(location);
                   break;
+                case DismissDirection.endToStart:
                 case DismissDirection.vertical:
                 case DismissDirection.horizontal:
                 case DismissDirection.up:
                 case DismissDirection.down:
                 case DismissDirection.none:
-                  throw InvalidDirectionException('Invalid direction');
+                  throw InvalidDirectionException('error.direction'.tr());
               }
             },
             confirmDismiss: (DismissDirection dismissDirection) async {
               switch (dismissDirection) {
                 case DismissDirection.endToStart:
-                  return true;
+                  final Location location = locationsTiles.elementAt(index).location;
+                  edit(location);
+                  return false;
                 case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(context, 'delete') ?? false == true;
+                  return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false == true;
                 case DismissDirection.horizontal:
                 case DismissDirection.vertical:
                 case DismissDirection.up:
