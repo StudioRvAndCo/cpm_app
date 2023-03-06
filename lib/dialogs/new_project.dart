@@ -26,15 +26,16 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
 
   @override
   void initState() {
-    updateDateText();
     return super.initState();
   }
 
   void updateDateText() {
     String res;
     if (dates != null) {
-      final String firstText = DateFormat.yMd(Intl.systemLocale).format(dates!.start);
-      final String lastText = DateFormat.yMd(Intl.systemLocale).format(dates!.end);
+      final String firstText =
+          DateFormat.yMd(context.locale.toString()).format(dates!.start);
+      final String lastText =
+          DateFormat.yMd(context.locale.toString()).format(dates!.end);
       res = '$firstText - $lastText';
     } else {
       res = 'dates_dialog'.tr();
@@ -46,6 +47,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
 
   @override
   Widget build(BuildContext context) {
+    updateDateText();
     return SimpleDialog(
       title: Padding(
         padding: const EdgeInsets.all(6.8),
@@ -55,7 +57,8 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Text>[
-                Text('${'new.masc.eau.upper'.tr()} ${'projects.project.lower'.plural(1)}'),
+                Text(
+                    '${'new.masc.eau.upper'.tr()} ${'projects.project.lower'.plural(1)}'),
                 Text(
                   '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.eau.lower'.tr()} ${'projects.project.lower'.plural(1)}.',
                   style: const TextStyle(fontSize: 12),
@@ -63,7 +66,9 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
               ],
             ),
             IconButton(
-              style: IconButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+              style: IconButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
               icon: Builder(builder: (BuildContext context) {
                 if (image != null) {
                   return SizedBox(height: 80, width: 80, child: image);
@@ -72,8 +77,8 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
                 }
               }),
               onPressed: () async {
-                final FilePickerResult? result =
-                    await FilePicker.platform.pickFiles(type: FileType.image, lockParentWindow: true);
+                final FilePickerResult? result = await FilePicker.platform
+                    .pickFiles(type: FileType.image, lockParentWindow: true);
                 if (result != null) {
                   Image imgRes;
                   if (kIsWeb) {
@@ -93,87 +98,100 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 330,
-                child: TextField(
-                  maxLength: 64,
-                  controller: titleController,
-                  decoration: InputDecoration(
-                      labelText: 'attributes.title.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
-                  autofocus: true,
-                  onEditingComplete: submit,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 330,
-                child: TextField(
-                  maxLength: 280,
-                  maxLines: 4,
-                  controller: descriptionController,
-                  decoration: InputDecoration(
-                      labelText: 'attributes.description.upper'.tr(),
-                      border: const OutlineInputBorder(),
-                      isDense: true),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 330,
-                child: OutlinedButton.icon(
-                  onPressed: () async {
-                    final DateTimeRange? picked = await showDateRangePicker(
-                        context: context, firstDate: DateTime(1970), lastDate: DateTime(3000), initialDateRange: dates);
-                    if (picked != null) {
-                      dates = DateTimeRange(start: picked.start, end: picked.end);
-                      updateDateText();
-                    }
-                  },
-                  icon: const Icon(Icons.calendar_month),
-                  label: Text(dateText),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 330,
-                child: SegmentedButton<ProjectType>(
-                  segments: <ButtonSegment<ProjectType>>[
-                    ButtonSegment<ProjectType>(label: Text('projects.movie.upper'.tr()), value: ProjectType.movie),
-                    ButtonSegment<ProjectType>(label: Text('projects.series.upper'.tr()), value: ProjectType.series)
-                  ],
-                  selected: <ProjectType>{type},
-                  onSelectionChanged: (Set<ProjectType> newSelection) {
-                    setState(() {
-                      type = newSelection.first;
-                    });
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text('cancel.upper'.tr())),
-                TextButton(onPressed: submit, child: Text('confirm.upper'.tr()))
-              ],
-            )
-          ]),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: TextField(
+                      maxLength: 64,
+                      controller: titleController,
+                      decoration: InputDecoration(
+                          labelText: 'attributes.title.upper'.tr(),
+                          border: const OutlineInputBorder(),
+                          isDense: true),
+                      autofocus: true,
+                      onEditingComplete: submit,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: TextField(
+                      maxLength: 280,
+                      maxLines: 4,
+                      controller: descriptionController,
+                      decoration: InputDecoration(
+                          labelText: 'attributes.description.upper'.tr(),
+                          border: const OutlineInputBorder(),
+                          isDense: true),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: OutlinedButton.icon(
+                      onPressed: () async {
+                        final DateTimeRange? picked = await showDateRangePicker(
+                            context: context,
+                            firstDate: DateTime(1970),
+                            lastDate: DateTime(3000),
+                            initialDateRange: dates);
+                        if (picked != null) {
+                          dates = DateTimeRange(
+                              start: picked.start, end: picked.end);
+                          updateDateText();
+                        }
+                      },
+                      icon: const Icon(Icons.calendar_month),
+                      label: Text(dateText),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 330,
+                    child: SegmentedButton<ProjectType>(
+                      segments: <ButtonSegment<ProjectType>>[
+                        ButtonSegment<ProjectType>(
+                            label: Text('projects.movie.upper'.tr()),
+                            value: ProjectType.movie),
+                        ButtonSegment<ProjectType>(
+                            label: Text('projects.series.upper'.tr()),
+                            value: ProjectType.series)
+                      ],
+                      selected: <ProjectType>{type},
+                      onSelectionChanged: (Set<ProjectType> newSelection) {
+                        setState(() {
+                          type = newSelection.first;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('cancel.upper'.tr())),
+                    TextButton(
+                        onPressed: submit, child: Text('confirm.upper'.tr()))
+                  ],
+                )
+              ]),
         )
       ],
     );

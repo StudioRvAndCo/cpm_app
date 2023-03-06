@@ -1,7 +1,7 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'icon_label.dart';
 
@@ -26,9 +26,11 @@ class InfoHeader extends StatelessWidget {
   final double progress;
   final IconButton? cornerButton;
 
-  String _getDateText() {
-    final String firstText = DateFormat.yMd(Intl.systemLocale).format(dateRange.start);
-    final String lastText = DateFormat.yMd(Intl.systemLocale).format(dateRange.end);
+  String _getDateText(BuildContext context) {
+    final String firstText =
+        DateFormat.yMd(context.locale.toString()).format(dateRange.start);
+    final String lastText =
+        DateFormat.yMd(context.locale.toString()).format(dateRange.end);
     return '$firstText - $lastText';
   }
 
@@ -39,7 +41,10 @@ class InfoHeader extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           title,
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontWeight: FontWeight.bold),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -52,7 +57,10 @@ class InfoHeader extends StatelessWidget {
       return leftLabel;
     } else {
       return Row(
-        children: <Widget>[Flexible(child: leftLabel), Flexible(child: rightLabel!)],
+        children: <Widget>[
+          Flexible(child: leftLabel),
+          Flexible(child: rightLabel!)
+        ],
       );
     }
   }
@@ -60,32 +68,34 @@ class InfoHeader extends StatelessWidget {
   Widget _getCardContent(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        if (cornerButton == null)
-          _getTitle(context)
-        else
-          Row(children: <Widget>[
-            Flexible(
-              fit: FlexFit.tight,
-              child: _getTitle(context),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (cornerButton == null)
+              _getTitle(context)
+            else
+              Row(children: <Widget>[
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: _getTitle(context),
+                ),
+                cornerButton!
+              ]),
+            Text(
+              description,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            cornerButton!
+            const SizedBox(height: 8),
+            IconLabel(text: _getDateText(context), icon: Icons.event),
+            const SizedBox(height: 8),
+            _getBottomRow(),
+            const SizedBox(height: 8),
+            LinearProgressIndicator(
+              value: progress,
+              backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+            )
           ]),
-        Text(
-          description,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        const SizedBox(height: 8),
-        IconLabel(text: _getDateText(), icon: Icons.event),
-        const SizedBox(height: 8),
-        _getBottomRow(),
-        const SizedBox(height: 8),
-        LinearProgressIndicator(
-          value: progress,
-          backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-        )
-      ]),
     );
   }
 
@@ -112,7 +122,8 @@ class InfoHeader extends StatelessWidget {
                             Colors.black.withOpacity(0.2),
                             Colors.transparent
                           ],
-                        ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+                        ).createShader(
+                            Rect.fromLTRB(0, 0, rect.width, rect.height));
                       },
                       blendMode: BlendMode.dstIn,
                       child: ImageFiltered(
