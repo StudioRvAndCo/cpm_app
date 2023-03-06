@@ -250,6 +250,28 @@
                 "upper":"The",
                 "lower":"the"
             }
+        },
+        "this":{
+            "masc":{
+                "upper":{
+                    "one":"This",
+                    "other":"These"
+                },
+                "lower":{
+                    "one":"this",
+                    "other":"these"
+                }
+            },
+            "fem":{
+                "upper":{
+                    "one":"This",
+                    "other":"These"
+                },
+                "lower":{
+                    "one":"this",
+                    "other":"these"
+                }
+            }
         }
     }
 }

@@ -250,6 +250,28 @@
                 "upper":"La",
                 "lower":"la"
             }
+        },
+        "this":{
+            "masc":{
+                "upper":{
+                    "one":"Ce",
+                    "other":"Ces"
+                },
+                "lower":{
+                    "one":"ce",
+                    "other":"ces"
+                }
+            },
+            "fem":{
+                "upper":{
+                    "one":"Cette",
+                    "other":"Cettes"
+                },
+                "lower":{
+                    "one":"cette",
+                    "other":"cettes"
+                }
+            }
         }
     }
 }
