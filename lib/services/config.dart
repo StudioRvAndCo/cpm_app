@@ -15,7 +15,7 @@ class Config {
   }
 
   static Future<void> init() async {
-    final String yaml = await rootBundle.loadString('assets/config.yaml');
+    final String yaml = await rootBundle.loadString('assets/config/config.yaml');
     _instance = Config._(yaml);
   }
 
