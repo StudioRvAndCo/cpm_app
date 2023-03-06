@@ -20,7 +20,6 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
 
   @override
   void initState() {
-    updateDateText();
     locations = widget.locations;
     return super.initState();
   }
@@ -28,8 +27,8 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
   void updateDateText() {
     String res;
     if (dates != null) {
-      final String firstText = DateFormat.yMd(Intl.systemLocale).format(dates!.start);
-      final String lastText = DateFormat.yMd(Intl.systemLocale).format(dates!.end);
+      final String firstText = DateFormat.yMd(context.locale.toString()).format(dates!.start);
+      final String lastText = DateFormat.yMd(context.locale.toString()).format(dates!.end);
       res = '$firstText - $lastText';
     } else {
       res = 'dates_dialog'.tr();
@@ -41,6 +40,7 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
 
   @override
   Widget build(BuildContext context) {
+    updateDateText();
     return SimpleDialog(
       title: SizedBox(
         width: 300,
