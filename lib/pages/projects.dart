@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../models/project.dart';
+import '../services/project.dart';
 import '../widgets/project_card.dart';
-import '../widgets/subproject_card.dart';
 import 'planning.dart';
 
-enum Page { projects, sequences, planning }
+enum ProjectsPage { projects, sequences, planning }
+
+class MyNotification extends Notification {
+  const MyNotification({required this.title});
+
+  final String title;
+}
 
 class Projects extends StatefulWidget {
   const Projects({super.key});
@@ -15,61 +21,51 @@ class Projects extends StatefulWidget {
 }
 
 class _ProjectsState extends State<Projects> {
-  late Page page;
+  ProjectsPage page = ProjectsPage.projects;
+  List<Project> projects = <Project>[];
+  late Project planningProject;
 
   @override
   void initState() {
     super.initState();
-    page = Page.projects;
+    getProjects();
   }
 
   @override
   Widget build(BuildContext context) {
-    final ProjectCard project = ProjectCard(
-      title: 'En Sursis',
-      favorite: false,
-      image: Image.asset('assets/images/en-sursis.png'),
-      shotsCompleted: 3,
-      shotsTotal: 12,
-      openPlanning: () {
-        setState(() {
-          page = Page.planning;
-        });
-      },
-      openSequences: () {
-        setState(() {
-          page = Page.sequences;
-        });
-      },
-    );
-
-    const SubProjectCard subProjectCard = SubProjectCard(
-        number: 1,
-        title: 'Titre',
-        description: 'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM',
-        shotsTotal: 15,
-        shotsCompleted: 2);
-
     switch (page) {
-      case Page.projects:
+      case ProjectsPage.projects:
         return Expanded(
             child: Column(
-          children: <Widget>[
-            project,
-            project,
-            subProjectCard,
+          children: <ProjectCard>[
+            for (Project project in projects)
+              ProjectCard(
+                project: project,
+                openSequences: () {
+                  setState(() {
+                    page = ProjectsPage.sequences;
+                  });
+                },
+                openPlanning: () {
+                  setState(() {
+                    planningProject = project;
+                    page = ProjectsPage.planning;
+                  });
+                },
+              )
           ],
         ));
-      case Page.sequences:
+      case ProjectsPage.sequences:
         return const Center(child: Text('Sequences'));
-      case Page.planning:
-        return Planning(
-            project: Project(
-                projectType: ProjectType.movie,
-                title: 'Project',
-                beginDate: DateTime(2023, 02, 03),
-                endDate: DateTime(2023, 04, 04),
-                sequences: []));
+      case ProjectsPage.planning:
+        return Planning(project: planningProject);
     }
+  }
+
+  Future<void> getProjects() async {
+    final List<dynamic> result = await ProjectService().getProjects();
+    setState(() {
+      projects = result[1] as List<Project>;
+    });
   }
 }

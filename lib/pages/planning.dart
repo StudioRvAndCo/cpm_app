@@ -8,7 +8,9 @@ import '../models/sequence.dart';
 
 enum View { month, week, day }
 
-final GlobalKey<MonthViewState<Event>> calendarKey = GlobalKey<MonthViewState<Event>>();
+final GlobalKey<MonthViewState<Event>> calendarMonthKey = GlobalKey<MonthViewState<Event>>();
+final GlobalKey<WeekViewState<Event>> calendarWeekKey = GlobalKey<WeekViewState<Event>>();
+final GlobalKey<DayViewState<Event>> calendarDayKey = GlobalKey<DayViewState<Event>>();
 
 class Planning extends StatefulWidget {
   const Planning({super.key, required this.project});
@@ -58,13 +60,33 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
           children: <Widget>[
             IconButton(
                 onPressed: () {
-                  calendarKey.currentState?.previousPage();
+                  switch (view) {
+                    case View.month:
+                      calendarMonthKey.currentState?.previousPage();
+                      break;
+                    case View.week:
+                      calendarWeekKey.currentState?.previousPage();
+                      break;
+                    case View.day:
+                      calendarDayKey.currentState?.previousPage();
+                      break;
+                  }
                 },
                 icon: const Icon(Icons.chevron_left)),
             const Padding(padding: EdgeInsets.only(right: 8)),
             IconButton(
                 onPressed: () {
-                  calendarKey.currentState?.nextPage();
+                  switch (view) {
+                    case View.month:
+                      calendarMonthKey.currentState?.nextPage();
+                      break;
+                    case View.week:
+                      calendarWeekKey.currentState?.nextPage();
+                      break;
+                    case View.day:
+                      calendarDayKey.currentState?.nextPage();
+                      break;
+                  }
                 },
                 icon: const Icon(Icons.chevron_right))
           ],
@@ -112,7 +134,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   LayoutBuilder _buildMonthView() {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       return MonthView<Event>(
-        key: calendarKey,
+        key: calendarMonthKey,
         headerStyle: _buildHeader(),
         minMonth: widget.project.beginDate,
         maxMonth: widget.project.endDate,
@@ -131,6 +153,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   LayoutBuilder _buildWeekView() {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       return WeekView<Event>(
+        key: calendarWeekKey,
         headerStyle: _buildHeader(),
         minDay: widget.project.beginDate,
         maxDay: widget.project.endDate,
@@ -146,6 +169,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   LayoutBuilder _buildDayView() {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       return DayView<Event>(
+        key: calendarDayKey,
         headerStyle: _buildHeader(),
         minDay: widget.project.beginDate,
         maxDay: widget.project.endDate,
