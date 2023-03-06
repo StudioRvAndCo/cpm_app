@@ -15,8 +15,7 @@ import 'package:auto_route/auto_route.dart' as _i7;
 import 'package:flutter/foundation.dart' as _i9;
 import 'package:flutter/material.dart' as _i8;
 
-import '../models/member.dart' as _i10;
-import '../models/project.dart' as _i11;
+import '../models/project.dart' as _i10;
 import '../pages/home.dart' as _i2;
 import '../pages/information.dart' as _i4;
 import '../pages/login.dart' as _i1;
@@ -46,13 +45,9 @@ class AppRouter extends _i7.RootStackRouter {
       );
     },
     MembersRoute.name: (routeData) {
-      final args = routeData.argsAs<MembersRouteArgs>();
       return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i3.Members(
-          key: args.key,
-          members: args.members,
-        ),
+        child: const _i3.Members(),
       );
     },
     InformationRoute.name: (routeData) {
@@ -169,36 +164,14 @@ class HomeRoute extends _i7.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.Members]
-class MembersRoute extends _i7.PageRouteInfo<MembersRouteArgs> {
-  MembersRoute({
-    _i9.Key? key,
-    required List<_i10.Member> members,
-  }) : super(
+class MembersRoute extends _i7.PageRouteInfo<void> {
+  const MembersRoute()
+      : super(
           MembersRoute.name,
           path: '/Members',
-          args: MembersRouteArgs(
-            key: key,
-            members: members,
-          ),
         );
 
   static const String name = 'MembersRoute';
-}
-
-class MembersRouteArgs {
-  const MembersRouteArgs({
-    this.key,
-    required this.members,
-  });
-
-  final _i9.Key? key;
-
-  final List<_i10.Member> members;
-
-  @override
-  String toString() {
-    return 'MembersRouteArgs{key: $key, members: $members}';
-  }
 }
 
 /// generated route for
@@ -218,7 +191,7 @@ class InformationRoute extends _i7.PageRouteInfo<void> {
 class PlanningRoute extends _i7.PageRouteInfo<PlanningRouteArgs> {
   PlanningRoute({
     _i9.Key? key,
-    required _i11.Project project,
+    required _i10.Project project,
   }) : super(
           PlanningRoute.name,
           path: '/Planning',
@@ -239,7 +212,7 @@ class PlanningRouteArgs {
 
   final _i9.Key? key;
 
-  final _i11.Project project;
+  final _i10.Project project;
 
   @override
   String toString() {
