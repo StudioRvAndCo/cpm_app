@@ -35,6 +35,7 @@ class Test extends StatelessWidget {
             WebMemberCard(
                 name: 'Member', phone: '04 76 87 01 32', picture: Image.asset('assets/images/logo-camera.png')),
             WebMemberEditor(
+                isEdit: true,
                 onEdit: () {},
                 onSave: () {},
                 onCancel: () {},
