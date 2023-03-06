@@ -62,7 +62,8 @@ class WebMemberEditor extends StatelessWidget {
                           color: Colors.transparent,
                           child: InkWell(
                             onTap: onEdit,
-                            overlayColor: MaterialStateColor.resolveWith((Set<MaterialState> states) => Theme.of(context).colorScheme.tertiary.withOpacity(0.08)),
+                            overlayColor: MaterialStateColor.resolveWith((Set<MaterialState> states) =>
+                                Theme.of(context).colorScheme.tertiary.withOpacity(0.08)),
                           ),
                         )
                       ],
