@@ -5,6 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
 
+import 'models/event.dart';
 import 'routes/route.gr.dart';
 import 'services/config.dart';
 import 'services/login.dart';
@@ -63,8 +64,8 @@ class _CPMState extends State<CPM> {
 
   @override
   Widget build(BuildContext context) {
-    return CalendarControllerProvider(
-      controller: EventController(),
+    return CalendarControllerProvider<Event>(
+      controller: EventController<Event>(),
       child: MaterialApp.router(
           routerDelegate: AutoRouterDelegate.declarative(
             widget._appRouter,
