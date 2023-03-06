@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class WebMemberEditor extends StatelessWidget {
   const WebMemberEditor(
       {super.key,
+      this.isEdit = false,
       required this.onEdit,
       required this.onSave,
       required this.onCancel,
@@ -13,6 +14,7 @@ class WebMemberEditor extends StatelessWidget {
   final void Function() onEdit;
   final void Function() onSave;
   final void Function() onCancel;
+  final bool isEdit;
   final Image? picture;
   final String? name;
   final String? phone;
@@ -39,7 +41,7 @@ class WebMemberEditor extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Text(
-              'Edit member',
+              isEdit ? 'Edit member' : 'Add member',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(
@@ -60,6 +62,7 @@ class WebMemberEditor extends StatelessWidget {
                           color: Colors.transparent,
                           child: InkWell(
                             onTap: onEdit,
+                            overlayColor: MaterialStateColor.resolveWith((Set<MaterialState> states) => Theme.of(context).colorScheme.tertiary.withOpacity(0.08)),
                           ),
                         )
                       ],
@@ -89,7 +92,7 @@ class WebMemberEditor extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                       foregroundColor: Theme.of(context).colorScheme.error,
                       side: BorderSide(color: Theme.of(context).colorScheme.error)),
-                  child: const Text('Delete'),
+                  child: Text(isEdit ? 'Delete' : 'Cancel'),
                 ),
                 const SizedBox(
                   width: 8,
