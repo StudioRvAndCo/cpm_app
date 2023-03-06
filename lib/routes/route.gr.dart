@@ -24,8 +24,7 @@ import '../pages/planning.dart' as _i5;
 import '../pages/test.dart' as _i6;
 
 class AppRouter extends _i7.RootStackRouter {
-  AppRouter([_i8.GlobalKey<_i8.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+  AppRouter([_i8.GlobalKey<_i8.NavigatorState>? navigatorKey]) : super(navigatorKey);
 
   @override
   final Map<String, _i7.PageFactory> pagesMap = {
