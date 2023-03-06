@@ -35,26 +35,37 @@ class _ProjectsState extends State<Projects> {
   Widget build(BuildContext context) {
     switch (page) {
       case ProjectsPage.projects:
-        return Expanded(
-            child: Column(
-          children: <ProjectCard>[
-            for (Project project in projects)
-              ProjectCard(
-                project: project,
-                openSequences: () {
-                  setState(() {
-                    page = ProjectsPage.sequences;
-                  });
-                },
-                openPlanning: () {
-                  setState(() {
-                    planningProject = project;
-                    page = ProjectsPage.planning;
-                  });
-                },
-              )
-          ],
-        ));
+        if (projects.isEmpty) {
+          return Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <CircularProgressIndicator>[
+                CircularProgressIndicator(),
+              ],
+            ),
+          );
+        } else {
+          return Expanded(
+              child: Column(
+            children: <ProjectCard>[
+              for (Project project in projects)
+                ProjectCard(
+                  project: project,
+                  openSequences: () {
+                    setState(() {
+                      page = ProjectsPage.sequences;
+                    });
+                  },
+                  openPlanning: () {
+                    setState(() {
+                      planningProject = project;
+                      page = ProjectsPage.planning;
+                    });
+                  },
+                )
+            ],
+          ));
+        }
       case ProjectsPage.sequences:
         return const Center(child: Text('Sequences'));
       case ProjectsPage.planning:

@@ -48,55 +48,66 @@ class _LocationsState extends State<Locations> {
           },
         ));
 
-    return Expanded(
-        child: Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
-      body: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) => divider,
-        itemCount: locationsTiles.length,
-        itemBuilder: (BuildContext context, int index) => ClipRRect(
-          clipBehavior: Clip.hardEdge,
-          child: Dismissible(
-            key: UniqueKey(),
-            onDismissed: (DismissDirection direction) {
-              final Location location = locationsTiles.elementAt(index).location;
-              switch (direction) {
-                case DismissDirection.startToEnd:
-                  delete(location);
-                  break;
-                case DismissDirection.endToStart:
-                case DismissDirection.vertical:
-                case DismissDirection.horizontal:
-                case DismissDirection.up:
-                case DismissDirection.down:
-                case DismissDirection.none:
-                  throw InvalidDirectionException('error.direction'.tr());
-              }
-            },
-            confirmDismiss: (DismissDirection dismissDirection) async {
-              switch (dismissDirection) {
-                case DismissDirection.endToStart:
-                  final Location location = locationsTiles.elementAt(index).location;
-                  edit(location);
-                  return false;
-                case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false == true;
-                case DismissDirection.horizontal:
-                case DismissDirection.vertical:
-                case DismissDirection.up:
-                case DismissDirection.down:
-                case DismissDirection.none:
-                  assert(false);
-              }
-              return false;
-            },
-            background: deleteBackground(),
-            secondaryBackground: editBackground(),
-            child: locationsTiles.elementAt(index),
+    if (locations.isEmpty) {
+      return Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <CircularProgressIndicator>[
+            CircularProgressIndicator(),
+          ],
+        ),
+      );
+    } else {
+      return Expanded(
+          child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
+        body: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) => divider,
+          itemCount: locationsTiles.length,
+          itemBuilder: (BuildContext context, int index) => ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            child: Dismissible(
+              key: UniqueKey(),
+              onDismissed: (DismissDirection direction) {
+                final Location location = locationsTiles.elementAt(index).location;
+                switch (direction) {
+                  case DismissDirection.startToEnd:
+                    delete(location);
+                    break;
+                  case DismissDirection.endToStart:
+                  case DismissDirection.vertical:
+                  case DismissDirection.horizontal:
+                  case DismissDirection.up:
+                  case DismissDirection.down:
+                  case DismissDirection.none:
+                    throw InvalidDirectionException('error.direction'.tr());
+                }
+              },
+              confirmDismiss: (DismissDirection dismissDirection) async {
+                switch (dismissDirection) {
+                  case DismissDirection.endToStart:
+                    final Location location = locationsTiles.elementAt(index).location;
+                    edit(location);
+                    return false;
+                  case DismissDirection.startToEnd:
+                    return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false == true;
+                  case DismissDirection.horizontal:
+                  case DismissDirection.vertical:
+                  case DismissDirection.up:
+                  case DismissDirection.down:
+                  case DismissDirection.none:
+                    assert(false);
+                }
+                return false;
+              },
+              background: deleteBackground(),
+              secondaryBackground: editBackground(),
+              child: locationsTiles.elementAt(index),
+            ),
           ),
         ),
-      ),
-    ));
+      ));
+    }
   }
 
   void edit(Location location) {

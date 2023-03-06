@@ -48,55 +48,66 @@ class _MembersState extends State<Members> {
           },
         ));
 
-    return Expanded(
-        child: Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
-      body: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) => divider,
-        itemCount: membersTiles.length,
-        itemBuilder: (BuildContext context, int index) => ClipRRect(
-          clipBehavior: Clip.hardEdge,
-          child: Dismissible(
-            key: UniqueKey(),
-            onDismissed: (DismissDirection direction) {
-              final Member member = membersTiles.elementAt(index).member;
-              switch (direction) {
-                case DismissDirection.startToEnd:
-                  delete(member);
-                  break;
-                case DismissDirection.endToStart:
-                case DismissDirection.vertical:
-                case DismissDirection.horizontal:
-                case DismissDirection.up:
-                case DismissDirection.down:
-                case DismissDirection.none:
-                  throw InvalidDirectionException('error.direction'.tr());
-              }
-            },
-            confirmDismiss: (DismissDirection dismissDirection) async {
-              switch (dismissDirection) {
-                case DismissDirection.endToStart:
-                  final Member member = membersTiles.elementAt(index).member;
-                  edit(member);
-                  return false;
-                case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false;
-                case DismissDirection.horizontal:
-                case DismissDirection.vertical:
-                case DismissDirection.up:
-                case DismissDirection.down:
-                case DismissDirection.none:
-                  assert(false);
-              }
-              return false;
-            },
-            background: deleteBackground(),
-            secondaryBackground: editBackground(),
-            child: membersTiles.elementAt(index),
+    if (members.isEmpty) {
+      return Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <CircularProgressIndicator>[
+            CircularProgressIndicator(),
+          ],
+        ),
+      );
+    } else {
+      return Expanded(
+          child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
+        body: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) => divider,
+          itemCount: membersTiles.length,
+          itemBuilder: (BuildContext context, int index) => ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            child: Dismissible(
+              key: UniqueKey(),
+              onDismissed: (DismissDirection direction) {
+                final Member member = membersTiles.elementAt(index).member;
+                switch (direction) {
+                  case DismissDirection.startToEnd:
+                    delete(member);
+                    break;
+                  case DismissDirection.endToStart:
+                  case DismissDirection.vertical:
+                  case DismissDirection.horizontal:
+                  case DismissDirection.up:
+                  case DismissDirection.down:
+                  case DismissDirection.none:
+                    throw InvalidDirectionException('error.direction'.tr());
+                }
+              },
+              confirmDismiss: (DismissDirection dismissDirection) async {
+                switch (dismissDirection) {
+                  case DismissDirection.endToStart:
+                    final Member member = membersTiles.elementAt(index).member;
+                    edit(member);
+                    return false;
+                  case DismissDirection.startToEnd:
+                    return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false;
+                  case DismissDirection.horizontal:
+                  case DismissDirection.vertical:
+                  case DismissDirection.up:
+                  case DismissDirection.down:
+                  case DismissDirection.none:
+                    assert(false);
+                }
+                return false;
+              },
+              background: deleteBackground(),
+              secondaryBackground: editBackground(),
+              child: membersTiles.elementAt(index),
+            ),
           ),
         ),
-      ),
-    ));
+      ));
+    }
   }
 
   void edit(Member member) {
