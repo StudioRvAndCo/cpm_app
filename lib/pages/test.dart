@@ -25,21 +25,15 @@ class Test extends StatelessWidget {
               title: 'Test',
               description:
                   'This is a project, and this is a very long description that takes multiples lines, this project is a very good project that will be awesome',
-              dateRange: DateTimeRange(
-                  start: DateTime(2023, 9, 19), end: DateTime(2023, 9, 24)),
-              leftLabel:
-                  const IconLabel(text: 'Bastien', icon: Icons.movie_outlined),
-              rightLabel: const IconLabel(
-                  text: 'Maxence', icon: Icons.description_outlined),
+              dateRange: DateTimeRange(start: DateTime(2023, 9, 19), end: DateTime(2023, 9, 24)),
+              leftLabel: const IconLabel(text: 'Bastien', icon: Icons.movie_outlined),
+              rightLabel: const IconLabel(text: 'Maxence', icon: Icons.description_outlined),
               image: Image.asset('assets/images/en-sursis.png'),
               progress: 0.3,
-              cornerButton: IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.more_vert)),
+              cornerButton: IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
             ),
             WebMemberCard(
-                name: 'Member',
-                phone: '04 76 87 01 32',
-                picture: Image.asset('assets/images/logo-camera.png')),
+                name: 'Member', phone: '04 76 87 01 32', picture: Image.asset('assets/images/logo-camera.png')),
             WebMemberEditor(
                 onEdit: () {},
                 onSave: () {},
@@ -53,8 +47,7 @@ class Test extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.zero,
                     elevation: 10,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                 child: SizedBox(
                     width: 170,
                     height: 170,
@@ -133,8 +126,7 @@ class Test extends StatelessWidget {
                             firstName: 'Damian',
                             lastName: 'Carmona',
                             phone: '0836656565',
-                            image: Image.asset(
-                                'assets/images/logo-cpm-alpha.png'));
+                            image: Image.asset('assets/images/logo-cpm-alpha.png'));
                       });
                 },
                 child: const Text('Edit member')),

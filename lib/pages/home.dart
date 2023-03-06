@@ -32,9 +32,7 @@ class HomeState extends State<Home> {
     return LayoutBuilder(
       builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
         return Scaffold(
-            appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS)
-                ? const CustomAppBar()
-                : null,
+            appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? const CustomAppBar() : null,
             drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS)
                 ? CustomNavigationDrawer(onNavigate: (int index) {
                     _selectedIndex = index;
@@ -42,10 +40,7 @@ class HomeState extends State<Home> {
                 : null,
             body: SafeArea(
               child: Row(children: <Widget>[
-                if (kIsWeb ||
-                    Platform.isWindows ||
-                    Platform.isMacOS ||
-                    Platform.isFuchsia)
+                if (kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isFuchsia)
                   CustomNavigationRail(onNavigate: (int index) {
                     setState(() {
                       _selectedIndex = index;
@@ -64,17 +59,12 @@ class HomeState extends State<Home> {
         return const Projects();
       case 1:
         return Members(
-          members: <Member>[
-            Member(firstName: 'Paul', lastName: 'Issière', phone: '69')
-          ],
+          members: <Member>[Member(firstName: 'Paul', lastName: 'Issière', phone: '69')],
         );
       case 2:
         return Locations(
           locations: <Location>[
-            Location(
-                id: '1',
-                name: 'Polytech Grenoble',
-                position: "Polytech Grenoble, 38400 Saint-Martin-d'Hères"),
+            Location(id: '1', name: 'Polytech Grenoble', position: "Polytech Grenoble, 38400 Saint-Martin-d'Hères"),
             Location(
               id: '2',
               name: 'Tour Perret',

@@ -19,8 +19,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Consumer<ModelTheme>(builder:
-          (BuildContext context, ModelTheme themeNotifier, Widget? child) {
+      child: Consumer<ModelTheme>(builder: (BuildContext context, ModelTheme themeNotifier, Widget? child) {
         return Column(
           children: <Widget>[
             Radio<ThemeMode>(

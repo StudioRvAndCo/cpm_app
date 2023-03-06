@@ -30,14 +30,10 @@ class _LoginState extends State<Login> {
                     child: Builder(
                       builder: (BuildContext context) {
                         if (Theme.of(context).brightness == Brightness.light) {
-                          return Image.asset('assets/images/logo-camera.png',
-                              fit: BoxFit.fitWidth, width: 250);
+                          return Image.asset('assets/images/logo-camera.png', fit: BoxFit.fitWidth, width: 250);
                         } else {
-                          return Image.asset(
-                              'assets/images/logo-camera-blanc.png',
-                              filterQuality: FilterQuality.high,
-                              fit: BoxFit.fitWidth,
-                              width: 250);
+                          return Image.asset('assets/images/logo-camera-blanc.png',
+                              filterQuality: FilterQuality.high, fit: BoxFit.fitWidth, width: 250);
                         }
                       },
                     )),
@@ -55,9 +51,7 @@ class _LoginState extends State<Login> {
                           FocusScope.of(context).nextFocus();
                         },
                         decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            isDense: true,
-                            labelText: 'username'.tr()),
+                            border: const OutlineInputBorder(), isDense: true, labelText: 'username'.tr()),
                       ),
                     ),
                   ),
@@ -76,9 +70,7 @@ class _LoginState extends State<Login> {
                         submit();
                       },
                       decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          isDense: true,
-                          labelText: 'password'.tr()),
+                          border: const OutlineInputBorder(), isDense: true, labelText: 'password'.tr()),
                     ),
                   ),
                 ),

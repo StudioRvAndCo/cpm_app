@@ -35,26 +35,23 @@ class _MembersState extends State<Members> {
 
   @override
   Widget build(BuildContext context) {
-    final Iterable<MemberTile> membersTiles =
-        members.map((Member member) => MemberTile(
-              member: member,
-              onEdit: (Member member) {
-                edit(member);
-              },
-              onDelete: (Member member) {
-                showConfirmationDialog(context, 'delete.lower'.tr())
-                    .then((bool? result) {
-                  if (result ?? false) {
-                    delete(member);
-                  }
-                });
-              },
-            ));
+    final Iterable<MemberTile> membersTiles = members.map((Member member) => MemberTile(
+          member: member,
+          onEdit: (Member member) {
+            edit(member);
+          },
+          onDelete: (Member member) {
+            showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) {
+              if (result ?? false) {
+                delete(member);
+              }
+            });
+          },
+        ));
 
     return Expanded(
         child: Scaffold(
-      floatingActionButton:
-          FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
       body: ListView.separated(
         separatorBuilder: (BuildContext context, int index) => divider,
         itemCount: membersTiles.length,
@@ -84,9 +81,7 @@ class _MembersState extends State<Members> {
                   edit(member);
                   return false;
                 case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(
-                          context, 'delete.lower'.tr()) ??
-                      false;
+                  return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false;
                 case DismissDirection.horizontal:
                 case DismissDirection.vertical:
                 case DismissDirection.up:
@@ -147,10 +142,7 @@ class _MembersState extends State<Members> {
         if (result != null) {
           setState(() {
             final Member member = Member(
-                firstName: result.firstName,
-                lastName: result.lastName,
-                phone: result.phone,
-                image: result.image);
+                firstName: result.firstName, lastName: result.lastName, phone: result.phone, image: result.image);
             members.add(member);
           });
         }
