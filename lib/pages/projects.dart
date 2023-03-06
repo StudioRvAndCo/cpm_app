@@ -28,7 +28,7 @@ class _ProjectsState extends State<Projects> {
     final ProjectCard project = ProjectCard(
       title: 'En Sursis',
       favorite: false,
-      image: Image.asset('assets/en-sursis.png'),
+      image: Image.asset('assets/images/en-sursis.png'),
       shotsCompleted: 3,
       shotsTotal: 12,
       openPlanning: () {

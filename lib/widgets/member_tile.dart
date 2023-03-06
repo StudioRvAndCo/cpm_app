@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -21,10 +22,25 @@ class _MemberTileState extends State<MemberTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: const AssetImage('assets/default-avatar.png'),
-        foregroundImage: widget.member.image?.image,
-      ),
+      leading: SizedBox(
+          width: 50,
+          height: 50,
+          child: Builder(builder: (BuildContext context) {
+            if (widget.member.image != null) {
+              return Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(fit: BoxFit.cover, image: widget.member.image!.image)));
+            } else {
+              return Container(
+                decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.primary),
+                child: Icon(
+                  Icons.person,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              );
+            }
+          })),
       title: Text(
         '${widget.member.firstName} ${widget.member.lastName!.toUpperCase()}',
         maxLines: 2,
@@ -39,7 +55,7 @@ class _MemberTileState extends State<MemberTile> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           IconButton(
-              tooltip: 'Call',
+              tooltip: 'members.call'.tr(),
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: checkPhone()
                   ? () {
@@ -48,7 +64,7 @@ class _MemberTileState extends State<MemberTile> {
                   : null,
               icon: const Icon(Icons.phone)),
           IconButton(
-              tooltip: 'Message',
+              tooltip: 'members.message'.tr(),
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: checkPhone()
                   ? () {
@@ -67,9 +83,9 @@ class _MemberTileState extends State<MemberTile> {
                   child: ListTile(
                     leading: Icon(
                       Icons.edit,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
-                    title: const Text('Edit'),
+                    title: Text('edit.upper'.tr()),
                   )),
               PopupMenuItem<MenuAction>(
                   value: MenuAction.delete,
@@ -78,7 +94,7 @@ class _MemberTileState extends State<MemberTile> {
                       Icons.delete,
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
-                    title: const Text('Delete'),
+                    title: Text('delete.upper'.tr()),
                   )),
             ],
             onSelected: (MenuAction action) {

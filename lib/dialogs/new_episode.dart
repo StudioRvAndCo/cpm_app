@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class NewEpisodeDialog extends StatefulWidget {
   const NewEpisodeDialog({
@@ -31,7 +31,7 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
       final String lastText = DateFormat.yMd(Intl.systemLocale).format(dates!.end);
       res = '$firstText - $lastText';
     } else {
-      res = 'Enter production dates';
+      res = 'dates_dialog'.tr();
     }
     setState(() {
       dateText = res;
@@ -50,11 +50,11 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
             children: <Widget>[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Text>[
-                  Text('New Episode'),
+                children: <Text>[
+                  Text('${'new.masc.el.upper'.tr()} ${'episodes.episode.lower'.plural(1)}'),
                   Text(
-                    'Create a new episode.',
-                    style: TextStyle(fontSize: 12),
+                    '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.el.lower'.tr()} ${'episodes.episode.lower'.plural(1)}.',
+                    style: const TextStyle(fontSize: 12),
                   )
                 ],
               ),
@@ -74,7 +74,10 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
                   child: TextField(
                     maxLength: 64,
                     controller: titleController,
-                    decoration: const InputDecoration(labelText: 'Title', border: OutlineInputBorder(), isDense: true),
+                    decoration: InputDecoration(
+                        labelText: 'attributes.title.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                    autofocus: true,
+                    onEditingComplete: submit,
                   ),
                 ),
               ),
@@ -86,8 +89,10 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
                     maxLength: 280,
                     maxLines: 4,
                     controller: descriptionController,
-                    decoration:
-                        const InputDecoration(labelText: 'Description', border: OutlineInputBorder(), isDense: true),
+                    decoration: InputDecoration(
+                        labelText: 'attributes.description.upper'.tr(),
+                        border: const OutlineInputBorder(),
+                        isDense: true),
                   ),
                 ),
               ),
@@ -122,12 +127,8 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text('Cancel')),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('OK'))
+                      child: Text('cancel.upper'.tr())),
+                  TextButton(onPressed: submit, child: Text('confirm.upper'.tr()))
                 ],
               )
             ]),
@@ -135,5 +136,9 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
         )
       ],
     );
+  }
+
+  void submit() {
+    Navigator.pop(context);
   }
 }

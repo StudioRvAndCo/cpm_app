@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class NewShotDialog extends StatefulWidget {
@@ -14,16 +15,18 @@ class _NewShotDialogState extends State<NewShotDialog> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController lineController = TextEditingController();
   final List<String> values = <String>[
-    'Full shot',
-    'Medium full shot',
-    'Cowboy shot',
-    'Medium shot',
-    'Medium closeup shot',
-    'Closeup shot',
-    'Extreme closeup shot',
-    'Insert',
-    'Sequence',
-    'Landscape'
+    'attributes.values.full'.tr(),
+    'attributes.values.medium_full'.tr(),
+    'attributes.values.cowboy'.tr(),
+    'attributes.values.medium'.tr(),
+    'attributes.values.medium_closeup'.tr(),
+    'attributes.values.closeup'.tr(),
+    'attributes.values.extreme_closeup'.tr(),
+    'attributes.values.insert'.tr(),
+    'attributes.values.sequence'.tr(),
+    'attributes.values.landscape'.tr(),
+    'attributes.values.drone'.tr(),
+    'attributes.values.other'.tr()
   ];
   String? selectedValue;
 
@@ -37,11 +40,11 @@ class _NewShotDialogState extends State<NewShotDialog> {
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Text>[
-                Text('New Shot'),
+              children: <Text>[
+                Text('${'new.masc.eau.upper'.tr()} ${'shots.shot.lower'.plural(1)}'),
                 Text(
-                  'Create a new shot.',
-                  style: TextStyle(fontSize: 12),
+                  '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.eau.lower'.tr()} ${'shots.shot.lower'.plural(1)}.',
+                  style: const TextStyle(fontSize: 12),
                 )
               ],
             ),
@@ -59,7 +62,10 @@ class _NewShotDialogState extends State<NewShotDialog> {
                 child: TextField(
                   maxLength: 64,
                   controller: titleController,
-                  decoration: const InputDecoration(labelText: 'Title', border: OutlineInputBorder(), isDense: true),
+                  decoration: InputDecoration(
+                      labelText: 'attributes.title.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                  autofocus: true,
+                  onEditingComplete: submit,
                 ),
               ),
             ),
@@ -71,8 +77,10 @@ class _NewShotDialogState extends State<NewShotDialog> {
                   maxLength: 280,
                   maxLines: 4,
                   controller: descriptionController,
-                  decoration:
-                      const InputDecoration(labelText: 'Description', border: OutlineInputBorder(), isDense: true),
+                  decoration: InputDecoration(
+                      labelText: 'attributes.description.upper'.tr(),
+                      border: const OutlineInputBorder(),
+                      isDense: true),
                 ),
               ),
             ),
@@ -83,7 +91,9 @@ class _NewShotDialogState extends State<NewShotDialog> {
                 child: TextField(
                   maxLength: 64,
                   controller: lineController,
-                  decoration: const InputDecoration(labelText: 'Line', border: OutlineInputBorder(), isDense: true),
+                  decoration: InputDecoration(
+                      labelText: 'attributes.line.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                  onEditingComplete: submit,
                 ),
               ),
             ),
@@ -93,7 +103,7 @@ class _NewShotDialogState extends State<NewShotDialog> {
                 width: 330,
                 child: DropdownButton<String>(
                   isExpanded: true,
-                  hint: const Text('Value'),
+                  hint: Text('shots.value.upper'.plural(1)),
                   items: values.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -119,17 +129,17 @@ class _NewShotDialogState extends State<NewShotDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Cancel')),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('OK'))
+                    child: Text('cancel.upper'.tr())),
+                TextButton(onPressed: submit, child: Text('confirm.upper'.tr()))
               ],
             )
           ]),
         )
       ],
     );
+  }
+
+  void submit() {
+    Navigator.pop(context);
   }
 }

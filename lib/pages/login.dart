@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -25,9 +26,17 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 64.0),
-                  child: Image.asset('assets/logo-camera.png', fit: BoxFit.fitWidth, width: 250),
-                ),
+                    padding: const EdgeInsets.only(bottom: 64.0),
+                    child: Builder(
+                      builder: (BuildContext context) {
+                        if (Theme.of(context).brightness == Brightness.light) {
+                          return Image.asset('assets/images/logo-camera.png', fit: BoxFit.fitWidth, width: 250);
+                        } else {
+                          return Image.asset('assets/images/logo-camera-blanc.png',
+                              filterQuality: FilterQuality.high, fit: BoxFit.fitWidth, width: 250);
+                        }
+                      },
+                    )),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: SizedBox(
@@ -41,8 +50,8 @@ class _LoginState extends State<Login> {
                         onEditingComplete: () {
                           FocusScope.of(context).nextFocus();
                         },
-                        decoration:
-                            const InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Username'),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(), isDense: true, labelText: 'username'.tr()),
                       ),
                     ),
                   ),
@@ -60,8 +69,8 @@ class _LoginState extends State<Login> {
                         FocusScope.of(context).unfocus();
                         submit();
                       },
-                      decoration:
-                          const InputDecoration(border: OutlineInputBorder(), isDense: true, labelText: 'Password'),
+                      decoration: InputDecoration(
+                          border: const OutlineInputBorder(), isDense: true, labelText: 'password'.tr()),
                     ),
                   ),
                 ),
@@ -73,7 +82,7 @@ class _LoginState extends State<Login> {
                       onPressed: () {
                         submit();
                       },
-                      child: const Text('Log in'),
+                      child: Text('login'.tr()),
                     ),
                   ),
                 ),

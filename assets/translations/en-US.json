@@ -1,0 +1,277 @@
+{
+    "username":"Username",
+    "password":"Password",
+    "login":"Log in",
+
+    "home":"Home",
+    "details":{
+        "upper":{
+            "one":"Detail",
+            "other":"Details"
+        },
+        "lower":{
+            "one":"detail",
+            "other":"details"
+            }
+    },
+    "members":{
+        "member":{
+            "upper":{
+                "one":"Member",
+                "other":"Members"
+            },
+            "lower":{
+                "one":"member",
+                "other":"members"
+            }
+        },
+        "call":"Call",
+        "message":"Message"
+    },
+    "locations":{
+        "location":{
+            "upper":{
+                "one":"Location",
+                "other":"Locations"
+            },
+            "lower":{
+                "one":"location",
+                "other":"locations"
+            }
+        },
+        "view":"View on map"
+    },
+    "projects":{
+        "project":{
+            "upper":{
+                "one":"Project",
+                "other":"Projects"
+            },
+            "lower":{
+                "one":"project",
+                "other":"project"
+            }
+        },
+        "movie":{
+            "upper":"Movie",
+            "lower":"movie"
+        },
+        "series":{
+            "upper":"Series",
+            "lower":"series"
+        }
+    },
+    "episodes":{
+        "episode":{
+            "upper":{
+                "one":"Episode",
+                "other":"Episodes"
+            },
+            "lower":{
+                "one":"episode",
+                "other":"episodes"
+            }
+        }
+    },
+    "sequences":{
+        "sequence":{
+            "upper":{
+                "one":"Sequence",
+                "other":"Sequences"
+            },
+            "lower":{
+                "one":"sequence",
+                "other":"sequences"
+            }
+        }
+    },
+    "shots":{
+        "shot":{
+            "upper":{
+                "one":"Shot",
+                "other":"Shots"
+            },
+            "lower":{
+                "one":"shot",
+                "other":"shots"
+            }
+        },
+        "value":{
+            "upper":{
+                "one":"Value",
+                "other":"Values"
+            },
+            "lower":{
+                "one":"value",
+                "other":"values"
+            }
+        }
+
+    },
+    "planning":{
+        "upper":"Planning",
+        "lower":"planning",
+        "date":{
+            "year":{
+                "upper":"Year",
+                "lower":"year"
+            },
+            "month":{
+                "upper":"Month",
+                "lower":"month"
+            },
+            "week":{
+                "upper":"Week",
+                "lower":"week"
+            },
+            "day":{
+                "upper":"Day",
+                "lower":"day"
+            }
+        }
+    },
+    "information":"Info",
+    "settings":"Settings",
+
+    "confirm_dialog":"Do you really want to {} this item?",
+    "dates_dialog":"Enter production dates",
+
+    "attributes":{
+        "name":{
+            "upper":"Name",
+            "lower":"name"
+        },
+        "firstname":{
+            "upper":"First name",
+            "lower":"first name"
+        },
+        "lastname":{
+            "upper":"Last name",
+            "lower":"last name"
+        },
+        "phone":{
+            "upper":"Phone number",
+            "lower":"phone number"
+        },
+        "position":{
+            "upper":"Position",
+            "lower":"position"
+        },
+        "title":{
+            "upper":"Title",
+            "lower":"title"
+        },
+        "description":{
+            "upper":"Description",
+            "lower":"description"
+        },
+        "values":{
+            "full":"Full shot",
+            "medium_full":"Medium full shot",
+            "cowboy":"Cowboy shot",
+            "medium":"Medium shot",
+            "medium_closeup":"Medium closeup shot",
+            "closeup":"Closeup shot",
+            "extreme_closeup":"Extreme closeup shot",
+            "insert":"Insert shot",
+            "sequence":"Sequence shot",
+            "landscape":"Landscape shot",
+            "drone":"Drone shot",
+            "other":"Other"
+        },
+        "line":{
+            "upper":"Line",
+            "lower":"line"
+        }
+    },
+
+    "new":{
+        "masc":{
+            "el":{
+                "upper":"New",
+                "lower":"new"
+            },
+            "eau":{
+                "upper":"New",
+                "lower":"new"
+            }
+        },
+        "fem":{
+            "upper":"New",
+            "lower":"new"
+        }
+    },
+    "edit":{
+        "upper":"Edit",
+        "lower":"edit"
+    },
+    "add":{
+        "upper":"Add",
+        "lower":"add"
+    },
+    "delete":{
+        "upper":"Delete",
+        "lower":"delete"
+    },
+    "cancel":"Cancel",
+    "confirm":"OK",
+
+    "error":{
+        "error":"Error.",
+        "timeout":"Request timed out.",
+        "username-password":"Invalid username or password.",
+        "direction":"Invalid direction.",
+        "empty":"Can't be empty."
+    },
+
+    "informations":{
+        "description":"CPM is a tool to efficiently manage the production of a cinema project. It is developed as an open-source project by Studio Rv & Co, which is a non-profit organisation that produces audiovisual projects.",
+        "more_about":"More about",
+        "website":"Website"
+    },
+
+    "articles":{
+        "a":{
+            "masc":{
+                "upper":"A",
+                "lower":"a"
+            },
+            "fem":{
+                "upper":"A",
+                "lower":"a"
+            }
+        },
+        "the":{
+            "masc":{
+                "upper":"The",
+                "lower":"the"
+            },
+            "fem":{
+                "upper":"The",
+                "lower":"the"
+            }
+        },
+        "this":{
+            "masc":{
+                "upper":{
+                    "one":"This",
+                    "other":"These"
+                },
+                "lower":{
+                    "one":"this",
+                    "other":"these"
+                }
+            },
+            "fem":{
+                "upper":{
+                    "one":"This",
+                    "other":"These"
+                },
+                "lower":{
+                    "one":"this",
+                    "other":"these"
+                }
+            }
+        }
+    }
+}

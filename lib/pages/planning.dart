@@ -1,4 +1,5 @@
 import 'package:calendar_view/calendar_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/event.dart';
@@ -75,28 +76,28 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
             DropdownMenuItem<View>(
                 value: View.month,
                 child: Row(
-                  children: const <Widget>[
-                    Icon(Icons.calendar_view_month),
-                    Padding(padding: EdgeInsets.only(right: 8)),
-                    Text('Month'),
+                  children: <Widget>[
+                    const Icon(Icons.calendar_view_month),
+                    const Padding(padding: EdgeInsets.only(right: 8)),
+                    Text('planning.date.month.upper'.tr()),
                   ],
                 )),
             DropdownMenuItem<View>(
                 value: View.week,
                 child: Row(
-                  children: const <Widget>[
-                    Icon(Icons.calendar_view_week),
-                    Padding(padding: EdgeInsets.only(right: 8)),
-                    Text('Week'),
+                  children: <Widget>[
+                    const Icon(Icons.calendar_view_week),
+                    const Padding(padding: EdgeInsets.only(right: 8)),
+                    Text('planning.date.week.upper'.tr()),
                   ],
                 )),
             DropdownMenuItem<View>(
                 value: View.day,
                 child: Row(
-                  children: const <Widget>[
-                    Icon(Icons.calendar_view_day),
-                    Padding(padding: EdgeInsets.only(right: 8)),
-                    Text('Day'),
+                  children: <Widget>[
+                    const Icon(Icons.calendar_view_day),
+                    const Padding(padding: EdgeInsets.only(right: 8)),
+                    Text('planning.date.day.upper'.tr()),
                   ],
                 ))
           ],

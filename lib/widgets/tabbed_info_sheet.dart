@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'details_pane.dart';
@@ -12,19 +13,19 @@ class TabbedInfoSheet extends StatelessWidget {
     return DefaultTabController(
         length: 3,
         child: Column(
-          children: const <Widget>[
+          children: <Widget>[
             TabBar(tabs: <Tab>[
               Tab(
-                text: 'Details',
+                text: 'details.upper'.plural(2),
               ),
               Tab(
-                text: 'Members',
+                text: 'members.member.upper'.plural(2),
               ),
               Tab(
-                text: 'Locations',
+                text: 'locations.location.upper'.plural(2),
               ),
             ]),
-            Expanded(
+            const Expanded(
               child: TabBarView(children: <Widget>[DetailsPane(), Text('Members'), Text('Locations')]),
             )
           ],

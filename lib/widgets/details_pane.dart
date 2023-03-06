@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'icon_label.dart';
 
@@ -56,7 +56,7 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
           children: <Widget>[
             TextField(
               style: Theme.of(context).textTheme.titleMedium,
-              decoration: const InputDecoration.collapsed(hintText: 'Title'),
+              decoration: InputDecoration.collapsed(hintText: 'attributes.title.upper'.tr()),
               controller: titleController,
               onChanged: setTitle,
             ),
@@ -65,7 +65,7 @@ class _DetailsPaneState extends State<DetailsPane> with AutomaticKeepAliveClient
             ),
             TextField(
               style: Theme.of(context).textTheme.bodyMedium,
-              decoration: const InputDecoration.collapsed(hintText: 'Description'),
+              decoration: InputDecoration.collapsed(hintText: 'attributes.description.upper'.tr()),
               controller: descriptionController,
               onChanged: setDescription,
               keyboardType: TextInputType.multiline,

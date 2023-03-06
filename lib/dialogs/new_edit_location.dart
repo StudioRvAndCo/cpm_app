@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/location.dart';
@@ -22,8 +23,12 @@ class _LocationDialogState extends State<LocationDialog> {
 
   @override
   void initState() {
-    title = widget.edit ? 'Edit Location' : 'New Location';
-    subtitle = widget.edit ? 'Edit a location.' : 'Create a new location.';
+    title = widget.edit
+        ? '${'edit.upper'.tr()} ${widget.name!}'
+        : '${'new.masc.eau.upper'.tr()} ${'locations.location.lower'.plural(1)}';
+    subtitle = widget.edit
+        ? '${'edit.upper'.tr()} ${'articles.this.masc.lower'.plural(1)} ${'locations.location.lower'.plural(1)}.'
+        : '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.eau.lower'.tr()} ${'locations.location.lower'.plural(1)}.';
     nameController = TextEditingController(text: widget.name);
     positionController = TextEditingController(text: widget.position);
     return super.initState();
@@ -65,10 +70,12 @@ class _LocationDialogState extends State<LocationDialog> {
                       controller: nameController,
                       maxLength: 64,
                       decoration: InputDecoration(
-                          labelText: 'Name',
-                          errorText: nameController.text.trim().isEmpty ? "Can't be empty." : null,
+                          labelText: 'attributes.name.upper'.tr(),
+                          errorText: nameController.text.trim().isEmpty ? 'error.empty'.tr() : null,
                           border: const OutlineInputBorder(),
                           isDense: true),
+                      autofocus: true,
+                      onEditingComplete: submit,
                     );
                   },
                 ),
@@ -80,7 +87,9 @@ class _LocationDialogState extends State<LocationDialog> {
                 width: 330,
                 child: TextField(
                   controller: positionController,
-                  decoration: const InputDecoration(labelText: 'Position', border: OutlineInputBorder(), isDense: true),
+                  decoration: InputDecoration(
+                      labelText: 'attributes.position.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                  onEditingComplete: submit,
                 ),
               ),
             ),
@@ -94,20 +103,20 @@ class _LocationDialogState extends State<LocationDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('Cancel')),
-                TextButton(
-                    onPressed: () {
-                      if (nameController.text.trim().isEmpty) {
-                        return;
-                      }
-                      Navigator.pop(context, Location(name: nameController.text, position: positionController.text));
-                    },
-                    child: const Text('OK'))
+                    child: Text('cancel'.tr())),
+                TextButton(onPressed: submit, child: Text('confirm'.tr()))
               ],
             )
           ]),
         )
       ],
     );
+  }
+
+  void submit() {
+    if (nameController.text.trim().isEmpty) {
+      return;
+    }
+    Navigator.pop(context, Location(name: nameController.text, position: positionController.text));
   }
 }
