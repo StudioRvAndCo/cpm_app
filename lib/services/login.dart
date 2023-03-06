@@ -13,28 +13,14 @@ class LoginService {
   Future<List<dynamic>> login(String username, String password) async {
     try {
       final Response response = await post(Uri.parse(api.login),
-          headers: <String, String>{
-            'accept': '*/*',
-            'content-type': 'application/json'
-          },
-          body: jsonEncode(
-              <String, String>{'Username': username, 'Password': password}));
+          headers: <String, String>{'accept': '*/*', 'content-type': 'application/json'},
+          body: jsonEncode(<String, String>{'Username': username, 'Password': password}));
 
       if (response.statusCode == 200) {
-        return <dynamic>[
-          true,
-          response.body,
-          response.statusCode,
-          response.reasonPhrase
-        ];
+        return <dynamic>[true, response.body, response.statusCode, response.reasonPhrase];
       } else {
         debugPrint(response.toString());
-        return <dynamic>[
-          false,
-          response.body,
-          response.statusCode,
-          response.reasonPhrase
-        ];
+        return <dynamic>[false, response.body, response.statusCode, response.reasonPhrase];
       }
     } catch (exception) {
       debugPrint(exception.toString());
@@ -62,8 +48,7 @@ class LoginSnackBar {
         message = 'error.error'.tr();
     }
 
-    debugPrint(
-        'Code: ${loginState.statusCode}, Reason: ${loginState.reasonPhrase}');
+    debugPrint('Code: ${loginState.statusCode}, Reason: ${loginState.reasonPhrase}');
 
     return SnackBar(
       showCloseIcon: true,

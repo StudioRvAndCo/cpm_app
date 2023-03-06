@@ -7,10 +7,8 @@ class Information extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Padding verticalPadding =
-        Padding(padding: EdgeInsets.only(bottom: 32));
-    const Padding horizontalPadding =
-        Padding(padding: EdgeInsets.only(right: 8));
+    const Padding verticalPadding = Padding(padding: EdgeInsets.only(bottom: 32));
+    const Padding horizontalPadding = Padding(padding: EdgeInsets.only(right: 8));
 
     return Expanded(
       child: SingleChildScrollView(
@@ -65,30 +63,25 @@ class Information extends StatelessWidget {
             ),
             verticalPadding,
             const Text('Cinema Project Manager',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
             verticalPadding,
             Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Text('informations.description'.tr(),
-                  textAlign: TextAlign.center),
+              child: Text('informations.description'.tr(), textAlign: TextAlign.center),
             ),
             verticalPadding,
             Text('${'informations.more_about'.tr()} CPM',
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.bold)),
+                textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
             Row(children: <Widget>[
               const Spacer(),
               TextButton(
-                  onPressed: () =>
-                      launchUrl(Uri.parse('https://github.com/StudioRvAndCo')),
+                  onPressed: () => launchUrl(Uri.parse('https://github.com/StudioRvAndCo')),
                   child: const Text('GitHub')),
               const Spacer()
             ]),
             verticalPadding,
             Text('${'informations.more_about'.tr()} Studio Rv & Co',
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.bold)),
+                textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
             Row(children: <Widget>[
               const Spacer(),
               TextButton(
@@ -96,8 +89,7 @@ class Information extends StatelessWidget {
                   child: Text('informations.website'.tr())),
               horizontalPadding,
               TextButton(
-                  onPressed: () => launchUrl(
-                      Uri.parse('https://www.youtube.com/@studiorvandco')),
+                  onPressed: () => launchUrl(Uri.parse('https://www.youtube.com/@studiorvandco')),
                   child: const Text('YouTube')),
               const Spacer()
             ]),

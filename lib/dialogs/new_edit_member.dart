@@ -8,13 +8,7 @@ import 'package:flutter/material.dart';
 import '../models/member.dart';
 
 class MemberDialog extends StatefulWidget {
-  const MemberDialog(
-      {super.key,
-      required this.edit,
-      this.firstName,
-      this.lastName,
-      this.phone,
-      this.image});
+  const MemberDialog({super.key, required this.edit, this.firstName, this.lastName, this.phone, this.image});
 
   final String? firstName;
   final String? lastName;
@@ -77,9 +71,7 @@ class _MemberDialogState extends State<MemberDialog> {
                   if (image != null) {
                     return Container(
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: image!.image, fit: BoxFit.cover)));
+                            shape: BoxShape.circle, image: DecorationImage(image: image!.image, fit: BoxFit.cover)));
                   } else {
                     return const Icon(
                       Icons.add_a_photo_outlined,
@@ -89,11 +81,8 @@ class _MemberDialogState extends State<MemberDialog> {
                 }),
               ),
               onPressed: () async {
-                final FilePickerResult? result = await FilePicker.platform
-                    .pickFiles(
-                        type: FileType.image,
-                        lockParentWindow: true,
-                        withData: kIsWeb);
+                final FilePickerResult? result =
+                    await FilePicker.platform.pickFiles(type: FileType.image, lockParentWindow: true, withData: kIsWeb);
                 if (result != null) {
                   Image imgRes;
                   if (kIsWeb) {
@@ -113,81 +102,72 @@ class _MemberDialogState extends State<MemberDialog> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: firstNameController,
+                  builder: (BuildContext context, TextEditingValue value, __) {
+                    return TextField(
+                      autofocus: true,
+                      controller: firstNameController,
+                      maxLength: 64,
+                      decoration: InputDecoration(
+                          labelText: 'attributes.firstname.upper'.tr(),
+                          errorText: firstNameController.text.trim().isEmpty ? 'error.empty'.tr() : null,
+                          border: const OutlineInputBorder(),
+                          isDense: true),
+                      onEditingComplete: submit,
+                    );
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                    controller: lastNameController,
+                    maxLength: 64,
+                    decoration: InputDecoration(
+                        labelText: 'attributes.lastname.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                    onEditingComplete: () {
+                      submit();
+                    }),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                    controller: phoneController,
+                    maxLength: 12,
+                    decoration: InputDecoration(
+                        labelText: 'attributes.phone.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                    onEditingComplete: () {
+                      submit();
+                    }),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: ValueListenableBuilder<TextEditingValue>(
-                      valueListenable: firstNameController,
-                      builder:
-                          (BuildContext context, TextEditingValue value, __) {
-                        return TextField(
-                          autofocus: true,
-                          controller: firstNameController,
-                          maxLength: 64,
-                          decoration: InputDecoration(
-                              labelText: 'attributes.firstname.upper'.tr(),
-                              errorText: firstNameController.text.trim().isEmpty
-                                  ? 'error.empty'.tr()
-                                  : null,
-                              border: const OutlineInputBorder(),
-                              isDense: true),
-                          onEditingComplete: submit,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextField(
-                        controller: lastNameController,
-                        maxLength: 64,
-                        decoration: InputDecoration(
-                            labelText: 'attributes.lastname.upper'.tr(),
-                            border: const OutlineInputBorder(),
-                            isDense: true),
-                        onEditingComplete: () {
-                          submit();
-                        }),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextField(
-                        controller: phoneController,
-                        maxLength: 12,
-                        decoration: InputDecoration(
-                            labelText: 'attributes.phone.upper'.tr(),
-                            border: const OutlineInputBorder(),
-                            isDense: true),
-                        onEditingComplete: () {
-                          submit();
-                        }),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('cancel'.tr())),
-                    TextButton(onPressed: submit, child: Text('confirm'.tr()))
-                  ],
-                )
-              ]),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('cancel'.tr())),
+                TextButton(onPressed: submit, child: Text('confirm'.tr()))
+              ],
+            )
+          ]),
         )
       ],
     );

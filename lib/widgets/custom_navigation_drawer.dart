@@ -44,20 +44,13 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
               }
             }),
           ),
+          NavigationDrawerDestination(icon: const Icon(Icons.home_outlined), label: Text('home'.tr())),
           NavigationDrawerDestination(
-              icon: const Icon(Icons.home_outlined), label: Text('home'.tr())),
-          NavigationDrawerDestination(
-              icon: const Icon(Icons.people_outline),
-              label: Text('members.member.upper'.plural(2))),
-          NavigationDrawerDestination(
-              icon: const Icon(Icons.map),
-              label: Text('locations.location.upper'.plural(2))),
-          NavigationDrawerDestination(
-              icon: const Icon(Icons.settings), label: Text('settings'.tr())),
-          NavigationDrawerDestination(
-              icon: const Icon(Icons.info), label: Text('information'.tr())),
-          const NavigationDrawerDestination(
-              icon: Icon(Icons.quiz), label: Text('Test')),
+              icon: const Icon(Icons.people_outline), label: Text('members.member.upper'.plural(2))),
+          NavigationDrawerDestination(icon: const Icon(Icons.map), label: Text('locations.location.upper'.plural(2))),
+          NavigationDrawerDestination(icon: const Icon(Icons.settings), label: Text('settings'.tr())),
+          NavigationDrawerDestination(icon: const Icon(Icons.info), label: Text('information'.tr())),
+          const NavigationDrawerDestination(icon: Icon(Icons.quiz), label: Text('Test')),
         ],
       ),
     );

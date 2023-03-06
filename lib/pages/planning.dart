@@ -8,8 +8,7 @@ import '../models/sequence.dart';
 
 enum View { month, week, day }
 
-final GlobalKey<MonthViewState<Event>> calendarKey =
-    GlobalKey<MonthViewState<Event>>();
+final GlobalKey<MonthViewState<Event>> calendarKey = GlobalKey<MonthViewState<Event>>();
 
 class Planning extends StatefulWidget {
   const Planning({super.key, required this.project});
@@ -30,8 +29,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
 
     for (final Sequence sequence in widget.project.sequences) {
       _events.add(CalendarEventData<Event>(
-          event: Event(
-              title: sequence.title, description: sequence.description ?? ''),
+          event: Event(title: sequence.title, description: sequence.description ?? ''),
           title: sequence.title,
           date: sequence.date,
           startTime: sequence.startTime,
@@ -112,21 +110,18 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   }
 
   LayoutBuilder _buildMonthView() {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       return MonthView<Event>(
         key: calendarKey,
         headerStyle: _buildHeader(),
         minMonth: widget.project.beginDate,
         maxMonth: widget.project.endDate,
         initialMonth: DateTime.now(),
-        onPageChange: (DateTime date, int pageIndex) =>
-            print('$date, $pageIndex'),
+        onPageChange: (DateTime date, int pageIndex) => print('$date, $pageIndex'),
         onCellTap: (List<CalendarEventData<Object?>> events, DateTime date) {
           print(events);
         },
-        onEventTap: (CalendarEventData<Object?> event, DateTime date) =>
-            print(event),
+        onEventTap: (CalendarEventData<Object?> event, DateTime date) => print(event),
         onDateLongPress: (DateTime date) => print(date),
         width: constraints.maxWidth,
       );
@@ -134,16 +129,14 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   }
 
   LayoutBuilder _buildWeekView() {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       return WeekView<Event>(
         headerStyle: _buildHeader(),
         minDay: widget.project.beginDate,
         maxDay: widget.project.endDate,
         initialDay: DateTime.now(),
         eventArranger: const SideEventArranger<Event>(),
-        onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) =>
-            print(events),
+        onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) => print(events),
         onDateLongPress: (DateTime date) => print(date),
         width: constraints.maxWidth,
       );
@@ -151,16 +144,14 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   }
 
   LayoutBuilder _buildDayView() {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       return DayView<Event>(
         headerStyle: _buildHeader(),
         minDay: widget.project.beginDate,
         maxDay: widget.project.endDate,
         initialDay: DateTime.now(),
         eventArranger: const SideEventArranger<Event>(),
-        onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) =>
-            print(events),
+        onEventTap: (List<CalendarEventData<Object?>> events, DateTime date) => print(events),
         onDateLongPress: (DateTime date) => print(date),
         width: constraints.maxWidth,
       );
