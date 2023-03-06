@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/location.dart';
 
 class LocationDialog extends StatefulWidget {
-  const LocationDialog(
-      {super.key, required this.edit, this.name, this.position});
+  const LocationDialog({super.key, required this.edit, this.name, this.position});
 
   final String? name;
   final String? position;
@@ -59,63 +58,56 @@ class _LocationDialogState extends State<LocationDialog> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: ValueListenableBuilder<TextEditingValue>(
-                      valueListenable: nameController,
-                      builder:
-                          (BuildContext context, TextEditingValue value, __) {
-                        return TextField(
-                          controller: nameController,
-                          maxLength: 64,
-                          decoration: InputDecoration(
-                              labelText: 'attributes.name.upper'.tr(),
-                              errorText: nameController.text.trim().isEmpty
-                                  ? 'error.empty'.tr()
-                                  : null,
-                              border: const OutlineInputBorder(),
-                              isDense: true),
-                          autofocus: true,
-                          onEditingComplete: submit,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextField(
-                      controller: positionController,
+          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: nameController,
+                  builder: (BuildContext context, TextEditingValue value, __) {
+                    return TextField(
+                      controller: nameController,
+                      maxLength: 64,
                       decoration: InputDecoration(
-                          labelText: 'attributes.position.upper'.tr(),
+                          labelText: 'attributes.name.upper'.tr(),
+                          errorText: nameController.text.trim().isEmpty ? 'error.empty'.tr() : null,
                           border: const OutlineInputBorder(),
                           isDense: true),
+                      autofocus: true,
                       onEditingComplete: submit,
-                    ),
-                  ),
+                    );
+                  },
                 ),
-                const SizedBox(
-                  height: 20,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                  controller: positionController,
+                  decoration: InputDecoration(
+                      labelText: 'attributes.position.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                  onEditingComplete: submit,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('cancel'.tr())),
-                    TextButton(onPressed: submit, child: Text('confirm'.tr()))
-                  ],
-                )
-              ]),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('cancel'.tr())),
+                TextButton(onPressed: submit, child: Text('confirm'.tr()))
+              ],
+            )
+          ]),
         )
       ],
     );
@@ -125,7 +117,6 @@ class _LocationDialogState extends State<LocationDialog> {
     if (nameController.text.trim().isEmpty) {
       return;
     }
-    Navigator.pop(context,
-        Location(name: nameController.text, position: positionController.text));
+    Navigator.pop(context, Location(name: nameController.text, position: positionController.text));
   }
 }
