@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../models/location.dart';
-
 class LocationDialog extends StatefulWidget {
   const LocationDialog({super.key, required this.edit, this.name, this.position});
 
@@ -100,7 +98,8 @@ class _LocationDialogState extends State<LocationDialog> {
                       if (nameController.text.trim().isEmpty) {
                         return;
                       }
-                      Navigator.pop(context, Location(name: nameController.text, position: positionController.text));
+                      // TODO(mael): add member via API
+                      Navigator.pop(context);
                     },
                     child: const Text('OK'))
               ],

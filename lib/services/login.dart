@@ -17,6 +17,7 @@ class LoginService {
           body: jsonEncode(<String, String>{'Username': username, 'Password': password}));
 
       if (response.statusCode == 200) {
+        token = response.body;
         return <dynamic>[true, response.body, response.statusCode, response.reasonPhrase];
       } else {
         debugPrint(response.toString());

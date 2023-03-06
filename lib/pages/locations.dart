@@ -4,19 +4,18 @@ import '../dialogs/confirm_dialog.dart';
 import '../dialogs/new_edit_location.dart';
 import '../exceptions/invalid_direction_exception.dart';
 import '../models/location.dart';
+import '../services/location.dart';
 import '../widgets/location_tile.dart';
 
 class Locations extends StatefulWidget {
-  const Locations({super.key, required this.locations});
-
-  final List<Location> locations;
+  const Locations({super.key});
 
   @override
   State<Locations> createState() => _LocationsState();
 }
 
 class _LocationsState extends State<Locations> {
-  late final List<Location> locations;
+  List<Location> locations = <Location>[];
 
   final Divider divider = const Divider(
     thickness: 1,
@@ -28,7 +27,7 @@ class _LocationsState extends State<Locations> {
 
   @override
   void initState() {
-    locations = widget.locations;
+    getLocations();
     super.initState();
   }
 
@@ -137,11 +136,17 @@ class _LocationsState extends State<Locations> {
       (Location? result) {
         if (result != null) {
           setState(() {
-            final Location location = Location(name: result.name, position: result.position);
-            locations.add(location);
+            // TODO(mael): add member via API
           });
         }
       },
     );
+  }
+
+  Future<void> getLocations() async {
+    final List<dynamic> result = await LocationService().getLocations();
+    setState(() {
+      locations = result[1] as List<Location>;
+    });
   }
 }

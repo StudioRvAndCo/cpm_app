@@ -31,7 +31,7 @@ class _MemberTileState extends State<MemberTile> {
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        widget.member.phone!,
+        widget.member.phoneNumber!,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
@@ -43,7 +43,7 @@ class _MemberTileState extends State<MemberTile> {
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: checkPhone()
                   ? () {
-                      launchUrl(Uri.parse('tel://${widget.member.phone}'));
+                      launchUrl(Uri.parse('tel://${widget.member.phoneNumber}'));
                     }
                   : null,
               icon: const Icon(Icons.phone)),
@@ -52,7 +52,7 @@ class _MemberTileState extends State<MemberTile> {
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: checkPhone()
                   ? () {
-                      launchUrl(Uri.parse('sms://${widget.member.phone}'));
+                      launchUrl(Uri.parse('sms://${widget.member.phoneNumber}'));
                     }
                   : null,
               icon: const Icon(Icons.message)),
@@ -100,6 +100,6 @@ class _MemberTileState extends State<MemberTile> {
   }
 
   bool checkPhone() {
-    return widget.member.phone != null && widget.member.phone != '';
+    return widget.member.phoneNumber != null && widget.member.phoneNumber != '';
   }
 }

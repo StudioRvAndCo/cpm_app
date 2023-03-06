@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
 class Member {
-  Member({this.id, required this.firstName, this.lastName, this.phone, this.image});
+  Member({required this.id, required this.firstName, this.lastName, this.phoneNumber, this.image});
 
-  factory Member.fromJson(Map<String, dynamic> json) {
+  factory Member.fromJson(json) {
     return Member(
-      firstName: json['firstName'].toString(),
-      lastName: json['lastName'].toString(),
-      phone: json['phone'].toString(),
+      id: json['Id'].toString(),
+      firstName: json['FirstName'].toString(),
+      lastName: json['LastName'].toString(),
+      phoneNumber: json['PhoneNumber'].toString(),
     );
   }
 
-  final String? id;
+  final String id;
   String firstName;
   String? lastName;
-  String? phone;
+  String? phoneNumber;
   Image? image;
 }
