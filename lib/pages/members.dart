@@ -5,19 +5,18 @@ import '../dialogs/confirm_dialog.dart';
 import '../dialogs/new_edit_member.dart';
 import '../exceptions/invalid_direction_exception.dart';
 import '../models/member.dart';
+import '../services/member.dart';
 import '../widgets/member_tile.dart';
 
 class Members extends StatefulWidget {
-  const Members({super.key, required this.members});
-
-  final List<Member> members;
+  const Members({super.key});
 
   @override
   State<Members> createState() => _MembersState();
 }
 
 class _MembersState extends State<Members> {
-  late final List<Member> members;
+  List<Member> members = <Member>[];
 
   final Divider divider = const Divider(
     thickness: 1,
@@ -29,8 +28,8 @@ class _MembersState extends State<Members> {
 
   @override
   void initState() {
-    members = widget.members;
     super.initState();
+    getMembers();
   }
 
   @override
@@ -49,55 +48,66 @@ class _MembersState extends State<Members> {
           },
         ));
 
-    return Expanded(
-        child: Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
-      body: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) => divider,
-        itemCount: membersTiles.length,
-        itemBuilder: (BuildContext context, int index) => ClipRRect(
-          clipBehavior: Clip.hardEdge,
-          child: Dismissible(
-            key: UniqueKey(),
-            onDismissed: (DismissDirection direction) {
-              final Member member = membersTiles.elementAt(index).member;
-              switch (direction) {
-                case DismissDirection.startToEnd:
-                  delete(member);
-                  break;
-                case DismissDirection.endToStart:
-                case DismissDirection.vertical:
-                case DismissDirection.horizontal:
-                case DismissDirection.up:
-                case DismissDirection.down:
-                case DismissDirection.none:
-                  throw InvalidDirectionException('error.direction'.tr());
-              }
-            },
-            confirmDismiss: (DismissDirection dismissDirection) async {
-              switch (dismissDirection) {
-                case DismissDirection.endToStart:
-                  final Member member = membersTiles.elementAt(index).member;
-                  edit(member);
-                  return false;
-                case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false;
-                case DismissDirection.horizontal:
-                case DismissDirection.vertical:
-                case DismissDirection.up:
-                case DismissDirection.down:
-                case DismissDirection.none:
-                  assert(false);
-              }
-              return false;
-            },
-            background: deleteBackground(),
-            secondaryBackground: editBackground(),
-            child: membersTiles.elementAt(index),
+    if (members.isEmpty) {
+      return Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <CircularProgressIndicator>[
+            CircularProgressIndicator(),
+          ],
+        ),
+      );
+    } else {
+      return Expanded(
+          child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
+        body: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) => divider,
+          itemCount: membersTiles.length,
+          itemBuilder: (BuildContext context, int index) => ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            child: Dismissible(
+              key: UniqueKey(),
+              onDismissed: (DismissDirection direction) {
+                final Member member = membersTiles.elementAt(index).member;
+                switch (direction) {
+                  case DismissDirection.startToEnd:
+                    delete(member);
+                    break;
+                  case DismissDirection.endToStart:
+                  case DismissDirection.vertical:
+                  case DismissDirection.horizontal:
+                  case DismissDirection.up:
+                  case DismissDirection.down:
+                  case DismissDirection.none:
+                    throw InvalidDirectionException('error.direction'.tr());
+                }
+              },
+              confirmDismiss: (DismissDirection dismissDirection) async {
+                switch (dismissDirection) {
+                  case DismissDirection.endToStart:
+                    final Member member = membersTiles.elementAt(index).member;
+                    edit(member);
+                    return false;
+                  case DismissDirection.startToEnd:
+                    return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false;
+                  case DismissDirection.horizontal:
+                  case DismissDirection.vertical:
+                  case DismissDirection.up:
+                  case DismissDirection.down:
+                  case DismissDirection.none:
+                    assert(false);
+                }
+                return false;
+              },
+              background: deleteBackground(),
+              secondaryBackground: editBackground(),
+              child: membersTiles.elementAt(index),
+            ),
           ),
         ),
-      ),
-    ));
+      ));
+    }
   }
 
   void edit(Member member) {
@@ -126,7 +136,7 @@ class _MembersState extends State<Members> {
 
   void delete(Member member) {
     setState(() {
-      widget.members.remove(member);
+      members.remove(member);
     });
   }
 
@@ -141,12 +151,17 @@ class _MembersState extends State<Members> {
       (Member? result) {
         if (result != null) {
           setState(() {
-            final Member member = Member(
-                firstName: result.firstName, lastName: result.lastName, phone: result.phone, image: result.image);
-            members.add(member);
+            // TODO(mael): add member via API
           });
         }
       },
     );
+  }
+
+  Future<void> getMembers() async {
+    final List<dynamic> result = await MemberService().getMembers();
+    setState(() {
+      members = result[1] as List<Member>;
+    });
   }
 }

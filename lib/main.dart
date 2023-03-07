@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'models/event.dart';
 import 'routes/route.gr.dart';
 import 'services/config.dart';
 import 'services/login.dart';
@@ -72,13 +73,13 @@ class _CPMState extends State<CPM> {
         create: (_) => ModelTheme(),
         child: Consumer<ModelTheme>(builder:
             (BuildContext context, ModelTheme themeNotifier, Widget? child) {
-          return CalendarControllerProvider(
-            controller: EventController(),
+          return CalendarControllerProvider<Event>(
+            controller: EventController<Event>(),
             child: MaterialApp.router(
               routerDelegate: AutoRouterDelegate.declarative(
                 widget._appRouter,
                 routes: (_) => <PageRouteInfo<dynamic>>[
-                  if (loginState.authenticated) //TODO: loginState.authenticated
+                  if (loginState.authenticated)
                     const HomeRoute()
                   else
                     LoginRoute(

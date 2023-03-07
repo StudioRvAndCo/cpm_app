@@ -5,19 +5,18 @@ import '../dialogs/confirm_dialog.dart';
 import '../dialogs/new_edit_location.dart';
 import '../exceptions/invalid_direction_exception.dart';
 import '../models/location.dart';
+import '../services/location.dart';
 import '../widgets/location_tile.dart';
 
 class Locations extends StatefulWidget {
-  const Locations({super.key, required this.locations});
-
-  final List<Location> locations;
+  const Locations({super.key});
 
   @override
   State<Locations> createState() => _LocationsState();
 }
 
 class _LocationsState extends State<Locations> {
-  late final List<Location> locations;
+  List<Location> locations = <Location>[];
 
   final Divider divider = const Divider(
     thickness: 1,
@@ -29,7 +28,7 @@ class _LocationsState extends State<Locations> {
 
   @override
   void initState() {
-    locations = widget.locations;
+    getLocations();
     super.initState();
   }
 
@@ -49,55 +48,66 @@ class _LocationsState extends State<Locations> {
           },
         ));
 
-    return Expanded(
-        child: Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
-      body: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) => divider,
-        itemCount: locationsTiles.length,
-        itemBuilder: (BuildContext context, int index) => ClipRRect(
-          clipBehavior: Clip.hardEdge,
-          child: Dismissible(
-            key: UniqueKey(),
-            onDismissed: (DismissDirection direction) {
-              final Location location = locationsTiles.elementAt(index).location;
-              switch (direction) {
-                case DismissDirection.startToEnd:
-                  delete(location);
-                  break;
-                case DismissDirection.endToStart:
-                case DismissDirection.vertical:
-                case DismissDirection.horizontal:
-                case DismissDirection.up:
-                case DismissDirection.down:
-                case DismissDirection.none:
-                  throw InvalidDirectionException('error.direction'.tr());
-              }
-            },
-            confirmDismiss: (DismissDirection dismissDirection) async {
-              switch (dismissDirection) {
-                case DismissDirection.endToStart:
-                  final Location location = locationsTiles.elementAt(index).location;
-                  edit(location);
-                  return false;
-                case DismissDirection.startToEnd:
-                  return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false == true;
-                case DismissDirection.horizontal:
-                case DismissDirection.vertical:
-                case DismissDirection.up:
-                case DismissDirection.down:
-                case DismissDirection.none:
-                  assert(false);
-              }
-              return false;
-            },
-            background: deleteBackground(),
-            secondaryBackground: editBackground(),
-            child: locationsTiles.elementAt(index),
+    if (locations.isEmpty) {
+      return Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <CircularProgressIndicator>[
+            CircularProgressIndicator(),
+          ],
+        ),
+      );
+    } else {
+      return Expanded(
+          child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
+        body: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) => divider,
+          itemCount: locationsTiles.length,
+          itemBuilder: (BuildContext context, int index) => ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            child: Dismissible(
+              key: UniqueKey(),
+              onDismissed: (DismissDirection direction) {
+                final Location location = locationsTiles.elementAt(index).location;
+                switch (direction) {
+                  case DismissDirection.startToEnd:
+                    delete(location);
+                    break;
+                  case DismissDirection.endToStart:
+                  case DismissDirection.vertical:
+                  case DismissDirection.horizontal:
+                  case DismissDirection.up:
+                  case DismissDirection.down:
+                  case DismissDirection.none:
+                    throw InvalidDirectionException('error.direction'.tr());
+                }
+              },
+              confirmDismiss: (DismissDirection dismissDirection) async {
+                switch (dismissDirection) {
+                  case DismissDirection.endToStart:
+                    final Location location = locationsTiles.elementAt(index).location;
+                    edit(location);
+                    return false;
+                  case DismissDirection.startToEnd:
+                    return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false == true;
+                  case DismissDirection.horizontal:
+                  case DismissDirection.vertical:
+                  case DismissDirection.up:
+                  case DismissDirection.down:
+                  case DismissDirection.none:
+                    assert(false);
+                }
+                return false;
+              },
+              background: deleteBackground(),
+              secondaryBackground: editBackground(),
+              child: locationsTiles.elementAt(index),
+            ),
           ),
         ),
-      ),
-    ));
+      ));
+    }
   }
 
   void edit(Location location) {
@@ -138,11 +148,17 @@ class _LocationsState extends State<Locations> {
       (Location? result) {
         if (result != null) {
           setState(() {
-            final Location location = Location(name: result.name, position: result.position);
-            locations.add(location);
+            // TODO(mael): add member via API
           });
         }
       },
     );
+  }
+
+  Future<void> getLocations() async {
+    final List<dynamic> result = await LocationService().getLocations();
+    setState(() {
+      locations = result[1] as List<Location>;
+    });
   }
 }
