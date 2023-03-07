@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../models/episode.dart';
 import '../models/project.dart';
 import '../services/project.dart';
 import '../widgets/project_card.dart';
+import 'episodes.dart';
 import 'planning.dart';
+import 'sequences.dart';
 
-enum ProjectsPage { projects, sequences, planning }
-
-class MyNotification extends Notification {
-  const MyNotification({required this.title});
-
-  final String title;
-}
+enum ProjectsPage { projects, episodes, sequences, shots, planning }
 
 class Projects extends StatefulWidget {
   const Projects({super.key});
@@ -23,7 +20,9 @@ class Projects extends StatefulWidget {
 class _ProjectsState extends State<Projects> {
   ProjectsPage page = ProjectsPage.projects;
   List<Project> projects = <Project>[];
-  late Project planningProject;
+
+  late Project selectedProject;
+  late Episode selectedEpisode;
 
   @override
   void initState() {
@@ -39,7 +38,7 @@ class _ProjectsState extends State<Projects> {
           return Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <CircularProgressIndicator>[
+              children: const <Widget>[
                 CircularProgressIndicator(),
               ],
             ),
@@ -51,14 +50,15 @@ class _ProjectsState extends State<Projects> {
               for (Project project in projects)
                 ProjectCard(
                   project: project,
-                  openSequences: () {
+                  openEpisodes: () {
                     setState(() {
-                      page = ProjectsPage.sequences;
+                      selectedProject = project;
+                      page = ProjectsPage.episodes;
                     });
                   },
                   openPlanning: () {
                     setState(() {
-                      planningProject = project;
+                      selectedProject = project;
                       page = ProjectsPage.planning;
                     });
                   },
@@ -66,10 +66,23 @@ class _ProjectsState extends State<Projects> {
             ],
           ));
         }
+      case ProjectsPage.episodes:
+        return Episodes(
+          episodes: selectedProject.episodes,
+          openSequences: (Episode episode) {
+            setState(() {
+              selectedEpisode = episode;
+              page = ProjectsPage.sequences;
+            });
+          },
+        );
       case ProjectsPage.sequences:
-        return const Center(child: Text('Sequences'));
+        return Sequences(sequences: selectedEpisode.sequences);
+      case ProjectsPage.shots:
+        return Center();
+        break;
       case ProjectsPage.planning:
-        return Planning(project: planningProject);
+        return Planning(project: selectedProject);
     }
   }
 

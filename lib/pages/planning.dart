@@ -34,8 +34,8 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
           event: Event(title: sequence.title, description: sequence.description ?? ''),
           title: sequence.title,
           date: sequence.date,
-          startTime: sequence.startTime,
-          endTime: sequence.endTime));
+          startTime: sequence.date,
+          endTime: sequence.date));
     }
   }
 

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../models/sequence.dart';
+import '../widgets/sequence_card.dart';
+
 class Sequences extends StatefulWidget {
-  const Sequences({super.key});
+  const Sequences({super.key, required this.sequences});
+
+  final List<Sequence> sequences;
 
   @override
   State<Sequences> createState() => _SequencesState();
@@ -10,7 +15,28 @@ class Sequences extends StatefulWidget {
 class _SequencesState extends State<Sequences> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    if (widget.sequences.isEmpty) {
+      return Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            Text('No episodes in this project.'),
+          ],
+        ),
+      );
+    } else {
+      return Expanded(
+          child: Column(
+        children: <SequenceCard>[
+          for (Sequence sequence in widget.sequences)
+            SequenceCard(
+              sequence: sequence,
+              openShots: () {
+                print('open shots');
+              },
+            )
+        ],
+      ));
+    }
   }
 }

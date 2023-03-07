@@ -1,3 +1,4 @@
+import 'episode.dart';
 import 'sequence.dart';
 
 enum ProjectType { movie, series }
@@ -14,19 +15,35 @@ class Project {
       this.shotsCompleted,
       this.director,
       this.writer,
+      required this.episodes,
       required this.sequences});
 
   factory Project.fromJson(json) {
     final ProjectType projectType = (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
 
+    // TODO(mael): remove null checks by returning empty lists from the backend
+
+    List<Episode> episodes = <Episode>[];
+    final episodesJson = json['Episodes'];
+    if (projectType == ProjectType.series && episodesJson != null) {
+      episodes = episodesJson.map<Episode>((episode) => Episode.fromJson(episode)).toList() as List<Episode>;
+    }
+
+    List<Sequence> sequences = <Sequence>[];
+    final sequencesJson = json['Sequences'];
+    if (projectType == ProjectType.movie && sequencesJson != null) {
+      sequences = sequencesJson.map<Sequence>((sequence) => Sequence.fromJson(sequence)).toList() as List<Sequence>;
+    }
+
     return Project(
-      projectType: projectType,
       id: json['Id'].toString(),
+      projectType: projectType,
       title: json['Title'].toString(),
       description: json['Description'].toString(),
       beginDate: DateTime.parse(json['BeginDate'].toString()),
       endDate: DateTime.parse(json['EndDate'].toString()),
-      sequences: <Sequence>[],
+      episodes: episodes,
+      sequences: sequences,
     );
   }
 
@@ -40,9 +57,6 @@ class Project {
   int? shotsCompleted;
   String? director;
   String? writer;
+  List<Episode> episodes;
   List<Sequence> sequences;
-
-  ProjectType setProjectType(bool isProject) {
-    return isProject ? ProjectType.movie : ProjectType.series;
-  }
 }
