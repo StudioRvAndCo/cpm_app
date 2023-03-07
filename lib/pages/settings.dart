@@ -120,14 +120,14 @@ class _SettingsState extends State<Settings> {
                     .map<DropdownMenuItem<String>>((Locale value) {
                   return DropdownMenuItem<String>(
                     value: value.toLanguageTag(),
-                    child: Text(value.toLanguageTag()),
+                    child:
+                        Text('settings.language.${value.toLanguageTag()}'.tr()),
                   );
                 }).toList(),
                 value: context.locale.toLanguageTag(),
                 onChanged: (String? value) {
                   setState(() {
                     final List<String> list = value!.split('-');
-                    print(list);
                     context.setLocale(Locale(list[0], list[1]));
                   });
                 },

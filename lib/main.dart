@@ -15,15 +15,10 @@ void main() async {
 
   await EasyLocalization.ensureInitialized();
   runApp(
-    EasyLocalization(
-        supportedLocales: const <Locale>[
-          Locale('en', 'US'),
-          Locale('fr', 'FR')
-        ],
-        path: 'assets/translations',
-        startLocale: const Locale('en', 'US'),
-        fallbackLocale: const Locale('en', 'US'),
-        child: CPM()),
+    EasyLocalization(supportedLocales: const <Locale>[
+      Locale('en', 'US'),
+      Locale('fr', 'FR')
+    ], path: 'assets/translations', child: CPM()),
   );
 }
 

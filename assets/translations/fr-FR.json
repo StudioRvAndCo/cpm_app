@@ -141,7 +141,9 @@
         },
         "language":{
             "language":"Langue",
-            "description":"Personnalisez la langue utilisée dans l'application."
+            "description":"Personnalisez la langue utilisée dans l'application.",
+            "en-US":"English (United States)",
+            "fr-FR":"Français (France)"
         }
     },
 
