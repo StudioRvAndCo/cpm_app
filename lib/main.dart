@@ -68,7 +68,7 @@ class _CPMState extends State<CPM> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider<ModelTheme>(
         create: (_) => ModelTheme(),
         child: Consumer<ModelTheme>(builder:
             (BuildContext context, ModelTheme themeNotifier, Widget? child) {
@@ -78,7 +78,7 @@ class _CPMState extends State<CPM> {
               routerDelegate: AutoRouterDelegate.declarative(
                 widget._appRouter,
                 routes: (_) => <PageRouteInfo<dynamic>>[
-                  if (true) //TODO: loginState.authenticated
+                  if (loginState.authenticated) //TODO: loginState.authenticated
                     const HomeRoute()
                   else
                     LoginRoute(

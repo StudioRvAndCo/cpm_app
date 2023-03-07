@@ -48,7 +48,7 @@ class _SettingsState extends State<Settings> {
                 SizedBox(
                   width: 100,
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       Radio<ThemeMode>(
                           value: ThemeMode.light,
                           groupValue: themeNotifier.themeMode,
@@ -66,7 +66,7 @@ class _SettingsState extends State<Settings> {
                 SizedBox(
                   width: 100,
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       Radio<ThemeMode>(
                           value: ThemeMode.dark,
                           groupValue: themeNotifier.themeMode,
@@ -84,7 +84,7 @@ class _SettingsState extends State<Settings> {
                 SizedBox(
                   width: 100,
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       Radio<ThemeMode>(
                           value: ThemeMode.system,
                           groupValue: themeNotifier.themeMode,
