@@ -41,8 +41,7 @@ class _NewShotDialogState extends State<NewShotDialog> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Text>[
-                Text(
-                    '${'new.masc.eau.upper'.tr()} ${'shots.shot.lower'.plural(1)}'),
+                Text('${'new.masc.eau.upper'.tr()} ${'shots.shot.lower'.plural(1)}'),
                 Text(
                   '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.eau.lower'.tr()} ${'shots.shot.lower'.plural(1)}.',
                   style: const TextStyle(fontSize: 12),
@@ -55,98 +54,88 @@ class _NewShotDialogState extends State<NewShotDialog> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                  maxLength: 64,
+                  controller: titleController,
+                  decoration: InputDecoration(
+                      labelText: 'attributes.title.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                  autofocus: true,
+                  onEditingComplete: submit,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                  maxLength: 280,
+                  maxLines: 4,
+                  controller: descriptionController,
+                  decoration: InputDecoration(
+                      labelText: 'attributes.description.upper'.tr(),
+                      border: const OutlineInputBorder(),
+                      isDense: true),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: TextField(
+                  maxLength: 64,
+                  controller: lineController,
+                  decoration: InputDecoration(
+                      labelText: 'attributes.line.upper'.tr(), border: const OutlineInputBorder(), isDense: true),
+                  onEditingComplete: submit,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 330,
+                child: DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  hint: Text('shots.value.upper'.plural(1)),
+                  items: values.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  value: selectedValue,
+                  onChanged: (String? value) {
+                    setState(() {
+                      selectedValue = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                      labelText: 'shots.value.upper'.plural(1), border: const OutlineInputBorder(), isDense: true),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextField(
-                      maxLength: 64,
-                      controller: titleController,
-                      decoration: InputDecoration(
-                          labelText: 'attributes.title.upper'.tr(),
-                          border: const OutlineInputBorder(),
-                          isDense: true),
-                      autofocus: true,
-                      onEditingComplete: submit,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextField(
-                      maxLength: 280,
-                      maxLines: 4,
-                      controller: descriptionController,
-                      decoration: InputDecoration(
-                          labelText: 'attributes.description.upper'.tr(),
-                          border: const OutlineInputBorder(),
-                          isDense: true),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: TextField(
-                      maxLength: 64,
-                      controller: lineController,
-                      decoration: InputDecoration(
-                          labelText: 'attributes.line.upper'.tr(),
-                          border: const OutlineInputBorder(),
-                          isDense: true),
-                      onEditingComplete: submit,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 330,
-                    child: DropdownButtonFormField<String>(
-                      isExpanded: true,
-                      hint: Text('shots.value.upper'.plural(1)),
-                      items:
-                          values.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      value: selectedValue,
-                      onChanged: (String? value) {
-                        setState(() {
-                          selectedValue = value;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          labelText: 'shots.value.upper'.plural(1),
-                          border: const OutlineInputBorder(),
-                          isDense: true),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('cancel.upper'.tr())),
-                    TextButton(
-                        onPressed: submit, child: Text('confirm.upper'.tr()))
-                  ],
-                )
-              ]),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('cancel.upper'.tr())),
+                TextButton(onPressed: submit, child: Text('confirm.upper'.tr()))
+              ],
+            )
+          ]),
         )
       ],
     );

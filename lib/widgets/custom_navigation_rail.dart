@@ -19,8 +19,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: ConstrainedBox(
-        constraints:
-            BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+        constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         child: IntrinsicHeight(
           child: NavigationRail(
             leading: Builder(builder: (BuildContext context) {
@@ -40,23 +39,13 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
             }),
             labelType: NavigationRailLabelType.all,
             destinations: <NavigationRailDestination>[
+              NavigationRailDestination(icon: const Icon(Icons.home_outlined), label: Text('home'.tr())),
               NavigationRailDestination(
-                  icon: const Icon(Icons.home_outlined),
-                  label: Text('home'.tr())),
-              NavigationRailDestination(
-                  icon: const Icon(Icons.people_outline),
-                  label: Text('members.member.upper'.plural(2))),
-              NavigationRailDestination(
-                  icon: const Icon(Icons.map),
-                  label: Text('locations.location.upper'.plural(2))),
-              NavigationRailDestination(
-                  icon: const Icon(Icons.settings),
-                  label: Text('settings.settings'.tr())),
-              NavigationRailDestination(
-                  icon: const Icon(Icons.info),
-                  label: Text('information'.tr())),
-              const NavigationRailDestination(
-                  icon: Icon(Icons.quiz), label: Text('Test')),
+                  icon: const Icon(Icons.people_outline), label: Text('members.member.upper'.plural(2))),
+              NavigationRailDestination(icon: const Icon(Icons.map), label: Text('locations.location.upper'.plural(2))),
+              NavigationRailDestination(icon: const Icon(Icons.settings), label: Text('settings.settings'.tr())),
+              NavigationRailDestination(icon: const Icon(Icons.info), label: Text('information'.tr())),
+              const NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
             ],
             trailing: Expanded(
               child: Align(
