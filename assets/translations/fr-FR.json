@@ -130,7 +130,22 @@
         }
     },
     "information":"Info",
-    "settings":"Paramètres",
+    "settings":{
+        "settings":"Paramètres",
+        "theme":{
+            "theme":"Thème",
+            "description":"Personnalisez l'apparence générale de l'application.",
+            "light":"Thème clair",
+            "dark":"Thème sombre",
+            "system":"Thème système"
+        },
+        "language":{
+            "language":"Langue",
+            "description":"Personnalisez la langue utilisée dans l'application.",
+            "en-US":"English (United States)",
+            "fr-FR":"Français (France)"
+        }
+    },
 
     "confirm_dialog":"Voulez-vous vraiment {} cet élément ?",
     "dates_dialog":"Entrer les dates de production",

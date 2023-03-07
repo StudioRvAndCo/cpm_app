@@ -135,8 +135,10 @@ class _NewSequenceDialogState extends State<NewSequenceDialog> {
                       selectedLocation = value;
                     });
                   },
-                  decoration:
-                      InputDecoration(labelText: selectedLocation, border: const OutlineInputBorder(), isDense: true),
+                  decoration: InputDecoration(
+                      labelText: 'locations.location.upper'.plural(1),
+                      border: const OutlineInputBorder(),
+                      isDense: true),
                 ),
               ),
               const SizedBox(

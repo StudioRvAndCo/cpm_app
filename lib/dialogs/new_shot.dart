@@ -101,7 +101,7 @@ class _NewShotDialogState extends State<NewShotDialog> {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 width: 330,
-                child: DropdownButton<String>(
+                child: DropdownButtonFormField<String>(
                   isExpanded: true,
                   hint: Text('shots.value.upper'.plural(1)),
                   items: values.map<DropdownMenuItem<String>>((String value) {
@@ -116,6 +116,8 @@ class _NewShotDialogState extends State<NewShotDialog> {
                       selectedValue = value;
                     });
                   },
+                  decoration: InputDecoration(
+                      labelText: 'shots.value.upper'.plural(1), border: const OutlineInputBorder(), isDense: true),
                 ),
               ),
             ),
