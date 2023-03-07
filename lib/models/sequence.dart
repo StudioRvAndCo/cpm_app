@@ -7,7 +7,8 @@ class Sequence {
       required this.number,
       required this.title,
       this.description,
-      required this.date,
+      required this.beginDate,
+      required this.endDate,
       this.location,
       required this.shots});
 
@@ -20,7 +21,8 @@ class Sequence {
       number: json['Number'] as int,
       title: json['Title'].toString(),
       description: json['Description'].toString(),
-      date: DateTime.parse(json['Date'].toString()),
+      beginDate: DateTime.parse(json['BeginDate'].toString()),
+      endDate: DateTime.parse(json['EndDate'].toString()),
       shots: shots,
     );
   }
@@ -29,7 +31,8 @@ class Sequence {
   int number;
   String title;
   String? description;
-  DateTime date;
+  DateTime beginDate;
+  DateTime endDate;
   Location? location;
   List<Shot> shots;
 }

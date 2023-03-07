@@ -14,8 +14,8 @@ class ProjectService {
       final Response response = await get(Uri.parse(api.projects),
           headers: <String, String>{'accept': 'application/json', api.authorization: api.bearer + token});
 
-      final List<dynamic> membersJson = json.decode(response.body) as List<dynamic>;
-      final List<Project> projects = membersJson.map((project) => Project.fromJson(project)).toList();
+      final List<dynamic> projectsJson = json.decode(response.body) as List<dynamic>;
+      final List<Project> projects = projectsJson.map((project) => Project.fromJson(project)).toList();
 
       if (response.statusCode == 200) {
         return <dynamic>[true, projects, response.statusCode, response.reasonPhrase];

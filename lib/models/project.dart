@@ -5,7 +5,7 @@ enum ProjectType { movie, series }
 
 class Project {
   Project(
-      {this.id,
+      {required this.id,
       required this.projectType,
       required this.title,
       required this.description,
@@ -15,20 +15,13 @@ class Project {
       this.shotsCompleted,
       this.director,
       this.writer,
-      required this.episodes,
+      this.episodes,
       required this.sequences});
 
   factory Project.fromJson(json) {
     final ProjectType projectType = (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
 
     // TODO(mael): remove null checks by returning empty lists from the backend
-
-    List<Episode> episodes = <Episode>[];
-    final episodesJson = json['Episodes'];
-    if (projectType == ProjectType.series && episodesJson != null) {
-      episodes = episodesJson.map<Episode>((episode) => Episode.fromJson(episode)).toList() as List<Episode>;
-    }
-
     List<Sequence> sequences = <Sequence>[];
     final sequencesJson = json['Sequences'];
     if (projectType == ProjectType.movie && sequencesJson != null) {
@@ -42,12 +35,11 @@ class Project {
       description: json['Description'].toString(),
       beginDate: DateTime.parse(json['BeginDate'].toString()),
       endDate: DateTime.parse(json['EndDate'].toString()),
-      episodes: episodes,
       sequences: sequences,
     );
   }
 
-  final String? id;
+  final String id;
   ProjectType projectType;
   String title;
   String description;
@@ -57,6 +49,6 @@ class Project {
   int? shotsCompleted;
   String? director;
   String? writer;
-  List<Episode> episodes;
+  List<Episode>? episodes;
   List<Sequence> sequences;
 }
