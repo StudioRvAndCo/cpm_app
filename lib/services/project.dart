@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -25,7 +26,7 @@ class ProjectService {
       }
     } catch (exception) {
       debugPrint(exception.toString());
-      return <dynamic>[false, <Project>[], 408, 'request timed out'];
+      return <dynamic>[false, <Project>[], 408, 'error.timeout'.tr()];
     }
   }
 }

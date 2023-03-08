@@ -84,7 +84,7 @@ class HomeState extends State<Home> {
       case 5:
         return const Test();
       default:
-        return const Center(child: Text('Coming soon!'));
+        return const Center();
     }
   }
 }

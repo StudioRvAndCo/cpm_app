@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/episode.dart';
@@ -54,8 +55,8 @@ class ProjectsState extends State<Projects> {
             return Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const <Widget>[
-                  Text('No projects.'),
+                children: <Widget>[
+                  Text('projects.no_projects'.tr()),
                 ],
               ),
             );
@@ -94,8 +95,8 @@ class ProjectsState extends State<Projects> {
           return Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                Text('Request failed.'),
+              children: <Widget>[
+                Text('errors.request_failed'.tr()),
               ],
             ),
           );

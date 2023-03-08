@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/shot.dart';
@@ -19,8 +20,8 @@ class _ShotsState extends State<Shots> {
       return Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text('No shots.'),
+          children: <Widget>[
+            Text('shots.no_shots'.tr()),
           ],
         ),
       );

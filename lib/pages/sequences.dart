@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/sequence.dart';
@@ -21,8 +22,8 @@ class _SequencesState extends State<Sequences> {
       return Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text('No sequences.'),
+          children: <Widget>[
+            Text('sequences.no_sequences'.tr()),
           ],
         ),
       );

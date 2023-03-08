@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/episode.dart';
@@ -47,8 +48,8 @@ class _EpisodesState extends State<Episodes> {
         return Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-              Text('No episodes.'),
+            children: <Widget>[
+              Text('episodes.no_episodes'.tr()),
             ],
           ),
         );
@@ -90,8 +91,8 @@ class _EpisodesState extends State<Episodes> {
       return Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text('Request failed.'),
+          children: <Widget>[
+            Text('errors.request_failed'.tr()),
           ],
         ),
       );

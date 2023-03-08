@@ -1,284 +1,289 @@
 {
-    "username": "Identifiant",
-    "password": "Mot de passe",
-    "login": "Connexion",
-    "home": "Accueil",
-    "details": {
+  "username": "Identifiant",
+  "password": "Mot de passe",
+  "login": "Connexion",
+  "home": "Accueil",
+  "details": {
+    "upper": {
+      "one": "Détail",
+      "other": "Détails"
+    },
+    "lower": {
+      "one": "détail",
+      "other": "détails"
+    }
+  },
+  "members": {
+    "member": {
+      "upper": {
+        "one": "Membre",
+        "other": "Membres"
+      },
+      "lower": {
+        "one": "membre",
+        "other": "membres"
+      }
+    },
+    "call": "Appeler",
+    "message": "Message"
+  },
+  "locations": {
+    "location": {
+      "upper": {
+        "one": "Lieu",
+        "other": "Lieux"
+      },
+      "lower": {
+        "one": "lieu",
+        "other": "lieux"
+      }
+    },
+    "view": "Afficher sur la carte"
+  },
+  "projects": {
+    "project": {
+      "upper": {
+        "one": "Projet",
+        "other": "Projets"
+      },
+      "lower": {
+        "one": "projet",
+        "other": "projets"
+      }
+    },
+    "movie": {
+      "upper": "Film",
+      "lower": "film"
+    },
+    "series": {
+      "upper": "Série",
+      "lower": "série"
+    },
+    "no_projects": "Aucun projet."
+  },
+  "episodes": {
+    "episode": {
+      "upper": {
+        "one": "Épisode",
+        "other": "Épisodes"
+      },
+      "lower": {
+        "one": "épisode",
+        "other": "épisodes"
+      }
+    },
+    "no_episodes": "Aucun épisode."
+  },
+  "sequences": {
+    "sequence": {
+      "upper": {
+        "one": "Séquence",
+        "other": "Séquences"
+      },
+      "lower": {
+        "one": "séquence",
+        "other": "séquences"
+      }
+    },
+    "no_sequences": "Aucune séquence."
+  },
+  "shots": {
+    "shot": {
+      "upper": {
+        "one": "Shot",
+        "other": "Shots"
+      },
+      "lower": {
+        "one": "shot",
+        "other": "shots"
+      }
+    },
+    "value": {
+      "upper": {
+        "one": "Valeur",
+        "other": "Valeurs"
+      },
+      "lower": {
+        "one": "valeur",
+        "other": "valeurs"
+      }
+    },
+    "no_shots": "Aucun shot."
+  },
+  "planning": {
+    "upper": "Planning",
+    "lower": "planning",
+    "date": {
+      "year": {
+        "upper": "Année",
+        "lower": "année"
+      },
+      "month": {
+        "upper": "Mois",
+        "lower": "mois"
+      },
+      "week": {
+        "upper": "Semaine",
+        "lower": "semaine"
+      },
+      "day": {
+        "upper": "Jour",
+        "lower": "jour"
+      }
+    }
+  },
+  "settings": {
+    "settings": "Paramètres",
+    "theme": {
+      "theme": "Thème",
+      "description": "Personnalisez l'apparence générale de l'application.",
+      "light": "Thème clair",
+      "dark": "Thème sombre",
+      "system": "Thème système"
+    },
+    "language": {
+      "language": "Langue",
+      "description": "Personnalisez la langue utilisée dans l'application.",
+      "en-US": "English (United States)",
+      "fr-FR": "Français (France)"
+    }
+  },
+  "confirm_dialog": "Voulez-vous vraiment {} cet élément ?",
+  "dates_dialog": "Entrer les dates de production",
+  "attributes": {
+    "name": {
+      "upper": "Nom",
+      "lower": "nom"
+    },
+    "firstname": {
+      "upper": "Prénom",
+      "lower": "prénom"
+    },
+    "lastname": {
+      "upper": "Nom de famille",
+      "lower": "nom de famille"
+    },
+    "phone": {
+      "upper": "Téléphone",
+      "lower": "téléphone"
+    },
+    "position": {
+      "upper": "Emplacement",
+      "lower": "emplacement"
+    },
+    "title": {
+      "upper": "Titre",
+      "lower": "titre"
+    },
+    "description": {
+      "upper": "Description",
+      "lower": "description"
+    },
+    "values": {
+      "full": "Plan large",
+      "medium_full": "Plan italien",
+      "cowboy": "Plan américain",
+      "medium": "Plan taille",
+      "medium_closeup": "Plan poitrine",
+      "closeup": "Gros plan",
+      "extreme_closeup": "Très gros plan",
+      "insert": "Plan d'insert",
+      "sequence": "Plan séquence",
+      "landscape": "Plan paysage",
+      "drone": "Plan drone",
+      "other": "Autre"
+    },
+    "line": {
+      "upper": "Réplique",
+      "lower": "réplique"
+    }
+  },
+  "new": {
+    "masc": {
+      "el": {
+        "upper": "Nouvel",
+        "lower": "nouvel"
+      },
+      "eau": {
+        "upper": "Nouveau",
+        "lower": "nouveau"
+      }
+    },
+    "fem": {
+      "upper": "Nouvelle",
+      "lower": "nouvelle"
+    }
+  },
+  "edit": {
+    "upper": "Éditer",
+    "lower": "éditer"
+  },
+  "add": {
+    "upper": "Ajouter",
+    "lower": "ajouter"
+  },
+  "delete": {
+    "upper": "Supprimer",
+    "lower": "supprimer"
+  },
+  "cancel": "Annuler",
+  "confirm": "OK",
+  "error": {
+    "error": "Erreur.",
+    "timeout": "Requête expirée",
+    "username-password": "Identifiant ou mot de passe invalide.",
+    "direction": "Direction invalide.",
+    "empty": "Ne peut pas être vide.",
+    "request_failed": "La requête a échoué."
+  },
+  "about": {
+    "about": "À propos",
+    "description": "CPM est un outil pour gérer efficacement la production de projets cinématographiques. Il s'agit un projet open-source du Studio Rv & Co, une association à but non-lucratif qui produit divers projets audiovisuels.",
+    "more_about": "À propos de",
+    "website": "Website"
+  },
+  "articles": {
+    "a": {
+      "masc": {
+        "upper": "Un",
+        "lower": "un"
+      },
+      "fem": {
+        "upper": "Une",
+        "lower": "une"
+      }
+    },
+    "the": {
+      "masc": {
+        "upper": "Le",
+        "lower": "le"
+      },
+      "fem": {
+        "upper": "La",
+        "lower": "la"
+      }
+    },
+    "this": {
+      "masc": {
         "upper": {
-            "one": "Détail",
-            "other": "Détails"
+          "one": "Ce",
+          "other": "Ces"
         },
         "lower": {
-            "one": "détail",
-            "other": "détails"
+          "one": "ce",
+          "other": "ces"
         }
-    },
-    "members": {
-        "member": {
-            "upper": {
-                "one": "Membre",
-                "other": "Membres"
-            },
-            "lower": {
-                "one": "membre",
-                "other": "membres"
-            }
+      },
+      "fem": {
+        "upper": {
+          "one": "Cette",
+          "other": "Cettes"
         },
-        "call": "Appeler",
-        "message": "Message"
-    },
-    "locations": {
-        "location": {
-            "upper": {
-                "one": "Lieu",
-                "other": "Lieux"
-            },
-            "lower": {
-                "one": "lieu",
-                "other": "lieux"
-            }
-        },
-        "view": "Afficher sur la carte"
-    },
-    "projects": {
-        "project": {
-            "upper": {
-                "one": "Projet",
-                "other": "Projets"
-            },
-            "lower": {
-                "one": "projet",
-                "other": "projets"
-            }
-        },
-        "movie": {
-            "upper": "Film",
-            "lower": "film"
-        },
-        "series": {
-            "upper": "Série",
-            "lower": "série"
+        "lower": {
+          "one": "cette",
+          "other": "cettes"
         }
-    },
-    "episodes": {
-        "episode": {
-            "upper": {
-                "one": "Épisode",
-                "other": "Épisodes"
-            },
-            "lower": {
-                "one": "épisode",
-                "other": "épisodes"
-            }
-        }
-    },
-    "sequences": {
-        "sequence": {
-            "upper": {
-                "one": "Séquence",
-                "other": "Séquences"
-            },
-            "lower": {
-                "one": "séquence",
-                "other": "séquences"
-            }
-        }
-    },
-    "shots": {
-        "shot": {
-            "upper": {
-                "one": "Shot",
-                "other": "Shots"
-            },
-            "lower": {
-                "one": "shot",
-                "other": "shots"
-            }
-        },
-        "value": {
-            "upper": {
-                "one": "Valeur",
-                "other": "Valeurs"
-            },
-            "lower": {
-                "one": "valeur",
-                "other": "valeurs"
-            }
-        }
-    },
-    "planning": {
-        "upper": "Planning",
-        "lower": "planning",
-        "date": {
-            "year": {
-                "upper": "Année",
-                "lower": "année"
-            },
-            "month": {
-                "upper": "Mois",
-                "lower": "mois"
-            },
-            "week": {
-                "upper": "Semaine",
-                "lower": "semaine"
-            },
-            "day": {
-                "upper": "Jour",
-                "lower": "jour"
-            }
-        }
-    },
-    "settings": {
-        "settings": "Paramètres",
-        "theme": {
-            "theme": "Thème",
-            "description": "Personnalisez l'apparence générale de l'application.",
-            "light": "Thème clair",
-            "dark": "Thème sombre",
-            "system": "Thème système"
-        },
-        "language": {
-            "language": "Langue",
-            "description": "Personnalisez la langue utilisée dans l'application.",
-            "en-US": "English (United States)",
-            "fr-FR": "Français (France)"
-        }
-    },
-    "confirm_dialog": "Voulez-vous vraiment {} cet élément ?",
-    "dates_dialog": "Entrer les dates de production",
-    "attributes": {
-        "name": {
-            "upper": "Nom",
-            "lower": "nom"
-        },
-        "firstname": {
-            "upper": "Prénom",
-            "lower": "prénom"
-        },
-        "lastname": {
-            "upper": "Nom de famille",
-            "lower": "nom de famille"
-        },
-        "phone": {
-            "upper": "Téléphone",
-            "lower": "téléphone"
-        },
-        "position": {
-            "upper": "Emplacement",
-            "lower": "emplacement"
-        },
-        "title": {
-            "upper": "Titre",
-            "lower": "titre"
-        },
-        "description": {
-            "upper": "Description",
-            "lower": "description"
-        },
-        "values": {
-            "full": "Plan large",
-            "medium_full": "Plan italien",
-            "cowboy": "Plan américain",
-            "medium": "Plan taille",
-            "medium_closeup": "Plan poitrine",
-            "closeup": "Gros plan",
-            "extreme_closeup": "Très gros plan",
-            "insert": "Plan d'insert",
-            "sequence": "Plan séquence",
-            "landscape": "Plan paysage",
-            "drone": "Plan drone",
-            "other": "Autre"
-        },
-        "line": {
-            "upper": "Réplique",
-            "lower": "réplique"
-        }
-    },
-    "new": {
-        "masc": {
-            "el": {
-                "upper": "Nouvel",
-                "lower": "nouvel"
-            },
-            "eau": {
-                "upper": "Nouveau",
-                "lower": "nouveau"
-            }
-        },
-        "fem": {
-            "upper": "Nouvelle",
-            "lower": "nouvelle"
-        }
-    },
-    "edit": {
-        "upper": "Éditer",
-        "lower": "éditer"
-    },
-    "add": {
-        "upper": "Ajouter",
-        "lower": "ajouter"
-    },
-    "delete": {
-        "upper": "Supprimer",
-        "lower": "supprimer"
-    },
-    "cancel": "Annuler",
-    "confirm": "OK",
-    "error": {
-        "error": "Erreur.",
-        "timeout": "Requête expirée",
-        "username-password": "Identifiant ou mot de passe invalide.",
-        "direction": "Direction invalide.",
-        "empty": "Ne peut pas être vide."
-    },
-    "about": {
-        "about": "À propos",
-        "description": "CPM est un outil pour gérer efficacement la production de projets cinématographiques. Il s'agit un projet open-source du Studio Rv & Co, une association à but non-lucratif qui produit divers projets audiovisuels.",
-        "more_about": "À propos de",
-        "website": "Website"
-    },
-    "articles": {
-        "a": {
-            "masc": {
-                "upper": "Un",
-                "lower": "un"
-            },
-            "fem": {
-                "upper": "Une",
-                "lower": "une"
-            }
-        },
-        "the": {
-            "masc": {
-                "upper": "Le",
-                "lower": "le"
-            },
-            "fem": {
-                "upper": "La",
-                "lower": "la"
-            }
-        },
-        "this": {
-            "masc": {
-                "upper": {
-                    "one": "Ce",
-                    "other": "Ces"
-                },
-                "lower": {
-                    "one": "ce",
-                    "other": "ces"
-                }
-            },
-            "fem": {
-                "upper": {
-                    "one": "Cette",
-                    "other": "Cettes"
-                },
-                "lower": {
-                    "one": "cette",
-                    "other": "cettes"
-                }
-            }
-        }
+      }
     }
+  }
 }

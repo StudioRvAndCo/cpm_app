@@ -58,7 +58,8 @@
     "series": {
       "upper": "Series",
       "lower": "series"
-    }
+    },
+    "no_projects": "No projects."
   },
   "episodes": {
     "episode": {
@@ -70,7 +71,8 @@
         "one": "episode",
         "other": "episodes"
       }
-    }
+    },
+    "no_episodes": "No episodes."
   },
   "sequences": {
     "sequence": {
@@ -82,7 +84,8 @@
         "one": "sequence",
         "other": "sequences"
       }
-    }
+    },
+    "no_sequences": "No sequences."
   },
   "shots": {
     "shot": {
@@ -104,7 +107,8 @@
         "one": "value",
         "other": "values"
       }
-    }
+    },
+    "no_shots": "No shots."
   },
   "planning": {
     "upper": "Planning",
@@ -229,7 +233,8 @@
     "timeout": "Request timed out.",
     "username-password": "Invalid username or password.",
     "direction": "Invalid direction.",
-    "empty": "Can't be empty."
+    "empty": "Can't be empty.",
+    "request_failed": "Request failed."
   },
   "about": {
     "about": "About",
