@@ -44,11 +44,7 @@ class _ShotCardState extends State<ShotCard> {
 }
 
 class CompactShotCard extends StatelessWidget {
-  const CompactShotCard(
-      {super.key,
-      required this.widget,
-      required this.onPressed,
-      required this.onCheck});
+  const CompactShotCard({super.key, required this.widget, required this.onPressed, required this.onCheck});
 
   final ShotCard widget;
   final void Function(bool?) onCheck;
@@ -60,55 +56,41 @@ class CompactShotCard extends StatelessWidget {
       opacity: 0.5,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0))),
+              padding: EdgeInsets.zero, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
           onPressed: () => print('click shot'),
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(children: <Widget>[
-                    Container(
-                      width: 30,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15))),
-                      child: Text(widget.shot.number.toString(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onTertiary)),
-                    ),
-                    const Padding(padding: EdgeInsets.only(right: 12)),
-                    Expanded(
-                      child: Text(
-                        widget.shot.title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontWeight: FontWeight.bold),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Checkbox(value: widget.shot.completed, onChanged: onCheck)
-                  ])
-                ]),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+              Row(children: <Widget>[
+                Container(
+                  width: 30,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      borderRadius: const BorderRadius.all(Radius.circular(15))),
+                  child: Text(widget.shot.number.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onTertiary)),
+                ),
+                const Padding(padding: EdgeInsets.only(right: 12)),
+                Expanded(
+                  child: Text(
+                    widget.shot.title,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Checkbox(value: widget.shot.completed, onChanged: onCheck)
+              ])
+            ]),
           )),
     );
   }
 }
 
 class CollapsedShotCard extends StatelessWidget {
-  const CollapsedShotCard(
-      {super.key,
-      required this.widget,
-      required this.onPressed,
-      required this.onCheck});
+  const CollapsedShotCard({super.key, required this.widget, required this.onPressed, required this.onCheck});
 
   final ShotCard widget;
   final void Function(bool?) onCheck;
@@ -118,56 +100,45 @@ class CollapsedShotCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0))),
+            padding: EdgeInsets.zero, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
         onPressed: () => print('click shot'),
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(children: <Widget>[
-                  Container(
-                    width: 30,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(15))),
-                    child: Text(widget.shot.number.toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.onSecondary)),
-                  ),
-                  const Padding(padding: EdgeInsets.only(right: 12)),
-                  Expanded(
-                    child: Text(
-                      widget.shot.title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Checkbox(value: widget.shot.completed, onChanged: onCheck)
-                ]),
-                Text(
-                  widget.shot.value ?? 'shots.value.no_value'.tr(),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+            Row(children: <Widget>[
+              Container(
+                width: 30,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: const BorderRadius.all(Radius.circular(15))),
+                child: Text(widget.shot.number.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondary)),
+              ),
+              const Padding(padding: EdgeInsets.only(right: 12)),
+              Expanded(
+                child: Text(
+                  widget.shot.title,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  widget.shot.description ?? '',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )
-              ]),
+              ),
+              Checkbox(value: widget.shot.completed, onChanged: onCheck)
+            ]),
+            Text(
+              widget.shot.value ?? 'shots.value.no_value'.tr(),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              widget.shot.description ?? '',
+              style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )
+          ]),
         ));
   }
 }
