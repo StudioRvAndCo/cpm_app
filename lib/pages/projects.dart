@@ -61,7 +61,6 @@ class ProjectsState extends State<Projects> {
                         openEpisodes: () {
                           setState(() {
                             selectedProject = project;
-
                             page = ProjectsPage.episodes;
                           });
                         },

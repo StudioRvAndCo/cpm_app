@@ -43,6 +43,9 @@ class HomeState extends State<Home> {
                 ? CustomNavigationDrawer(
                     selectedIndex: _selectedIndex,
                     onNavigate: (int index) {
+                      if (index == 0) {
+                        resetPage();
+                      }
                       setState(() {
                         _selectedIndex = index;
                       });
@@ -53,10 +56,7 @@ class HomeState extends State<Home> {
                 if (kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isFuchsia)
                   CustomNavigationRail(onNavigate: (int index) {
                     if (index == 0) {
-                      // Reset the home page to the projects list
-                      projectsStateKey.currentState?.setState(() {
-                        projectsStateKey.currentState?.page = ProjectsPage.projects;
-                      });
+                      resetPage();
                     }
                     setState(() {
                       _selectedIndex = index;
@@ -86,5 +86,12 @@ class HomeState extends State<Home> {
       default:
         return const Center();
     }
+  }
+
+  /// Resets the home page to the projects list.
+  void resetPage() {
+    projectsStateKey.currentState?.setState(() {
+      projectsStateKey.currentState?.page = ProjectsPage.projects;
+    });
   }
 }
