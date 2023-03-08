@@ -11,7 +11,7 @@ class EpisodeService {
 
   Future<List<dynamic>> getEpisodes(String projectId) async {
     try {
-      final Response response = await get(Uri.parse('api.episodes/$projectId'),
+      final Response response = await get(Uri.parse('${api.episodes}/$projectId'),
           headers: <String, String>{'accept': 'application/json', api.authorization: api.bearer + token});
 
       final List<dynamic> episodesJson = json.decode(response.body) as List<dynamic>;

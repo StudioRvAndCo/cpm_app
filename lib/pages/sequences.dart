@@ -22,23 +22,23 @@ class _SequencesState extends State<Sequences> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
-            Text('No sequences in this project or episode.'),
+            Text('No sequences.'),
           ],
         ),
       );
     } else {
       return Expanded(
           child: Column(
-            children: <SequenceCard>[
-              for (Sequence sequence in widget.sequences)
-                SequenceCard(
-                  sequence: sequence,
-                  openShots: () {
-                    widget.openShots(sequence);
-                  },
-                )
-            ],
-          ));
+        children: <SequenceCard>[
+          for (Sequence sequence in widget.sequences)
+            SequenceCard(
+              sequence: sequence,
+              openShots: () {
+                widget.openShots(sequence);
+              },
+            )
+        ],
+      ));
     }
   }
 }

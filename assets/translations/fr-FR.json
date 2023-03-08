@@ -1,290 +1,282 @@
 {
-    "username":"Identifiant",
-    "password":"Mot de passe",
-    "login":"Connexion",
-
-    "home":"Accueil",
-    "details":{
-        "upper":{
-            "one":"Détail",
-            "other":"Détails"
+    "username": "Identifiant",
+    "password": "Mot de passe",
+    "login": "Connexion",
+    "home": "Accueil",
+    "details": {
+        "upper": {
+            "one": "Détail",
+            "other": "Détails"
         },
-        "lower":{
-            "one":"détail",
-            "other":"détails"
-            }
-    },
-    "members":{
-        "member":{
-            "upper":{
-                "one":"Membre",
-                "other":"Membres"
-            },
-            "lower":{
-                "one":"membre",
-                "other":"membres"
-            }
-        },
-        "call":"Appeler",
-        "message":"Message"
-    },
-    "locations":{
-        "location":{
-            "upper":{
-                "one":"Lieu",
-                "other":"Lieux"
-            },
-            "lower":{
-                "one":"lieu",
-                "other":"lieux"
-            }
-        },
-        "view":"Afficher sur la carte"
-    },
-    "projects":{
-        "project":{
-            "upper":{
-                "one":"Projet",
-                "other":"Projets"
-            },
-            "lower":{
-                "one":"projet",
-                "other":"projets"
-            }
-        },
-        "movie":{
-            "upper":"Film",
-            "lower":"film"
-        },
-        "series":{
-            "upper":"Série",
-            "lower":"série"
+        "lower": {
+            "one": "détail",
+            "other": "détails"
         }
     },
-    "episodes":{
-        "episode":{
-            "upper":{
-                "one":"Épisode",
-                "other":"Épisodes"
+    "members": {
+        "member": {
+            "upper": {
+                "one": "Membre",
+                "other": "Membres"
             },
-            "lower":{
-                "one":"épisode",
-                "other":"épisodes"
+            "lower": {
+                "one": "membre",
+                "other": "membres"
             }
+        },
+        "call": "Appeler",
+        "message": "Message"
+    },
+    "locations": {
+        "location": {
+            "upper": {
+                "one": "Lieu",
+                "other": "Lieux"
+            },
+            "lower": {
+                "one": "lieu",
+                "other": "lieux"
+            }
+        },
+        "view": "Afficher sur la carte"
+    },
+    "projects": {
+        "project": {
+            "upper": {
+                "one": "Projet",
+                "other": "Projets"
+            },
+            "lower": {
+                "one": "projet",
+                "other": "projets"
+            }
+        },
+        "movie": {
+            "upper": "Film",
+            "lower": "film"
+        },
+        "series": {
+            "upper": "Série",
+            "lower": "série"
         }
     },
-    "sequences":{
-        "sequence":{
-            "upper":{
-                "one":"Séquence",
-                "other":"Séquences"
+    "episodes": {
+        "episode": {
+            "upper": {
+                "one": "Épisode",
+                "other": "Épisodes"
             },
-            "lower":{
-                "one":"séquence",
-                "other":"séquences"
+            "lower": {
+                "one": "épisode",
+                "other": "épisodes"
             }
         }
     },
-    "shots":{
-        "shot":{
-            "upper":{
-                "one":"Shot",
-                "other":"Shots"
+    "sequences": {
+        "sequence": {
+            "upper": {
+                "one": "Séquence",
+                "other": "Séquences"
             },
-            "lower":{
-                "one":"shot",
-                "other":"shots"
-            }
-        },
-        "value":{
-            "upper":{
-                "one":"Valeur",
-                "other":"Valeurs"
-            },
-            "lower":{
-                "one":"valeur",
-                "other":"valeurs"
+            "lower": {
+                "one": "séquence",
+                "other": "séquences"
             }
         }
     },
-    "planning":{
-        "upper":"Planning",
-        "lower":"planning",
-        "date":{
-            "year":{
-                "upper":"Année",
-                "lower":"année"
+    "shots": {
+        "shot": {
+            "upper": {
+                "one": "Shot",
+                "other": "Shots"
             },
-            "month":{
-                "upper":"Mois",
-                "lower":"mois"
+            "lower": {
+                "one": "shot",
+                "other": "shots"
+            }
+        },
+        "value": {
+            "upper": {
+                "one": "Valeur",
+                "other": "Valeurs"
             },
-            "week":{
-                "upper":"Semaine",
-                "lower":"semaine"
-            },
-            "day":{
-                "upper":"Jour",
-                "lower":"jour"
+            "lower": {
+                "one": "valeur",
+                "other": "valeurs"
             }
         }
     },
-    "information":"Info",
-    "settings":{
-        "settings":"Paramètres",
-        "theme":{
-            "theme":"Thème",
-            "description":"Personnalisez l'apparence générale de l'application.",
-            "light":"Thème clair",
-            "dark":"Thème sombre",
-            "system":"Thème système"
-        },
-        "language":{
-            "language":"Langue",
-            "description":"Personnalisez la langue utilisée dans l'application.",
-            "en-US":"English (United States)",
-            "fr-FR":"Français (France)"
+    "planning": {
+        "upper": "Planning",
+        "lower": "planning",
+        "date": {
+            "year": {
+                "upper": "Année",
+                "lower": "année"
+            },
+            "month": {
+                "upper": "Mois",
+                "lower": "mois"
+            },
+            "week": {
+                "upper": "Semaine",
+                "lower": "semaine"
+            },
+            "day": {
+                "upper": "Jour",
+                "lower": "jour"
+            }
         }
     },
-
-    "confirm_dialog":"Voulez-vous vraiment {} cet élément ?",
-    "dates_dialog":"Entrer les dates de production",
-    
-    
-    "attributes":{
-        "name":{
-            "upper":"Nom",
-            "lower":"nom"
+    "settings": {
+        "settings": "Paramètres",
+        "theme": {
+            "theme": "Thème",
+            "description": "Personnalisez l'apparence générale de l'application.",
+            "light": "Thème clair",
+            "dark": "Thème sombre",
+            "system": "Thème système"
         },
-        "firstname":{
-            "upper":"Prénom",
-            "lower":"prénom"
-        },
-        "lastname":{
-            "upper":"Nom de famille",
-            "lower":"nom de famille"
-        },
-        "phone":{
-            "upper":"Téléphone",
-            "lower":"téléphone"
-        },
-        "position":{
-            "upper":"Emplacement",
-            "lower":"emplacement"
-        },
-        "title":{
-            "upper":"Titre",
-            "lower":"titre"
-        },
-        "description":{
-            "upper":"Description",
-            "lower":"description"
-        },
-        "values":{
-            "full":"Plan large",
-            "medium_full":"Plan italien",
-            "cowboy":"Plan américain",
-            "medium":"Plan taille",
-            "medium_closeup":"Plan poitrine",
-            "closeup":"Gros plan",
-            "extreme_closeup":"Très gros plan",
-            "insert":"Plan d'insert",
-            "sequence":"Plan séquence",
-            "landscape":"Plan paysage",
-            "drone":"Plan drone",
-            "other":"Autre"
-        },
-        "line":{
-            "upper":"Réplique",
-            "lower":"réplique"
+        "language": {
+            "language": "Langue",
+            "description": "Personnalisez la langue utilisée dans l'application.",
+            "en-US": "English (United States)",
+            "fr-FR": "Français (France)"
         }
     },
-
-    "new":{
-        "masc":{
-            "el":{
-                "upper":"Nouvel",
-                "lower":"nouvel"
-            },
-            "eau":{
-                "upper":"Nouveau",
-                "lower":"nouveau"
-            }
+    "confirm_dialog": "Voulez-vous vraiment {} cet élément ?",
+    "dates_dialog": "Entrer les dates de production",
+    "attributes": {
+        "name": {
+            "upper": "Nom",
+            "lower": "nom"
         },
-        "fem":{
-            "upper":"Nouvelle",
-            "lower":"nouvelle"
+        "firstname": {
+            "upper": "Prénom",
+            "lower": "prénom"
+        },
+        "lastname": {
+            "upper": "Nom de famille",
+            "lower": "nom de famille"
+        },
+        "phone": {
+            "upper": "Téléphone",
+            "lower": "téléphone"
+        },
+        "position": {
+            "upper": "Emplacement",
+            "lower": "emplacement"
+        },
+        "title": {
+            "upper": "Titre",
+            "lower": "titre"
+        },
+        "description": {
+            "upper": "Description",
+            "lower": "description"
+        },
+        "values": {
+            "full": "Plan large",
+            "medium_full": "Plan italien",
+            "cowboy": "Plan américain",
+            "medium": "Plan taille",
+            "medium_closeup": "Plan poitrine",
+            "closeup": "Gros plan",
+            "extreme_closeup": "Très gros plan",
+            "insert": "Plan d'insert",
+            "sequence": "Plan séquence",
+            "landscape": "Plan paysage",
+            "drone": "Plan drone",
+            "other": "Autre"
+        },
+        "line": {
+            "upper": "Réplique",
+            "lower": "réplique"
         }
     },
-    "edit":{
-        "upper":"Éditer",
-        "lower":"éditer"
-    },
-    "add":{
-        "upper":"Ajouter",
-        "lower":"ajouter"
-    },
-    "delete":{
-        "upper":"Supprimer",
-        "lower":"supprimer"
-    },
-    "cancel":"Annuler",
-    "confirm":"OK",
-
-    "error":{
-        "error":"Erreur.",
-        "timeout":"Requête expirée",
-        "username-password":"Identifiant ou mot de passe invalide.",
-        "direction":"Direction invalide.",
-        "empty":"Ne peut pas être vide."
-    },
-
-    "informations":{
-        "description":"CPM est un outil pour gérer efficacement la production de projets cinématographiques. Il s'agit un projet open-source du Studio Rv & Co, une association à but non-lucratif qui produit divers projets audiovisuels.",
-        "more_about":"À propos de",
-        "website":"Website"
-    },
-
-    "articles":{
-        "a":{
-            "masc":{
-                "upper":"Un",
-                "lower":"un"
+    "new": {
+        "masc": {
+            "el": {
+                "upper": "Nouvel",
+                "lower": "nouvel"
             },
-            "fem":{
-                "upper":"Une",
-                "lower":"une"
+            "eau": {
+                "upper": "Nouveau",
+                "lower": "nouveau"
             }
         },
-        "the":{
-            "masc":{
-                "upper":"Le",
-                "lower":"le"
+        "fem": {
+            "upper": "Nouvelle",
+            "lower": "nouvelle"
+        }
+    },
+    "edit": {
+        "upper": "Éditer",
+        "lower": "éditer"
+    },
+    "add": {
+        "upper": "Ajouter",
+        "lower": "ajouter"
+    },
+    "delete": {
+        "upper": "Supprimer",
+        "lower": "supprimer"
+    },
+    "cancel": "Annuler",
+    "confirm": "OK",
+    "error": {
+        "error": "Erreur.",
+        "timeout": "Requête expirée",
+        "username-password": "Identifiant ou mot de passe invalide.",
+        "direction": "Direction invalide.",
+        "empty": "Ne peut pas être vide."
+    },
+    "about": {
+        "about": "À propos",
+        "description": "CPM est un outil pour gérer efficacement la production de projets cinématographiques. Il s'agit un projet open-source du Studio Rv & Co, une association à but non-lucratif qui produit divers projets audiovisuels.",
+        "more_about": "À propos de",
+        "website": "Website"
+    },
+    "articles": {
+        "a": {
+            "masc": {
+                "upper": "Un",
+                "lower": "un"
             },
-            "fem":{
-                "upper":"La",
-                "lower":"la"
+            "fem": {
+                "upper": "Une",
+                "lower": "une"
             }
         },
-        "this":{
-            "masc":{
-                "upper":{
-                    "one":"Ce",
-                    "other":"Ces"
+        "the": {
+            "masc": {
+                "upper": "Le",
+                "lower": "le"
+            },
+            "fem": {
+                "upper": "La",
+                "lower": "la"
+            }
+        },
+        "this": {
+            "masc": {
+                "upper": {
+                    "one": "Ce",
+                    "other": "Ces"
                 },
-                "lower":{
-                    "one":"ce",
-                    "other":"ces"
+                "lower": {
+                    "one": "ce",
+                    "other": "ces"
                 }
             },
-            "fem":{
-                "upper":{
-                    "one":"Cette",
-                    "other":"Cettes"
+            "fem": {
+                "upper": {
+                    "one": "Cette",
+                    "other": "Cettes"
                 },
-                "lower":{
-                    "one":"cette",
-                    "other":"cettes"
+                "lower": {
+                    "one": "cette",
+                    "other": "cettes"
                 }
             }
         }

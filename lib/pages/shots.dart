@@ -20,7 +20,7 @@ class _ShotsState extends State<Shots> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
-            Text('No shots in this sequence.'),
+            Text('No shots.'),
           ],
         ),
       );

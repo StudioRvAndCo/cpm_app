@@ -2,6 +2,7 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../models/episode.dart';
 import '../models/event.dart';
 import '../models/project.dart';
 import '../models/sequence.dart';
@@ -29,19 +30,24 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    for (final Sequence sequence in widget.project.sequences) {
-      _events.add(CalendarEventData<Event>(
-          event: Event(title: sequence.title, description: sequence.description ?? ''),
-          title: sequence.title,
-          date: sequence.beginDate,
-          startTime: sequence.beginDate,
-          endTime: sequence.endDate));
+    for (final Episode episode in widget.project.episodes) {
+      for (final Sequence sequence in episode.sequences) {
+        _events.add(CalendarEventData<Event>(
+            event: Event(title: sequence.title, description: sequence.description ?? ''),
+            title: sequence.title,
+            date: sequence.beginDate,
+            startTime: sequence.beginDate,
+            endTime: sequence.endDate));
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    CalendarControllerProvider.of<Event>(context).controller.addAll(_events);
+    CalendarControllerProvider
+        .of<Event>(context)
+        .controller
+        .addAll(_events);
 
     switch (view) {
       case View.month:
@@ -55,7 +61,10 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
 
   HeaderStyle _buildHeader() {
     return HeaderStyle(
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
+        decoration: BoxDecoration(color: Theme
+            .of(context)
+            .colorScheme
+            .surface),
         leftIcon: Row(
           children: <Widget>[
             IconButton(

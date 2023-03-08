@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Information extends StatelessWidget {
-  const Information({super.key});
+class About extends StatelessWidget {
+  const About({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +67,10 @@ class Information extends StatelessWidget {
             verticalPadding,
             Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Text('informations.description'.tr(), textAlign: TextAlign.center),
+              child: Text('about.description'.tr(), textAlign: TextAlign.center),
             ),
             verticalPadding,
-            Text('${'informations.more_about'.tr()} CPM',
+            Text('${'about.more_about'.tr()} CPM',
                 textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
             Row(children: <Widget>[
               const Spacer(),
@@ -80,13 +80,12 @@ class Information extends StatelessWidget {
               const Spacer()
             ]),
             verticalPadding,
-            Text('${'informations.more_about'.tr()} Studio Rv & Co',
+            Text('${'about.more_about'.tr()} Studio Rv & Co',
                 textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
             Row(children: <Widget>[
               const Spacer(),
               TextButton(
-                  onPressed: () => launchUrl(Uri.parse('https://rvandco.fr')),
-                  child: Text('informations.website'.tr())),
+                  onPressed: () => launchUrl(Uri.parse('https://rvandco.fr')), child: Text('about.website'.tr())),
               horizontalPadding,
               TextButton(
                   onPressed: () => launchUrl(Uri.parse('https://www.youtube.com/@studiorvandco')),
