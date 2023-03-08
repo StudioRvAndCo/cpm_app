@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import '../models/episode.dart';
 import '../models/project.dart';
 import '../services/episode.dart';
-import '../widgets/episode_card.dart';
-import '../widgets/icon_label.dart';
-import '../widgets/info_header.dart';
+import '../widgets/cards/episode.dart';
+import '../widgets/info_headers/project.dart';
 import '../widgets/request_placeholder.dart';
 
 class Episodes extends StatefulWidget {
@@ -44,13 +43,7 @@ class _EpisodesState extends State<Episodes> {
         return Expanded(
           child: Column(
             children: <Widget>[
-              InfoHeader(
-                  title: widget.project.title,
-                  description: widget.project.description,
-                  dateRange: DateTimeRange(start: widget.project.beginDate, end: widget.project.endDate),
-                  progress: (widget.project.shotsCompleted ?? 0) / (widget.project.shotsTotal ?? 1),
-                  leftLabel: IconLabel(text: widget.project.director ?? '', icon: Icons.movie_outlined),
-                  rightLabel: IconLabel(text: widget.project.writer ?? '', icon: Icons.description_outlined)),
+              InfoHeaderProject(project: widget.project),
               Expanded(
                 child: CustomScrollView(
                   slivers: <SliverList>[

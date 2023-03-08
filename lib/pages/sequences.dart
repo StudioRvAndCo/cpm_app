@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/sequence.dart';
-import '../widgets/sequence_card.dart';
+import '../widgets/cards/sequence.dart';
 
 class Sequences extends StatefulWidget {
   const Sequences({super.key, required this.sequences, required this.openShots});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/sequence.dart';
+import '../../models/sequence.dart';
 
 class SequenceCard extends StatefulWidget {
   const SequenceCard({super.key, required this.sequence, required this.openShots});

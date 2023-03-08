@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/shot.dart';
-import '../widgets/shot_card.dart';
+import '../widgets/cards/shot.dart';
 
 class Shots extends StatefulWidget {
   const Shots({super.key, required this.shots});

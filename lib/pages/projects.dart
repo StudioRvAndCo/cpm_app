@@ -5,7 +5,7 @@ import '../models/episode.dart';
 import '../models/project.dart';
 import '../models/sequence.dart';
 import '../services/project.dart';
-import '../widgets/project_card.dart';
+import '../widgets/cards/project.dart';
 import '../widgets/request_placeholder.dart';
 import 'episodes.dart';
 import 'planning.dart';

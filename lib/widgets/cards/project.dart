@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/project.dart';
+import '../../models/project.dart';
 
 class ProjectCard extends StatefulWidget {
   const ProjectCard({super.key, required this.project, required this.openEpisodes, required this.openPlanning});

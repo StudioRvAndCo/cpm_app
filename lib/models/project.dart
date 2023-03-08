@@ -3,18 +3,17 @@ import 'episode.dart';
 enum ProjectType { movie, series }
 
 class Project {
-  Project(
-      {required this.id,
-      required this.projectType,
-      required this.title,
-      required this.description,
-      required this.beginDate,
-      required this.endDate,
-      this.shotsTotal,
-      this.shotsCompleted,
-      this.director,
-      this.writer,
-      required this.episodes});
+  Project({required this.id,
+    required this.projectType,
+    required this.title,
+    required this.description,
+    required this.beginDate,
+    required this.endDate,
+    this.shotsTotal,
+    this.shotsCompleted,
+    this.director,
+    this.writer,
+    required this.episodes});
 
   factory Project.fromJson(json) {
     final ProjectType projectType = (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
@@ -28,6 +27,13 @@ class Project {
       endDate: DateTime.parse(json['EndDate'].toString()),
       episodes: <Episode>[],
     );
+  }
+
+  double getProgress() {
+    if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
+      return 0.0;
+    }
+    return shotsCompleted! / shotsTotal!;
   }
 
   final String id;
