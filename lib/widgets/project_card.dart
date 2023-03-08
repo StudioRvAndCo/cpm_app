@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../models/project.dart';
 
 class ProjectCard extends StatefulWidget {
-  const ProjectCard({super.key, required this.project, required this.openSequences, required this.openPlanning});
+  const ProjectCard({super.key, required this.project, required this.openEpisodes, required this.openPlanning});
 
-  final void Function() openSequences;
+  final void Function() openEpisodes;
   final void Function() openPlanning;
 
   final Project project;
@@ -26,7 +26,7 @@ class _ProjectCardState extends State<ProjectCard> {
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               padding: EdgeInsets.zero, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
-          onPressed: widget.openSequences,
+          onPressed: widget.openEpisodes,
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[

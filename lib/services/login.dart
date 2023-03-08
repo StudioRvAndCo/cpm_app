@@ -25,7 +25,7 @@ class LoginService {
       }
     } catch (exception) {
       debugPrint(exception.toString());
-      return <dynamic>[false, '', 408, 'request timed out'];
+      return <dynamic>[false, '', 408, 'error.timeout'.tr()];
     }
   }
 

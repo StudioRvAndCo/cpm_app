@@ -12,12 +12,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i7;
-import 'package:flutter/foundation.dart' as _i9;
 import 'package:flutter/material.dart' as _i8;
 
-import '../models/project.dart' as _i10;
+import '../models/project.dart' as _i9;
+import '../pages/about.dart' as _i4;
 import '../pages/home.dart' as _i2;
-import '../pages/information.dart' as _i4;
 import '../pages/login.dart' as _i1;
 import '../pages/members.dart' as _i3;
 import '../pages/planning.dart' as _i5;
@@ -50,10 +49,10 @@ class AppRouter extends _i7.RootStackRouter {
         child: const _i3.Members(),
       );
     },
-    InformationRoute.name: (routeData) {
+    AboutRoute.name: (routeData) {
       return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.Information(),
+        child: const _i4.About(),
       );
     },
     PlanningRoute.name: (routeData) {
@@ -95,8 +94,8 @@ class AppRouter extends _i7.RootStackRouter {
           path: '/Members',
         ),
         _i7.RouteConfig(
-          InformationRoute.name,
-          path: '/Information',
+          AboutRoute.name,
+          path: '/About',
         ),
         _i7.RouteConfig(
           PlanningRoute.name,
@@ -113,7 +112,7 @@ class AppRouter extends _i7.RootStackRouter {
 /// [_i1.Login]
 class LoginRoute extends _i7.PageRouteInfo<LoginRouteArgs> {
   LoginRoute({
-    _i9.Key? key,
+    _i8.Key? key,
     required void Function(
       String,
       String,
@@ -137,7 +136,7 @@ class LoginRouteArgs {
     required this.onLogin,
   });
 
-  final _i9.Key? key;
+  final _i8.Key? key;
 
   final void Function(
     String,
@@ -175,23 +174,23 @@ class MembersRoute extends _i7.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.Information]
-class InformationRoute extends _i7.PageRouteInfo<void> {
-  const InformationRoute()
+/// [_i4.About]
+class AboutRoute extends _i7.PageRouteInfo<void> {
+  const AboutRoute()
       : super(
-          InformationRoute.name,
-          path: '/Information',
+          AboutRoute.name,
+          path: '/About',
         );
 
-  static const String name = 'InformationRoute';
+  static const String name = 'AboutRoute';
 }
 
 /// generated route for
 /// [_i5.Planning]
 class PlanningRoute extends _i7.PageRouteInfo<PlanningRouteArgs> {
   PlanningRoute({
-    _i9.Key? key,
-    required _i10.Project project,
+    _i8.Key? key,
+    required _i9.Project project,
   }) : super(
           PlanningRoute.name,
           path: '/Planning',
@@ -210,9 +209,9 @@ class PlanningRouteArgs {
     required this.project,
   });
 
-  final _i9.Key? key;
+  final _i8.Key? key;
 
-  final _i10.Project project;
+  final _i9.Project project;
 
   @override
   String toString() {

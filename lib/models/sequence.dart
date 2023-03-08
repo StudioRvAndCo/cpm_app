@@ -1,22 +1,38 @@
 import 'location.dart';
+import 'shot.dart';
 
 class Sequence {
   Sequence(
       {this.id,
-      this.number,
+      required this.number,
       required this.title,
       this.description,
-      required this.date,
-      required this.startTime,
-      required this.endTime,
-      this.location});
+      required this.beginDate,
+      required this.endDate,
+      this.location,
+      required this.shots});
+
+  factory Sequence.fromJson(json) {
+    final shotsJson = json['Shots'];
+    final List<Shot> shots = shotsJson.map<Shot>((shot) => Shot.fromJson(shot)).toList() as List<Shot>;
+
+    return Sequence(
+      id: json['Id'].toString(),
+      number: json['Number'] as int,
+      title: json['Title'].toString(),
+      description: json['Description'].toString(),
+      beginDate: DateTime.parse(json['BeginDate'].toString()),
+      endDate: DateTime.parse(json['EndDate'].toString()),
+      shots: shots,
+    );
+  }
 
   final String? id;
-  int? number;
+  int number;
   String title;
   String? description;
-  DateTime date;
-  DateTime startTime;
-  DateTime endTime;
+  DateTime beginDate;
+  DateTime endDate;
   Location? location;
+  List<Shot> shots;
 }

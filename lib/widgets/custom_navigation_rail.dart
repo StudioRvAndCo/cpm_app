@@ -44,7 +44,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
                   icon: const Icon(Icons.people_outline), label: Text('members.member.upper'.plural(2))),
               NavigationRailDestination(icon: const Icon(Icons.map), label: Text('locations.location.upper'.plural(2))),
               NavigationRailDestination(icon: const Icon(Icons.settings), label: Text('settings.settings'.tr())),
-              NavigationRailDestination(icon: const Icon(Icons.info), label: Text('information'.tr())),
+              NavigationRailDestination(icon: const Icon(Icons.info), label: Text('about.about'.tr())),
               const NavigationRailDestination(icon: Icon(Icons.quiz), label: Text('Test')),
             ],
             trailing: Expanded(

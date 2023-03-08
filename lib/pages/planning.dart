@@ -2,6 +2,7 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../models/episode.dart';
 import '../models/event.dart';
 import '../models/project.dart';
 import '../models/sequence.dart';
@@ -29,13 +30,15 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    for (final Sequence sequence in widget.project.sequences) {
-      _events.add(CalendarEventData<Event>(
-          event: Event(title: sequence.title, description: sequence.description ?? ''),
-          title: sequence.title,
-          date: sequence.date,
-          startTime: sequence.startTime,
-          endTime: sequence.endTime));
+    for (final Episode episode in widget.project.episodes) {
+      for (final Sequence sequence in episode.sequences) {
+        _events.add(CalendarEventData<Event>(
+            event: Event(title: sequence.title, description: sequence.description ?? ''),
+            title: sequence.title,
+            date: sequence.beginDate,
+            startTime: sequence.beginDate,
+            endTime: sequence.endDate));
+      }
     }
   }
 

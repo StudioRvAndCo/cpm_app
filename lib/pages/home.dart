@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_appbar.dart';
 import '../widgets/custom_navigation_drawer.dart';
 import '../widgets/custom_navigation_rail.dart';
-import 'information.dart';
+import 'about.dart';
 import 'locations.dart';
 import 'members.dart';
 import 'projects.dart';
 import 'settings.dart';
 import 'test.dart';
+
+final GlobalKey<ProjectsState> projectsStateKey = GlobalKey();
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,7 +25,13 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +40,24 @@ class HomeState extends State<Home> {
         return Scaffold(
             appBar: !kIsWeb && (Platform.isAndroid || Platform.isIOS) ? const CustomAppBar() : null,
             drawer: !kIsWeb && (Platform.isAndroid || Platform.isIOS)
-                ? CustomNavigationDrawer(onNavigate: (int index) {
-                    _selectedIndex = index;
-                  })
+                ? CustomNavigationDrawer(
+                    selectedIndex: _selectedIndex,
+                    onNavigate: (int index) {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    })
                 : null,
             body: SafeArea(
               child: Row(children: <Widget>[
                 if (kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isFuchsia)
                   CustomNavigationRail(onNavigate: (int index) {
+                    if (index == 0) {
+                      // Reset the home page to the projects list
+                      projectsStateKey.currentState?.setState(() {
+                        projectsStateKey.currentState?.page = ProjectsPage.projects;
+                      });
+                    }
                     setState(() {
                       _selectedIndex = index;
                     });
@@ -54,7 +72,7 @@ class HomeState extends State<Home> {
   Widget _changePage(int index) {
     switch (index) {
       case 0:
-        return const Projects();
+        return Projects(key: projectsStateKey);
       case 1:
         return const Members();
       case 2:
@@ -62,11 +80,11 @@ class HomeState extends State<Home> {
       case 3:
         return const Settings();
       case 4:
-        return const Information();
+        return const About();
       case 5:
         return const Test();
       default:
-        return const Center(child: Text('TODO'));
+        return const Center();
     }
   }
 }

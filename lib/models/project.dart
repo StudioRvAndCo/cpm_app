@@ -1,10 +1,10 @@
-import 'sequence.dart';
+import 'episode.dart';
 
 enum ProjectType { movie, series }
 
 class Project {
   Project(
-      {this.id,
+      {required this.id,
       required this.projectType,
       required this.title,
       required this.description,
@@ -14,23 +14,23 @@ class Project {
       this.shotsCompleted,
       this.director,
       this.writer,
-      required this.sequences});
+      required this.episodes});
 
   factory Project.fromJson(json) {
     final ProjectType projectType = (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
 
     return Project(
-      projectType: projectType,
       id: json['Id'].toString(),
+      projectType: projectType,
       title: json['Title'].toString(),
       description: json['Description'].toString(),
       beginDate: DateTime.parse(json['BeginDate'].toString()),
       endDate: DateTime.parse(json['EndDate'].toString()),
-      sequences: <Sequence>[],
+      episodes: <Episode>[],
     );
   }
 
-  final String? id;
+  final String id;
   ProjectType projectType;
   String title;
   String description;
@@ -40,9 +40,5 @@ class Project {
   int? shotsCompleted;
   String? director;
   String? writer;
-  List<Sequence> sequences;
-
-  ProjectType setProjectType(bool isProject) {
-    return isProject ? ProjectType.movie : ProjectType.series;
-  }
+  List<Episode> episodes;
 }
