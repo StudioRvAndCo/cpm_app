@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../models/shot.dart';
@@ -155,7 +156,7 @@ class CollapsedShotCard extends StatelessWidget {
                   Checkbox(value: widget.shot.completed, onChanged: onCheck)
                 ]),
                 Text(
-                  widget.shot.value ?? 'No value set',
+                  widget.shot.value ?? 'shots.value.no_value'.tr(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

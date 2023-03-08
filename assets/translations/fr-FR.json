@@ -108,7 +108,8 @@
       "lower": {
         "one": "valeur",
         "other": "valeurs"
-      }
+      },
+      "no_value":"Aucune valeur de plan spécifiée."
     },
     "no_shots": "Aucun shot."
   },

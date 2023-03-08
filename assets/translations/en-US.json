@@ -108,7 +108,8 @@
       "lower": {
         "one": "value",
         "other": "values"
-      }
+      },
+      "no_value":"No shot value set."
     },
     "no_shots": "No shots."
   },
