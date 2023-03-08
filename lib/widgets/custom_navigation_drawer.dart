@@ -28,9 +28,7 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
         children: <Widget>[
           DrawerHeader(
             child: Builder(builder: (BuildContext context) {
-              if (Theme
-                  .of(context)
-                  .brightness == Brightness.light) {
+              if (Theme.of(context).brightness == Brightness.light) {
                 return Image.asset(
                   'assets/images/logo-cpm-alpha.png',
                   width: 50,

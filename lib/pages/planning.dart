@@ -44,10 +44,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    CalendarControllerProvider
-        .of<Event>(context)
-        .controller
-        .addAll(_events);
+    CalendarControllerProvider.of<Event>(context).controller.addAll(_events);
 
     switch (view) {
       case View.month:
@@ -61,10 +58,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
 
   HeaderStyle _buildHeader() {
     return HeaderStyle(
-        decoration: BoxDecoration(color: Theme
-            .of(context)
-            .colorScheme
-            .surface),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface),
         leftIcon: Row(
           children: <Widget>[
             IconButton(
