@@ -28,7 +28,13 @@ class _ShotsState extends State<Shots> {
     } else {
       return Expanded(
           child: Column(
-        children: <ShotCard>[for (Shot shot in widget.shots) ShotCard(shot: shot)],
+        children: <ShotCard>[
+          for (Shot shot in widget.shots)
+            ShotCard(
+              shot: shot,
+              onPressed: () {},
+            )
+        ],
       ));
     }
   }
