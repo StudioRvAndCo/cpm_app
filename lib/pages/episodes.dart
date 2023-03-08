@@ -7,6 +7,7 @@ import '../services/episode.dart';
 import '../widgets/episode_card.dart';
 import '../widgets/icon_label.dart';
 import '../widgets/info_header.dart';
+import '../widgets/request_placeholder.dart';
 
 class Episodes extends StatefulWidget {
   const Episodes({super.key, required this.project, required this.isMovie, required this.openSequences});
@@ -35,28 +36,14 @@ class _EpisodesState extends State<Episodes> {
   @override
   Widget build(BuildContext context) {
     if (!requestCompleted) {
-      return Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            CircularProgressIndicator(),
-          ],
-        ),
-      );
+      return const RequestPlaceholder(placeholder: CircularProgressIndicator());
     } else if (requestSucceeded) {
       if (episodes.isEmpty) {
-        return Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('episodes.no_episodes'.tr()),
-            ],
-          ),
-        );
+        return RequestPlaceholder(placeholder: Text('episodes.no_episodes'.tr()));
       } else {
         return Expanded(
           child: Column(
-            children: [
+            children: <Widget>[
               InfoHeader(
                   title: widget.project.title,
                   description: widget.project.description,
@@ -88,14 +75,7 @@ class _EpisodesState extends State<Episodes> {
         );
       }
     } else {
-      return Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('errors.request_failed'.tr()),
-          ],
-        ),
-      );
+      return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
     }
   }
 

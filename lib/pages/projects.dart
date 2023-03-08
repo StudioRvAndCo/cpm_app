@@ -6,6 +6,7 @@ import '../models/project.dart';
 import '../models/sequence.dart';
 import '../services/project.dart';
 import '../widgets/project_card.dart';
+import '../widgets/request_placeholder.dart';
 import 'episodes.dart';
 import 'planning.dart';
 import 'sequences.dart';
@@ -42,24 +43,10 @@ class ProjectsState extends State<Projects> {
     switch (page) {
       case ProjectsPage.projects:
         if (!requestCompleted) {
-          return Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                CircularProgressIndicator(),
-              ],
-            ),
-          );
+          return const RequestPlaceholder(placeholder: CircularProgressIndicator());
         } else if (requestSucceeded) {
           if (projects.isEmpty) {
-            return Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('projects.no_projects'.tr()),
-                ],
-              ),
-            );
+            return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
           } else {
             return Expanded(
               child: CustomScrollView(
@@ -92,14 +79,7 @@ class ProjectsState extends State<Projects> {
             );
           }
         } else {
-          return Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('errors.request_failed'.tr()),
-              ],
-            ),
-          );
+          return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
         }
       case ProjectsPage.episodes:
         return Episodes(

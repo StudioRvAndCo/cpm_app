@@ -25,7 +25,8 @@
       }
     },
     "call": "Call",
-    "message": "Message"
+    "message": "Message",
+    "no_members": "No members."
   },
   "locations": {
     "location": {
@@ -38,7 +39,8 @@
         "other": "locations"
       }
     },
-    "view": "View on map"
+    "view": "View on map",
+    "no_locations": "No locations."
   },
   "projects": {
     "project": {
