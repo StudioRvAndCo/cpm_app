@@ -14,7 +14,9 @@ class CPMThemeLight {
           onSurface: Color(0xFF393939),
           primary: Color(0xFF5865F2),
           secondary: Color(0xFF9EA6FC),
-          surface: Color(0xFFEFF0FF)),
+          surface: Color(0xFFEFF0FF),
+          tertiary: Color(0xFFBFBFDF),
+          onTertiary: Color(0xFF393939)),
       useMaterial3: true);
 }
 
@@ -27,11 +29,13 @@ class CPMThemeDark {
           onBackground: Color(0xFFFFFFFF),
           onError: Color(0xFFFFFFFF),
           onPrimary: Color(0xFFFFFFFF),
-          onSecondary: Color(0xFFFFFFFF),
+          onSecondary: Color(0xFF383838),
           onSurface: Color(0xFFDDDDDD),
           primary: Color(0xFF5865F2),
           secondary: Color(0xFF9EA6FC),
-          surface: Color(0xFF383A40)),
+          surface: Color(0xFF383A40),
+          tertiary: Color(0xFFBFBFDF),
+          onTertiary: Color(0xFF393939)),
       useMaterial3: true);
 }
 
