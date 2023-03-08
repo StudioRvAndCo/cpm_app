@@ -25,7 +25,8 @@
       }
     },
     "call": "Appeler",
-    "message": "Message"
+    "message": "Message",
+    "no_members": "Aucun membre."
   },
   "locations": {
     "location": {
@@ -38,7 +39,8 @@
         "other": "lieux"
       }
     },
-    "view": "Afficher sur la carte"
+    "view": "Afficher sur la carte",
+    "no_locations": "Aucun lieu."
   },
   "projects": {
     "project": {
