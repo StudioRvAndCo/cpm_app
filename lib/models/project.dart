@@ -52,4 +52,5 @@ class Project {
   String? director;
   String? writer;
   List<Episode> episodes;
+  bool favorite = false;
 }

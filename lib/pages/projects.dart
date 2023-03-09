@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/episode.dart';
 import '../models/project.dart';
 import '../models/sequence.dart';
 import '../services/project.dart';
+import '../settings.dart';
 import '../widgets/cards/project.dart';
 import '../widgets/request_placeholder.dart';
 import 'episodes.dart';
@@ -34,8 +36,8 @@ class ProjectsState extends State<Projects> {
 
   @override
   void initState() {
-    super.initState();
     getProjects();
+    super.initState();
   }
 
   @override
@@ -48,34 +50,39 @@ class ProjectsState extends State<Projects> {
           if (projects.isEmpty) {
             return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
           } else {
-            return Expanded(
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                    childCount: projects.length,
-                    (BuildContext context, int index) {
-                      final Project project = projects[index];
-                      return ProjectCard(
-                        project: project,
-                        openEpisodes: () {
-                          setState(() {
-                            selectedProject = project;
-                            page = ProjectsPage.episodes;
-                          });
-                        },
-                        openPlanning: () {
-                          setState(() {
-                            selectedProject = project;
-                            page = ProjectsPage.planning;
-                          });
-                        },
-                      );
-                    },
-                  ))
-                ],
-              ),
-            );
+            return ChangeNotifierProvider<ModelFav>(
+                create: (_) => ModelFav(),
+                child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
+                  getFavorites(favNotifier);
+                  return Expanded(
+                    child: CustomScrollView(
+                      slivers: <Widget>[
+                        SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                          childCount: projects.length,
+                          (BuildContext context, int index) {
+                            final Project project = projects[index];
+                            return ProjectCard(
+                                project: project,
+                                openEpisodes: () {
+                                  setState(() {
+                                    selectedProject = project;
+                                    page = ProjectsPage.episodes;
+                                  });
+                                },
+                                openPlanning: () {
+                                  setState(() {
+                                    selectedProject = project;
+                                    page = ProjectsPage.planning;
+                                  });
+                                },
+                                favNotifier: favNotifier);
+                          },
+                        ))
+                      ],
+                    ),
+                  );
+                }));
           }
         } else {
           return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
@@ -116,5 +123,18 @@ class ProjectsState extends State<Projects> {
       requestSucceeded = result[0] as bool;
       projects = result[1] as List<Project>;
     });
+  }
+
+  void getFavorites(ModelFav favNotifier) {
+    final List<String> favorites = favNotifier.favoriteProjects;
+    for (final String id in favorites) {
+      for (final Project project in projects) {
+        if (id == project.id) {
+          project.favorite = true;
+          projects.remove(project);
+          projects.insert(0, project);
+        }
+      }
+    }
   }
 }

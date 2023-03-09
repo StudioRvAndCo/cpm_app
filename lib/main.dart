@@ -8,7 +8,7 @@ import 'models/event.dart';
 import 'routes/route.gr.dart';
 import 'services/config.dart';
 import 'services/login.dart';
-import 'theme.dart';
+import 'settings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
