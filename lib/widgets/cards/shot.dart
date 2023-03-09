@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../models/shot.dart';
+import '../../models/shot.dart';
 
 class ShotCard extends StatefulWidget {
   const ShotCard({super.key, required this.onPressed, required this.shot});

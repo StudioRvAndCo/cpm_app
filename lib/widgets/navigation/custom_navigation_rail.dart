@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 class CustomNavigationRail extends StatefulWidget {
   const CustomNavigationRail({super.key, required this.onNavigate});

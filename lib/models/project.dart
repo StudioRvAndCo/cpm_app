@@ -30,6 +30,17 @@ class Project {
     );
   }
 
+  double getProgress() {
+    if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
+      return 0.0;
+    }
+    return shotsCompleted! / shotsTotal!;
+  }
+
+  bool isMovie() {
+    return projectType == ProjectType.movie;
+  }
+
   final String id;
   ProjectType projectType;
   String title;

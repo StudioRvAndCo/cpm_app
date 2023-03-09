@@ -74,6 +74,7 @@ class _CPMState extends State<CPM> {
           return CalendarControllerProvider<Event>(
             controller: EventController<Event>(),
             child: MaterialApp.router(
+              debugShowCheckedModeBanner: false,
               routerDelegate: AutoRouterDelegate.declarative(
                 widget._appRouter,
                 routes: (_) => <PageRouteInfo<dynamic>>[

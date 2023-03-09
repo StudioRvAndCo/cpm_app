@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/episode.dart';
+import '../../models/episode.dart';
 
 class EpisodeCard extends StatefulWidget {
   const EpisodeCard({super.key, required this.episode, required this.openSequences});
@@ -26,12 +26,6 @@ class _EpisodeCardState extends State<EpisodeCard> {
               padding: const EdgeInsets.all(8),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
                 Row(children: <Widget>[
-                  SizedBox(
-                    height: 80,
-                    width: 80,
-                    child: Image.asset('assets/images/en-sursis.png'),
-                  ),
-                  const Padding(padding: EdgeInsets.only(right: 16)),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

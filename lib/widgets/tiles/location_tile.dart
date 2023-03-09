@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
-import '../models/location.dart';
+import '../../models/location.dart';
 
 enum MenuAction { edit, delete }
 

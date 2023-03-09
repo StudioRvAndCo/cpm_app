@@ -6,8 +6,8 @@ import '../dialogs/new_edit_location.dart';
 import '../exceptions/invalid_direction_exception.dart';
 import '../models/location.dart';
 import '../services/location.dart';
-import '../widgets/location_tile.dart';
 import '../widgets/request_placeholder.dart';
+import '../widgets/tiles/location_tile.dart';
 
 class Locations extends StatefulWidget {
   const Locations({super.key});
