@@ -17,7 +17,8 @@ class Project {
       required this.episodes});
 
   factory Project.fromJson(json) {
-    final ProjectType projectType = (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
+    final ProjectType projectType =
+        (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
 
     return Project(
       id: json['Id'].toString(),
@@ -52,4 +53,5 @@ class Project {
   String? director;
   String? writer;
   List<Episode> episodes;
+  bool favorite = false;
 }
