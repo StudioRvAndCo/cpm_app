@@ -73,7 +73,7 @@ class _EpisodesState extends State<Episodes> {
   }
 
   Future<void> getEpisodes() async {
-    final List<dynamic> result = await EpisodeService().getEpisodes(widget.project.id);
+    final List<dynamic> result = await EpisodeService().getEpisodes(widget.project.id!);
     setState(() {
       requestCompleted = true;
       requestSucceeded = result[0] as bool;

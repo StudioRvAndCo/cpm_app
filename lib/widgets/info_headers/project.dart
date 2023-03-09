@@ -13,7 +13,7 @@ class InfoHeaderProject extends StatelessWidget {
   final Project project;
 
   String _getDateText(BuildContext context) {
-    final String firstText = DateFormat.yMd(context.locale.toString()).format(project.beginDate);
+    final String firstText = DateFormat.yMd(context.locale.toString()).format(project.startDate);
     final String lastText = DateFormat.yMd(context.locale.toString()).format(project.endDate);
     return '$firstText - $lastText';
   }

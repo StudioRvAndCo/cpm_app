@@ -4,11 +4,11 @@ enum ProjectType { movie, series }
 
 class Project {
   Project(
-      {required this.id,
+      {this.id,
       required this.projectType,
       required this.title,
       required this.description,
-      required this.beginDate,
+      required this.startDate,
       required this.endDate,
       this.shotsTotal,
       this.shotsCompleted,
@@ -24,10 +24,24 @@ class Project {
       projectType: projectType,
       title: json['Title'].toString(),
       description: json['Description'].toString(),
-      beginDate: DateTime.parse(json['BeginDate'].toString()),
+      startDate: DateTime.parse(json['BeginDate'].toString()),
       endDate: DateTime.parse(json['EndDate'].toString()),
       episodes: <Episode>[],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'isFilm': projectType == ProjectType.movie,
+      'isSeries': projectType == ProjectType.series,
+      'title': title,
+      'description': description,
+      'beginDate': startDate.toIso8601String(),
+      'endDate': endDate.toIso8601String(),
+      'shotsTotal': shotsTotal,
+      'shotsCompleted': shotsCompleted,
+      'episodes': episodes,
+    };
   }
 
   double getProgress() {
@@ -41,11 +55,11 @@ class Project {
     return projectType == ProjectType.movie;
   }
 
-  final String id;
+  final String? id;
   ProjectType projectType;
   String title;
   String description;
-  DateTime beginDate;
+  DateTime startDate;
   DateTime endDate;
   int? shotsTotal;
   int? shotsCompleted;
