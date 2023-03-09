@@ -3,9 +3,9 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_appbar.dart';
-import '../widgets/custom_navigation_drawer.dart';
-import '../widgets/custom_navigation_rail.dart';
+import '../widgets/navigation/custom_appbar.dart';
+import '../widgets/navigation/custom_navigation_drawer.dart';
+import '../widgets/navigation/custom_navigation_rail.dart';
 import 'about.dart';
 import 'locations.dart';
 import 'members.dart';

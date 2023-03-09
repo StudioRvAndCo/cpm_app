@@ -93,7 +93,8 @@ class ProjectsState extends State<Projects> {
         );
       case ProjectsPage.sequences:
         return Sequences(
-          sequences: selectedEpisode.sequences,
+          project: selectedProject,
+          episode: selectedEpisode,
           openShots: (Sequence sequence) {
             setState(() {
               selectedSequence = sequence;
@@ -102,7 +103,7 @@ class ProjectsState extends State<Projects> {
           },
         );
       case ProjectsPage.shots:
-        return Shots(shots: selectedSequence.shots);
+        return Shots(sequence: selectedSequence);
       case ProjectsPage.planning:
         return Planning(project: selectedProject);
     }

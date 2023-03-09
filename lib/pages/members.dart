@@ -6,8 +6,8 @@ import '../dialogs/new_edit_member.dart';
 import '../exceptions/invalid_direction_exception.dart';
 import '../models/member.dart';
 import '../services/member.dart';
-import '../widgets/member_tile.dart';
 import '../widgets/request_placeholder.dart';
+import '../widgets/tiles/member_tile.dart';
 
 class Members extends StatefulWidget {
   const Members({super.key});

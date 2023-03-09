@@ -1,13 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../models/sequence.dart';
 import '../models/shot.dart';
 import '../widgets/cards/shot.dart';
+import '../widgets/info_headers/sequence.dart';
 
 class Shots extends StatefulWidget {
-  const Shots({super.key, required this.shots});
+  const Shots({super.key, required this.sequence});
 
-  final List<Shot> shots;
+  final Sequence sequence;
 
   @override
   State<Shots> createState() => _ShotsState();
@@ -16,7 +18,7 @@ class Shots extends StatefulWidget {
 class _ShotsState extends State<Shots> {
   @override
   Widget build(BuildContext context) {
-    if (widget.shots.isEmpty) {
+    if (widget.sequence.shots.isEmpty) {
       return Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -28,8 +30,9 @@ class _ShotsState extends State<Shots> {
     } else {
       return Expanded(
           child: Column(
-        children: <ShotCard>[
-          for (Shot shot in widget.shots)
+        children: <Widget>[
+          InfoHeaderSequence(sequence: widget.sequence),
+          for (Shot shot in widget.sequence.shots)
             ShotCard(
               shot: shot,
               onPressed: () {},
