@@ -31,64 +31,55 @@ class _ProjectCardState extends State<ProjectCard> {
       padding: const EdgeInsets.all(4.0),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0))),
+              padding: EdgeInsets.zero, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
           onPressed: widget.openEpisodes,
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(children: <Widget>[
-                    SizedBox(
-                      height: 80,
-                      width: 80,
-                      child: Image.asset('assets/images/en-sursis.png'),
-                    ),
-                    const Padding(padding: EdgeInsets.only(right: 16)),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            widget.project.title,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontWeight: FontWeight.bold),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const Padding(padding: EdgeInsets.only(bottom: 4)),
-                          Text(
-                            widget.project.description,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+              Row(children: <Widget>[
+                SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: Image.asset('assets/images/en-sursis.png'),
+                ),
+                const Padding(padding: EdgeInsets.only(right: 16)),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        widget.project.title,
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                    const Padding(padding: EdgeInsets.only(right: 16)),
-                    IconButton(
-                        onPressed: () {
-                          toggleFavorite();
-                          setState(() {
-                            favIcon = const Icon(Icons.star);
-                          });
-                        },
-                        icon: favIcon),
-                    IconButton(
-                        onPressed: () {
-                          widget.openPlanning();
-                        },
-                        icon: const Icon(Icons.event))
-                  ]),
-                  const SizedBox(height: 8),
-                  LinearProgressIndicator(
-                      value: (widget.project.shotsCompleted ?? 1) /
-                          (widget.project.shotsTotal ?? 1)),
-                ]),
+                      const Padding(padding: EdgeInsets.only(bottom: 4)),
+                      Text(
+                        widget.project.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(right: 16)),
+                IconButton(
+                    onPressed: () {
+                      toggleFavorite();
+                      setState(() {
+                        favIcon = const Icon(Icons.star);
+                      });
+                    },
+                    icon: favIcon),
+                IconButton(
+                    onPressed: () {
+                      widget.openPlanning();
+                    },
+                    icon: const Icon(Icons.event))
+              ]),
+              const SizedBox(height: 8),
+              LinearProgressIndicator(value: (widget.project.shotsCompleted ?? 1) / (widget.project.shotsTotal ?? 1)),
+            ]),
           )),
     );
   }
