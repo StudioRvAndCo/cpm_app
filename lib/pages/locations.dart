@@ -10,8 +10,6 @@ import '../services/location.dart';
 import '../widgets/request_placeholder.dart';
 import '../widgets/tiles/location_tile.dart';
 
-const Duration duration = Duration(milliseconds: 200);
-
 class Locations extends StatefulWidget {
   const Locations({super.key});
 
