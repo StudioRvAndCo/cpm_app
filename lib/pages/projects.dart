@@ -38,8 +38,8 @@ class ProjectsState extends State<Projects> {
 
   @override
   void initState() {
-    getProjects();
     super.initState();
+    getProjects();
   }
 
   @override
@@ -47,61 +47,50 @@ class ProjectsState extends State<Projects> {
     switch (page) {
       case ProjectsPage.projects:
         if (!requestCompleted) {
-          return const RequestPlaceholder(placeholder: CircularProgressIndicator());
+          return const Expanded(child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
         } else if (requestSucceeded) {
-          if (projects.isEmpty) {
-            return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
-          } else {
-            return ChangeNotifierProvider<ModelFav>(
-              create: (_) => ModelFav(),
-              child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
-                getFavorites(favNotifier);
-                return Expanded(
-                  child: Stack(
-                    children: <Widget>[
-                      CustomScrollView(
-                        slivers: <Widget>[
-                          SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                            childCount: projects.length,
-                            (BuildContext context, int index) {
-                              final Project project = projects[index];
-                              return ProjectCard(
-                                  project: project,
-                                  openEpisodes: () {
-                                    setState(() {
-                                      selectedProject = project;
-                                      page = ProjectsPage.episodes;
-                                    });
-                                  },
-                                  openPlanning: () {
-                                    setState(() {
-                                      selectedProject = project;
-                                      page = ProjectsPage.planning;
-                                    });
-                                  },
-                                  favNotifier: favNotifier);
-                            },
-                          ))
-                        ],
-                      ),
-                      Positioned(
-                          bottom: 16,
-                          right: 16,
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              addProject();
-                            },
-                            child: const Icon(Icons.add),
-                          ))
-                    ],
-                  ),
-                );
-              }),
-            );
-          }
+          return Expanded(
+              child: Scaffold(
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                addProject();
+              },
+            ),
+            body: Builder(
+              builder: (BuildContext context) {
+                if (projects.isEmpty) {
+                  return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
+                } else {
+                  return ChangeNotifierProvider<ModelFav>(
+                    create: (_) => ModelFav(),
+                    child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
+                      getFavorites(favNotifier);
+                      return ListView(
+                          padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                          children: (projects.map((Project project) => ProjectCard(
+                              project: project,
+                              openEpisodes: () {
+                                setState(() {
+                                  selectedProject = project;
+                                  page = ProjectsPage.episodes;
+                                });
+                              },
+                              openPlanning: () {
+                                setState(() {
+                                  selectedProject = project;
+                                  page = ProjectsPage.planning;
+                                });
+                              },
+                              favNotifier: favNotifier))).toList());
+                    }),
+                  );
+                }
+              },
+            ),
+          ));
         } else {
-          return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
+          return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
         }
       case ProjectsPage.episodes:
         return Episodes(
