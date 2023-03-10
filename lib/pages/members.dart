@@ -38,10 +38,10 @@ class _MembersState extends State<Members> {
   @override
   Widget build(BuildContext context) {
     if (!requestCompleted) {
-      return const RequestPlaceholder(placeholder: CircularProgressIndicator());
+      return const Expanded(child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
     } else if (requestSucceeded) {
       if (members.isEmpty) {
-        return RequestPlaceholder(placeholder: Text('members.no_members'.tr()));
+        return Expanded(child: RequestPlaceholder(placeholder: Text('members.no_members'.tr())));
       } else {
         final Iterable<MemberTile> membersTiles = members.map((Member member) => MemberTile(
               member: member,
@@ -60,6 +60,7 @@ class _MembersState extends State<Members> {
             child: Scaffold(
           floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
           body: ListView.separated(
+            padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
             separatorBuilder: (BuildContext context, int index) => divider,
             itemCount: membersTiles.length,
             itemBuilder: (BuildContext context, int index) => ClipRRect(
@@ -107,7 +108,7 @@ class _MembersState extends State<Members> {
         ));
       }
     } else {
-      return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
+      return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
     }
   }
 

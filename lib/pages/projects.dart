@@ -18,6 +18,8 @@ import 'shots.dart';
 
 enum ProjectsPage { projects, episodes, sequences, shots, planning }
 
+const Duration duration = Duration(milliseconds: 200);
+
 class Projects extends StatefulWidget {
   const Projects({required Key key}) : super(key: key);
 
@@ -36,10 +38,12 @@ class ProjectsState extends State<Projects> {
   late Episode selectedEpisode;
   late Sequence selectedSequence;
 
+  bool showFAB = true;
+
   @override
   void initState() {
-    getProjects();
     super.initState();
+    getProjects();
   }
 
   @override
@@ -47,9 +51,24 @@ class ProjectsState extends State<Projects> {
     switch (page) {
       case ProjectsPage.projects:
         if (!requestCompleted) {
-          return const RequestPlaceholder(placeholder: CircularProgressIndicator());
+          return const Expanded(child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
         } else if (requestSucceeded) {
-          return Expanded(child: Scaffold(
+          return Expanded(
+              child: Scaffold(
+            floatingActionButton: AnimatedSlide(
+              duration: duration,
+              offset: showFAB ? Offset.zero : const Offset(0, 2),
+              child: AnimatedOpacity(
+                duration: duration,
+                opacity: showFAB ? 1 : 0,
+                child: FloatingActionButton(
+                  child: const Icon(Icons.add),
+                  onPressed: () {
+                    addProject();
+                  },
+                ),
+              ),
+            ),
             body: Builder(
               builder: (BuildContext context) {
                 if (projects.isEmpty) {
@@ -59,32 +78,23 @@ class ProjectsState extends State<Projects> {
                     create: (_) => ModelFav(),
                     child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
                       getFavorites(favNotifier);
-                      return CustomScrollView(
-                        slivers: <Widget>[
-                          SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                            childCount: projects.length,
-                            (BuildContext context, int index) {
-                              final Project project = projects[index];
-                              return ProjectCard(
-                                  project: project,
-                                  openEpisodes: () {
-                                    setState(() {
-                                      selectedProject = project;
-                                      page = ProjectsPage.episodes;
-                                    });
-                                  },
-                                  openPlanning: () {
-                                    setState(() {
-                                      selectedProject = project;
-                                      page = ProjectsPage.planning;
-                                    });
-                                  },
-                                  favNotifier: favNotifier);
-                            },
-                          ))
-                        ],
-                      );
+                      return ListView(
+                          padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                          children: (projects.map((Project project) => ProjectCard(
+                              project: project,
+                              openEpisodes: () {
+                                setState(() {
+                                  selectedProject = project;
+                                  page = ProjectsPage.episodes;
+                                });
+                              },
+                              openPlanning: () {
+                                setState(() {
+                                  selectedProject = project;
+                                  page = ProjectsPage.planning;
+                                });
+                              },
+                              favNotifier: favNotifier))).toList());
                     }),
                   );
                 }
@@ -92,7 +102,7 @@ class ProjectsState extends State<Projects> {
             ),
           ));
         } else {
-          return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
+          return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
         }
       case ProjectsPage.episodes:
         return Episodes(
