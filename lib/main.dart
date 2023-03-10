@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calendar_view/calendar_view.dart';
-import 'package:cpm/widgets/snack_bars.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +9,7 @@ import 'routes/route.gr.dart';
 import 'services/config.dart';
 import 'services/login.dart';
 import 'settings.dart';
+import 'widgets/snack_bars.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
