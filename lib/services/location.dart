@@ -13,31 +13,16 @@ class LocationService {
   Future<List<dynamic>> getLocations() async {
     try {
       final Response response = await get(Uri.parse(api.locations),
-          headers: <String, String>{
-            'accept': 'application/json',
-            api.authorization: api.bearer + token
-          });
+          headers: <String, String>{'accept': 'application/json', api.authorization: api.bearer + token});
 
-      final List<dynamic> membersJson =
-          json.decode(response.body) as List<dynamic>;
-      final List<Location> locations =
-          membersJson.map((location) => Location.fromJson(location)).toList();
+      final List<dynamic> membersJson = json.decode(response.body) as List<dynamic>;
+      final List<Location> locations = membersJson.map((location) => Location.fromJson(location)).toList();
 
       if (response.statusCode == 200) {
-        return <dynamic>[
-          true,
-          locations,
-          response.statusCode,
-          response.reasonPhrase
-        ];
+        return <dynamic>[true, locations, response.statusCode, response.reasonPhrase];
       } else {
         debugPrint(response.toString());
-        return <dynamic>[
-          false,
-          <Location>[],
-          response.statusCode,
-          response.reasonPhrase
-        ];
+        return <dynamic>[false, <Location>[], response.statusCode, response.reasonPhrase];
       }
     } catch (exception) {
       debugPrint(exception.toString());
