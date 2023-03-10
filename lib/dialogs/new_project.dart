@@ -178,6 +178,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
 
   void submit() {
     final Project newProject = Project(
+        id: '',
         projectType: type,
         title: titleController.text,
         description: descriptionController.text,

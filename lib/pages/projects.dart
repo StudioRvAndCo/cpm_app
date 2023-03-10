@@ -52,46 +52,52 @@ class ProjectsState extends State<Projects> {
           if (projects.isEmpty) {
             return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
           } else {
-            return Expanded(
-              child: Stack(
-                children: <Widget>[
-                  CustomScrollView(
-                    slivers: <Widget>[
-                      SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                        childCount: projects.length,
-                        (BuildContext context, int index) {
-                          final Project project = projects[index];
-                          return ProjectCard(
-                            project: project,
-                            openEpisodes: () {
-                              setState(() {
-                                selectedProject = project;
-                                page = ProjectsPage.episodes;
-                              });
+            return ChangeNotifierProvider<ModelFav>(
+              create: (_) => ModelFav(),
+              child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
+                getFavorites(favNotifier);
+                return Expanded(
+                  child: Stack(
+                    children: <Widget>[
+                      CustomScrollView(
+                        slivers: <Widget>[
+                          SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                            childCount: projects.length,
+                            (BuildContext context, int index) {
+                              final Project project = projects[index];
+                              return ProjectCard(
+                                  project: project,
+                                  openEpisodes: () {
+                                    setState(() {
+                                      selectedProject = project;
+                                      page = ProjectsPage.episodes;
+                                    });
+                                  },
+                                  openPlanning: () {
+                                    setState(() {
+                                      selectedProject = project;
+                                      page = ProjectsPage.planning;
+                                    });
+                                  },
+                                  favNotifier: favNotifier);
                             },
-                            openPlanning: () {
-                              setState(() {
-                                selectedProject = project;
-                                page = ProjectsPage.planning;
-                              });
+                          ))
+                        ],
+                      ),
+                      Positioned(
+                          bottom: 16,
+                          right: 16,
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              addProject();
                             },
-                          );
-                        },
-                      ))
+                            child: const Icon(Icons.add),
+                          ))
                     ],
                   ),
-                  Positioned(
-                      bottom: 16,
-                      right: 16,
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          addProject();
-                        },
-                        child: const Icon(Icons.add),
-                      ))
-                ],
-              ),
+                );
+              }),
             );
           }
         } else {

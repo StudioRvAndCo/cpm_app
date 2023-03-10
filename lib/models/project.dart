@@ -4,7 +4,7 @@ enum ProjectType { movie, series }
 
 class Project implements Comparable<Project> {
   Project(
-      {this.id,
+      {required this.id,
       required this.projectType,
       required this.title,
       required this.description,
@@ -57,7 +57,7 @@ class Project implements Comparable<Project> {
     return projectType == ProjectType.movie;
   }
 
-  final String? id;
+  final String id;
   ProjectType projectType;
   String title;
   String description;
@@ -73,7 +73,7 @@ class Project implements Comparable<Project> {
   @override
   int compareTo(Project other) {
     if (favorite == other.favorite) {
-      return other.beginDate.compareTo(beginDate);
+      return other.startDate.compareTo(startDate);
     } else if (favorite) {
       return -1;
     } else {

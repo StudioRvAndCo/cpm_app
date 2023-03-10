@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'dart:io' show Platform;
 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
-import '../models/project.dart';
-import '../services/project.dart';
 import '../widgets/navigation/custom_appbar.dart';
 import '../widgets/navigation/custom_navigation_drawer.dart';
 import '../widgets/navigation/custom_navigation_rail.dart';
@@ -96,22 +93,5 @@ class HomeState extends State<Home> {
     projectsStateKey.currentState?.setState(() {
       projectsStateKey.currentState?.page = ProjectsPage.projects;
     });
-  }
-
-  Future<void> addProject() async {
-    print('add');
-    Project project = Project(
-        projectType: ProjectType.movie,
-        title: 'Add',
-        description: 'Added',
-        startDate: DateTime.now(),
-        endDate: DateTime.now().add(Duration(days: 1)),
-        shotsTotal: 10,
-        shotsCompleted: 5,
-        episodes: []);
-    print(jsonEncode(project.toJson()));
-    final List<dynamic> result = await ProjectService().addProject(project);
-    print(result[0]);
-    print(result[1]);
   }
 }
