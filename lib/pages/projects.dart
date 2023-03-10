@@ -47,14 +47,17 @@ class ProjectsState extends State<Projects> {
     switch (page) {
       case ProjectsPage.projects:
         if (!requestCompleted) {
-          return const RequestPlaceholder(placeholder: CircularProgressIndicator());
+          return const RequestPlaceholder(
+              placeholder: CircularProgressIndicator());
         } else if (requestSucceeded) {
           if (projects.isEmpty) {
-            return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
+            return RequestPlaceholder(
+                placeholder: Text('projects.no_projects'.tr()));
           } else {
             return ChangeNotifierProvider<ModelFav>(
               create: (_) => ModelFav(),
-              child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
+              child: Consumer<ModelFav>(builder:
+                  (BuildContext context, ModelFav favNotifier, Widget? child) {
                 getFavorites(favNotifier);
                 return Expanded(
                   child: Stack(
@@ -101,7 +104,8 @@ class ProjectsState extends State<Projects> {
             );
           }
         } else {
-          return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
+          return RequestPlaceholder(
+              placeholder: Text('errors.request_failed'.tr()));
         }
       case ProjectsPage.episodes:
         return Episodes(
@@ -162,7 +166,8 @@ class ProjectsState extends State<Projects> {
     if (project is Project) {
       final List<dynamic> result = await ProjectService().addProject(project);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar().getNewProjectSnackBar(context, result[0] as bool));
+        ScaffoldMessenger.of(context).showSnackBar(
+            PopupSnackBar().getNewProjectSnackBar(context, result[0] as bool));
       }
       setState(() {
         getProjects();

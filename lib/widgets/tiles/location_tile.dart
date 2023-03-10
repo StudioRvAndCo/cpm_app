@@ -7,7 +7,11 @@ import '../../models/location.dart';
 enum MenuAction { edit, delete }
 
 class LocationTile extends StatefulWidget {
-  const LocationTile({super.key, required this.location, required this.onEdit, required this.onDelete});
+  const LocationTile(
+      {super.key,
+      required this.location,
+      required this.onEdit,
+      required this.onDelete});
 
   final Location location;
 
@@ -50,7 +54,7 @@ class _LocationTileState extends State<LocationTile> {
                   child: ListTile(
                     leading: Icon(
                       Icons.edit,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text('edit.upper'.tr()),
                   )),
@@ -59,7 +63,7 @@ class _LocationTileState extends State<LocationTile> {
                   child: ListTile(
                     leading: Icon(
                       Icons.delete,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text('delete.upper'.tr()),
                   )),
