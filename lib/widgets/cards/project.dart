@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../models/project.dart';
+import '../../settings.dart';
 
 class ProjectCard extends StatefulWidget {
-  const ProjectCard({super.key, required this.project, required this.openEpisodes, required this.openPlanning});
+  const ProjectCard(
+      {super.key,
+      required this.project,
+      required this.openEpisodes,
+      required this.openPlanning,
+      required this.favNotifier});
 
   final void Function() openEpisodes;
   final void Function() openPlanning;
+  final ModelFav favNotifier;
 
   final Project project;
 
@@ -15,12 +22,11 @@ class ProjectCard extends StatefulWidget {
 }
 
 class _ProjectCardState extends State<ProjectCard> {
-  bool favorite = false;
-
   @override
   Widget build(BuildContext context) {
-    Icon favIcon =
-        favorite ? Icon(Icons.star, color: Theme.of(context).colorScheme.primary) : const Icon(Icons.star_border);
+    Icon favIcon = widget.project.favorite
+        ? Icon(Icons.star, color: Theme.of(context).colorScheme.primary)
+        : const Icon(Icons.star_border);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: ElevatedButton(
@@ -79,6 +85,15 @@ class _ProjectCardState extends State<ProjectCard> {
   }
 
   void toggleFavorite() {
-    favorite = !favorite;
+    if (widget.project.favorite) {
+      final List<String> favorites = widget.favNotifier.favoriteProjects;
+      favorites.remove(widget.project.id);
+      widget.favNotifier.favoriteProjects = favorites;
+    } else {
+      final List<String> favorites = widget.favNotifier.favoriteProjects;
+      favorites.add(widget.project.id);
+      widget.favNotifier.favoriteProjects = favorites;
+    }
+    widget.project.favorite = !widget.project.favorite;
   }
 }

@@ -58,6 +58,25 @@ class MyThemePreferences {
   }
 }
 
+class MyFavorites {
+  static const String FAVORITES_KEY = 'favorites_key';
+
+  Future<void> setFavorites(List<String> ids) async {
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setStringList(FAVORITES_KEY, ids);
+  }
+
+  Future<List<String>> getFavorites() async {
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final List<String>? result = sharedPreferences.getStringList(FAVORITES_KEY);
+    if (result == null) {
+      return <String>[];
+    } else {
+      return result;
+    }
+  }
+}
+
 class ModelTheme extends ChangeNotifier {
   ModelTheme() {
     _themeMode = ThemeMode.light;
@@ -78,6 +97,30 @@ class ModelTheme extends ChangeNotifier {
 
   Future<void> getPreferences() async {
     _themeMode = await _preferences.getThemeOption();
+    notifyListeners();
+  }
+}
+
+class ModelFav extends ChangeNotifier {
+  ModelFav() {
+    _favoriteProjects = <String>[];
+    _savedFavorites = MyFavorites();
+    getFavorites();
+  }
+
+  late List<String> _favoriteProjects;
+  late MyFavorites _savedFavorites;
+  List<String> get favoriteProjects => _favoriteProjects;
+
+// Switching the themes
+  set favoriteProjects(List<String> favorites) {
+    _favoriteProjects = favorites;
+    _savedFavorites.setFavorites(favorites);
+    notifyListeners();
+  }
+
+  Future<void> getFavorites() async {
+    _favoriteProjects = await _savedFavorites.getFavorites();
     notifyListeners();
   }
 }

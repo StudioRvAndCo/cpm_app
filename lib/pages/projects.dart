@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../dialogs/new_project.dart';
 import '../models/episode.dart';
 import '../models/project.dart';
 import '../models/sequence.dart';
 import '../services/project.dart';
+import '../settings.dart';
 import '../widgets/cards/project.dart';
 import '../widgets/request_placeholder.dart';
 import '../widgets/snack_bars.dart';
@@ -36,8 +38,8 @@ class ProjectsState extends State<Projects> {
 
   @override
   void initState() {
-    super.initState();
     getProjects();
+    super.initState();
   }
 
   @override
@@ -122,6 +124,18 @@ class ProjectsState extends State<Projects> {
       case ProjectsPage.planning:
         return Planning(project: selectedProject);
     }
+  }
+
+  void getFavorites(ModelFav favNotifier) {
+    final List<String> favorites = favNotifier.favoriteProjects;
+    for (final String id in favorites) {
+      for (final Project project in projects) {
+        if (id == project.id) {
+          project.favorite = true;
+        }
+      }
+    }
+    projects.sort();
   }
 
   Future<void> getProjects() async {
