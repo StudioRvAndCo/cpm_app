@@ -17,8 +17,7 @@ class Project implements Comparable<Project> {
       required this.episodes});
 
   factory Project.fromJson(json) {
-    final ProjectType projectType =
-        (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
+    final ProjectType projectType = (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
 
     return Project(
       id: json['Id'].toString(),
