@@ -5,8 +5,15 @@ class Location {
     return Location(
       id: json['Id'].toString(),
       name: json['Name'].toString(),
-      position: json['Link'].toString(), // TODO(mael): change to 'Position' in backend
+      position: json['Position'].toString(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'position': position,
+    };
   }
 
   final String id;
