@@ -49,17 +49,17 @@ class ProjectsState extends State<Projects> {
         if (!requestCompleted) {
           return const RequestPlaceholder(placeholder: CircularProgressIndicator());
         } else if (requestSucceeded) {
-          if (projects.isEmpty) {
-            return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
-          } else {
-            return ChangeNotifierProvider<ModelFav>(
-              create: (_) => ModelFav(),
-              child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
-                getFavorites(favNotifier);
-                return Expanded(
-                  child: Stack(
-                    children: <Widget>[
-                      CustomScrollView(
+          return Expanded(child: Scaffold(
+            body: Builder(
+              builder: (BuildContext context) {
+                if (projects.isEmpty) {
+                  return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
+                } else {
+                  return ChangeNotifierProvider<ModelFav>(
+                    create: (_) => ModelFav(),
+                    child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
+                      getFavorites(favNotifier);
+                      return CustomScrollView(
                         slivers: <Widget>[
                           SliverList(
                               delegate: SliverChildBuilderDelegate(
@@ -84,22 +84,13 @@ class ProjectsState extends State<Projects> {
                             },
                           ))
                         ],
-                      ),
-                      Positioned(
-                          bottom: 16,
-                          right: 16,
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              addProject();
-                            },
-                            child: const Icon(Icons.add),
-                          ))
-                    ],
-                  ),
-                );
-              }),
-            );
-          }
+                      );
+                    }),
+                  );
+                }
+              },
+            ),
+          ));
         } else {
           return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
         }
