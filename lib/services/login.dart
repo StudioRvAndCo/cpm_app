@@ -4,7 +4,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-import '../main.dart';
 import 'api.dart';
 
 class LoginService {
@@ -31,35 +30,5 @@ class LoginService {
 
   bool logout() {
     return false;
-  }
-}
-
-class LoginSnackBar {
-  SnackBar generateSnackBar(BuildContext context) {
-    String message = '';
-    switch (loginState.statusCode) {
-      case 400:
-      case 401:
-        message = 'error.username-password'.tr();
-        break;
-      case 408:
-        message = 'error.timeout'.tr();
-        break;
-      default:
-        message = 'error.error'.tr();
-    }
-
-    debugPrint('Code: ${loginState.statusCode}, Reason: ${loginState.reasonPhrase}');
-
-    return SnackBar(
-      showCloseIcon: true,
-      closeIconColor: Theme.of(context).colorScheme.onError,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Theme.of(context).colorScheme.error,
-      content: Text(
-        message,
-        style: TextStyle(color: Theme.of(context).colorScheme.onError),
-      ),
-    );
   }
 }

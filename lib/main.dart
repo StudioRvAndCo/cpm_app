@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calendar_view/calendar_view.dart';
+import 'package:cpm/widgets/snack_bars.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -102,8 +103,7 @@ class _CPMState extends State<CPM> {
   Future<void> _handleLogin(String username, String password) async {
     loginState.login(username, password).then((void value) {
       if (loginState.statusCode != 200 && scaffoldMessengerKey.currentContext != null) {
-        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!)
-            .showSnackBar(LoginSnackBar().generateSnackBar(context));
+        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(LoginSnackBar().getSnackBar(context));
       }
     });
   }

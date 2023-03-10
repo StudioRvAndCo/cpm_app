@@ -40,10 +40,10 @@ class ProjectService {
           },
           body: jsonEncode(project));
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return <dynamic>[true, response.statusCode, response.reasonPhrase];
       } else {
-        debugPrint(response.toString());
+        debugPrint(response.body);
         return <dynamic>[false, response.statusCode, response.reasonPhrase];
       }
     } catch (exception) {

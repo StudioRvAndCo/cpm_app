@@ -109,7 +109,7 @@
         "one": "valeur",
         "other": "valeurs"
       },
-      "no_value":"Aucune valeur de plan spécifiée."
+      "no_value": "Aucune valeur de plan spécifiée."
     },
     "no_shots": "Aucun shot."
   },
@@ -199,6 +199,12 @@
     "line": {
       "upper": "Réplique",
       "lower": "réplique"
+    }
+  },
+  "snack_bars": {
+    "project": {
+      "added": "Le projet a été ajouté.",
+      "not_added": "Le projet n'a pas été ajouté."
     }
   },
   "new": {

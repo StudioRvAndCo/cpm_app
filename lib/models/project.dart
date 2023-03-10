@@ -26,6 +26,8 @@ class Project {
       description: json['Description'].toString(),
       startDate: DateTime.parse(json['BeginDate'].toString()),
       endDate: DateTime.parse(json['EndDate'].toString()),
+      shotsTotal: json['ShotsTotal'] as int,
+      shotsCompleted: json['ShotsCompleted'] as int,
       episodes: <Episode>[],
     );
   }
@@ -38,8 +40,8 @@ class Project {
       'description': description,
       'beginDate': startDate.toIso8601String(),
       'endDate': endDate.toIso8601String(),
-      'shotsTotal': shotsTotal,
-      'shotsCompleted': shotsCompleted,
+      'shotsTotal': shotsTotal ?? 0,
+      'shotsCompleted': shotsCompleted ?? 0,
       'episodes': episodes,
     };
   }

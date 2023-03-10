@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../dialogs/new_project.dart';
 import '../models/episode.dart';
 import '../models/project.dart';
 import '../models/sequence.dart';
 import '../services/project.dart';
 import '../widgets/cards/project.dart';
 import '../widgets/request_placeholder.dart';
+import '../widgets/snack_bars.dart';
 import 'episodes.dart';
 import 'planning.dart';
 import 'sequences.dart';
@@ -49,30 +51,43 @@ class ProjectsState extends State<Projects> {
             return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
           } else {
             return Expanded(
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                    childCount: projects.length,
-                    (BuildContext context, int index) {
-                      final Project project = projects[index];
-                      return ProjectCard(
-                        project: project,
-                        openEpisodes: () {
-                          setState(() {
-                            selectedProject = project;
-                            page = ProjectsPage.episodes;
-                          });
+              child: Stack(
+                children: <Widget>[
+                  CustomScrollView(
+                    slivers: <Widget>[
+                      SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                        childCount: projects.length,
+                        (BuildContext context, int index) {
+                          final Project project = projects[index];
+                          return ProjectCard(
+                            project: project,
+                            openEpisodes: () {
+                              setState(() {
+                                selectedProject = project;
+                                page = ProjectsPage.episodes;
+                              });
+                            },
+                            openPlanning: () {
+                              setState(() {
+                                selectedProject = project;
+                                page = ProjectsPage.planning;
+                              });
+                            },
+                          );
                         },
-                        openPlanning: () {
-                          setState(() {
-                            selectedProject = project;
-                            page = ProjectsPage.planning;
-                          });
+                      ))
+                    ],
+                  ),
+                  Positioned(
+                      bottom: 16,
+                      right: 16,
+                      child: FloatingActionButton(
+                        onPressed: () {
+                          addProject();
                         },
-                      );
-                    },
-                  ))
+                        child: const Icon(Icons.add),
+                      ))
                 ],
               ),
             );
@@ -115,6 +130,21 @@ class ProjectsState extends State<Projects> {
       requestCompleted = true;
       requestSucceeded = result[0] as bool;
       projects = result[1] as List<Project>;
+    });
+  }
+
+  Future<void> addProject() async {
+    final Project project = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const NewProjectDialog();
+        }) as Project;
+    final List<dynamic> result = await ProjectService().addProject(project);
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar().getNewProjectSnackBar(context, result[0] as bool));
+    }
+    setState(() {
+      getProjects();
     });
   }
 }
