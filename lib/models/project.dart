@@ -58,7 +58,7 @@ class Project implements Comparable<Project> {
   @override
   int compareTo(Project other) {
     if (favorite == other.favorite) {
-      return beginDate.compareTo(other.beginDate);
+      return other.beginDate.compareTo(beginDate);
     } else if (favorite) {
       return -1;
     } else {
