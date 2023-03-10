@@ -29,4 +29,26 @@ class LocationService {
       return <dynamic>[false, <Location>[], 408, 'error.timeout'.tr()];
     }
   }
+
+  Future<List<dynamic>> addLocation(Location location) async {
+    try {
+      final Response response = await post(Uri.parse(api.locations),
+          headers: <String, String>{
+            'accept': '*/*',
+            'Content-Type': 'application/json',
+            api.authorization: api.bearer + token
+          },
+          body: jsonEncode(location));
+
+      if (response.statusCode == 201) {
+        return <dynamic>[true, response.statusCode, response.reasonPhrase];
+      } else {
+        debugPrint(response.body);
+        return <dynamic>[false, response.statusCode, response.reasonPhrase];
+      }
+    } catch (exception) {
+      debugPrint(exception.toString());
+      return <dynamic>[false, 408, 'error.timeout'.tr()];
+    }
+  }
 }

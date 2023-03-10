@@ -205,6 +205,10 @@
     "project": {
       "added": "The project was added.",
       "not_added": "The project was not added."
+    },
+    "location": {
+      "added": "Le lieu a été ajouté.",
+      "not_added": "Le lieu n'a pas été ajouté."
     }
   },
   "new": {

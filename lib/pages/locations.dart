@@ -1,3 +1,4 @@
+import 'package:cpm/widgets/snack_bars.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -40,78 +41,83 @@ class _LocationsState extends State<Locations> {
     if (!requestCompleted) {
       return const RequestPlaceholder(placeholder: CircularProgressIndicator());
     } else if (requestSucceeded) {
-      if (locations.isEmpty) {
-        return RequestPlaceholder(placeholder: Text('locations.no_locations'.tr()));
-      } else {
-        final Iterable<LocationTile> locationsTiles = locations.map((Location location) => LocationTile(
-              location: location,
-              onEdit: (Location location) {
-                edit(location);
-              },
-              onDelete: (Location location) {
-                showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) {
-                  if (result ?? false) {
-                    delete(location);
-                  }
-                });
-              },
-            ));
-        return Expanded(
-            child: Scaffold(
-          floatingActionButton: FloatingActionButton(onPressed: add, child: const Icon(Icons.add)),
-          body: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => divider,
-            itemCount: locationsTiles.length,
-            itemBuilder: (BuildContext context, int index) => ClipRRect(
-              clipBehavior: Clip.hardEdge,
-              child: Dismissible(
-                key: UniqueKey(),
-                onDismissed: (DismissDirection direction) {
-                  final Location location = locationsTiles.elementAt(index).location;
-                  switch (direction) {
-                    case DismissDirection.startToEnd:
-                      delete(location);
-                      break;
-                    case DismissDirection.endToStart:
-                    case DismissDirection.vertical:
-                    case DismissDirection.horizontal:
-                    case DismissDirection.up:
-                    case DismissDirection.down:
-                    case DismissDirection.none:
-                      throw InvalidDirectionException('error.direction'.tr());
-                  }
-                },
-                confirmDismiss: (DismissDirection dismissDirection) async {
-                  switch (dismissDirection) {
-                    case DismissDirection.endToStart:
-                      final Location location = locationsTiles.elementAt(index).location;
-                      edit(location);
-                      return false;
-                    case DismissDirection.startToEnd:
-                      return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false == true;
-                    case DismissDirection.horizontal:
-                    case DismissDirection.vertical:
-                    case DismissDirection.up:
-                    case DismissDirection.down:
-                    case DismissDirection.none:
-                      assert(false);
-                  }
-                  return false;
-                },
-                background: deleteBackground(),
-                secondaryBackground: editBackground(),
-                child: locationsTiles.elementAt(index),
-              ),
-            ),
+      return Expanded(
+        child: Scaffold(
+          floatingActionButton: FloatingActionButton(onPressed: addLocation, child: const Icon(Icons.add)),
+          body: Builder(
+            builder: (BuildContext context) {
+              if (locations.isEmpty) {
+                return RequestPlaceholder(placeholder: Text('locations.no_locations'.tr()));
+              } else {
+                final Iterable<LocationTile> locationsTiles = locations.map((Location location) => LocationTile(
+                      location: location,
+                      onEdit: (Location location) {
+                        editLocation(location);
+                      },
+                      onDelete: (Location location) {
+                        showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) {
+                          if (result ?? false) {
+                            deleteLocation(location);
+                          }
+                        });
+                      },
+                    ));
+                return ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) => divider,
+                  itemCount: locationsTiles.length,
+                  itemBuilder: (BuildContext context, int index) => ClipRRect(
+                    clipBehavior: Clip.hardEdge,
+                    child: Dismissible(
+                      key: UniqueKey(),
+                      onDismissed: (DismissDirection direction) {
+                        final Location location = locationsTiles.elementAt(index).location;
+                        switch (direction) {
+                          case DismissDirection.startToEnd:
+                            deleteLocation(location);
+                            break;
+                          case DismissDirection.endToStart:
+                          case DismissDirection.vertical:
+                          case DismissDirection.horizontal:
+                          case DismissDirection.up:
+                          case DismissDirection.down:
+                          case DismissDirection.none:
+                            throw InvalidDirectionException('error.direction'.tr());
+                        }
+                      },
+                      confirmDismiss: (DismissDirection dismissDirection) async {
+                        switch (dismissDirection) {
+                          case DismissDirection.endToStart:
+                            final Location location = locationsTiles.elementAt(index).location;
+                            editLocation(location);
+                            return false;
+                          case DismissDirection.startToEnd:
+                            return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false == true;
+                          case DismissDirection.horizontal:
+                          case DismissDirection.vertical:
+                          case DismissDirection.up:
+                          case DismissDirection.down:
+                          case DismissDirection.none:
+                            assert(false);
+                        }
+                        return false;
+                      },
+                      background: deleteBackground(),
+                      secondaryBackground: editBackground(),
+                      child: locationsTiles.elementAt(index),
+                    ),
+                  ),
+                );
+              }
+            },
           ),
-        ));
-      }
+        ),
+      );
     } else {
       return RequestPlaceholder(placeholder: Text('errors.request_failed'.tr()));
     }
   }
 
-  void edit(Location location) {
+  void editLocation(Location location) {
     showDialog<Location>(
         context: context,
         builder: (BuildContext context) {
@@ -132,28 +138,27 @@ class _LocationsState extends State<Locations> {
     );
   }
 
-  void delete(Location location) {
+  void deleteLocation(Location location) {
     setState(() {
       locations.remove(location);
     });
   }
 
-  void add() {
-    showDialog<Location>(
+  Future<void> addLocation() async {
+    final dynamic location = await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const LocationDialog(
-            edit: false,
-          );
-        }).then(
-      (Location? result) {
-        if (result != null) {
-          setState(() {
-            // TODO(mael): add member via API
-          });
-        }
-      },
-    );
+          return const LocationDialog(edit: false);
+        });
+    if (location is Location) {
+      final List<dynamic> result = await LocationService().addLocation(location);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar().getNewLocationSnackBar(context, result[0] as bool));
+      }
+      setState(() {
+        getLocations();
+      });
+    }
   }
 
   Future<void> getLocations() async {

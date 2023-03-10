@@ -44,4 +44,17 @@ class PopupSnackBar {
       );
     }
   }
+
+  SnackBar getNewLocationSnackBar(BuildContext context, bool succeeded) {
+    if (succeeded) {
+      return SnackBar(behavior: SnackBarBehavior.floating, content: Text('snack_bars.location.added'.tr()));
+    } else {
+      return SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        content:
+            Text('snack_bars.location.not_added'.tr(), style: TextStyle(color: Theme.of(context).colorScheme.onError)),
+      );
+    }
+  }
 }
