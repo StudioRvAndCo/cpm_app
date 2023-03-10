@@ -24,6 +24,17 @@ class Episode {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'number': number,
+      'title': title,
+      'description': description,
+      'director': director ?? '',
+      'writer': writer ?? '',
+      'sequences': sequences,
+    };
+  }
+
   final String id;
   final int number;
   final String title;

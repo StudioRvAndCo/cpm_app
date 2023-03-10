@@ -154,17 +154,19 @@ class ProjectsState extends State<Projects> {
   }
 
   Future<void> addProject() async {
-    final Project project = await showDialog(
+    final dynamic project = await showDialog(
         context: context,
         builder: (BuildContext context) {
           return const NewProjectDialog();
-        }) as Project;
-    final List<dynamic> result = await ProjectService().addProject(project);
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar().getNewProjectSnackBar(context, result[0] as bool));
+        });
+    if (project is Project) {
+      final List<dynamic> result = await ProjectService().addProject(project);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar().getNewProjectSnackBar(context, result[0] as bool));
+      }
+      setState(() {
+        getProjects();
+      });
     }
-    setState(() {
-      getProjects();
-    });
   }
 }

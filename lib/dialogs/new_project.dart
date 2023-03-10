@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../models/episode.dart';
 import '../models/project.dart';
+import '../models/sequence.dart';
 
 class NewProjectDialog extends StatefulWidget {
   const NewProjectDialog({super.key});
@@ -177,6 +178,10 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
   }
 
   void submit() {
+    final List<Episode> episodes = <Episode>[];
+    if (type == ProjectType.movie) {
+      episodes.add(Episode(id: '', number: 0, title: '', description: '', sequences: <Sequence>[]));
+    }
     final Project newProject = Project(
         id: '',
         projectType: type,
@@ -184,7 +189,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
         description: descriptionController.text,
         startDate: dates.start,
         endDate: dates.end,
-        episodes: <Episode>[]);
+        episodes: episodes);
     Navigator.pop(context, newProject);
   }
 }
