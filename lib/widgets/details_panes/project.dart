@@ -28,7 +28,7 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
 
     title = widget.project.title;
     description = widget.project.description;
-    startDate = widget.project.beginDate;
+    startDate = widget.project.startDate;
     endDate = widget.project.endDate;
 
     titleController.text = title;

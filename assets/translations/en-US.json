@@ -109,7 +109,7 @@
         "one": "value",
         "other": "values"
       },
-      "no_value":"No shot value set."
+      "no_value": "No shot value set."
     },
     "no_shots": "No shots."
   },
@@ -199,6 +199,12 @@
     "line": {
       "upper": "Line",
       "lower": "line"
+    }
+  },
+  "snack_bars": {
+    "project": {
+      "added": "The project was added.",
+      "not_added": "The project was not added."
     }
   },
   "new": {

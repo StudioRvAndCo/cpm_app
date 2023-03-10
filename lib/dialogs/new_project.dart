@@ -5,7 +5,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
+import '../models/episode.dart';
 import '../models/project.dart';
+import '../models/sequence.dart';
 
 class NewProjectDialog extends StatefulWidget {
   const NewProjectDialog({super.key});
@@ -20,7 +22,7 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   Image? image;
-  DateTimeRange? dates;
+  DateTimeRange dates = DateTimeRange(start: DateTime.now(), end: DateTime.now().add(const Duration(days: 7)));
   ProjectType type = ProjectType.movie;
   String dateText = '';
 
@@ -31,13 +33,9 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
 
   void updateDateText() {
     String res;
-    if (dates != null) {
-      final String firstText = DateFormat.yMd(context.locale.toString()).format(dates!.start);
-      final String lastText = DateFormat.yMd(context.locale.toString()).format(dates!.end);
-      res = '$firstText - $lastText';
-    } else {
-      res = 'dates_dialog'.tr();
-    }
+    final String firstText = DateFormat.yMd(context.locale.toString()).format(dates.start);
+    final String lastText = DateFormat.yMd(context.locale.toString()).format(dates.end);
+    res = '$firstText - $lastText';
     setState(() {
       dateText = res;
     });
@@ -180,6 +178,18 @@ class _NewProjectDialogState extends State<NewProjectDialog> {
   }
 
   void submit() {
-    Navigator.pop(context);
+    final List<Episode> episodes = <Episode>[];
+    if (type == ProjectType.movie) {
+      episodes.add(Episode(id: '', number: 0, title: '', description: '', sequences: <Sequence>[]));
+    }
+    final Project newProject = Project(
+        id: '',
+        projectType: type,
+        title: titleController.text,
+        description: descriptionController.text,
+        startDate: dates.start,
+        endDate: dates.end,
+        episodes: episodes);
+    Navigator.pop(context, newProject);
   }
 }

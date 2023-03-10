@@ -78,7 +78,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     icon: const Icon(Icons.event))
               ]),
               const SizedBox(height: 8),
-              LinearProgressIndicator(value: (widget.project.shotsCompleted ?? 1) / (widget.project.shotsTotal ?? 1)),
+              LinearProgressIndicator(value: widget.project.getProgress()),
             ]),
           )),
     );

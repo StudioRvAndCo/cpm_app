@@ -139,7 +139,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
       return MonthView<Event>(
         key: calendarMonthKey,
         headerStyle: _buildHeader(),
-        minMonth: widget.project.beginDate,
+        minMonth: widget.project.startDate,
         maxMonth: widget.project.endDate,
         initialMonth: DateTime.now(),
         onPageChange: (DateTime date, int pageIndex) => print('$date, $pageIndex'),
@@ -158,7 +158,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
       return WeekView<Event>(
         key: calendarWeekKey,
         headerStyle: _buildHeader(),
-        minDay: widget.project.beginDate,
+        minDay: widget.project.startDate,
         maxDay: widget.project.endDate,
         initialDay: DateTime.now(),
         eventArranger: const SideEventArranger<Event>(),
@@ -174,7 +174,7 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
       return DayView<Event>(
         key: calendarDayKey,
         headerStyle: _buildHeader(),
-        minDay: widget.project.beginDate,
+        minDay: widget.project.startDate,
         maxDay: widget.project.endDate,
         initialDay: DateTime.now(),
         eventArranger: const SideEventArranger<Event>(),

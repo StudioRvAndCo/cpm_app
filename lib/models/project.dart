@@ -8,7 +8,7 @@ class Project implements Comparable<Project> {
       required this.projectType,
       required this.title,
       required this.description,
-      required this.beginDate,
+      required this.startDate,
       required this.endDate,
       this.shotsTotal,
       this.shotsCompleted,
@@ -24,10 +24,26 @@ class Project implements Comparable<Project> {
       projectType: projectType,
       title: json['Title'].toString(),
       description: json['Description'].toString(),
-      beginDate: DateTime.parse(json['BeginDate'].toString()),
+      startDate: DateTime.parse(json['BeginDate'].toString()),
       endDate: DateTime.parse(json['EndDate'].toString()),
+      shotsTotal: json['ShotsTotal'] as int,
+      shotsCompleted: json['ShotsCompleted'] as int,
       episodes: <Episode>[],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'isFilm': projectType == ProjectType.movie,
+      'isSeries': projectType == ProjectType.series,
+      'title': title,
+      'description': description,
+      'beginDate': startDate.toIso8601String(),
+      'endDate': endDate.toIso8601String(),
+      'shotsTotal': shotsTotal ?? 0,
+      'shotsCompleted': shotsCompleted ?? 0,
+      'episodes': episodes,
+    };
   }
 
   double getProgress() {
@@ -45,7 +61,7 @@ class Project implements Comparable<Project> {
   ProjectType projectType;
   String title;
   String description;
-  DateTime beginDate;
+  DateTime startDate;
   DateTime endDate;
   int? shotsTotal;
   int? shotsCompleted;
@@ -57,7 +73,7 @@ class Project implements Comparable<Project> {
   @override
   int compareTo(Project other) {
     if (favorite == other.favorite) {
-      return other.beginDate.compareTo(beginDate);
+      return other.startDate.compareTo(startDate);
     } else if (favorite) {
       return -1;
     } else {

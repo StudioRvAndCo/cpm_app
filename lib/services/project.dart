@@ -29,4 +29,26 @@ class ProjectService {
       return <dynamic>[false, <Project>[], 408, 'error.timeout'.tr()];
     }
   }
+
+  Future<List<dynamic>> addProject(Project project) async {
+    try {
+      final Response response = await post(Uri.parse(api.projects),
+          headers: <String, String>{
+            'accept': '*/*',
+            'Content-Type': 'application/json',
+            api.authorization: api.bearer + token
+          },
+          body: jsonEncode(project));
+
+      if (response.statusCode == 201) {
+        return <dynamic>[true, response.statusCode, response.reasonPhrase];
+      } else {
+        debugPrint(response.body);
+        return <dynamic>[false, response.statusCode, response.reasonPhrase];
+      }
+    } catch (exception) {
+      debugPrint(exception.toString());
+      return <dynamic>[false, 408, 'error.timeout'.tr()];
+    }
+  }
 }

@@ -9,6 +9,7 @@ import 'routes/route.gr.dart';
 import 'services/config.dart';
 import 'services/login.dart';
 import 'settings.dart';
+import 'widgets/snack_bars.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -102,8 +103,7 @@ class _CPMState extends State<CPM> {
   Future<void> _handleLogin(String username, String password) async {
     loginState.login(username, password).then((void value) {
       if (loginState.statusCode != 200 && scaffoldMessengerKey.currentContext != null) {
-        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!)
-            .showSnackBar(LoginSnackBar().generateSnackBar(context));
+        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(LoginSnackBar().getSnackBar(context));
       }
     });
   }
