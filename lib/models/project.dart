@@ -2,7 +2,7 @@ import 'episode.dart';
 
 enum ProjectType { movie, series }
 
-class Project {
+class Project implements Comparable<Project> {
   Project(
       {required this.id,
       required this.projectType,
@@ -53,4 +53,15 @@ class Project {
   String? writer;
   List<Episode> episodes;
   bool favorite = false;
+
+  @override
+  int compareTo(Project other) {
+    if (favorite == other.favorite) {
+      return other.beginDate.compareTo(beginDate);
+    } else if (favorite) {
+      return -1;
+    } else {
+      return 1;
+    }
+  }
 }

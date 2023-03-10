@@ -131,10 +131,9 @@ class ProjectsState extends State<Projects> {
       for (final Project project in projects) {
         if (id == project.id) {
           project.favorite = true;
-          projects.remove(project);
-          projects.insert(0, project);
         }
       }
     }
+    projects.sort();
   }
 }
