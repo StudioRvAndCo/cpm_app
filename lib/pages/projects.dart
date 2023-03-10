@@ -51,45 +51,44 @@ class ProjectsState extends State<Projects> {
         } else if (requestSucceeded) {
           return Expanded(
               child: Scaffold(
-                floatingActionButton: FloatingActionButton(
-                  child: const Icon(Icons.add),
-                  onPressed: () {
-                    addProject();
-                  },
-                ),
-                body: Builder(
-                  builder: (BuildContext context) {
-                    if (projects.isEmpty) {
-                      return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
-                    } else {
-                      return ChangeNotifierProvider<ModelFav>(
-                        create: (_) => ModelFav(),
-                        child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
-                          getFavorites(favNotifier);
-                          return ListView(
-                              padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
-                              children: (projects.map((Project project) =>
-                                  ProjectCard(
-                                      project: project,
-                                      openEpisodes: () {
-                                        setState(() {
-                                          selectedProject = project;
-                                          page = ProjectsPage.episodes;
-                                        });
-                                      },
-                                      openPlanning: () {
-                                        setState(() {
-                                          selectedProject = project;
-                                          page = ProjectsPage.planning;
-                                        });
-                                      },
-                                      favNotifier: favNotifier))).toList());
-                        }),
-                      );
-                    }
-                  },
-                ),
-              ));
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                addProject();
+              },
+            ),
+            body: Builder(
+              builder: (BuildContext context) {
+                if (projects.isEmpty) {
+                  return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
+                } else {
+                  return ChangeNotifierProvider<ModelFav>(
+                    create: (_) => ModelFav(),
+                    child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
+                      getFavorites(favNotifier);
+                      return ListView(
+                          padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                          children: (projects.map((Project project) => ProjectCard(
+                              project: project,
+                              openEpisodes: () {
+                                setState(() {
+                                  selectedProject = project;
+                                  page = ProjectsPage.episodes;
+                                });
+                              },
+                              openPlanning: () {
+                                setState(() {
+                                  selectedProject = project;
+                                  page = ProjectsPage.planning;
+                                });
+                              },
+                              favNotifier: favNotifier))).toList());
+                    }),
+                  );
+                }
+              },
+            ),
+          ));
         } else {
           return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
         }
