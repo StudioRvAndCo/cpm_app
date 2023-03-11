@@ -206,13 +206,9 @@
       "added": "The project was added.",
       "not_added": "The project was not added."
     },
-    "episode": {
-      "added": "The episode was added.",
-      "not_added": "The episode was not added."
-    },
     "location": {
-      "added": "The location was added.",
-      "not_added": "The location was not added."
+      "added": "Le lieu a été ajouté.",
+      "not_added": "Le lieu n'a pas été ajouté."
     }
   },
   "new": {
