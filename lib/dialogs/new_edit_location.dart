@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import '../models/location.dart';
 
 class LocationDialog extends StatefulWidget {
-  const LocationDialog({super.key, required this.edit, this.name, this.position});
+  const LocationDialog({super.key, required this.edit, this.id, this.name, this.position});
 
+  final String? id;
   final String? name;
   final String? position;
   final bool edit;
@@ -117,7 +118,8 @@ class _LocationDialogState extends State<LocationDialog> {
     if (nameController.text.trim().isEmpty) {
       return;
     }
-    final Location newLocation = Location(id: '', name: nameController.text, position: positionController.text);
+    final Location newLocation =
+        Location(id: widget.id ?? '', name: nameController.text, position: positionController.text);
     Navigator.pop(context, newLocation);
   }
 }
