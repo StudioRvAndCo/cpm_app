@@ -92,7 +92,7 @@ class _EpisodesState extends State<Episodes> {
     final dynamic episode = await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return NewEpisodeDialog(number: widget.project.episodes.length + 1);
+          return NewEpisodeDialog(number: episodes.length + 1);
         });
     if (episode is Episode) {
       final List<dynamic> result = await EpisodeService().addEpisode(widget.project.id, episode);
