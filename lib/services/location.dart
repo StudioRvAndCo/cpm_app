@@ -13,16 +13,31 @@ class LocationService {
   Future<List<dynamic>> getLocations() async {
     try {
       final Response response = await get(Uri.parse(api.locations),
-          headers: <String, String>{'accept': 'application/json', api.authorization: api.bearer + token});
+          headers: <String, String>{
+            'accept': 'application/json',
+            api.authorization: api.bearer + token
+          });
 
-      final List<dynamic> membersJson = json.decode(response.body) as List<dynamic>;
-      final List<Location> locations = membersJson.map((location) => Location.fromJson(location)).toList();
+      final List<dynamic> membersJson =
+          json.decode(response.body) as List<dynamic>;
+      final List<Location> locations =
+          membersJson.map((location) => Location.fromJson(location)).toList();
 
       if (response.statusCode == 200) {
-        return <dynamic>[true, locations, response.statusCode, response.reasonPhrase];
+        return <dynamic>[
+          true,
+          locations,
+          response.statusCode,
+          response.reasonPhrase
+        ];
       } else {
         debugPrint(response.toString());
-        return <dynamic>[false, <Location>[], response.statusCode, response.reasonPhrase];
+        return <dynamic>[
+          false,
+          <Location>[],
+          response.statusCode,
+          response.reasonPhrase
+        ];
       }
     } catch (exception) {
       debugPrint(exception.toString());
@@ -54,13 +69,37 @@ class LocationService {
 
   Future<List<dynamic>> editLocation(Location location) async {
     try {
-      final Response response = await put(Uri.parse('${api.locations}/${location.id}'),
-          headers: <String, String>{
-            'accept': '*/*',
-            'Content-Type': 'application/json',
-            api.authorization: api.bearer + token
-          },
-          body: jsonEncode(location));
+      final Response response =
+          await put(Uri.parse('${api.locations}/${location.id}'),
+              headers: <String, String>{
+                'accept': '*/*',
+                'Content-Type': 'application/json',
+                api.authorization: api.bearer + token
+              },
+              body: jsonEncode(location));
+
+      if (response.statusCode == 204) {
+        return <dynamic>[true, response.statusCode, response.reasonPhrase];
+      } else {
+        debugPrint(response.body);
+        return <dynamic>[false, response.statusCode, response.reasonPhrase];
+      }
+    } catch (exception) {
+      debugPrint(exception.toString());
+      return <dynamic>[false, 408, 'error.timeout'.tr()];
+    }
+  }
+
+  Future<List<dynamic>> deleteLocation(Location location) async {
+    try {
+      final Response response =
+          await delete(Uri.parse('${api.locations}/${location.id}'),
+              headers: <String, String>{
+                'accept': '*/*',
+                'Content-Type': 'application/json',
+                api.authorization: api.bearer + token
+              },
+              body: jsonEncode(location));
 
       if (response.statusCode == 204) {
         return <dynamic>[true, response.statusCode, response.reasonPhrase];

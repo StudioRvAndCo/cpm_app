@@ -214,7 +214,9 @@
       "added": "The location was added.",
       "not_added": "The location could not be added.",
       "edited":"The location was edited.",
-      "not_edited":"The location could not be edited."
+      "not_edited":"The location could not be edited.",
+      "deleted":"The location was deleted.",
+      "not_deleted":"The location could not be deleted."
     }
   },
   "new": {
