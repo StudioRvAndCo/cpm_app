@@ -125,4 +125,27 @@ class PopupSnackBar {
       );
     }
   }
+
+  SnackBar getDeletedLocationSnackBar(BuildContext context, bool succeeded, int code) {
+    if (succeeded) {
+      return SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            'snack_bars.location.deleted'.tr(),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ));
+    } else {
+      return SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        content: Text(
+          '${'error.error'.tr()} $code - ${'snack_bars.location.not_deleted'.tr()}',
+          style: TextStyle(color: Theme.of(context).colorScheme.onError),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+    }
+  }
 }

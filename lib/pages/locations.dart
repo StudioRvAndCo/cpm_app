@@ -1,4 +1,3 @@
-import 'package:cpm/widgets/snack_bars.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +7,7 @@ import '../exceptions/invalid_direction_exception.dart';
 import '../models/location.dart';
 import '../services/location.dart';
 import '../widgets/request_placeholder.dart';
+import '../widgets/snack_bars.dart';
 import '../widgets/tiles/location_tile.dart';
 
 class Locations extends StatefulWidget {
@@ -124,7 +124,6 @@ class _LocationsState extends State<Locations> {
   }
 
   Future<void> editLocation(Location location) async {
-    print(location.id);
     final dynamic edited = await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -137,20 +136,30 @@ class _LocationsState extends State<Locations> {
         });
     if (edited is Location) {
       final List<dynamic> result = await LocationService().editLocation(edited);
+
+      setState(() {
+        getLocations();
+      });
       if (context.mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(PopupSnackBar().getEditedLocationSnackBar(context, result[0] as bool, result[1] as int));
       }
-      setState(() {
-        getLocations();
-      });
     }
   }
 
-  void deleteLocation(Location location) {
-    setState(() {
-      locations.remove(location);
-    });
+  Future<void> deleteLocation(Location location) async {
+    final List<dynamic> result = await LocationService().deleteLocation(location);
+    if (context.mounted) {
+      if (result[1] == 204) {
+        setState(() {
+          locations.remove(location);
+        });
+      } else {
+        getLocations();
+      }
+      ScaffoldMessenger.of(context)
+          .showSnackBar(PopupSnackBar().getDeletedLocationSnackBar(context, result[0] as bool, result[1] as int));
+    }
   }
 
   Future<void> addLocation() async {
