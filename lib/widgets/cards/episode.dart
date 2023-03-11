@@ -30,11 +30,28 @@ class _EpisodeCardState extends State<EpisodeCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          widget.episode.title,
-                          style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Row(
+                          children: [
+                            Container(
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  borderRadius: const BorderRadius.all(Radius.circular(15))),
+                              child: Text(widget.episode.number.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).colorScheme.onSecondary)),
+                            ),
+                            const Padding(padding: EdgeInsets.only(right: 12)),
+                            Text(
+                              widget.episode.title,
+                              style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
                         const Padding(padding: EdgeInsets.only(bottom: 4)),
                         Text(
