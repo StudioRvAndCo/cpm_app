@@ -204,11 +204,13 @@
   "snack_bars": {
     "project": {
       "added": "Le projet a été ajouté.",
-      "not_added": "Le projet n'a pas été ajouté."
+      "not_added": "Le projet n'a pas pu être ajouté."
     },
     "location": {
       "added": "Le lieu a été ajouté.",
-      "not_added": "Le lieu n'a pas été ajouté."
+      "not_added": "Le lieu n'a pas pu être ajouté.",
+      "edited":"Le lieu a été édité.",
+      "not_edited":"Le lieu n'a pas pu être édité."
     }
   },
   "new": {
@@ -242,7 +244,7 @@
   "cancel": "Annuler",
   "confirm": "OK",
   "error": {
-    "error": "Erreur.",
+    "error": "Erreur",
     "timeout": "Requête expirée",
     "username-password": "Identifiant ou mot de passe invalide.",
     "direction": "Direction invalide.",

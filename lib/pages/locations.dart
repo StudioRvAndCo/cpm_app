@@ -129,25 +129,29 @@ class _LocationsState extends State<Locations> {
     }
   }
 
-  void editLocation(Location location) {
-    showDialog<Location>(
+  Future<void> editLocation(Location location) async {
+    print(location.id);
+    final dynamic edited = await showDialog(
         context: context,
         builder: (BuildContext context) {
           return LocationDialog(
             edit: true,
+            id: location.id,
             name: location.name,
             position: location.position,
           );
-        }).then(
-      (Location? result) {
-        if (result != null) {
-          setState(() {
-            location.name = result.name;
-            location.position = result.position;
-          });
-        }
-      },
-    );
+        });
+    if (edited is Location) {
+      final List<dynamic> result = await LocationService().editLocation(edited);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
+            .getEditedLocationSnackBar(
+                context, result[0] as bool, result[1] as int));
+      }
+      setState(() {
+        getLocations();
+      });
+    }
   }
 
   void deleteLocation(Location location) {
@@ -166,8 +170,9 @@ class _LocationsState extends State<Locations> {
       final List<dynamic> result =
           await LocationService().addLocation(location);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            PopupSnackBar().getNewLocationSnackBar(context, result[0] as bool));
+        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
+            .getNewLocationSnackBar(
+                context, result[0] as bool, result[1] as int));
       }
       setState(() {
         getLocations();

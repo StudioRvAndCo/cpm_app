@@ -5,8 +5,9 @@ import '../models/location.dart';
 
 class LocationDialog extends StatefulWidget {
   const LocationDialog(
-      {super.key, required this.edit, this.name, this.position});
+      {super.key, required this.edit, this.id, this.name, this.position});
 
+  final String? id;
   final String? name;
   final String? position;
   final bool edit;
@@ -126,7 +127,9 @@ class _LocationDialogState extends State<LocationDialog> {
       return;
     }
     final Location newLocation = Location(
-        id: '', name: nameController.text, position: positionController.text);
+        id: widget.id ?? '',
+        name: nameController.text,
+        position: positionController.text);
     Navigator.pop(context, newLocation);
   }
 }
