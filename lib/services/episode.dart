@@ -29,4 +29,29 @@ class EpisodeService {
       return <dynamic>[false, null, 408, 'error.timeout'.tr()];
     }
   }
+
+  Future<List<dynamic>> addEpisode(String projectID, Episode episode) async {
+    print(episode);
+    try {
+      final Response response = await post(Uri.parse('${api.episodes}/$projectID'),
+          headers: <String, String>{
+            'accept': '*/*',
+            'Content-Type': 'application/json',
+            api.authorization: api.bearer + token
+          },
+          body: jsonEncode(episode));
+      print(response.statusCode);
+      print(response.reasonPhrase);
+
+      if (response.statusCode == 201) {
+        return <dynamic>[true, response.statusCode, response.reasonPhrase];
+      } else {
+        debugPrint(response.body);
+        return <dynamic>[false, response.statusCode, response.reasonPhrase];
+      }
+    } catch (exception) {
+      debugPrint(exception.toString());
+      return <dynamic>[false, 408, 'error.timeout'.tr()];
+    }
+  }
 }
