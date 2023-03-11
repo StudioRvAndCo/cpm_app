@@ -39,12 +39,17 @@ class _LocationsState extends State<Locations> {
   @override
   Widget build(BuildContext context) {
     if (!requestCompleted) {
-      return const RequestPlaceholder(placeholder: CircularProgressIndicator());
+      return const Expanded(
+          child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
     } else if (requestSucceeded) {
       return Expanded(
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
-              onPressed: addLocation, child: const Icon(Icons.add)),
+            child: const Icon(Icons.add),
+            onPressed: () {
+              addLocation();
+            },
+          ),
           body: Builder(
             builder: (BuildContext context) {
               if (locations.isEmpty) {
@@ -67,6 +72,8 @@ class _LocationsState extends State<Locations> {
                           },
                         ));
                 return ListView.separated(
+                  padding: const EdgeInsets.only(
+                      bottom: kFloatingActionButtonMargin + 64),
                   separatorBuilder: (BuildContext context, int index) =>
                       divider,
                   itemCount: locationsTiles.length,
@@ -124,8 +131,9 @@ class _LocationsState extends State<Locations> {
         ),
       );
     } else {
-      return RequestPlaceholder(
-          placeholder: Text('errors.request_failed'.tr()));
+      return Expanded(
+          child: RequestPlaceholder(
+              placeholder: Text('error.request_failed'.tr())));
     }
   }
 

@@ -1,5 +1,5 @@
 class Shot {
-  Shot({this.id, required this.number, required this.title, this.value, this.description, required this.completed});
+  Shot({this.id, required this.number, this.value, required this.title, this.description, required this.completed});
 
   factory Shot.fromJson(json) {
     return Shot(
@@ -11,10 +11,20 @@ class Shot {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'number': number,
+      'value': value,
+      'title': title,
+      'description': description,
+      'completed': completed,
+    };
+  }
+
   final String? id;
   int number;
-  String title;
   String? value;
+  String title;
   String? description;
   bool completed;
 }

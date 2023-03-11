@@ -49,7 +49,30 @@ class PopupSnackBar {
         behavior: SnackBarBehavior.floating,
         backgroundColor: Theme.of(context).colorScheme.error,
         content: Text(
-          '${'error.error'.tr()} $code - ${'snack_bars.project.not_added'.tr()}',
+          'snack_bars.project.not_added'.tr(),
+          style: TextStyle(color: Theme.of(context).colorScheme.onError),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+    }
+  }
+
+  SnackBar getNewEpisodeSnackBar(BuildContext context, bool succeeded) {
+    if (succeeded) {
+      return SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            'snack_bars.episode.added'.tr(),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ));
+    } else {
+      return SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        content: Text(
+          'snack_bars.episode.not_added'.tr(),
           style: TextStyle(color: Theme.of(context).colorScheme.onError),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,

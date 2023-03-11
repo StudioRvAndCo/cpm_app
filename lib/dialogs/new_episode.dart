@@ -1,10 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../models/episode.dart';
+import '../models/sequence.dart';
+
 class NewEpisodeDialog extends StatefulWidget {
   const NewEpisodeDialog({
     super.key,
+    required this.number,
   });
+
+  final int number;
 
   @override
   State<StatefulWidget> createState() => _NewEpisodeDialogState();
@@ -15,7 +21,7 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  DateTimeRange? dates;
+  DateTimeRange dates = DateTimeRange(start: DateTime.now(), end: DateTime.now().add(const Duration(days: 2)));
   String dateText = '';
 
   @override
@@ -25,13 +31,9 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
 
   void updateDateText() {
     String res;
-    if (dates != null) {
-      final String firstText = DateFormat.yMd(context.locale.toString()).format(dates!.start);
-      final String lastText = DateFormat.yMd(context.locale.toString()).format(dates!.end);
-      res = '$firstText - $lastText';
-    } else {
-      res = 'dates_dialog'.tr();
-    }
+    final String firstText = DateFormat.yMd(context.locale.toString()).format(dates.start);
+    final String lastText = DateFormat.yMd(context.locale.toString()).format(dates.end);
+    res = '$firstText - $lastText';
     setState(() {
       dateText = res;
     });
@@ -139,6 +141,12 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
   }
 
   void submit() {
-    Navigator.pop(context);
+    final Episode newEpisode = Episode(
+        id: '',
+        number: widget.number,
+        title: titleController.text,
+        description: descriptionController.text,
+        sequences: <Sequence>[]);
+    Navigator.pop(context, newEpisode);
   }
 }
