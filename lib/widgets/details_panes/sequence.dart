@@ -28,7 +28,7 @@ class _DetailsPaneSequenceState extends State<DetailsPaneSequence>
 
     title = widget.sequence.title;
     description = widget.sequence.description ?? '';
-    startDate = widget.sequence.startDate;
+    startDate = widget.sequence.beginDate;
     endDate = widget.sequence.endDate;
 
     titleController.text = title;

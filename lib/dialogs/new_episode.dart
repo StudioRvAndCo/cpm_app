@@ -1,15 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../models/episode.dart';
-import '../models/sequence.dart';
-
 class NewEpisodeDialog extends StatefulWidget {
   const NewEpisodeDialog({
-    super.key, required this.number,
+    super.key,
   });
-
-  final int number;
 
   @override
   State<StatefulWidget> createState() => _NewEpisodeDialogState();
@@ -58,8 +53,7 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
                 children: <Text>[
                   Text('${'new.masc.el.upper'.tr()} ${'episodes.episode.lower'.plural(1)}'),
                   Text(
-                    '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.el.lower'
-                        .tr()} ${'episodes.episode.lower'.plural(1)}.',
+                    '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.el.lower'.tr()} ${'episodes.episode.lower'.plural(1)}.',
                     style: const TextStyle(fontSize: 12),
                   )
                 ],
@@ -145,12 +139,6 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
   }
 
   void submit() {
-    final Episode newEpisode = Episode(
-        id: '',
-        number: widget.number,
-        title: titleController.text,
-        description: descriptionController.text,
-        sequences: <Sequence>[]);
-    Navigator.pop(context, newEpisode);
+    Navigator.pop(context);
   }
 }

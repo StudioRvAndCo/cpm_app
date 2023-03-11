@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../dialogs/new_edit_location.dart';
 import '../dialogs/new_edit_member.dart';
+import '../dialogs/new_episode.dart';
 import '../dialogs/new_project.dart';
 import '../dialogs/new_sequence.dart';
 import '../dialogs/new_shot.dart';
@@ -75,6 +76,15 @@ class Test extends StatelessWidget {
                       });
                 },
                 child: const Text('New Shot')),
+            TextButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const NewEpisodeDialog();
+                      });
+                },
+                child: const Text('New episode')),
             TextButton(
                 onPressed: () {
                   showDialog(

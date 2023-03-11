@@ -7,7 +7,7 @@ class Sequence {
       required this.number,
       required this.title,
       this.description,
-      required this.startDate,
+      required this.beginDate,
       required this.endDate,
       this.location,
       required this.shots});
@@ -21,29 +21,17 @@ class Sequence {
       number: json['Number'] as int,
       title: json['Title'].toString(),
       description: json['Description'].toString(),
-      startDate: DateTime.parse(json['BeginDate'].toString()),
+      beginDate: DateTime.parse(json['BeginDate'].toString()),
       endDate: DateTime.parse(json['EndDate'].toString()),
       shots: shots,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'number': number,
-      'title': title,
-      'description': description,
-      'beginDate': startDate.toIso8601String(),
-      'endDate': endDate.toIso8601String(),
-      'location': location,
-      'shots': shots,
-    };
   }
 
   final String? id;
   int number;
   String title;
   String? description;
-  DateTime startDate;
+  DateTime beginDate;
   DateTime endDate;
   Location? location;
   List<Shot> shots;
