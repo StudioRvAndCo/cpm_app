@@ -6,7 +6,8 @@ import '../models/sequence.dart';
 
 class NewEpisodeDialog extends StatefulWidget {
   const NewEpisodeDialog({
-    super.key, required this.number,
+    super.key,
+    required this.number,
   });
 
   final int number;
@@ -20,7 +21,7 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-  DateTimeRange? dates;
+  DateTimeRange dates = DateTimeRange(start: DateTime.now(), end: DateTime.now().add(const Duration(days: 2)));
   String dateText = '';
 
   @override
@@ -30,13 +31,9 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
 
   void updateDateText() {
     String res;
-    if (dates != null) {
-      final String firstText = DateFormat.yMd(context.locale.toString()).format(dates!.start);
-      final String lastText = DateFormat.yMd(context.locale.toString()).format(dates!.end);
-      res = '$firstText - $lastText';
-    } else {
-      res = 'dates_dialog'.tr();
-    }
+    final String firstText = DateFormat.yMd(context.locale.toString()).format(dates.start);
+    final String lastText = DateFormat.yMd(context.locale.toString()).format(dates.end);
+    res = '$firstText - $lastText';
     setState(() {
       dateText = res;
     });
@@ -58,8 +55,7 @@ class _NewEpisodeDialogState extends State<NewEpisodeDialog> {
                 children: <Text>[
                   Text('${'new.masc.el.upper'.tr()} ${'episodes.episode.lower'.plural(1)}'),
                   Text(
-                    '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.el.lower'
-                        .tr()} ${'episodes.episode.lower'.plural(1)}.',
+                    '${'add.upper'.tr()} ${'articles.a.masc.lower'.tr()} ${'new.masc.el.lower'.tr()} ${'episodes.episode.lower'.plural(1)}.',
                     style: const TextStyle(fontSize: 12),
                   )
                 ],
