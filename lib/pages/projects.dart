@@ -95,7 +95,6 @@ class ProjectsState extends State<Projects> {
       case ProjectsPage.episodes:
         return Episodes(
           project: selectedProject,
-          isMovie: selectedProject.projectType == ProjectType.movie,
           openSequences: (Episode episode) {
             setState(() {
               selectedEpisode = episode;
