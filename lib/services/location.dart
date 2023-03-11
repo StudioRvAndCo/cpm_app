@@ -54,14 +54,13 @@ class LocationService {
 
   Future<List<dynamic>> editLocation(Location location) async {
     try {
-      final Response response =
-          await put(Uri.parse('${api.locations}/${location.id}'),
-              headers: <String, String>{
-                'accept': '*/*',
-                'Content-Type': 'application/json',
-                api.authorization: api.bearer + token
-              },
-              body: jsonEncode(location));
+      final Response response = await put(Uri.parse('${api.locations}/${location.id}'),
+          headers: <String, String>{
+            'accept': '*/*',
+            'Content-Type': 'application/json',
+            api.authorization: api.bearer + token
+          },
+          body: jsonEncode(location));
 
       if (response.statusCode == 204) {
         return <dynamic>[true, response.statusCode, response.reasonPhrase];
