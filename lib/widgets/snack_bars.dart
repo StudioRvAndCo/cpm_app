@@ -34,8 +34,7 @@ class LoginSnackBar {
 }
 
 class PopupSnackBar {
-  SnackBar getNewProjectSnackBar(
-      BuildContext context, bool succeeded, int code) {
+  SnackBar getNewProjectSnackBar(BuildContext context, bool succeeded, int code) {
     if (succeeded) {
       return SnackBar(
           behavior: SnackBarBehavior.floating,
@@ -81,8 +80,7 @@ class PopupSnackBar {
     }
   }
 
-  SnackBar getNewLocationSnackBar(
-      BuildContext context, bool succeeded, int code) {
+  SnackBar getNewLocationSnackBar(BuildContext context, bool succeeded, int code) {
     if (succeeded) {
       return SnackBar(
           behavior: SnackBarBehavior.floating,
@@ -105,8 +103,7 @@ class PopupSnackBar {
     }
   }
 
-  SnackBar getEditedLocationSnackBar(
-      BuildContext context, bool succeeded, int code) {
+  SnackBar getEditedLocationSnackBar(BuildContext context, bool succeeded, int code) {
     if (succeeded) {
       return SnackBar(
           behavior: SnackBarBehavior.floating,
@@ -129,8 +126,7 @@ class PopupSnackBar {
     }
   }
 
-  SnackBar getDeletedLocationSnackBar(
-      BuildContext context, bool succeeded, int code) {
+  SnackBar getDeletedLocationSnackBar(BuildContext context, bool succeeded, int code) {
     if (succeeded) {
       return SnackBar(
           behavior: SnackBarBehavior.floating,
