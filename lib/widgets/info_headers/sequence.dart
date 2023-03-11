@@ -11,7 +11,7 @@ class InfoHeaderSequence extends StatelessWidget {
   final Sequence sequence;
 
   String _getDateText(BuildContext context) {
-    final String firstText = DateFormat.yMd(context.locale.toString()).format(sequence.beginDate);
+    final String firstText = DateFormat.yMd(context.locale.toString()).format(sequence.startDate);
     final String lastText = DateFormat.yMd(context.locale.toString()).format(sequence.endDate);
     return '$firstText - $lastText';
   }
