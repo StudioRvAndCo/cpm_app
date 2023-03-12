@@ -21,9 +21,10 @@ class InfoSheetProject extends StatelessWidget {
               Tab(text: 'locations.location.upper'.plural(2))
             ]),
             Expanded(
-                child: TabBarView(
-              children: <Widget>[DetailsPaneProject(project: project), Text('Members'), Text('Locations')],
-            ))
+              child: TabBarView(
+                children: <Widget>[DetailsPaneProject(project: project), Text('Members'), Text('Locations')],
+              ),
+            )
           ],
         ));
   }

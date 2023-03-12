@@ -3,18 +3,17 @@ import 'episode.dart';
 enum ProjectType { movie, series }
 
 class Project implements Comparable<Project> {
-  Project(
-      {required this.id,
-      required this.projectType,
-      required this.title,
-      required this.description,
-      required this.startDate,
-      required this.endDate,
-      this.shotsTotal,
-      this.shotsCompleted,
-      this.director,
-      this.writer,
-      required this.episodes});
+  Project({required this.id,
+    required this.projectType,
+    required this.title,
+    required this.description,
+    required this.startDate,
+    required this.endDate,
+    this.shotsTotal,
+    this.shotsCompleted,
+    this.director,
+    this.writer,
+    this.episodes});
 
   factory Project.fromJson(json) {
     final ProjectType projectType = (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
@@ -29,6 +28,26 @@ class Project implements Comparable<Project> {
       shotsTotal: json['ShotsTotal'] as int,
       shotsCompleted: json['ShotsCompleted'] as int,
       episodes: <Episode>[],
+    );
+  }
+
+  factory Project.fromJsonComplete(json) {
+    final ProjectType projectType = (json['isFilm'] as bool) ? ProjectType.movie : ProjectType.series;
+
+    final episodesJson = json['Episodes'];
+    final List<Episode> episodes = episodesJson.map<Episode>((episode) => Episode.fromJson(episode)).toList() as List<
+        Episode>;
+
+    return Project(
+      id: json['Id'].toString(),
+      projectType: projectType,
+      title: json['Title'].toString(),
+      description: json['Description'].toString(),
+      startDate: DateTime.parse(json['BeginDate'].toString()),
+      endDate: DateTime.parse(json['EndDate'].toString()),
+      shotsTotal: json['ShotsTotal'] as int,
+      shotsCompleted: json['ShotsCompleted'] as int,
+      episodes: episodes,
     );
   }
 
@@ -67,7 +86,7 @@ class Project implements Comparable<Project> {
   int? shotsCompleted;
   String? director;
   String? writer;
-  List<Episode> episodes;
+  List<Episode>? episodes;
   bool favorite = false;
 
   @override

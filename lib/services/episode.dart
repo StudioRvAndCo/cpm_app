@@ -31,7 +31,6 @@ class EpisodeService {
   }
 
   Future<List<dynamic>> addEpisode(String projectID, Episode episode) async {
-    print(episode);
     try {
       final Response response = await post(Uri.parse('${api.episodes}/$projectID'),
           headers: <String, String>{
@@ -40,8 +39,6 @@ class EpisodeService {
             api.authorization: api.bearer + token
           },
           body: jsonEncode(episode));
-      print(response.statusCode);
-      print(response.reasonPhrase);
 
       if (response.statusCode == 201) {
         return <dynamic>[true, response.statusCode, response.reasonPhrase];
