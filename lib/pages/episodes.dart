@@ -11,7 +11,8 @@ import '../widgets/request_placeholder.dart';
 import '../widgets/snack_bars.dart';
 
 class Episodes extends StatefulWidget {
-  const Episodes({super.key, required this.project, required this.openSequences});
+  const Episodes(
+      {super.key, required this.project, required this.openSequences});
 
   final void Function(Episode episode) openSequences;
 
@@ -36,7 +37,8 @@ class _EpisodesState extends State<Episodes> {
   @override
   Widget build(BuildContext context) {
     if (!requestCompleted) {
-      return const Expanded(child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
+      return const Expanded(
+          child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
     } else if (requestSucceeded) {
       return Expanded(
           child: Scaffold(
@@ -48,10 +50,12 @@ class _EpisodesState extends State<Episodes> {
         ),
         body: Builder(builder: (BuildContext context) {
           if (episodes.isEmpty) {
-            return RequestPlaceholder(placeholder: Text('episodes.no_episodes'.tr()));
+            return RequestPlaceholder(
+                placeholder: Text('episodes.no_episodes'.tr()));
           } else {
             return ListView(
-              padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+              padding: const EdgeInsets.only(
+                  bottom: kFloatingActionButtonMargin + 64),
               children: <Widget>[
                 InfoHeaderProject(project: widget.project),
                 ...episodes.map((Episode episode) {
@@ -70,12 +74,15 @@ class _EpisodesState extends State<Episodes> {
         }),
       ));
     } else {
-      return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
+      return Expanded(
+          child: RequestPlaceholder(
+              placeholder: Text('error.request_failed'.tr())));
     }
   }
 
   Future<void> getEpisodes() async {
-    final List<dynamic> result = await EpisodeService().getEpisodes(widget.project.id);
+    final List<dynamic> result =
+        await EpisodeService().getEpisodes(widget.project.id);
     setState(() {
       requestCompleted = true;
       requestSucceeded = result[0] as bool;
@@ -95,9 +102,12 @@ class _EpisodesState extends State<Episodes> {
           return NewEpisodeDialog(number: episodes.length + 1);
         });
     if (episode is Episode) {
-      final List<dynamic> result = await EpisodeService().addEpisode(widget.project.id, episode);
+      final List<dynamic> result =
+          await EpisodeService().addEpisode(widget.project.id, episode);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar().getNewEpisodeSnackBar(context, result[0] as bool));
+        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
+            .getNewModelSnackBar(
+                context, result[0] as bool, result[1] as int, episode));
       }
       setState(() {
         getEpisodes();

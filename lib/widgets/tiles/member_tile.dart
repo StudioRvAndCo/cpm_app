@@ -7,7 +7,11 @@ import '../../models/member.dart';
 enum MenuAction { edit, delete }
 
 class MemberTile extends StatefulWidget {
-  const MemberTile({super.key, required this.member, required this.onEdit, required this.onDelete});
+  const MemberTile(
+      {super.key,
+      required this.member,
+      required this.onEdit,
+      required this.onDelete});
 
   final Member member;
 
@@ -30,10 +34,14 @@ class _MemberTileState extends State<MemberTile> {
               return Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      image: DecorationImage(fit: BoxFit.cover, image: widget.member.image!.image)));
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: widget.member.image!.image)));
             } else {
               return Container(
-                decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.primary),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).colorScheme.primary),
                 child: Icon(
                   Icons.person,
                   color: Theme.of(context).colorScheme.onPrimary,
@@ -83,7 +91,7 @@ class _MemberTileState extends State<MemberTile> {
                   child: ListTile(
                     leading: Icon(
                       Icons.edit,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text('edit.upper'.tr()),
                   )),
@@ -92,7 +100,7 @@ class _MemberTileState extends State<MemberTile> {
                   child: ListTile(
                     leading: Icon(
                       Icons.delete,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text('delete.upper'.tr()),
                   )),
