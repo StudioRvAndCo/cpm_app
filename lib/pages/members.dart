@@ -39,8 +39,7 @@ class _MembersState extends State<Members> {
   @override
   Widget build(BuildContext context) {
     if (!requestCompleted) {
-      return const Expanded(
-          child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
+      return const Expanded(child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
     } else if (requestSucceeded) {
       return Expanded(
           child: Scaffold(
@@ -50,38 +49,31 @@ class _MembersState extends State<Members> {
               ),
               body: Builder(builder: (BuildContext context) {
                 if (members.isEmpty) {
-                  return RequestPlaceholder(
-                      placeholder: Text('members.no_members'.tr()));
+                  return RequestPlaceholder(placeholder: Text('members.no_members'.tr()));
                 } else {
-                  final Iterable<MemberTile> membersTiles =
-                      members.map((Member member) => MemberTile(
-                            member: member,
-                            onEdit: (Member member) {
-                              editMember(member);
-                            },
-                            onDelete: (Member member) {
-                              showConfirmationDialog(
-                                      context, 'delete.lower'.tr())
-                                  .then((bool? result) {
-                                if (result ?? false) {
-                                  deleteMember(member);
-                                }
-                              });
-                            },
-                          ));
+                  final Iterable<MemberTile> membersTiles = members.map((Member member) => MemberTile(
+                        member: member,
+                        onEdit: (Member member) {
+                          editMember(member);
+                        },
+                        onDelete: (Member member) {
+                          showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) {
+                            if (result ?? false) {
+                              deleteMember(member);
+                            }
+                          });
+                        },
+                      ));
                   return ListView.separated(
-                    padding: const EdgeInsets.only(
-                        bottom: kFloatingActionButtonMargin + 64),
-                    separatorBuilder: (BuildContext context, int index) =>
-                        divider,
+                    padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                    separatorBuilder: (BuildContext context, int index) => divider,
                     itemCount: membersTiles.length,
                     itemBuilder: (BuildContext context, int index) => ClipRRect(
                       clipBehavior: Clip.hardEdge,
                       child: Dismissible(
                         key: UniqueKey(),
                         onDismissed: (DismissDirection direction) {
-                          final Member member =
-                              membersTiles.elementAt(index).member;
+                          final Member member = membersTiles.elementAt(index).member;
                           switch (direction) {
                             case DismissDirection.startToEnd:
                               deleteMember(member);
@@ -92,22 +84,17 @@ class _MembersState extends State<Members> {
                             case DismissDirection.up:
                             case DismissDirection.down:
                             case DismissDirection.none:
-                              throw InvalidDirectionException(
-                                  'error.direction'.tr());
+                              throw InvalidDirectionException('error.direction'.tr());
                           }
                         },
-                        confirmDismiss:
-                            (DismissDirection dismissDirection) async {
+                        confirmDismiss: (DismissDirection dismissDirection) async {
                           switch (dismissDirection) {
                             case DismissDirection.endToStart:
-                              final Member member =
-                                  membersTiles.elementAt(index).member;
+                              final Member member = membersTiles.elementAt(index).member;
                               editMember(member);
                               return false;
                             case DismissDirection.startToEnd:
-                              return await showConfirmationDialog(
-                                      context, 'delete.lower'.tr()) ??
-                                  false;
+                              return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false;
                             case DismissDirection.horizontal:
                             case DismissDirection.vertical:
                             case DismissDirection.up:
@@ -126,9 +113,7 @@ class _MembersState extends State<Members> {
                 }
               })));
     } else {
-      return Expanded(
-          child: RequestPlaceholder(
-              placeholder: Text('error.request_failed'.tr())));
+      return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
     }
   }
 
@@ -151,9 +136,8 @@ class _MembersState extends State<Members> {
         getMembers();
       });
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getEditedModelSnackBar(
-                context, result[0] as bool, result[1] as int, member));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(PopupSnackBar().getEditedModelSnackBar(context, result[0] as bool, result[1] as int, member));
       }
     }
   }
@@ -168,9 +152,8 @@ class _MembersState extends State<Members> {
       } else {
         getMembers();
       }
-      ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-          .getDeletedModelSnackBar(
-              context, result[0] as bool, result[1] as int, member));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(PopupSnackBar().getDeletedModelSnackBar(context, result[0] as bool, result[1] as int, member));
     }
   }
 
@@ -183,9 +166,8 @@ class _MembersState extends State<Members> {
     if (member is Member) {
       final List<dynamic> result = await MemberService().addMember(member);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getNewModelSnackBar(
-                context, result[0] as bool, result[1] as int, member));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(PopupSnackBar().getNewModelSnackBar(context, result[0] as bool, result[1] as int, member));
       }
       setState(() {
         getMembers();

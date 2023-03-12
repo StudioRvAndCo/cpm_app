@@ -39,8 +39,7 @@ class _LocationsState extends State<Locations> {
   @override
   Widget build(BuildContext context) {
     if (!requestCompleted) {
-      return const Expanded(
-          child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
+      return const Expanded(child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
     } else if (requestSucceeded) {
       return Expanded(
         child: Scaffold(
@@ -51,37 +50,31 @@ class _LocationsState extends State<Locations> {
           body: Builder(
             builder: (BuildContext context) {
               if (locations.isEmpty) {
-                return RequestPlaceholder(
-                    placeholder: Text('locations.no_locations'.tr()));
+                return RequestPlaceholder(placeholder: Text('locations.no_locations'.tr()));
               } else {
-                final Iterable<LocationTile> locationsTiles =
-                    locations.map((Location location) => LocationTile(
-                          location: location,
-                          onEdit: (Location location) {
-                            editLocation(location);
-                          },
-                          onDelete: (Location location) {
-                            showConfirmationDialog(context, 'delete.lower'.tr())
-                                .then((bool? result) {
-                              if (result ?? false) {
-                                deleteLocation(location);
-                              }
-                            });
-                          },
-                        ));
+                final Iterable<LocationTile> locationsTiles = locations.map((Location location) => LocationTile(
+                      location: location,
+                      onEdit: (Location location) {
+                        editLocation(location);
+                      },
+                      onDelete: (Location location) {
+                        showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) {
+                          if (result ?? false) {
+                            deleteLocation(location);
+                          }
+                        });
+                      },
+                    ));
                 return ListView.separated(
-                  padding: const EdgeInsets.only(
-                      bottom: kFloatingActionButtonMargin + 64),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      divider,
+                  padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                  separatorBuilder: (BuildContext context, int index) => divider,
                   itemCount: locationsTiles.length,
                   itemBuilder: (BuildContext context, int index) => ClipRRect(
                     clipBehavior: Clip.hardEdge,
                     child: Dismissible(
                       key: UniqueKey(),
                       onDismissed: (DismissDirection direction) {
-                        final Location location =
-                            locationsTiles.elementAt(index).location;
+                        final Location location = locationsTiles.elementAt(index).location;
                         switch (direction) {
                           case DismissDirection.startToEnd:
                             deleteLocation(location);
@@ -92,22 +85,17 @@ class _LocationsState extends State<Locations> {
                           case DismissDirection.up:
                           case DismissDirection.down:
                           case DismissDirection.none:
-                            throw InvalidDirectionException(
-                                'error.direction'.tr());
+                            throw InvalidDirectionException('error.direction'.tr());
                         }
                       },
-                      confirmDismiss:
-                          (DismissDirection dismissDirection) async {
+                      confirmDismiss: (DismissDirection dismissDirection) async {
                         switch (dismissDirection) {
                           case DismissDirection.endToStart:
-                            final Location location =
-                                locationsTiles.elementAt(index).location;
+                            final Location location = locationsTiles.elementAt(index).location;
                             editLocation(location);
                             return false;
                           case DismissDirection.startToEnd:
-                            return await showConfirmationDialog(
-                                    context, 'delete.lower'.tr()) ??
-                                false == true;
+                            return await showConfirmationDialog(context, 'delete.lower'.tr()) ?? false == true;
                           case DismissDirection.horizontal:
                           case DismissDirection.vertical:
                           case DismissDirection.up:
@@ -129,9 +117,7 @@ class _LocationsState extends State<Locations> {
         ),
       );
     } else {
-      return Expanded(
-          child: RequestPlaceholder(
-              placeholder: Text('error.request_failed'.tr())));
+      return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
     }
   }
 
@@ -153,16 +139,14 @@ class _LocationsState extends State<Locations> {
         getLocations();
       });
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getEditedModelSnackBar(
-                context, result[0] as bool, result[1] as int, location));
+        ScaffoldMessenger.of(context).showSnackBar(
+            PopupSnackBar().getEditedModelSnackBar(context, result[0] as bool, result[1] as int, location));
       }
     }
   }
 
   Future<void> deleteLocation(Location location) async {
-    final List<dynamic> result =
-        await LocationService().deleteLocation(location);
+    final List<dynamic> result = await LocationService().deleteLocation(location);
     if (context.mounted) {
       if (result[1] == 204) {
         setState(() {
@@ -171,9 +155,8 @@ class _LocationsState extends State<Locations> {
       } else {
         getLocations();
       }
-      ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-          .getDeletedModelSnackBar(
-              context, result[0] as bool, result[1] as int, location));
+      ScaffoldMessenger.of(context).showSnackBar(
+          PopupSnackBar().getDeletedModelSnackBar(context, result[0] as bool, result[1] as int, location));
     }
   }
 
@@ -184,12 +167,10 @@ class _LocationsState extends State<Locations> {
           return const LocationDialog(edit: false);
         });
     if (location is Location) {
-      final List<dynamic> result =
-          await LocationService().addLocation(location);
+      final List<dynamic> result = await LocationService().addLocation(location);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getNewModelSnackBar(
-                context, result[0] as bool, result[1] as int, location));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(PopupSnackBar().getNewModelSnackBar(context, result[0] as bool, result[1] as int, location));
       }
       setState(() {
         getLocations();

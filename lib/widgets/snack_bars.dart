@@ -38,8 +38,7 @@ class LoginSnackBar {
 }
 
 class PopupSnackBar {
-  SnackBar getNewModelSnackBar(
-      BuildContext context, bool succeeded, int code, Object model) {
+  SnackBar getNewModelSnackBar(BuildContext context, bool succeeded, int code, Object model) {
     String message = 'error.no_message';
 
     switch (model.runtimeType) {
@@ -83,17 +82,14 @@ class PopupSnackBar {
       backgroundColor: succeeded ? null : Theme.of(context).colorScheme.error,
       content: Text(
         message,
-        style: succeeded
-            ? null
-            : TextStyle(color: Theme.of(context).colorScheme.onError),
+        style: succeeded ? null : TextStyle(color: Theme.of(context).colorScheme.onError),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
     );
   }
 
-  SnackBar getEditedModelSnackBar(
-      BuildContext context, bool succeeded, int code, Object model) {
+  SnackBar getEditedModelSnackBar(BuildContext context, bool succeeded, int code, Object model) {
     String message = 'error.no_message';
 
     switch (model.runtimeType) {
@@ -137,17 +133,14 @@ class PopupSnackBar {
       backgroundColor: succeeded ? null : Theme.of(context).colorScheme.error,
       content: Text(
         message,
-        style: succeeded
-            ? null
-            : TextStyle(color: Theme.of(context).colorScheme.onError),
+        style: succeeded ? null : TextStyle(color: Theme.of(context).colorScheme.onError),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
     );
   }
 
-  SnackBar getDeletedModelSnackBar(
-      BuildContext context, bool succeeded, int code, Object model) {
+  SnackBar getDeletedModelSnackBar(BuildContext context, bool succeeded, int code, Object model) {
     String message = 'error.no_message';
 
     switch (model.runtimeType) {
@@ -191,9 +184,7 @@ class PopupSnackBar {
       backgroundColor: succeeded ? null : Theme.of(context).colorScheme.error,
       content: Text(
         message,
-        style: succeeded
-            ? null
-            : TextStyle(color: Theme.of(context).colorScheme.onError),
+        style: succeeded ? null : TextStyle(color: Theme.of(context).colorScheme.onError),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),
