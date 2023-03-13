@@ -17,15 +17,16 @@ void main() async {
 
   await EasyLocalization.ensureInitialized();
   runApp(
-    EasyLocalization(
-        supportedLocales: const <Locale>[Locale('en', 'US'), Locale('fr', 'FR')],
-        path: 'assets/translations',
-        child: CPM()),
+    EasyLocalization(supportedLocales: const <Locale>[
+      Locale('en', 'US'),
+      Locale('fr', 'FR')
+    ], path: 'assets/translations', child: CPM()),
   );
 }
 
 final LoginState loginState = LoginState();
-final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 class LoginState extends ChangeNotifier {
   bool authenticated = false;
@@ -71,7 +72,8 @@ class _CPMState extends State<CPM> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ModelTheme>(
         create: (_) => ModelTheme(),
-        child: Consumer<ModelTheme>(builder: (BuildContext context, ModelTheme themeNotifier, Widget? child) {
+        child: Consumer<ModelTheme>(builder:
+            (BuildContext context, ModelTheme themeNotifier, Widget? child) {
           return CalendarControllerProvider<Event>(
             controller: EventController<Event>(),
             child: MaterialApp.router(
@@ -87,7 +89,8 @@ class _CPMState extends State<CPM> {
                     ),
                 ],
               ),
-              routeInformationParser: widget._appRouter.defaultRouteParser(includePrefixMatches: true),
+              routeInformationParser: widget._appRouter
+                  .defaultRouteParser(includePrefixMatches: true),
               title: 'CPM',
               theme: CPMThemeLight().theme,
               darkTheme: CPMThemeDark().theme,
@@ -102,8 +105,10 @@ class _CPMState extends State<CPM> {
 
   Future<void> _handleLogin(String username, String password) async {
     loginState.login(username, password).then((void value) {
-      if (loginState.statusCode != 200 && scaffoldMessengerKey.currentContext != null) {
-        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(LoginSnackBar().getSnackBar(context));
+      if (loginState.statusCode != 200 &&
+          scaffoldMessengerKey.currentContext != null) {
+        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!)
+            .showSnackBar(CustomSnackBar().getLoginSnackBar(context));
       }
     });
   }

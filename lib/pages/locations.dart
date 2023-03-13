@@ -153,9 +153,12 @@ class _LocationsState extends State<Locations> {
         getLocations();
       });
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getEditedModelSnackBar(
-                context, result[0] as bool, result[1] as int, location));
+        final bool succeeded = result[0] as bool;
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar()
+            .getModelSnackBar(context, succeeded, result[1] as int,
+                message: succeeded
+                    ? 'snack_bars.location.edited'.tr()
+                    : 'snack_bars.location.not_edited'.tr()));
       }
     }
   }
@@ -171,9 +174,12 @@ class _LocationsState extends State<Locations> {
       } else {
         getLocations();
       }
-      ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-          .getDeletedModelSnackBar(
-              context, result[0] as bool, result[1] as int, location));
+      final bool succeeded = result[0] as bool;
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar()
+          .getModelSnackBar(context, succeeded, result[1] as int,
+              message: succeeded
+                  ? 'snack_bars.location.deleted'.tr()
+                  : 'snack_bars.location.not_deleted'.tr()));
     }
   }
 
@@ -187,9 +193,12 @@ class _LocationsState extends State<Locations> {
       final List<dynamic> result =
           await LocationService().addLocation(location);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getNewModelSnackBar(
-                context, result[0] as bool, result[1] as int, location));
+        final bool succeeded = result[0] as bool;
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar()
+            .getModelSnackBar(context, succeeded, result[1] as int,
+                message: succeeded
+                    ? 'snack_bars.location.added'.tr()
+                    : 'snack_bars.location.not_added'.tr()));
       }
       setState(() {
         getLocations();

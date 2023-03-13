@@ -151,9 +151,12 @@ class _MembersState extends State<Members> {
         getMembers();
       });
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getEditedModelSnackBar(
-                context, result[0] as bool, result[1] as int, member));
+        final bool succeeded = result[0] as bool;
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar()
+            .getModelSnackBar(context, succeeded, result[1] as int,
+                message: succeeded
+                    ? 'snack_bars.member.edited'.tr()
+                    : 'snack_bars.member.not_edited'.tr()));
       }
     }
   }
@@ -168,9 +171,13 @@ class _MembersState extends State<Members> {
       } else {
         getMembers();
       }
-      ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-          .getDeletedModelSnackBar(
-              context, result[0] as bool, result[1] as int, member));
+
+      final bool succeeded = result[0] as bool;
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar()
+          .getModelSnackBar(context, succeeded, result[1] as int,
+              message: succeeded
+                  ? 'snack_bars.member.deleted'.tr()
+                  : 'snack_bars.member.not_deleted'.tr()));
     }
   }
 
@@ -183,9 +190,12 @@ class _MembersState extends State<Members> {
     if (member is Member) {
       final List<dynamic> result = await MemberService().addMember(member);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getNewModelSnackBar(
-                context, result[0] as bool, result[1] as int, member));
+        final bool succeeded = result[0] as bool;
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar()
+            .getModelSnackBar(context, succeeded, result[1] as int,
+                message: succeeded
+                    ? 'snack_bars.member.added'.tr()
+                    : 'snack_bars.member.not_added'.tr()));
       }
       setState(() {
         getMembers();

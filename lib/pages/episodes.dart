@@ -105,9 +105,12 @@ class _EpisodesState extends State<Episodes> {
       final List<dynamic> result =
           await EpisodeService().addEpisode(widget.project.id, episode);
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(PopupSnackBar()
-            .getNewModelSnackBar(
-                context, result[0] as bool, result[1] as int, episode));
+        final bool succeeded = result[0] as bool;
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar()
+            .getModelSnackBar(context, succeeded, result[1] as int,
+                message: succeeded
+                    ? 'snack_bars.episode.added'.tr()
+                    : 'snack_bars.episode.not_added'.tr()));
       }
       setState(() {
         getEpisodes();
