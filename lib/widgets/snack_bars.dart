@@ -32,8 +32,7 @@ class CustomSnackBar {
     );
   }
 
-  SnackBar getModelSnackBar(BuildContext context, bool succeeded, int code,
-      {String message = 'error.no_message'}) {
+  SnackBar getModelSnackBar(BuildContext context, bool succeeded, int code, {String message = 'error.no_message'}) {
     if (!succeeded) {
       message = '${'error.error'.tr()} $code - $message';
     }
@@ -44,9 +43,7 @@ class CustomSnackBar {
       backgroundColor: succeeded ? null : Theme.of(context).colorScheme.error,
       content: Text(
         message,
-        style: succeeded
-            ? null
-            : TextStyle(color: Theme.of(context).colorScheme.onError),
+        style: succeeded ? null : TextStyle(color: Theme.of(context).colorScheme.onError),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ),

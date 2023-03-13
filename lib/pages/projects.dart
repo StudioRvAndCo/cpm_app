@@ -47,9 +47,7 @@ class ProjectsState extends State<Projects> {
     switch (page) {
       case ProjectsPage.projects:
         if (!requestCompleted) {
-          return const Expanded(
-              child:
-                  RequestPlaceholder(placeholder: CircularProgressIndicator()));
+          return const Expanded(child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
         } else if (requestSucceeded) {
           return Expanded(
               child: Scaffold(
@@ -62,33 +60,29 @@ class ProjectsState extends State<Projects> {
             body: Builder(
               builder: (BuildContext context) {
                 if (projects.isEmpty) {
-                  return RequestPlaceholder(
-                      placeholder: Text('projects.no_projects'.tr()));
+                  return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
                 } else {
                   return ChangeNotifierProvider<ModelFav>(
                     create: (_) => ModelFav(),
-                    child: Consumer<ModelFav>(builder: (BuildContext context,
-                        ModelFav favNotifier, Widget? child) {
+                    child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
                       getFavorites(favNotifier);
                       return ListView(
-                          padding: const EdgeInsets.only(
-                              bottom: kFloatingActionButtonMargin + 64),
-                          children:
-                              (projects.map((Project project) => ProjectCard(
-                                  project: project,
-                                  openEpisodes: () {
-                                    setState(() {
-                                      selectedProject = project;
-                                      page = ProjectsPage.episodes;
-                                    });
-                                  },
-                                  openPlanning: () {
-                                    setState(() {
-                                      selectedProject = project;
-                                      page = ProjectsPage.planning;
-                                    });
-                                  },
-                                  favNotifier: favNotifier))).toList());
+                          padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                          children: (projects.map((Project project) => ProjectCard(
+                              project: project,
+                              openEpisodes: () {
+                                setState(() {
+                                  selectedProject = project;
+                                  page = ProjectsPage.episodes;
+                                });
+                              },
+                              openPlanning: () {
+                                setState(() {
+                                  selectedProject = project;
+                                  page = ProjectsPage.planning;
+                                });
+                              },
+                              favNotifier: favNotifier))).toList());
                     }),
                   );
                 }
@@ -96,9 +90,7 @@ class ProjectsState extends State<Projects> {
             ),
           ));
         } else {
-          return Expanded(
-              child: RequestPlaceholder(
-                  placeholder: Text('error.request_failed'.tr())));
+          return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
         }
       case ProjectsPage.episodes:
         return Episodes(
@@ -159,11 +151,9 @@ class ProjectsState extends State<Projects> {
       final List<dynamic> result = await ProjectService().addProject(project);
       if (context.mounted) {
         final bool succeeded = result[0] as bool;
-        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar()
-            .getModelSnackBar(context, succeeded, result[1] as int,
-                message: succeeded
-                    ? 'snack_bars.project.added'.tr()
-                    : 'snack_bars.project.not_added'.tr()));
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar().getModelSnackBar(
+            context, succeeded, result[1] as int,
+            message: succeeded ? 'snack_bars.project.added'.tr() : 'snack_bars.project.not_added'.tr()));
       }
       setState(() {
         getProjects();
