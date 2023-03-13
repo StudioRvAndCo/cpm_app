@@ -150,8 +150,10 @@ class ProjectsState extends State<Projects> {
     if (project is Project) {
       final List<dynamic> result = await ProjectService().addProject(project);
       if (context.mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(PopupSnackBar().getNewProjectSnackBar(context, result[0] as bool, result[1] as int));
+        final bool succeeded = result[0] as bool;
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar().getModelSnackBar(
+            context, succeeded, result[1] as int,
+            message: succeeded ? 'snack_bars.project.added'.tr() : 'snack_bars.project.not_added'.tr()));
       }
       setState(() {
         getProjects();

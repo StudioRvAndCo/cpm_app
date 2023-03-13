@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../main.dart';
 
-class LoginSnackBar {
-  SnackBar getSnackBar(BuildContext context) {
+class CustomSnackBar {
+  SnackBar getLoginSnackBar(BuildContext context) {
     String message = '';
     switch (loginState.statusCode) {
       case 400:
@@ -31,121 +31,22 @@ class LoginSnackBar {
       ),
     );
   }
-}
 
-class PopupSnackBar {
-  SnackBar getNewProjectSnackBar(BuildContext context, bool succeeded, int code) {
-    if (succeeded) {
-      return SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text(
-            'snack_bars.project.added'.tr(),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ));
-    } else {
-      return SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        content: Text(
-          'snack_bars.project.not_added'.tr(),
-          style: TextStyle(color: Theme.of(context).colorScheme.onError),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-      );
+  SnackBar getModelSnackBar(BuildContext context, bool succeeded, int code, {String message = 'error.no_message'}) {
+    if (!succeeded) {
+      message = '${'error.error'.tr()} $code - $message';
     }
-  }
 
-  SnackBar getNewEpisodeSnackBar(BuildContext context, bool succeeded) {
-    if (succeeded) {
-      return SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text(
-            'snack_bars.episode.added'.tr(),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ));
-    } else {
-      return SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        content: Text(
-          'snack_bars.episode.not_added'.tr(),
-          style: TextStyle(color: Theme.of(context).colorScheme.onError),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-      );
-    }
-  }
-
-  SnackBar getNewLocationSnackBar(BuildContext context, bool succeeded, int code) {
-    if (succeeded) {
-      return SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text(
-            'snack_bars.location.added'.tr(),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ));
-    } else {
-      return SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        content: Text(
-          '${'error.error'.tr()} $code - ${'snack_bars.location.not_added'.tr()}',
-          style: TextStyle(color: Theme.of(context).colorScheme.onError),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-      );
-    }
-  }
-
-  SnackBar getEditedLocationSnackBar(BuildContext context, bool succeeded, int code) {
-    if (succeeded) {
-      return SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text(
-            'snack_bars.location.edited'.tr(),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ));
-    } else {
-      return SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        content: Text(
-          '${'error.error'.tr()} $code - ${'snack_bars.location.not_edited'.tr()}',
-          style: TextStyle(color: Theme.of(context).colorScheme.onError),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-      );
-    }
-  }
-
-  SnackBar getDeletedLocationSnackBar(BuildContext context, bool succeeded, int code) {
-    if (succeeded) {
-      return SnackBar(
-          behavior: SnackBarBehavior.floating,
-          content: Text(
-            'snack_bars.location.deleted'.tr(),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ));
-    } else {
-      return SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Theme.of(context).colorScheme.error,
-        content: Text(
-          '${'error.error'.tr()} $code - ${'snack_bars.location.not_deleted'.tr()}',
-          style: TextStyle(color: Theme.of(context).colorScheme.onError),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
-      );
-    }
+    return SnackBar(
+      showCloseIcon: true,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: succeeded ? null : Theme.of(context).colorScheme.error,
+      content: Text(
+        message,
+        style: succeeded ? null : TextStyle(color: Theme.of(context).colorScheme.onError),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
   }
 }

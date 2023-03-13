@@ -217,6 +217,14 @@
       "not_edited":"Le lieu n'a pas pu être édité.",
       "deleted":"Le lieu a été supprimé.",
       "not_deleted":"Le lieu n'a pas pu être supprimé."
+    },
+    "member": {
+      "added": "Le membre a été ajouté.",
+      "not_added": "Le membre n'a pas pu être ajouté.",
+      "edited":"Le membre a été édité.",
+      "not_edited":"Le membre n'a pas pu être édité.",
+      "deleted":"Le membre a été supprimé.",
+      "not_deleted":"Le membre n'a pas pu être supprimé."
     }
   },
   "new": {

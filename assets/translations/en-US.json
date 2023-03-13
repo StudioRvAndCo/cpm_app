@@ -217,6 +217,14 @@
       "not_edited":"The location could not be edited.",
       "deleted":"The location was deleted.",
       "not_deleted":"The location could not be deleted."
+    },
+    "member": {
+      "added": "The member was added.",
+      "not_added": "The member could not be added.",
+      "edited":"The member was edited.",
+      "not_edited":"The member could not be edited.",
+      "deleted":"The member was deleted.",
+      "not_deleted":"The member could not be deleted."
     }
   },
   "new": {

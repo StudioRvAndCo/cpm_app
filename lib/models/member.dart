@@ -12,6 +12,14 @@ class Member {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'firstname': firstName,
+      'lastname': lastName,
+      'phonenumber': phone,
+    };
+  }
+
   final String id;
   String firstName;
   String? lastName;
