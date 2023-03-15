@@ -41,13 +41,19 @@ class _SequencesState extends State<Sequences> {
                   InfoHeaderProject(project: widget.project)
                 else
                   InfoHeaderEpisode(episode: widget.episode),
-                for (Sequence sequence in widget.episode.sequences)
-                  SequenceCard(
-                    sequence: sequence,
-                    openShots: () {
-                      widget.openShots(sequence);
-                    },
-                  )
+                Expanded(
+                    child: ListView(
+                        padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                        children: <SequenceCard>[
+                      ...widget.episode.sequences.map((Sequence sequence) {
+                        return SequenceCard(
+                          sequence: sequence,
+                          openShots: () {
+                            widget.openShots(sequence);
+                          },
+                        );
+                      })
+                    ]))
               ],
             );
           }

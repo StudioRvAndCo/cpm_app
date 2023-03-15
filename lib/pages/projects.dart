@@ -66,21 +66,23 @@ class ProjectsState extends State<Projects> {
                       getFavorites(favNotifier);
                       return ListView(
                           padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
-                          children: (projects.map((Project project) => ProjectCard(
-                              project: project,
-                              openEpisodes: () {
-                                setState(() {
-                                  selectedProject = project;
-                                  page = ProjectsPage.episodes;
-                                });
-                              },
-                              openPlanning: () {
-                                setState(() {
-                                  selectedProject = project;
-                                  page = ProjectsPage.planning;
-                                });
-                              },
-                              favNotifier: favNotifier))).toList());
+                          children: <ProjectCard>[
+                            ...projects.map((Project project) => ProjectCard(
+                                project: project,
+                                openEpisodes: () {
+                                  setState(() {
+                                    selectedProject = project;
+                                    page = ProjectsPage.episodes;
+                                  });
+                                },
+                                openPlanning: () {
+                                  setState(() {
+                                    selectedProject = project;
+                                    page = ProjectsPage.planning;
+                                  });
+                                },
+                                favNotifier: favNotifier))
+                          ]);
                     }),
                   );
                 }

@@ -62,10 +62,23 @@ class _InfoHeaderProjectState extends State<InfoHeaderProject> {
             padding: const EdgeInsets.all(8),
             child: Column(
               children: <Widget>[
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(project.title,
-                        style: Theme.of(context).textTheme.titleLarge, maxLines: 1, overflow: TextOverflow.ellipsis)),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        project.title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => print('delete'),
+                      icon: const Icon(Icons.delete),
+                      color: Colors.red,
+                    )
+                  ],
+                ),
                 const Padding(padding: EdgeInsets.only(bottom: 8)),
                 Align(
                     alignment: Alignment.centerLeft,

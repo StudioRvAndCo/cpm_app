@@ -48,20 +48,26 @@ class _EpisodesState extends State<Episodes> {
           if (episodes.isEmpty) {
             return RequestPlaceholder(placeholder: Text('episodes.no_episodes'.tr()));
           } else {
-            return ListView(
-              padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
-              children: <Widget>[
+            return Column(
+              children: [
                 InfoHeaderProject(project: widget.project),
-                ...episodes.map((Episode episode) {
-                  return EpisodeCard(
-                    episode: episode,
-                    openSequences: () {
-                      setState(() {
-                        widget.openSequences(episode);
-                      });
-                    },
-                  );
-                }),
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                    children: <EpisodeCard>[
+                      ...episodes.map((Episode episode) {
+                        return EpisodeCard(
+                          episode: episode,
+                          openSequences: () {
+                            setState(() {
+                              widget.openSequences(episode);
+                            });
+                          },
+                        );
+                      }),
+                    ],
+                  ),
+                ),
               ],
             );
           }
