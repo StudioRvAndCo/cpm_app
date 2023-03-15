@@ -83,7 +83,7 @@ class _MemberTileState extends State<MemberTile> {
                   child: ListTile(
                     leading: Icon(
                       Icons.edit,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text('edit.upper'.tr()),
                   )),
@@ -92,7 +92,7 @@ class _MemberTileState extends State<MemberTile> {
                   child: ListTile(
                     leading: Icon(
                       Icons.delete,
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text('delete.upper'.tr()),
                   )),

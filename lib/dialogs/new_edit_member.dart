@@ -5,9 +5,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
-class MemberDialog extends StatefulWidget {
-  const MemberDialog({super.key, required this.edit, this.firstName, this.lastName, this.phone, this.image});
+import '../models/member.dart';
 
+class MemberDialog extends StatefulWidget {
+  const MemberDialog({super.key, required this.edit, this.id, this.firstName, this.lastName, this.phone, this.image});
+
+  final String? id;
   final String? firstName;
   final String? lastName;
   final String? phone;
@@ -175,7 +178,11 @@ class _MemberDialogState extends State<MemberDialog> {
     if (firstNameController.text.trim().isEmpty) {
       return;
     }
-    // TODO(mael): add member via API
-    Navigator.pop(context);
+    final Member newMember = Member(
+        id: widget.id ?? '',
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        phone: phoneController.text);
+    Navigator.pop(context, newMember);
   }
 }

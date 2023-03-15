@@ -103,7 +103,8 @@ class _CPMState extends State<CPM> {
   Future<void> _handleLogin(String username, String password) async {
     loginState.login(username, password).then((void value) {
       if (loginState.statusCode != 200 && scaffoldMessengerKey.currentContext != null) {
-        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(LoginSnackBar().getSnackBar(context));
+        ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!)
+            .showSnackBar(CustomSnackBar().getLoginSnackBar(context));
       }
     });
   }
