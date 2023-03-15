@@ -91,6 +91,8 @@ class HomeState extends State<Home> {
   /// Resets the home page to the projects list.
   void resetPage() {
     projectsStateKey.currentState?.setState(() {
+      projectsStateKey.currentState?.requestCompleted = false;
+      projectsStateKey.currentState?.getProjects();
       projectsStateKey.currentState?.page = ProjectsPage.projects;
     });
   }

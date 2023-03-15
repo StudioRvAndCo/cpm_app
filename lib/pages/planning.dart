@@ -30,14 +30,16 @@ class _PlanningState extends State<Planning> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    for (final Episode episode in widget.project.episodes) {
-      for (final Sequence sequence in episode.sequences) {
-        _events.add(CalendarEventData<Event>(
-            event: Event(title: sequence.title, description: sequence.description ?? ''),
-            title: sequence.title,
-            date: sequence.startDate,
-            startTime: sequence.startDate,
-            endTime: sequence.endDate));
+    if (widget.project.episodes != null) {
+      for (final Episode episode in widget.project.episodes!) {
+        for (final Sequence sequence in episode.sequences) {
+          _events.add(CalendarEventData<Event>(
+              event: Event(title: sequence.title, description: sequence.description ?? ''),
+              title: sequence.title,
+              date: sequence.startDate,
+              startTime: sequence.startDate,
+              endTime: sequence.endDate));
+        }
       }
     }
   }
