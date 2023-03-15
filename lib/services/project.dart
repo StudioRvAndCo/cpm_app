@@ -93,4 +93,24 @@ class ProjectService {
       return <dynamic>[false, 408, 'error.timeout'.tr()];
     }
   }
+
+  Future<List<dynamic>> deleteProject(String projectID) async {
+    try {
+      final Response response = await delete(Uri.parse('${api.projects}/$projectID'), headers: <String, String>{
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+        api.authorization: api.bearer + token
+      });
+
+      if (response.statusCode == 204) {
+        return <dynamic>[true, response.statusCode, response.reasonPhrase];
+      } else {
+        debugPrint(response.body);
+        return <dynamic>[false, response.statusCode, response.reasonPhrase];
+      }
+    } catch (exception) {
+      debugPrint(exception.toString());
+      return <dynamic>[false, 408, 'error.timeout'.tr()];
+    }
+  }
 }

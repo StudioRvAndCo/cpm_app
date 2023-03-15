@@ -32,15 +32,17 @@ class _SequencesState extends State<Sequences> {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (widget.episode.sequences.isEmpty) {
-            return RequestPlaceholder(placeholder: Text('sequences.no_sequences'.tr()));
-          } else {
-            return Column(
-              children: <Widget>[
-                if (widget.project.isMovie())
-                  InfoHeaderProject(project: widget.project)
-                else
-                  InfoHeaderEpisode(episode: widget.episode),
+          return Column(
+            children: <Widget>[
+              if (widget.project.isMovie())
+                InfoHeaderProject(project: widget.project)
+              else
+                InfoHeaderEpisode(episode: widget.episode),
+              if (widget.episode.sequences.isEmpty)
+                Expanded(
+                  child: RequestPlaceholder(placeholder: Text('sequences.no_sequences'.tr())),
+                )
+              else
                 Expanded(
                     child: ListView(
                         padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
@@ -54,9 +56,8 @@ class _SequencesState extends State<Sequences> {
                         );
                       })
                     ]))
-              ],
-            );
-          }
+            ],
+          );
         },
       ),
     ));
