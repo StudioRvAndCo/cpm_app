@@ -52,8 +52,8 @@ class ProjectsState extends State<Projects> {
           return Expanded(
               child: Scaffold(
             floatingActionButton: FloatingActionButton(
+              onPressed: addProject,
               child: const Icon(Icons.add),
-              onPressed: () => addProject(),
             ),
             body: Builder(
               builder: (BuildContext context) {

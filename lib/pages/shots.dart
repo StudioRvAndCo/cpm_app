@@ -21,7 +21,7 @@ class _ShotsState extends State<Shots> {
   Widget build(BuildContext context) {
     return Expanded(
         child: Scaffold(
-      floatingActionButton: FloatingActionButton(child: const Icon(Icons.add), onPressed: () => addShot()),
+      floatingActionButton: FloatingActionButton(onPressed: addShot, child: const Icon(Icons.add)),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (widget.sequence.shots.isEmpty) {

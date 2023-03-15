@@ -27,8 +27,8 @@ class _SequencesState extends State<Sequences> {
     return Expanded(
         child: Scaffold(
       floatingActionButton: FloatingActionButton(
+        onPressed: addSequence,
         child: const Icon(Icons.add),
-        onPressed: () => addSequence(),
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {

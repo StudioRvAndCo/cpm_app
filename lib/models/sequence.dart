@@ -3,7 +3,7 @@ import 'shot.dart';
 
 class Sequence {
   Sequence(
-      {this.id,
+      {required this.id,
       required this.number,
       required this.title,
       this.description,
@@ -29,6 +29,7 @@ class Sequence {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id.isEmpty ? null : id,
       'number': number,
       'title': title,
       'description': description,
@@ -39,7 +40,7 @@ class Sequence {
     };
   }
 
-  final String? id;
+  final String id;
   int number;
   String title;
   String? description;

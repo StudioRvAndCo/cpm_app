@@ -41,8 +41,8 @@ class _EpisodesState extends State<Episodes> {
       return Expanded(
           child: Scaffold(
         floatingActionButton: FloatingActionButton(
+          onPressed: addEpisode,
           child: const Icon(Icons.add),
-          onPressed: () => addEpisode(),
         ),
         body: Builder(builder: (BuildContext context) {
           if (episodes.isEmpty) {
