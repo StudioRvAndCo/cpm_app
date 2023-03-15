@@ -204,7 +204,9 @@
   "snack_bars": {
     "project": {
       "added": "The project was added.",
-      "not_added": "The project could not be added."
+      "not_added": "The project could not be added.",
+      "edited": "The project was edited.",
+      "not_edited": "The project could not be edited."
     },
     "episode": {
       "added": "The episode was added.",
@@ -213,18 +215,18 @@
     "location": {
       "added": "The location was added.",
       "not_added": "The location could not be added.",
-      "edited":"The location was edited.",
-      "not_edited":"The location could not be edited.",
-      "deleted":"The location was deleted.",
-      "not_deleted":"The location could not be deleted."
+      "edited": "The location was edited.",
+      "not_edited": "The location could not be edited.",
+      "deleted": "The location was deleted.",
+      "not_deleted": "The location could not be deleted."
     },
     "member": {
       "added": "The member was added.",
       "not_added": "The member could not be added.",
-      "edited":"The member was edited.",
-      "not_edited":"The member could not be edited.",
-      "deleted":"The member was deleted.",
-      "not_deleted":"The member could not be deleted."
+      "edited": "The member was edited.",
+      "not_edited": "The member could not be edited.",
+      "deleted": "The member was deleted.",
+      "not_deleted": "The member could not be deleted."
     }
   },
   "new": {

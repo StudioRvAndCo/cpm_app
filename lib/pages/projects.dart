@@ -53,9 +53,7 @@ class ProjectsState extends State<Projects> {
               child: Scaffold(
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add),
-              onPressed: () {
-                addProject();
-              },
+              onPressed: () => addProject,
             ),
             body: Builder(
               builder: (BuildContext context) {
@@ -94,14 +92,13 @@ class ProjectsState extends State<Projects> {
         }
       case ProjectsPage.episodes:
         return Episodes(
-          project: selectedProject,
-          openSequences: (Episode episode) {
-            setState(() {
-              selectedEpisode = episode;
-              page = ProjectsPage.sequences;
+            project: selectedProject,
+            openSequences: (Episode episode) {
+              setState(() {
+                selectedEpisode = episode;
+                page = ProjectsPage.sequences;
+              });
             });
-          },
-        );
       case ProjectsPage.sequences:
         return Sequences(
           project: selectedProject,

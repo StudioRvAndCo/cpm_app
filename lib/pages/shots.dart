@@ -18,27 +18,39 @@ class Shots extends StatefulWidget {
 class _ShotsState extends State<Shots> {
   @override
   Widget build(BuildContext context) {
-    if (widget.sequence.shots.isEmpty) {
-      return Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('shots.no_shots'.tr()),
-          ],
-        ),
-      );
-    } else {
-      return Expanded(
-          child: Column(
-        children: <Widget>[
-          InfoHeaderSequence(sequence: widget.sequence),
-          for (Shot shot in widget.sequence.shots)
-            ShotCard(
-              shot: shot,
-              onPressed: () {},
-            )
-        ],
-      ));
-    }
+    return Expanded(
+        child: Scaffold(
+      floatingActionButton: FloatingActionButton(child: const Icon(Icons.add), onPressed: () => addShot),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (widget.sequence.shots.isEmpty) {
+            return Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('shots.no_shots'.tr()),
+                ],
+              ),
+            );
+          } else {
+            return Expanded(
+                child: Column(
+              children: <Widget>[
+                InfoHeaderSequence(sequence: widget.sequence),
+                for (Shot shot in widget.sequence.shots)
+                  ShotCard(
+                    shot: shot,
+                    onPressed: () {},
+                  )
+              ],
+            ));
+          }
+        },
+      ),
+    ));
+  }
+
+  void addShot() {
+    print('TODO');
   }
 }

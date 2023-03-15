@@ -104,7 +104,7 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
   bool get wantKeepAlive => true;
 
   Future<void> getCompleteProject() async {
-    final List<dynamic> result = await ProjectService().getProject(widget.project.id);
+    final List<dynamic> result = await ProjectService().getCompleteProject(widget.project.id);
     setState(() {
       requestCompleted = true;
       requestSucceeded = result[0] as bool;
@@ -120,25 +120,26 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
 
   void editTitle() {
     editedProject.title = titleController.text;
-    updateProject();
+    editProject();
   }
 
   void editDescription() {
     editedProject.description = descriptionController.text;
-    updateProject();
+    editProject();
   }
 
   void editDate(DateTime startDate, DateTime endDate) {
     editedProject.startDate = startDate;
     editedProject.endDate = endDate;
-    updateProject();
+    editProject();
   }
 
-  Future<void> updateProject() async {
+  Future<void> editProject() async {
     final List<dynamic> result = await ProjectService().editProject(editedProject);
     if (context.mounted) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(PopupSnackBar().getNewProjectSnackBar(context, result[0] as bool, result[1] as int));
+      final bool succeeded = result[0] as bool;
+      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar().getModelSnackBar(context, succeeded, result[1] as int,
+          message: succeeded ? 'snack_bars.project.edited'.tr() : 'snack_bars.project.not_edited'.tr()));
     }
   }
 }

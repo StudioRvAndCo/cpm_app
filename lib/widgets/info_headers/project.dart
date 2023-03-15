@@ -4,18 +4,26 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/project.dart';
+import '../../services/project.dart';
 import '../icon_label.dart';
 import '../info_sheets/project.dart';
 
-class InfoHeaderProject extends StatelessWidget {
+class InfoHeaderProject extends StatefulWidget {
   const InfoHeaderProject({super.key, required this.project});
 
   final Project project;
 
-  String _getDateText(BuildContext context) {
-    final String firstText = DateFormat.yMd(context.locale.toString()).format(project.startDate);
-    final String lastText = DateFormat.yMd(context.locale.toString()).format(project.endDate);
-    return '$firstText - $lastText';
+  @override
+  State<InfoHeaderProject> createState() => _InfoHeaderProjectState();
+}
+
+class _InfoHeaderProjectState extends State<InfoHeaderProject> {
+  late Project project;
+
+  @override
+  void initState() {
+    super.initState();
+    project = widget.project;
   }
 
   @override
@@ -90,8 +98,21 @@ class InfoHeaderProject extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return InfoSheetProject(project: project);
-            });
+            }).then((_) => refresh());
       },
     );
+  }
+
+  Future<void> refresh() async {
+    final List<dynamic> result = await ProjectService().getCompleteProject(widget.project.id);
+    setState(() {
+      project = result[1] as Project;
+    });
+  }
+
+  String _getDateText(BuildContext context) {
+    final String firstText = DateFormat.yMd(context.locale.toString()).format(project.startDate);
+    final String lastText = DateFormat.yMd(context.locale.toString()).format(project.endDate);
+    return '$firstText - $lastText';
   }
 }

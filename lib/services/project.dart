@@ -30,7 +30,7 @@ class ProjectService {
     }
   }
 
-  Future<List<dynamic>> getProject(String id) async {
+  Future<List<dynamic>> getCompleteProject(String id) async {
     try {
       final Response response = await get(Uri.parse('${api.projects}/$id'),
           headers: <String, String>{'accept': 'application/json', api.authorization: api.bearer + token});

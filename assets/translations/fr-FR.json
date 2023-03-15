@@ -204,7 +204,9 @@
   "snack_bars": {
     "project": {
       "added": "Le projet a été ajouté.",
-      "not_added": "Le projet n'a pas pu être ajouté."
+      "not_added": "Le projet n'a pas pu être ajouté.",
+      "edited": "Le projet a été modifié.",
+      "not_edited": "Le projet n'a pas pu être modifié."
     },
     "episode": {
       "added": "L'épisode a été ajouté.",
@@ -213,18 +215,18 @@
     "location": {
       "added": "Le lieu a été ajouté.",
       "not_added": "Le lieu n'a pas pu être ajouté.",
-      "edited":"Le lieu a été édité.",
-      "not_edited":"Le lieu n'a pas pu être édité.",
-      "deleted":"Le lieu a été supprimé.",
-      "not_deleted":"Le lieu n'a pas pu être supprimé."
+      "edited": "Le lieu a été édité.",
+      "not_edited": "Le lieu n'a pas pu être édité.",
+      "deleted": "Le lieu a été supprimé.",
+      "not_deleted": "Le lieu n'a pas pu être supprimé."
     },
     "member": {
       "added": "Le membre a été ajouté.",
       "not_added": "Le membre n'a pas pu être ajouté.",
-      "edited":"Le membre a été édité.",
-      "not_edited":"Le membre n'a pas pu être édité.",
-      "deleted":"Le membre a été supprimé.",
-      "not_deleted":"Le membre n'a pas pu être supprimé."
+      "edited": "Le membre a été édité.",
+      "not_edited": "Le membre n'a pas pu être édité.",
+      "deleted": "Le membre a été supprimé.",
+      "not_deleted": "Le membre n'a pas pu être supprimé."
     }
   },
   "new": {
