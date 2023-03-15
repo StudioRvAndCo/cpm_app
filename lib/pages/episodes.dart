@@ -42,7 +42,7 @@ class _EpisodesState extends State<Episodes> {
           child: Scaffold(
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
-          onPressed: () => addEpisode,
+          onPressed: () => addEpisode(),
         ),
         body: Builder(builder: (BuildContext context) {
           if (episodes.isEmpty) {

@@ -5,6 +5,7 @@ import '../models/sequence.dart';
 import '../models/shot.dart';
 import '../widgets/cards/shot.dart';
 import '../widgets/info_headers/sequence.dart';
+import '../widgets/request_placeholder.dart';
 
 class Shots extends StatefulWidget {
   const Shots({super.key, required this.sequence});
@@ -20,21 +21,13 @@ class _ShotsState extends State<Shots> {
   Widget build(BuildContext context) {
     return Expanded(
         child: Scaffold(
-      floatingActionButton: FloatingActionButton(child: const Icon(Icons.add), onPressed: () => addShot),
+      floatingActionButton: FloatingActionButton(child: const Icon(Icons.add), onPressed: () => addShot()),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (widget.sequence.shots.isEmpty) {
-            return Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('shots.no_shots'.tr()),
-                ],
-              ),
-            );
+            return RequestPlaceholder(placeholder: Text('shots.no_shots'.tr()));
           } else {
-            return Expanded(
-                child: Column(
+            return Column(
               children: <Widget>[
                 InfoHeaderSequence(sequence: widget.sequence),
                 for (Shot shot in widget.sequence.shots)
@@ -43,7 +36,7 @@ class _ShotsState extends State<Shots> {
                     onPressed: () {},
                   )
               ],
-            ));
+            );
           }
         },
       ),

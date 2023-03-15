@@ -7,6 +7,7 @@ import '../models/sequence.dart';
 import '../widgets/cards/sequence.dart';
 import '../widgets/info_headers/episode.dart';
 import '../widgets/info_headers/project.dart';
+import '../widgets/request_placeholder.dart';
 
 class Sequences extends StatefulWidget {
   const Sequences({super.key, required this.openShots, required this.project, required this.episode});
@@ -27,22 +28,14 @@ class _SequencesState extends State<Sequences> {
         child: Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => addSequence,
+        onPressed: () => addSequence(),
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (widget.episode.sequences.isEmpty) {
-            return Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('sequences.no_sequences'.tr()),
-                ],
-              ),
-            );
+            return RequestPlaceholder(placeholder: Text('sequences.no_sequences'.tr()));
           } else {
-            return Expanded(
-                child: Column(
+            return Column(
               children: <Widget>[
                 if (widget.project.isMovie())
                   InfoHeaderProject(project: widget.project)
@@ -56,7 +49,7 @@ class _SequencesState extends State<Sequences> {
                     },
                   )
               ],
-            ));
+            );
           }
         },
       ),
