@@ -26,6 +26,7 @@ class Episode {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id.isEmpty ? null : id,
       'number': number,
       'title': title,
       'description': description,

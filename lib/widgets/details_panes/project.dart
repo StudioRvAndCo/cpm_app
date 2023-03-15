@@ -54,6 +54,7 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
                   style: Theme.of(context).textTheme.titleMedium,
                   decoration: InputDecoration.collapsed(hintText: 'attributes.title.upper'.tr()),
                   controller: titleController,
+                  maxLength: 64,
                 ),
               ),
               const Padding(padding: EdgeInsets.only(bottom: 16)),
@@ -71,6 +72,7 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     expands: true,
+                    maxLength: 280,
                   ),
                 ),
               ),
@@ -129,8 +131,10 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
   }
 
   void editDate(DateTime startDate, DateTime endDate) {
-    editedProject.startDate = startDate;
-    editedProject.endDate = endDate;
+    setState(() {
+      editedProject.startDate = startDate;
+      editedProject.endDate = endDate;
+    });
     editProject();
   }
 
