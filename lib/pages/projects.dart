@@ -12,6 +12,7 @@ import '../widgets/cards/project.dart';
 import '../widgets/request_placeholder.dart';
 import '../widgets/snack_bars.dart';
 import 'episodes.dart';
+import 'home.dart';
 import 'planning.dart';
 import 'sequences.dart';
 import 'shots.dart';
@@ -94,6 +95,7 @@ class ProjectsState extends State<Projects> {
         }
       case ProjectsPage.episodes:
         return Episodes(
+            key: episodesStateKey,
             project: selectedProject,
             openSequences: (Episode episode) {
               setState(() {

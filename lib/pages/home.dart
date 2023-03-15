@@ -7,6 +7,7 @@ import '../widgets/navigation/custom_appbar.dart';
 import '../widgets/navigation/custom_navigation_drawer.dart';
 import '../widgets/navigation/custom_navigation_rail.dart';
 import 'about.dart';
+import 'episodes.dart';
 import 'locations.dart';
 import 'members.dart';
 import 'projects.dart';
@@ -14,13 +15,26 @@ import 'settings.dart';
 import 'test.dart';
 
 final GlobalKey<ProjectsState> projectsStateKey = GlobalKey();
+final GlobalKey<EpisodesState> episodesStateKey = GlobalKey();
 
-/// Resets the home page to the projects list.
-void resetPage() {
+/// Resets the home page to the desired page.
+void resetPage(ProjectsPage page) {
   projectsStateKey.currentState?.setState(() {
-    projectsStateKey.currentState?.requestCompleted = false;
-    projectsStateKey.currentState?.getProjects();
-    projectsStateKey.currentState?.page = ProjectsPage.projects;
+    switch (page) {
+      case ProjectsPage.projects:
+        projectsStateKey.currentState?.requestCompleted = false;
+        projectsStateKey.currentState?.getProjects();
+        break;
+      case ProjectsPage.episodes:
+        episodesStateKey.currentState?.requestCompleted = false;
+        episodesStateKey.currentState?.getEpisodes();
+        break;
+      case ProjectsPage.sequences:
+      case ProjectsPage.shots:
+      case ProjectsPage.planning:
+        break;
+    }
+    projectsStateKey.currentState?.page = page;
   });
 }
 
@@ -53,7 +67,7 @@ class HomeState extends State<Home> {
                     selectedIndex: _selectedIndex,
                     onNavigate: (int index) {
                       if (index == 0) {
-                        resetPage();
+                        resetPage(ProjectsPage.projects);
                       }
                       setState(() {
                         _selectedIndex = index;
@@ -65,7 +79,7 @@ class HomeState extends State<Home> {
                 if (kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isFuchsia)
                   CustomNavigationRail(onNavigate: (int index) {
                     if (index == 0) {
-                      resetPage();
+                      resetPage(ProjectsPage.projects);
                     }
                     setState(() {
                       _selectedIndex = index;

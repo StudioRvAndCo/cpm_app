@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../dialogs/confirm_dialog.dart';
 import '../../models/project.dart';
 import '../../pages/home.dart';
+import '../../pages/projects.dart';
 import '../../services/project.dart';
 import '../icon_label.dart';
 import '../info_sheets/project.dart';
@@ -136,7 +137,7 @@ class _InfoHeaderProjectState extends State<InfoHeaderProject> {
               context, succeeded, result[1] as int,
               message: succeeded ? 'snack_bars.project.deleted'.tr() : 'snack_bars.project.not_deleted'.tr()));
         }
-        resetPage();
+        resetPage(ProjectsPage.projects);
       }
     });
   }
