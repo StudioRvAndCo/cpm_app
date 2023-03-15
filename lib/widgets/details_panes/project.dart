@@ -5,6 +5,7 @@ import '../../models/project.dart';
 import '../../services/project.dart';
 import '../icon_label.dart';
 import '../request_placeholder.dart';
+import '../snack_bars.dart';
 
 class DetailsPaneProject extends StatefulWidget {
   const DetailsPaneProject({super.key, required this.project});
@@ -43,26 +44,37 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: <Widget>[
-              TextField(
-                style: Theme.of(context).textTheme.titleMedium,
-                decoration: InputDecoration.collapsed(hintText: 'attributes.title.upper'.tr()),
-                controller: titleController,
-                onChanged: editTitle,
+              Focus(
+                onFocusChange: (bool focus) {
+                  if (!focus) {
+                    editTitle();
+                  }
+                },
+                child: TextField(
+                  style: Theme.of(context).textTheme.titleMedium,
+                  decoration: InputDecoration.collapsed(hintText: 'attributes.title.upper'.tr()),
+                  controller: titleController,
+                ),
               ),
-              const SizedBox(
-                height: 20,
+              const Padding(padding: EdgeInsets.only(bottom: 16)),
+              Expanded(
+                child: Focus(
+                  onFocusChange: (bool focus) {
+                    if (!focus) {
+                      editDescription();
+                    }
+                  },
+                  child: TextField(
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    decoration: InputDecoration.collapsed(hintText: 'attributes.description.upper'.tr()),
+                    controller: descriptionController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    expands: true,
+                  ),
+                ),
               ),
-              TextField(
-                style: Theme.of(context).textTheme.bodyMedium,
-                decoration: InputDecoration.collapsed(hintText: 'attributes.description.upper'.tr()),
-                controller: descriptionController,
-                onChanged: editDescription,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              const Padding(padding: EdgeInsets.only(bottom: 16)),
               GestureDetector(
                 onTap: () async {
                   final DateTimeRange? pickedRange = await showDateRangePicker(
@@ -80,7 +92,7 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
                   icon: Icons.event_outlined,
                   textStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
-              )
+              ),
             ],
           ));
     } else {
@@ -106,13 +118,13 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
     return '$firstText - $lastText';
   }
 
-  void editTitle(String value) {
-    editedProject.title = value;
+  void editTitle() {
+    editedProject.title = titleController.text;
     updateProject();
   }
 
-  void editDescription(String value) {
-    editedProject.description = value;
+  void editDescription() {
+    editedProject.description = descriptionController.text;
     updateProject();
   }
 
@@ -122,10 +134,11 @@ class _DetailsPaneProjectState extends State<DetailsPaneProject>
     updateProject();
   }
 
-  void updateProject() {
-    setState(() {
-      ProjectService().editProject(editedProject);
-      print('updated');
-    });
+  Future<void> updateProject() async {
+    final List<dynamic> result = await ProjectService().editProject(editedProject);
+    if (context.mounted) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(PopupSnackBar().getNewProjectSnackBar(context, result[0] as bool, result[1] as int));
+    }
   }
 }
