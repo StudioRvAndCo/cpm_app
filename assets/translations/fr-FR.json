@@ -206,7 +206,9 @@
       "added": "Le projet a été ajouté.",
       "not_added": "Le projet n'a pas pu être ajouté.",
       "edited": "Le projet a été modifié.",
-      "not_edited": "Le projet n'a pas pu être modifié."
+      "not_edited": "Le projet n'a pas pu être modifié.",
+      "deleted": "Le projet a été supprimé.",
+      "not_deleted": "Le projet n'a pas été supprimé."
     },
     "episode": {
       "added": "L'épisode a été ajouté.",

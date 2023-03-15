@@ -3,10 +3,13 @@ import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../dialogs/confirm_dialog.dart';
 import '../../models/project.dart';
+import '../../pages/home.dart';
 import '../../services/project.dart';
 import '../icon_label.dart';
 import '../info_sheets/project.dart';
+import '../snack_bars.dart';
 
 class InfoHeaderProject extends StatefulWidget {
   const InfoHeaderProject({super.key, required this.project});
@@ -62,10 +65,23 @@ class _InfoHeaderProjectState extends State<InfoHeaderProject> {
             padding: const EdgeInsets.all(8),
             child: Column(
               children: <Widget>[
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(project.title,
-                        style: Theme.of(context).textTheme.titleLarge, maxLines: 1, overflow: TextOverflow.ellipsis)),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        project.title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: deleteProject,
+                      icon: const Icon(Icons.delete),
+                      color: Colors.red,
+                    )
+                  ],
+                ),
                 const Padding(padding: EdgeInsets.only(bottom: 8)),
                 Align(
                     alignment: Alignment.centerLeft,
@@ -107,6 +123,21 @@ class _InfoHeaderProjectState extends State<InfoHeaderProject> {
     final List<dynamic> result = await ProjectService().getCompleteProject(widget.project.id);
     setState(() {
       project = result[1] as Project;
+    });
+  }
+
+  Future<void> deleteProject() async {
+    showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) async {
+      if (result ?? false) {
+        final List<dynamic> result = await ProjectService().deleteProject(widget.project.id);
+        if (context.mounted) {
+          final bool succeeded = result[0] as bool;
+          ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar().getModelSnackBar(
+              context, succeeded, result[1] as int,
+              message: succeeded ? 'snack_bars.project.deleted'.tr() : 'snack_bars.project.not_deleted'.tr()));
+        }
+        resetPage();
+      }
     });
   }
 

@@ -45,26 +45,31 @@ class _EpisodesState extends State<Episodes> {
           child: const Icon(Icons.add),
         ),
         body: Builder(builder: (BuildContext context) {
-          if (episodes.isEmpty) {
-            return RequestPlaceholder(placeholder: Text('episodes.no_episodes'.tr()));
-          } else {
-            return ListView(
-              padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
-              children: <Widget>[
-                InfoHeaderProject(project: widget.project),
-                ...episodes.map((Episode episode) {
-                  return EpisodeCard(
-                    episode: episode,
-                    openSequences: () {
-                      setState(() {
-                        widget.openSequences(episode);
-                      });
-                    },
-                  );
-                }),
-              ],
-            );
-          }
+          return Column(
+            children: <Widget>[
+              InfoHeaderProject(project: widget.project),
+              if (episodes.isEmpty)
+                Expanded(child: RequestPlaceholder(placeholder: Text('episodes.no_episodes'.tr())))
+              else
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
+                    children: <EpisodeCard>[
+                      ...episodes.map((Episode episode) {
+                        return EpisodeCard(
+                          episode: episode,
+                          openSequences: () {
+                            setState(() {
+                              widget.openSequences(episode);
+                            });
+                          },
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+            ],
+          );
         }),
       ));
     } else {

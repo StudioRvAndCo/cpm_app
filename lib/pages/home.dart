@@ -15,6 +15,15 @@ import 'test.dart';
 
 final GlobalKey<ProjectsState> projectsStateKey = GlobalKey();
 
+/// Resets the home page to the projects list.
+void resetPage() {
+  projectsStateKey.currentState?.setState(() {
+    projectsStateKey.currentState?.requestCompleted = false;
+    projectsStateKey.currentState?.getProjects();
+    projectsStateKey.currentState?.page = ProjectsPage.projects;
+  });
+}
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -86,14 +95,5 @@ class HomeState extends State<Home> {
       default:
         return const Center();
     }
-  }
-
-  /// Resets the home page to the projects list.
-  void resetPage() {
-    projectsStateKey.currentState?.setState(() {
-      projectsStateKey.currentState?.requestCompleted = false;
-      projectsStateKey.currentState?.getProjects();
-      projectsStateKey.currentState?.page = ProjectsPage.projects;
-    });
   }
 }
