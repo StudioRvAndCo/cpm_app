@@ -66,7 +66,7 @@ class About extends StatelessWidget {
                 textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
             verticalPadding,
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: const EdgeInsets.all(8.0),
               child: Text('about.description'.tr(), textAlign: TextAlign.center),
             ),
             verticalPadding,
@@ -84,6 +84,10 @@ class About extends StatelessWidget {
                 textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
             Row(children: <Widget>[
               const Spacer(),
+              TextButton(
+                  onPressed: () => launchUrl(Uri.parse('https://linktr.ee/studiorvandco')),
+                  child: const Text('Linktree')),
+              horizontalPadding,
               TextButton(
                   onPressed: () => launchUrl(Uri.parse('https://rvandco.fr')), child: Text('about.website'.tr())),
               horizontalPadding,
