@@ -36,34 +36,31 @@ class _InfoHeaderProjectState extends State<InfoHeaderProject> {
       style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
           shape: const ContinuousRectangleBorder(),
-          backgroundColor: Theme
-              .of(context)
-              .colorScheme
-              .background),
+          backgroundColor: Theme.of(context).colorScheme.background),
       child: Stack(
         children: <Widget>[
           Positioned.fill(
               child: ClipRect(
-                child: ShaderMask(
-                  shaderCallback: (Rect rect) {
-                    return LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Colors.transparent,
-                        Colors.black.withOpacity(0.2),
-                        Colors.black.withOpacity(0.2),
-                        Colors.transparent
-                      ],
-                    ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: ImageFiltered(
-                    imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                    child: FittedBox(fit: BoxFit.cover, child: image),
-                  ),
-                ),
-              )),
+            child: ShaderMask(
+              shaderCallback: (Rect rect) {
+                return LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.2),
+                    Colors.black.withOpacity(0.2),
+                    Colors.transparent
+                  ],
+                ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+              },
+              blendMode: BlendMode.dstIn,
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                child: FittedBox(fit: BoxFit.cover, child: image),
+              ),
+            ),
+          )),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Column(
@@ -73,10 +70,7 @@ class _InfoHeaderProjectState extends State<InfoHeaderProject> {
                     Expanded(
                       child: Text(
                         project.title,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleLarge,
+                        style: Theme.of(context).textTheme.titleLarge,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -107,10 +101,7 @@ class _InfoHeaderProjectState extends State<InfoHeaderProject> {
                 const Padding(padding: EdgeInsets.only(bottom: 8)),
                 LinearProgressIndicator(
                   value: project.getProgress(),
-                  backgroundColor: Theme
-                      .of(context)
-                      .colorScheme
-                      .onPrimaryContainer,
+                  backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
                 )
               ],
             ),
@@ -135,13 +126,14 @@ class _InfoHeaderProjectState extends State<InfoHeaderProject> {
     });
   }
 
-   Future<void> deleteProject() async {
+  Future<void> deleteProject() async {
     showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) async {
       if (result ?? false) {
         final List<dynamic> result = await ProjectService().deleteProject(widget.project.id);
         if (context.mounted) {
           final bool succeeded = result[0] as bool;
-          ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar().getModelSnackBar(context, succeeded, result[1] as int,
+          ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar().getModelSnackBar(
+              context, succeeded, result[1] as int,
               message: succeeded ? 'snack_bars.project.deleted'.tr() : 'snack_bars.project.not_deleted'.tr()));
         }
         resetPage();
