@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Member {
-  Member(
-      {required this.id,
-      required this.firstName,
-      this.lastName,
-      this.phone,
-      this.image});
+  Member({required this.id, required this.firstName, this.lastName, this.phone, this.image});
 
   factory Member.fromJson(json) {
     return Member(
