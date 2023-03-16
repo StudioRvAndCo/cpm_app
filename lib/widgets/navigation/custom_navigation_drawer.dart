@@ -49,7 +49,7 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
           NavigationDrawerDestination(icon: const Icon(Icons.map), label: Text('locations.location.upper'.plural(2))),
           NavigationDrawerDestination(icon: const Icon(Icons.settings), label: Text('settings.settings'.tr())),
           NavigationDrawerDestination(icon: const Icon(Icons.info), label: Text('about.about'.tr())),
-          const NavigationDrawerDestination(icon: Icon(Icons.quiz), label: Text('Test')),
+          // const NavigationDrawerDestination(icon: Icon(Icons.quiz), label: Text('Test')),
         ],
       ),
     );
