@@ -212,7 +212,9 @@
     },
     "episode": {
       "added": "The episode was added.",
-      "not_added": "The episode was not added."
+      "not_added": "The episode was not added.",
+      "deleted": "The episode was deleted.",
+      "not_deleted": "The episode was not deleted."
     },
     "location": {
       "added": "The location was added.",

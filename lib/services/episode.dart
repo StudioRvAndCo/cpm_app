@@ -51,4 +51,25 @@ class EpisodeService {
       return <dynamic>[false, 408, 'error.timeout'.tr()];
     }
   }
+
+  Future<List<dynamic>> deleteEpisode(String projectID, String episodeID) async {
+    try {
+      final Response response = await delete(Uri.parse('${api.episodes}/$projectID/$episodeID'),
+          headers: <String, String>{
+            'accept': '*/*',
+            'Content-Type': 'application/json',
+            api.authorization: api.bearer + token
+          });
+
+      if (response.statusCode == 204) {
+        return <dynamic>[true, response.statusCode, response.reasonPhrase];
+      } else {
+        debugPrint(response.body);
+        return <dynamic>[false, response.statusCode, response.reasonPhrase];
+      }
+    } catch (exception) {
+      debugPrint(exception.toString());
+      return <dynamic>[false, 408, 'error.timeout'.tr()];
+    }
+  }
 }

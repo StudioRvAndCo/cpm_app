@@ -11,17 +11,17 @@ import '../widgets/request_placeholder.dart';
 import '../widgets/snack_bars.dart';
 
 class Episodes extends StatefulWidget {
-  const Episodes({super.key, required this.project, required this.openSequences});
+  const Episodes({required Key key, required this.project, required this.openSequences}) : super(key: key);
 
   final void Function(Episode episode) openSequences;
 
   final Project project;
 
   @override
-  State<Episodes> createState() => _EpisodesState();
+  State<Episodes> createState() => EpisodesState();
 }
 
-class _EpisodesState extends State<Episodes> {
+class EpisodesState extends State<Episodes> {
   bool requestCompleted = false;
   late bool requestSucceeded;
 

@@ -37,7 +37,7 @@ class _SequencesState extends State<Sequences> {
               if (widget.project.isMovie())
                 InfoHeaderProject(project: widget.project)
               else
-                InfoHeaderEpisode(episode: widget.episode),
+                InfoHeaderEpisode(projectID: widget.project.id, episode: widget.episode),
               if (widget.episode.sequences.isEmpty)
                 Expanded(
                   child: RequestPlaceholder(placeholder: Text('sequences.no_sequences'.tr())),
