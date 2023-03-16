@@ -20,6 +20,7 @@ dependencies:
   yaml: ^3.1.0
   calendar_view: ^1.0.2
   easy_localization: ^3.0.1
+  msix: ^3.9.1
 
 dev_dependencies:
   flutter_test:
@@ -35,3 +36,8 @@ flutter:
     - assets/images/
     - assets/translations/
     
+msix_config:
+  display_name: Cinema Project Manager
+  publisher_display_name: Studio Rv & Co
+  identity_name: rvandco.cpm
+  logo_path: assets\images\logo-cpm-white-alpha.png
