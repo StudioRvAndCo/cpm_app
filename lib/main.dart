@@ -88,7 +88,7 @@ class _CPMState extends State<CPM> {
                 ],
               ),
               routeInformationParser: widget._appRouter.defaultRouteParser(includePrefixMatches: true),
-              title: 'CPM',
+              title: 'Cinema Project Manager',
               theme: CPMThemeLight().theme,
               darkTheme: CPMThemeDark().theme,
               themeMode: themeNotifier.themeMode,
