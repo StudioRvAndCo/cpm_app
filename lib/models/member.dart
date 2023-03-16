@@ -8,7 +8,7 @@ class Member {
       id: json['Id'].toString(),
       firstName: json['FirstName'].toString(),
       lastName: json['LastName'].toString(),
-      phone: json['PhoneNumber'].toString(), // TODO(mael): rename to 'Phone' in backend
+      phone: json['Phone'].toString(),
     );
   }
 
@@ -16,7 +16,7 @@ class Member {
     return {
       'firstname': firstName,
       'lastname': lastName,
-      'phonenumber': phone,
+      'phone': phone,
     };
   }
 
