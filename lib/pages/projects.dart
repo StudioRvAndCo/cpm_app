@@ -1,164 +1,89 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../dialogs/new_project.dart';
-import '../models/episode.dart';
-import '../models/project.dart';
-import '../models/sequence.dart';
-import '../services/project.dart';
-import '../settings.dart';
-import '../widgets/cards/project.dart';
-import '../widgets/request_placeholder.dart';
-import '../widgets/snack_bars.dart';
+import '../models/project/project.dart';
+import '../providers/navigation/navigation.dart';
+import '../providers/projects/projects.dart';
+import '../utils/constants_globals.dart';
+import '../widgets/cards/project_card.dart';
+import '../widgets/custom_snack_bars.dart';
+import '../widgets/dialogs/project_dialog.dart';
 import 'episodes.dart';
-import 'home.dart';
 import 'planning.dart';
 import 'sequences.dart';
 import 'shots.dart';
 
-enum ProjectsPage { projects, episodes, sequences, shots, planning }
-
-class Projects extends StatefulWidget {
+class Projects extends ConsumerStatefulWidget {
   const Projects({required Key key}) : super(key: key);
 
   @override
-  State<Projects> createState() => ProjectsState();
+  ConsumerState<Projects> createState() => ProjectsState();
 }
 
-class ProjectsState extends State<Projects> {
-  ProjectsPage page = ProjectsPage.projects;
-
-  bool requestCompleted = false;
-  late bool requestSucceeded;
-  late List<Project> projects;
-
-  late Project selectedProject;
-  late Episode selectedEpisode;
-  late Sequence selectedSequence;
-
-  @override
-  void initState() {
-    super.initState();
-    getProjects();
-  }
-
+class ProjectsState extends ConsumerState<Projects> {
   @override
   Widget build(BuildContext context) {
-    switch (page) {
-      case ProjectsPage.projects:
-        if (!requestCompleted) {
-          return const Expanded(child: RequestPlaceholder(placeholder: CircularProgressIndicator()));
-        } else if (requestSucceeded) {
-          return Expanded(
-              child: Scaffold(
+    switch (ref.watch(navigationProvider)) {
+      case HomePage.projects:
+        return Expanded(
+          child: Scaffold(
             floatingActionButton: FloatingActionButton(
-              onPressed: addProject,
+              onPressed: () => add(),
               child: const Icon(Icons.add),
             ),
-            body: Builder(
-              builder: (BuildContext context) {
-                if (projects.isEmpty) {
-                  return RequestPlaceholder(placeholder: Text('projects.no_projects'.tr()));
-                } else {
-                  return ChangeNotifierProvider<ModelFav>(
-                    create: (_) => ModelFav(),
-                    child: Consumer<ModelFav>(builder: (BuildContext context, ModelFav favNotifier, Widget? child) {
-                      getFavorites(favNotifier);
-                      return ListView(
-                          padding: const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64),
-                          children: <ProjectCard>[
-                            ...projects.map((Project project) => ProjectCard(
-                                project: project,
-                                openEpisodes: () {
-                                  setState(() {
-                                    selectedProject = project;
-                                    page = ProjectsPage.episodes;
-                                  });
-                                },
-                                openPlanning: () {
-                                  setState(() {
-                                    selectedProject = project;
-                                    page = ProjectsPage.planning;
-                                  });
-                                },
-                                favNotifier: favNotifier))
-                          ]);
-                    }),
-                  );
-                }
+            body: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return ref.watch(projectsProvider).when(
+                  data: (List<Project> projects) {
+                    return MasonryGridView.count(
+                      itemCount: projects.length,
+                      padding:
+                          const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64, top: 4, left: 4, right: 4),
+                      itemBuilder: (BuildContext context, int index) {
+                        return ProjectCard(project: projects[index]);
+                      },
+                      crossAxisCount: getColumnsCount(constraints),
+                      mainAxisSpacing: 2,
+                      crossAxisSpacing: 2,
+                    );
+                  },
+                  error: (Object error, StackTrace stackTrace) {
+                    return requestPlaceholderError;
+                  },
+                  loading: () {
+                    return requestPlaceholderLoading;
+                  },
+                );
               },
             ),
-          ));
-        } else {
-          return Expanded(child: RequestPlaceholder(placeholder: Text('error.request_failed'.tr())));
-        }
-      case ProjectsPage.episodes:
-        return Episodes(
-            key: episodesStateKey,
-            project: selectedProject,
-            openSequences: (Episode episode) {
-              setState(() {
-                selectedEpisode = episode;
-                page = ProjectsPage.sequences;
-              });
-            });
-      case ProjectsPage.sequences:
-        return Sequences(
-          project: selectedProject,
-          episode: selectedEpisode,
-          openShots: (Sequence sequence) {
-            setState(() {
-              selectedSequence = sequence;
-              page = ProjectsPage.shots;
-            });
-          },
+          ),
         );
-      case ProjectsPage.shots:
-        return Shots(sequence: selectedSequence);
-      case ProjectsPage.planning:
-        return Planning(project: selectedProject);
+      case HomePage.episodes:
+        return Episodes(key: episodesStateKey);
+      case HomePage.sequences:
+        return const Sequences();
+      case HomePage.shots:
+        return const Shots();
+      case HomePage.planning:
+        return const Planning();
     }
   }
 
-  void getFavorites(ModelFav favNotifier) {
-    final List<String> favorites = favNotifier.favoriteProjects;
-    for (final String id in favorites) {
-      for (final Project project in projects) {
-        if (id == project.id) {
-          project.favorite = true;
-        }
-      }
-    }
-    projects.sort();
-  }
-
-  Future<void> getProjects() async {
-    final List<dynamic> result = await ProjectService().getProjects();
-    setState(() {
-      requestCompleted = true;
-      requestSucceeded = result[0] as bool;
-      projects = result[1] as List<Project>;
-    });
-  }
-
-  Future<void> addProject() async {
-    final dynamic project = await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const NewProjectDialog();
-        });
+  Future<void> add() async {
+    final project = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const ProjectDialog();
+      },
+    );
     if (project is Project) {
-      final List<dynamic> result = await ProjectService().addProject(project);
-      if (context.mounted) {
-        final bool succeeded = result[0] as bool;
-        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar().getModelSnackBar(
-            context, succeeded, result[1] as int,
-            message: succeeded ? 'snack_bars.project.added'.tr() : 'snack_bars.project.not_added'.tr()));
+      ref.read(projectsProvider.notifier).add(project);
+      if (true) {
+        final String message = true ? 'snack_bars.episode.deleted'.tr() : 'snack_bars.episode.not_deleted'.tr();
+        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBars().getModelSnackBar(context, true));
       }
-      setState(() {
-        getProjects();
-      });
     }
   }
 }

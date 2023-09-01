@@ -1,7 +1,17 @@
 {
   "username": "Username",
   "password": "Password",
-  "login": "Log in",
+  "authentication": {
+    "login": {
+      "upper": "Log in",
+      "lower": "log in"
+    },
+    "logout": {
+      "upper": "Log out",
+      "lower": "log out"
+    },
+    "logout_confirmation": "Do you really want to log out?"
+  },
   "home": "Home",
   "details": {
     "upper": {
@@ -11,6 +21,16 @@
     "lower": {
       "one": "detail",
       "other": "details"
+    }
+  },
+  "links": {
+    "upper": {
+      "one": "Link",
+      "other": "Links"
+    },
+    "lower": {
+      "one": "link",
+      "other": "links"
     }
   },
   "members": {
@@ -199,22 +219,37 @@
     "line": {
       "upper": "Line",
       "lower": "line"
-    }
+    },
+    "label": {
+      "upper": "Label",
+      "lower": "label"
+    },
+    "url": "URL"
   },
   "snack_bars": {
     "project": {
       "added": "The project was added.",
       "not_added": "The project could not be added.",
-      "edited": "The project was edited.",
-      "not_edited": "The project could not be edited.",
       "deleted": "The project was deleted.",
       "not_deleted": "The project was not deleted."
     },
     "episode": {
       "added": "The episode was added.",
-      "not_added": "The episode was not added.",
+      "not_added": "The episode could not be added.",
       "deleted": "The episode was deleted.",
-      "not_deleted": "The episode was not deleted."
+      "not_deleted": "The episode could not be deleted."
+    },
+    "sequence": {
+      "added": "The sequence was added.",
+      "not_added": "The sequence could not be added.",
+      "deleted": "The sequence was deleted.",
+      "not_deleted": "The sequence could not be deleted."
+    },
+    "shot": {
+      "added": "The shot was added.",
+      "not_added": "The shot could not be added.",
+      "deleted": "The shot was deleted.",
+      "not_deleted": "The shot could not be deleted."
     },
     "location": {
       "added": "The location was added.",
@@ -260,6 +295,22 @@
   "delete": {
     "upper": "Delete",
     "lower": "delete"
+  },
+  "remove": {
+    "upper": "Remove",
+    "lower": "remove"
+  },
+  "moveUp": {
+    "upper": "Move up",
+    "lower": "move up"
+  },
+  "moveDown": {
+    "upper": "Move down",
+    "lower": "move down"
+  },
+  "open": {
+    "upper": "Open",
+    "lower": "open"
   },
   "cancel": "Cancel",
   "confirm": "OK",

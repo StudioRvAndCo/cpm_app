@@ -1,43 +1,50 @@
 name: cpm
 description: Cinema Project Manager is a tool to efficiently manage the production of a cinema project.
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.5
-  intl: ^0.17.0
-  url_launcher: ^6.1.10
+  intl: ^0.18.0
+  url_launcher: ^6.1.12
   maps_launcher: ^2.2.0
-  file_picker: ^5.2.5
-  auto_route: ^5.0.4
+  file_picker: ^5.3.2
   provider: ^6.0.5
-  shared_preferences: ^2.0.18
-  yaml: ^3.1.0
-  calendar_view: ^1.0.2
-  easy_localization: ^3.0.1
-  msix: ^3.9.1
+  shared_preferences: ^2.2.0
+  yaml: ^3.1.2
+  easy_localization: ^3.0.2
+  easy_logger: ^0.0.2
+  flutter_riverpod: ^2.3.6
+  riverpod_annotation: ^2.1.1
+  flutter_native_splash: ^2.3.1
+  flutter_staggered_grid_view: ^0.6.2
+  syncfusion_flutter_calendar: ^22.1.37
+  json_annotation: ^4.8.1
+  flutter_secure_storage: ^8.0.0
+  supabase_flutter: ^1.10.7
+  collection: ^1.17.1
+  equatable: ^2.0.5
+
+  calendar_view: ^1.0.3 # TODO: remove
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  auto_route_generator: ^5.0.3
-  build_runner: ^2.3.3
+  flutter_lints: ^2.0.1
+  dart_code_metrics: ^5.7.5
+  build_runner: ^2.4.6
+  riverpod_generator: ^2.2.3
+  flutter_launcher_icons: ^0.13.1
+  json_serializable: ^6.7.1
 
 flutter:
   uses-material-design: true
   assets:
     - assets/config/
-    - assets/images/
+    - assets/logos/
     - assets/translations/
-    
-msix_config:
-  display_name: Cinema Project Manager
-  publisher_display_name: Studio Rv & Co
-  identity_name: rvandco.cpm
-  logo_path: assets\images\logo-cpm-white-alpha.png

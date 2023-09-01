@@ -1,0 +1,3 @@
+supabase:
+  url: 'https://url.supabase.co'
+  anon_key: '**********'

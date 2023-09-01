@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-class CustomNavigationDrawer extends StatefulWidget {
-  const CustomNavigationDrawer({super.key, required this.onNavigate, required this.selectedIndex});
+import '../../utils/constants_globals.dart';
 
-  final void Function(int) onNavigate;
+class CustomNavigationDrawer extends StatefulWidget {
+  const CustomNavigationDrawer({super.key, required this.navigate, required this.selectedIndex});
+
+  final void Function(int) navigate;
 
   final int selectedIndex;
 
@@ -21,35 +23,23 @@ class _CustomNavigationDrawerState extends State<CustomNavigationDrawer> {
         selectedIndex: widget.selectedIndex,
         onDestinationSelected: (int index) {
           setState(() {
-            widget.onNavigate(index);
+            widget.navigate(index);
             Navigator.pop(context);
           });
         },
         children: <Widget>[
           DrawerHeader(
             child: Builder(builder: (BuildContext context) {
-              if (Theme.of(context).brightness == Brightness.light) {
-                return Image.asset(
-                  'assets/images/logo-cpm-alpha.png',
-                  width: 50,
-                  filterQuality: FilterQuality.high,
-                );
-              } else {
-                return Image.asset(
-                  'assets/images/logo-cpm-white-alpha.png',
-                  width: 50,
-                  filterQuality: FilterQuality.high,
-                );
-              }
+              return Theme.of(context).brightness == Brightness.light
+                  ? Image.asset(Logos.cpmLight.value, width: 50, filterQuality: FilterQuality.medium)
+                  : Image.asset(Logos.cpmDark.value, width: 50, filterQuality: FilterQuality.medium);
             }),
           ),
-          NavigationDrawerDestination(icon: const Icon(Icons.home_outlined), label: Text('home'.tr())),
-          NavigationDrawerDestination(
-              icon: const Icon(Icons.people_outline), label: Text('members.member.upper'.plural(2))),
+          NavigationDrawerDestination(icon: const Icon(Icons.movie), label: Text('projects.project.upper'.plural(2))),
+          NavigationDrawerDestination(icon: const Icon(Icons.people), label: Text('members.member.upper'.plural(2))),
           NavigationDrawerDestination(icon: const Icon(Icons.map), label: Text('locations.location.upper'.plural(2))),
           NavigationDrawerDestination(icon: const Icon(Icons.settings), label: Text('settings.settings'.tr())),
           NavigationDrawerDestination(icon: const Icon(Icons.info), label: Text('about.about'.tr())),
-          // const NavigationDrawerDestination(icon: Icon(Icons.quiz), label: Text('Test')),
         ],
       ),
     );

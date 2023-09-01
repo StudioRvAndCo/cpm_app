@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../utils/constants_globals.dart';
+
 class About extends StatelessWidget {
   const About({super.key});
 
@@ -16,85 +18,91 @@ class About extends StatelessWidget {
           children: <Widget>[
             verticalPadding,
             Wrap(
+              alignment: WrapAlignment.spaceEvenly,
               spacing: 30,
               runSpacing: 30,
-              alignment: WrapAlignment.spaceEvenly,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Builder>[
-                Builder(
-                  builder: (BuildContext context) {
-                    if (Theme.of(context).brightness == Brightness.light) {
-                      return Image.asset(
-                        'assets/images/logo-camera.png',
-                        fit: BoxFit.fitWidth,
-                        height: 100,
-                        filterQuality: FilterQuality.high,
-                      );
-                    } else {
-                      return Image.asset(
-                        'assets/images/logo-camera-blanc.png',
-                        fit: BoxFit.fitWidth,
-                        height: 100,
-                        filterQuality: FilterQuality.high,
-                      );
-                    }
-                  },
-                ),
-                Builder(
-                  builder: (BuildContext context) {
-                    if (Theme.of(context).brightness == Brightness.light) {
-                      return Image.asset(
-                        'assets/images/logo-rv&co.png',
-                        fit: BoxFit.fitWidth,
-                        height: 150,
-                        filterQuality: FilterQuality.high,
-                      );
-                    } else {
-                      return Image.asset(
-                        'assets/images/logo-rv&co-blanc.png',
-                        fit: BoxFit.fitWidth,
-                        height: 150,
-                        filterQuality: FilterQuality.high,
-                      );
-                    }
-                  },
-                )
+                Builder(builder: (BuildContext context) {
+                  return Theme.of(context).brightness == Brightness.light
+                      ? Image.asset(
+                          Logos.cameraLight.value,
+                          height: 100,
+                          fit: BoxFit.fitWidth,
+                          filterQuality: FilterQuality.medium,
+                        )
+                      : Image.asset(
+                          Logos.cameraDark.value,
+                          height: 100,
+                          fit: BoxFit.fitWidth,
+                          filterQuality: FilterQuality.medium,
+                        );
+                }),
+                Builder(builder: (BuildContext context) {
+                  return Theme.of(context).brightness == Brightness.light
+                      ? Image.asset(
+                          Logos.rvandcoLight.value,
+                          height: 150,
+                          fit: BoxFit.fitWidth,
+                          filterQuality: FilterQuality.medium,
+                        )
+                      : Image.asset(
+                          Logos.rvandcoDark.value,
+                          height: 150,
+                          fit: BoxFit.fitWidth,
+                          filterQuality: FilterQuality.medium,
+                        );
+                }),
               ],
             ),
             verticalPadding,
-            const Text('Cinema Project Manager',
-                textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+            const Text(
+              'Cinema Project Manager',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
             verticalPadding,
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text('about.description'.tr(), textAlign: TextAlign.center),
             ),
             verticalPadding,
-            Text('${'about.more_about'.tr()} CPM',
-                textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              '${'about.more_about'.tr()} CPM',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
             Row(children: <Widget>[
               const Spacer(),
               TextButton(
-                  onPressed: () => launchUrl(Uri.parse('https://github.com/StudioRvAndCo')),
-                  child: const Text('GitHub')),
-              const Spacer()
+                onPressed: () => launchUrl(Uri.parse('https://github.com/StudioRvAndCo')),
+                child: const Text('GitHub'),
+              ),
+              const Spacer(),
             ]),
             verticalPadding,
-            Text('${'about.more_about'.tr()} Studio Rv & Co',
-                textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              '${'about.more_about'.tr()} Studio Rv & Co',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
             Row(children: <Widget>[
               const Spacer(),
               TextButton(
-                  onPressed: () => launchUrl(Uri.parse('https://linktr.ee/studiorvandco')),
-                  child: const Text('Linktree')),
+                onPressed: () => launchUrl(Uri.parse('https://linktr.ee/studiorvandco')),
+                child: const Text('Linktree'),
+              ),
               horizontalPadding,
               TextButton(
-                  onPressed: () => launchUrl(Uri.parse('https://rvandco.fr')), child: Text('about.website'.tr())),
+                onPressed: () => launchUrl(Uri.parse('https://rvandco.fr')),
+                child: Text('about.website'.tr()),
+              ),
               horizontalPadding,
               TextButton(
-                  onPressed: () => launchUrl(Uri.parse('https://www.youtube.com/@studiorvandco')),
-                  child: const Text('YouTube')),
-              const Spacer()
+                onPressed: () => launchUrl(Uri.parse('https://www.youtube.com/@studiorvandco')),
+                child: const Text('YouTube'),
+              ),
+              const Spacer(),
             ]),
             verticalPadding,
           ],

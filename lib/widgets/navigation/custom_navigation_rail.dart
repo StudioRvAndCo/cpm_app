@@ -1,18 +1,21 @@
+import 'package:cpm/widgets/navigation/logout.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../main.dart';
+import '../../providers/authentication/authentication.dart';
+import '../../utils/constants_globals.dart';
 
-class CustomNavigationRail extends StatefulWidget {
-  const CustomNavigationRail({super.key, required this.onNavigate});
+class CustomNavigationRail extends ConsumerStatefulWidget {
+  const CustomNavigationRail({super.key, required this.navigate});
 
-  final void Function(int) onNavigate;
+  final void Function(int) navigate;
 
   @override
-  State<CustomNavigationRail> createState() => _CustomNavigationRailState();
+  ConsumerState<CustomNavigationRail> createState() => _CustomNavigationRailState();
 }
 
-class _CustomNavigationRailState extends State<CustomNavigationRail> {
+class _CustomNavigationRailState extends ConsumerState<CustomNavigationRail> {
   int _selectedIndex = 0;
 
   @override
@@ -23,25 +26,14 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
         child: IntrinsicHeight(
           child: NavigationRail(
             leading: Builder(builder: (BuildContext context) {
-              if (Theme.of(context).brightness == Brightness.light) {
-                return Image.asset(
-                  'assets/images/logo-cpm-alpha.png',
-                  width: 50,
-                  filterQuality: FilterQuality.high,
-                );
-              } else {
-                return Image.asset(
-                  'assets/images/logo-cpm-white-alpha.png',
-                  width: 50,
-                  filterQuality: FilterQuality.high,
-                );
-              }
+              return Theme.of(context).brightness == Brightness.light
+                  ? Image.asset(Logos.cpmLight.value, width: 50, filterQuality: FilterQuality.medium)
+                  : Image.asset(Logos.cpmDark.value, width: 50, filterQuality: FilterQuality.medium);
             }),
             labelType: NavigationRailLabelType.all,
             destinations: <NavigationRailDestination>[
-              NavigationRailDestination(icon: const Icon(Icons.home_outlined), label: Text('home'.tr())),
-              NavigationRailDestination(
-                  icon: const Icon(Icons.people_outline), label: Text('members.member.upper'.plural(2))),
+              NavigationRailDestination(icon: const Icon(Icons.movie), label: Text('projects.project.upper'.plural(2))),
+              NavigationRailDestination(icon: const Icon(Icons.people), label: Text('members.member.upper'.plural(2))),
               NavigationRailDestination(icon: const Icon(Icons.map), label: Text('locations.location.upper'.plural(2))),
               NavigationRailDestination(icon: const Icon(Icons.settings), label: Text('settings.settings'.tr())),
               NavigationRailDestination(icon: const Icon(Icons.info), label: Text('about.about'.tr())),
@@ -52,11 +44,7 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: IconButton(
-                      icon: const Icon(Icons.logout),
-                      onPressed: () {
-                        loginState.logout();
-                      }),
+                  child: IconButton(icon: const Icon(Icons.logout), onPressed: () => logout()),
                 ),
               ),
             ),
@@ -64,12 +52,18 @@ class _CustomNavigationRailState extends State<CustomNavigationRail> {
             onDestinationSelected: (int index) {
               setState(() {
                 _selectedIndex = index;
-                widget.onNavigate(_selectedIndex);
+                widget.navigate(_selectedIndex);
               });
             },
           ),
         ),
       ),
     );
+  }
+
+  Future<void> logout() async {
+    if (await Logout().confirm(context)) {
+      ref.read(authenticationProvider.notifier).logout();
+    }
   }
 }

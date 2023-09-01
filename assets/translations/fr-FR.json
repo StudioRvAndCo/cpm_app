@@ -1,7 +1,17 @@
 {
   "username": "Identifiant",
   "password": "Mot de passe",
-  "login": "Connexion",
+  "authentication": {
+    "login": {
+      "upper": "Connexion",
+      "lower": "connexion"
+    },
+    "logout": {
+      "upper": "Déconnexion",
+      "lower": "déconnexion"
+    },
+    "logout_confirmation": "Voulez-vous vraiment vous déconnecter ?"
+  },
   "home": "Accueil",
   "details": {
     "upper": {
@@ -199,22 +209,37 @@
     "line": {
       "upper": "Réplique",
       "lower": "réplique"
-    }
+    },
+    "label": {
+      "upper": "Label",
+      "lower": "label"
+    },
+    "url": "URL"
   },
   "snack_bars": {
     "project": {
       "added": "Le projet a été ajouté.",
       "not_added": "Le projet n'a pas pu être ajouté.",
-      "edited": "Le projet a été modifié.",
-      "not_edited": "Le projet n'a pas pu être modifié.",
       "deleted": "Le projet a été supprimé.",
-      "not_deleted": "Le projet n'a pas été supprimé."
+      "not_deleted": "Le projet n'a pas pu être supprimé."
     },
     "episode": {
       "added": "L'épisode a été ajouté.",
-      "not_added": "L'épisode n'a pas été ajouté.",
+      "not_added": "L'épisode n'a pas pu être ajouté.",
       "deleted": "L'épisode a été supprimé.",
-      "not_deleted": "L'épisode n'a pas été supprimé."
+      "not_deleted": "L'épisode n'a pas pu être supprimé."
+    },
+    "sequence": {
+      "added": "La séquence a été ajoutée.",
+      "not_added": "La séquence n'a pas pu être ajoutée.",
+      "deleted": "La séquence a été supprimée.",
+      "not_deleted": "La séquence n'a pas pu être supprimée."
+    },
+    "shot": {
+      "added": "Le plan a été ajouté.",
+      "not_added": "Le plan n'a pas pu être ajouté.",
+      "deleted": "Le plan a été supprimé.",
+      "not_deleted": "Le plan n'a pas pu être supprimé."
     },
     "location": {
       "added": "Le lieu a été ajouté.",
@@ -260,6 +285,22 @@
   "delete": {
     "upper": "Supprimer",
     "lower": "supprimer"
+  },
+  "remove": {
+    "upper": "Retirer",
+    "lower": "retirer"
+  },
+  "moveUp": {
+    "upper": "Monter",
+    "lower": "monter"
+  },
+  "moveDown": {
+    "upper": "Descendre",
+    "lower": "descendre"
+  },
+  "open": {
+    "upper": "Ouvrir",
+    "lower": "ouvrir"
   },
   "cancel": "Annuler",
   "confirm": "OK",

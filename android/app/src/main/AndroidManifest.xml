@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sandbox">
+    package="rvandco.cpm">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <queries>
@@ -14,7 +14,7 @@
     </queries>
     <application
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:label="Cinema Project Manager">
         <activity
             android:name=".MainActivity"
@@ -43,4 +43,3 @@
             android:value="2" />
     </application>
 </manifest>
-

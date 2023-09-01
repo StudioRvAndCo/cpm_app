@@ -117,5 +117,7 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 
-# Private settings
-assets/config/config.yaml
+# Setup files
+Cinema Project Manager-cache/
+setup/
+config.yaml

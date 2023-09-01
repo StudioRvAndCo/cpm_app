@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../main.dart';
+import '../../providers/authentication/authentication.dart';
+import 'logout.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
-    super.key,
-  });
+class CustomAppBar extends ConsumerStatefulWidget implements PreferredSizeWidget {
+  const CustomAppBar({super.key});
 
+  @override
+  ConsumerState<CustomAppBar> createState() => _CustomAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _CustomAppBarState extends ConsumerState<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -18,15 +26,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: const Center(child: Text('CPM')),
       actions: <IconButton>[
-        IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              loginState.logout();
-            }),
+        IconButton(icon: const Icon(Icons.logout), onPressed: () => logout()),
       ],
     );
   }
 
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Future<void> logout() async {
+    if (await Logout().confirm(context)) {
+      ref.read(authenticationProvider.notifier).logout();
+    }
+  }
 }

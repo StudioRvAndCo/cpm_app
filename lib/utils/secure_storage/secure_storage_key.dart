@@ -1,0 +1,4 @@
+enum SecureStorageKey {
+  apiToken,
+  ;
+}

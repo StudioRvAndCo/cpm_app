@@ -7,17 +7,6 @@ class RequestPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              placeholder,
-            ],
-          ),
-        ),
-      ],
-    );
+    return Center(child: placeholder);
   }
 }

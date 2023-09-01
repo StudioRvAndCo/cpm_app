@@ -2,9 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../models/member.dart';
-
-enum MenuAction { edit, delete }
+import '../../models/member/member.dart';
+import '../../utils/constants_globals.dart';
 
 class MemberTile extends StatefulWidget {
   const MemberTile({super.key, required this.member, required this.onEdit, required this.onDelete});
@@ -21,64 +20,59 @@ class MemberTile extends StatefulWidget {
 class _MemberTileState extends State<MemberTile> {
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: SizedBox(
-          width: 50,
-          height: 50,
-          child: Builder(builder: (BuildContext context) {
-            if (widget.member.image != null) {
-              return Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(fit: BoxFit.cover, image: widget.member.image!.image)));
-            } else {
-              return Container(
-                decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.primary),
-                child: Icon(
-                  Icons.person,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-              );
-            }
-          })),
-      title: Text(
-        '${widget.member.firstName} ${widget.member.lastName!.toUpperCase()}',
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: Text(
-        widget.member.phone!,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          IconButton(
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: ListTile(
+        leading: SizedBox(
+          height: double.infinity,
+          child: false
+              ? CircleAvatar(
+                  backgroundImage: NetworkImage(''), // No matter how big it is, it won't overflow
+                )
+              : Icon(Icons.person, color: Theme.of(context).iconTheme.color),
+        ),
+        title: Text(
+          widget.member.fullName,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: hasPhone()
+            ? Text(
+                widget.member.phone!,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              )
+            : null,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconButton(
               tooltip: 'members.call'.tr(),
               color: Theme.of(context).colorScheme.onBackground,
-              onPressed: checkPhone()
+              onPressed: hasPhone()
                   ? () {
                       launchUrl(Uri.parse('tel://${widget.member.phone}'));
                     }
                   : null,
-              icon: const Icon(Icons.phone)),
-          IconButton(
+              icon: const Icon(Icons.phone),
+            ),
+            IconButton(
               tooltip: 'members.message'.tr(),
               color: Theme.of(context).colorScheme.onBackground,
-              onPressed: checkPhone()
+              onPressed: hasPhone()
                   ? () {
                       launchUrl(Uri.parse('sms://${widget.member.phone}'));
                     }
                   : null,
-              icon: const Icon(Icons.message)),
-          PopupMenuButton<MenuAction>(
-            icon: Icon(
-              Icons.more_horiz,
-              color: Theme.of(context).colorScheme.onBackground,
+              icon: const Icon(Icons.message),
             ),
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuAction>>[
-              PopupMenuItem<MenuAction>(
+            PopupMenuButton<MenuAction>(
+              icon: Icon(
+                Icons.more_horiz,
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<MenuAction>>[
+                PopupMenuItem<MenuAction>(
                   value: MenuAction.edit,
                   child: ListTile(
                     leading: Icon(
@@ -86,8 +80,9 @@ class _MemberTileState extends State<MemberTile> {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text('edit.upper'.tr()),
-                  )),
-              PopupMenuItem<MenuAction>(
+                  ),
+                ),
+                PopupMenuItem<MenuAction>(
                   value: MenuAction.delete,
                   child: ListTile(
                     leading: Icon(
@@ -95,27 +90,31 @@ class _MemberTileState extends State<MemberTile> {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                     title: Text('delete.upper'.tr()),
-                  )),
-            ],
-            onSelected: (MenuAction action) {
-              setState(() {
-                switch (action) {
-                  case MenuAction.edit:
-                    widget.onEdit(widget.member);
-                    break;
-                  case MenuAction.delete:
-                    widget.onDelete(widget.member);
-                    break;
-                }
-              });
-            },
-          )
-        ],
+                  ),
+                ),
+              ],
+              onSelected: (MenuAction action) {
+                setState(() {
+                  switch (action) {
+                    case MenuAction.edit:
+                      widget.onEdit(widget.member);
+                      break;
+                    case MenuAction.delete:
+                      widget.onDelete(widget.member);
+                      break;
+                  }
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  bool checkPhone() {
-    return widget.member.phone != null && widget.member.phone != '';
+  bool hasPhone() {
+    String? phone = widget.member.phone;
+
+    return phone != null && phone.isNotEmpty;
   }
 }

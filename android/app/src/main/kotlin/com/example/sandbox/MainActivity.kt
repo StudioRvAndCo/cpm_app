@@ -1,4 +1,4 @@
-package com.example.sandbox
+package rvandco.cpm
 
 import io.flutter.embedding.android.FlutterActivity
 
