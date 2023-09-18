@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Themes {
   ThemeData light = ThemeData(
@@ -38,4 +39,36 @@ class Themes {
     ),
     useMaterial3: true,
   );
+
+  void setSystemUIOverlayStyle(BuildContext context) {
+    Theme.of(context).brightness == Brightness.light
+        ? _setLightSystemUIOverlayStyle(context)
+        : _setDarkSystemUIOverlayStyle(context);
+  }
+
+  void _setLightSystemUIOverlayStyle(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.light,
+        statusBarColor: Theme.of(context).colorScheme.background,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Theme.of(context).colorScheme.background,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
+  }
+
+  void _setDarkSystemUIOverlayStyle(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+        statusBarColor: Theme.of(context).colorScheme.background,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Theme.of(context).colorScheme.background,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
 }

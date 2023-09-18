@@ -16,7 +16,13 @@ class Authentication extends _$Authentication with BaseProvider {
 
   Future<bool> login(String email, String password) async {
     state = const AsyncLoading<bool>();
-    bool logged = await authenticationService.login(email, password);
+
+    bool logged;
+    try {
+      logged = await authenticationService.login(email, password);
+    } catch (_) {
+      logged = false;
+    }
     state = AsyncValue<bool>.data(logged);
 
     return logged;

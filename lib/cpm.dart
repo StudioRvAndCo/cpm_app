@@ -16,6 +16,8 @@ class CPM extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Themes().setSystemUIOverlayStyle(context);
+
     return CalendarControllerProvider<Event>(
       controller: EventController<Event>(),
       child: ref.watch(themeProvider).when(
