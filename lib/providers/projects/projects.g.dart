@@ -6,7 +6,7 @@ part of 'projects.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$projectsHash() => r'7b060d7d0adc9b5a7954a4cfed2ce3c1169d49cf';
+String _$projectsHash() => r'cc863fc7730f025d8c6785d67aff5fa0012d3b08';
 
 /// See also [Projects].
 @ProviderFor(Projects)
@@ -33,4 +33,4 @@ final currentProjectProvider = AsyncNotifierProvider<CurrentProject, Project>.in
 
 typedef _$CurrentProject = AsyncNotifier<Project>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

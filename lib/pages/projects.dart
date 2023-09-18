@@ -42,7 +42,7 @@ class ProjectsState extends ConsumerState<Projects> {
                       padding:
                           const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64, top: 4, left: 4, right: 4),
                       itemBuilder: (BuildContext context, int index) {
-                        return ProjectCard(project: projects[index]);
+                        return ProjectCard(key: UniqueKey(), project: projects[index]);
                       },
                       crossAxisCount: getColumnsCount(constraints),
                       mainAxisSpacing: 2,

@@ -6,6 +6,7 @@ import '../../models/project/project.dart';
 import '../../providers/navigation/navigation.dart';
 import '../../providers/projects/projects.dart';
 import '../../utils/constants_globals.dart';
+import '../../utils/favorites/Favorites.dart';
 
 class ProjectCard extends ConsumerStatefulWidget {
   const ProjectCard({super.key, required this.project});
@@ -17,7 +18,13 @@ class ProjectCard extends ConsumerStatefulWidget {
 }
 
 class _ProjectCardState extends ConsumerState<ProjectCard> {
-  Icon favoriteIcon = const Icon(Icons.star_border);
+  late Icon favoriteIcon;
+
+  @override
+  void initState() {
+    super.initState();
+    favoriteIcon = Icon(Favorites().isFavorite(widget.project.getId) ? Icons.star : Icons.star_border);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +60,14 @@ class _ProjectCardState extends ConsumerState<ProjectCard> {
                 ),
               ),
               const Padding(padding: EdgeInsets.only(right: 16)),
-              IconButton(onPressed: () => toggleFavorite(widget.project), icon: favoriteIcon),
-              IconButton(onPressed: () => openPlanning(widget.project), icon: const Icon(Icons.event)),
+              IconButton(
+                onPressed: () => toggleFavorite(widget.project),
+                icon: favoriteIcon,
+              ),
+              IconButton(
+                onPressed: () => openPlanning(widget.project),
+                icon: const Icon(Icons.event),
+              ),
             ]),
             const SizedBox(height: 8),
             LinearProgressIndicator(value: widget.project.progress),
@@ -78,11 +91,10 @@ class _ProjectCardState extends ConsumerState<ProjectCard> {
   }
 
   void toggleFavorite(Project project) {
-    project.toggleFavorite();
+    Favorites().isFavorite(project.getId) ? Favorites().remove(project.getId) : Favorites().add(project.getId);
     setState(() {
-      favoriteIcon = widget.project.favorite
-          ? Icon(Icons.star, color: Theme.of(context).colorScheme.primary)
-          : const Icon(Icons.star_border);
+      favoriteIcon = Icon(Favorites().isFavorite(widget.project.getId) ? Icons.star : Icons.star_border);
     });
+    ref.read(projectsProvider.notifier).get(true);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cpm/utils/config/config_key.dart';
+import 'package:cpm/utils/favorites/Favorites.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   EasyLocalization.logger.enableLevels = [LevelMessages.error, LevelMessages.warning];
   await Config().init();
+  await Favorites().init();
   await Supabase.initialize(
     url: Config().get<String>(ConfigKey.supabaseUrl),
     anonKey: Config().get<String>(ConfigKey.supabaseAnonKey),

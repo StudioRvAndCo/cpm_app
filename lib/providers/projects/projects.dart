@@ -21,9 +21,15 @@ class Projects extends _$Projects with BaseProvider {
     return <Project>[];
   }
 
-  Future<void> get() async {
-    state = const AsyncLoading<List<Project>>();
-    List<Project> projects = await selectProjectService.selectProjects();
+  Future<void> get([bool sortOnly = false]) async {
+    List<Project> projects;
+    if (sortOnly) {
+      projects = (state.value ?? [])..sort();
+    } else {
+      state = const AsyncLoading<List<Project>>();
+      projects = await selectProjectService.selectProjects()
+        ..sort();
+    }
     state = AsyncData<List<Project>>(projects);
   }
 
