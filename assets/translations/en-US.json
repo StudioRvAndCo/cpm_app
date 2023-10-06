@@ -203,17 +203,17 @@
       "lower": "description"
     },
     "values": {
-      "full": "Full shot",
-      "medium_full": "Medium full shot",
-      "cowboy": "Cowboy shot",
-      "medium": "Medium shot",
-      "medium_closeup": "Medium closeup shot",
-      "closeup": "Closeup shot",
-      "extreme_closeup": "Extreme closeup shot",
-      "insert": "Insert shot",
-      "sequence": "Sequence shot",
-      "landscape": "Landscape shot",
-      "drone": "Drone shot",
+      "full": "Full",
+      "medium_full": "Medium full",
+      "cowboy": "Cowboy",
+      "medium": "Medium",
+      "medium_closeup": "Medium closeup",
+      "closeup": "Closeup",
+      "extreme_closeup": "Extreme closeup",
+      "insert": "Insert",
+      "sequence": "Sequence",
+      "landscape": "Landscape",
+      "drone": "Drone",
       "other": "Other"
     },
     "line": {

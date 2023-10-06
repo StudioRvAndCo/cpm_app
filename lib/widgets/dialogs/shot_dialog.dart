@@ -1,4 +1,5 @@
 import 'package:cpm/models/shot/shot.dart';
+import 'package:cpm/models/shot/shot_value.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -14,20 +15,7 @@ class ShotDialog extends StatefulWidget {
 
 class _ShotDialogState extends State<ShotDialog> {
   TextEditingController descriptionController = TextEditingController();
-  final List<String> values = <String>[
-    'attributes.values.full'.tr(),
-    'attributes.values.medium_full'.tr(),
-    'attributes.values.cowboy'.tr(),
-    'attributes.values.medium'.tr(),
-    'attributes.values.medium_closeup'.tr(),
-    'attributes.values.closeup'.tr(),
-    'attributes.values.extreme_closeup'.tr(),
-    'attributes.values.insert'.tr(),
-    'attributes.values.sequence'.tr(),
-    'attributes.values.landscape'.tr(),
-    'attributes.values.drone'.tr(),
-    'attributes.values.other'.tr(),
-  ];
+  final List<String> values = ShotValue.labels();
   String? selectedValue;
 
   @override
@@ -123,7 +111,7 @@ class _ShotDialogState extends State<ShotDialog> {
     final Shot newShot = Shot.insert(
       sequence: widget.sequence,
       index: widget.index,
-      value: selectedValue,
+      value: ShotValue.fromString(selectedValue),
       description: descriptionController.text,
     );
     Navigator.pop(context, newShot);

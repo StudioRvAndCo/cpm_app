@@ -52,16 +52,37 @@ class Shots extends _$Shots with BaseProvider {
   Future<void> edit(Shot editedShot) async {
     await updateService.update(table, editedShot);
     state = AsyncData<List<Shot>>(<Shot>[
-      for (final Shot episode in state.value ?? <Shot>[])
-        if (episode.id != editedShot.id) episode else editedShot,
+      for (final Shot shot in state.value ?? <Shot>[])
+        if (shot.id != editedShot.id) shot else editedShot,
+    ]);
+  }
+
+  Future<void> toggleCompletion(Shot toToggleShot) async {
+    toToggleShot.completed = !toToggleShot.completed;
+    await updateService.update(table, toToggleShot);
+    state = AsyncData<List<Shot>>(<Shot>[
+      for (final Shot shot in state.value ?? <Shot>[])
+        if (shot.id != toToggleShot.id) shot else toToggleShot,
     ]);
   }
 
   Future<void> delete(int id) async {
     await deleteService.delete(table, id);
     state = AsyncData<List<Shot>>(<Shot>[
-      for (final Shot episode in state.value ?? <Shot>[])
-        if (episode.id != id) episode,
+      for (final Shot shot in state.value ?? <Shot>[])
+        if (shot.id != id) shot,
     ]);
+  }
+}
+
+@Riverpod(keepAlive: true)
+class CurrentShot extends _$CurrentShot {
+  @override
+  FutureOr<Shot> build() {
+    return Future.value(null);
+  }
+
+  void set(Shot shot) {
+    state = AsyncData<Shot>(shot);
   }
 }

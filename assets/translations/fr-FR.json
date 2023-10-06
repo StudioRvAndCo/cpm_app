@@ -193,17 +193,17 @@
       "lower": "description"
     },
     "values": {
-      "full": "Plan large",
-      "medium_full": "Plan italien",
-      "cowboy": "Plan américain",
-      "medium": "Plan taille",
-      "medium_closeup": "Plan poitrine",
+      "full": "Large",
+      "medium_full": "Italien",
+      "cowboy": "Américain",
+      "medium": "Taille",
+      "medium_closeup": "Poitrine",
       "closeup": "Gros plan",
       "extreme_closeup": "Très gros plan",
-      "insert": "Plan d'insert",
-      "sequence": "Plan séquence",
-      "landscape": "Plan paysage",
-      "drone": "Plan drone",
+      "insert": "Insert",
+      "sequence": "Séquence",
+      "landscape": "Paysage",
+      "drone": "Drone",
       "other": "Autre"
     },
     "line": {

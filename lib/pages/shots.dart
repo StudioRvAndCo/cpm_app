@@ -46,12 +46,9 @@ class _ShotsState extends ConsumerState<Shots> {
                           itemBuilder: (BuildContext context, int index) {
                             return ShotCard(
                               shot: shots[index],
-                              onPressed: () {
-                                // TODO
-                              },
                             );
                           },
-                          crossAxisCount: getColumnsCount(constraints),
+                          crossAxisCount: 1,
                           mainAxisSpacing: 2,
                           crossAxisSpacing: 2,
                         );

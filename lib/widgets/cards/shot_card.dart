@@ -1,148 +1,105 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:cpm/models/shot/shot.dart';
+import 'package:cpm/providers/shots/shots.dart';
+import 'package:cpm/widgets/info_sheets/shot_info_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../models/shot/shot.dart';
-
-class ShotCard extends StatefulWidget {
-  const ShotCard({super.key, required this.onPressed, required this.shot});
-
-  final Function onPressed;
+class ShotCard extends ConsumerStatefulWidget {
+  const ShotCard({super.key, required this.shot});
 
   final Shot shot;
 
   @override
-  State<StatefulWidget> createState() => _ShotCardState();
+  ConsumerState<ShotCard> createState() => _ShotCardState();
 }
 
-class _ShotCardState extends State<ShotCard> {
+class _ShotCardState extends ConsumerState<ShotCard> {
+  late bool completed;
+
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Visibility(
-        visible: widget.shot.completed,
-        replacement: CollapsedShotCard(
-          widget: widget,
-          onPressed: widget.onPressed,
-          onCheck: onCheck,
-        ),
-        child: CompactShotCard(
-          widget: widget,
-          onPressed: widget.onPressed,
-          onCheck: onCheck,
-        ),
-      ),
+  void initState() {
+    super.initState();
+    completed = widget.shot.completed;
+  }
+
+  void _showDetails() {
+    ref.read(currentShotProvider.notifier).set(widget.shot);
+    showModalBottomSheet(
+      context: context,
+      clipBehavior: Clip.hardEdge,
+      builder: (context) {
+        return const ShotInfoSheet();
+      },
     );
   }
 
-  void onCheck(bool? value) {
-    if (value != null) {
-      setState(() {
-        widget.shot.completed = !widget.shot.completed;
-      });
-    }
+  void _toggleCompletion() {
+    ref.read(shotsProvider.notifier).toggleCompletion(widget.shot);
+
+    setState(() {
+      completed = !completed;
+    });
   }
-}
-
-class CompactShotCard extends StatelessWidget {
-  const CompactShotCard({super.key, required this.widget, required this.onPressed, required this.onCheck});
-
-  final ShotCard widget;
-  final void Function(bool?) onCheck;
-  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: 0.5,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        ),
-        onPressed: () {
-          // TODO: handle shot click
-        },
+    Color? cardColor;
+    if (completed) {
+      cardColor = Theme.of(context).brightness == Brightness.light
+          ? Colors.green.shade200
+          : Colors.green.shade900.withOpacity(0.75);
+    }
+
+    return Card(
+      clipBehavior: Clip.hardEdge,
+      color: cardColor,
+      child: InkWell(
+        onTap: _showDetails,
+        onLongPress: _toggleCompletion,
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-            Row(children: <Widget>[
-              Container(
-                width: 30,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.tertiary,
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                ),
-                child: Text(
-                  widget.shot.number.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onTertiary,
+          child: InkWell(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Badge(
+                            label: Text(widget.shot.getNumber),
+                            backgroundColor: Theme.of(context).colorScheme.secondary,
+                            textColor: Theme.of(context).colorScheme.onSecondary,
+                          ),
+                          const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
+                          Badge(
+                            label: Text(widget.shot.getValue),
+                            backgroundColor: widget.shot.value?.color,
+                            textColor: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                        ],
+                      ),
+                      if (widget.shot.getDescription.isNotEmpty) ...[
+                        const Padding(padding: EdgeInsets.symmetric(vertical: 4)),
+                        Text(
+                          widget.shot.getDescription,
+                          maxLines: completed ? 1 : 5,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ],
                   ),
                 ),
-              ),
-              const Padding(padding: EdgeInsets.only(right: 12)),
-              Checkbox(value: widget.shot.completed, onChanged: onCheck),
-            ]),
-          ]),
-        ),
-      ),
-    );
-  }
-}
-
-class CollapsedShotCard extends StatelessWidget {
-  const CollapsedShotCard({super.key, required this.widget, required this.onPressed, required this.onCheck});
-
-  final ShotCard widget;
-  final void Function(bool?) onCheck;
-  final Function onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      ),
-      onPressed: () => debugPrint('click shot'),
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Row(children: <Widget>[
-            Container(
-              width: 30,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                borderRadius: const BorderRadius.all(Radius.circular(15)),
-              ),
-              child: Text(
-                widget.shot.number.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onSecondary,
+                IconButton(
+                  onPressed: _toggleCompletion,
+                  icon: Icon(widget.shot.completed ? Icons.remove_done : Icons.done_all),
                 ),
-              ),
+              ],
             ),
-            const Padding(padding: EdgeInsets.only(right: 12)),
-            Checkbox(value: widget.shot.completed, onChanged: onCheck),
-          ]),
-          Text(
-            widget.shot.value ?? 'shots.value.no_value'.tr(),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
           ),
-          Text(
-            widget.shot.description ?? '',
-            style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ]),
+        ),
       ),
     );
   }
