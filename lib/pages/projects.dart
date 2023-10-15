@@ -8,8 +8,9 @@ import '../models/project/project.dart';
 import '../providers/navigation/navigation.dart';
 import '../providers/projects/projects.dart';
 import '../utils/constants_globals.dart';
+import '../utils/snack_bar_manager/custom_snack_bar.dart';
+import '../utils/snack_bar_manager/snack_bar_manager.dart';
 import '../widgets/cards/project_card.dart';
-import '../widgets/custom_snack_bars.dart';
 import '../widgets/dialogs/project_dialog.dart';
 import 'episodes.dart';
 import 'sequences.dart';
@@ -79,11 +80,10 @@ class ProjectsState extends ConsumerState<Projects> {
       },
     );
     if (project is Project) {
-      ref.read(projectsProvider.notifier).add(project);
-      if (true) {
-        final String message = true ? 'snack_bars.episode.deleted'.tr() : 'snack_bars.episode.not_deleted'.tr();
-        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBars().getModelSnackBar(context, true));
-      }
+      final added = await ref.read(projectsProvider.notifier).add(project);
+      SnackBarManager().show(added
+          ? CustomSnackBar.getInfoSnackBar('snack_bars.project.added'.tr())
+          : CustomSnackBar.getErrorSnackBar('snack_bars.project.not_added'.tr()));
     }
   }
 }

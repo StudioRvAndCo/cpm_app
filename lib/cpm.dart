@@ -2,6 +2,7 @@ import 'package:cpm/pages/home.dart';
 import 'package:cpm/pages/login.dart';
 import 'package:cpm/providers/authentication/authentication.dart';
 import 'package:cpm/providers/theme/theme.dart';
+import 'package:cpm/utils/constants_globals.dart';
 import 'package:cpm/utils/themes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class CPM extends ConsumerWidget {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
+          navigatorKey: navigatorKey,
         );
       },
       error: (Object error, StackTrace stackTrace) {

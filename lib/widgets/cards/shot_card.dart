@@ -1,8 +1,12 @@
 import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/providers/shots/shots.dart';
 import 'package:cpm/widgets/info_sheets/shot_info_sheet.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../utils/snack_bar_manager/custom_snack_bar.dart';
+import '../../utils/snack_bar_manager/snack_bar_manager.dart';
 
 class ShotCard extends ConsumerStatefulWidget {
   const ShotCard({super.key, required this.shot});
@@ -33,8 +37,11 @@ class _ShotCardState extends ConsumerState<ShotCard> {
     );
   }
 
-  void _toggleCompletion() {
-    ref.read(shotsProvider.notifier).toggleCompletion(widget.shot);
+  Future<void> _toggleCompletion() async {
+    final toggled = await ref.read(shotsProvider.notifier).toggleCompletion(widget.shot);
+    if (!toggled) {
+      SnackBarManager().show(CustomSnackBar.getErrorSnackBar('snack_bars.shot.not_edited'.tr()));
+    }
 
     setState(() {
       completed = !completed;
@@ -55,7 +62,7 @@ class _ShotCardState extends ConsumerState<ShotCard> {
       color: cardColor,
       child: InkWell(
         onTap: _showDetails,
-        onLongPress: _toggleCompletion,
+        onLongPress: () => _toggleCompletion(),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: InkWell(
@@ -93,7 +100,7 @@ class _ShotCardState extends ConsumerState<ShotCard> {
                   ),
                 ),
                 IconButton(
-                  onPressed: _toggleCompletion,
+                  onPressed: () => _toggleCompletion(),
                   icon: Icon(widget.shot.completed ? Icons.remove_done : Icons.done_all),
                 ),
               ],

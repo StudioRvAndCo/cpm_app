@@ -69,36 +69,58 @@ class Sequences extends _$Sequences with BaseProvider {
     );
   }
 
-  Future<void> add(Sequence newSequence, [int? locationId]) async {
-    Sequence createdSequence = await insertService.insertAndReturn(table, newSequence, Sequence.fromJson);
-    if (locationId != null) {
-      await _setLocation(createdSequence.id, locationId);
+  Future<bool> add(Sequence newSequence, [int? locationId]) async {
+    try {
+      Sequence createdSequence = await insertService.insertAndReturn(table, newSequence, Sequence.fromJson);
+      if (locationId != null) {
+        await _setLocation(createdSequence.id, locationId);
+      }
+    } catch (_) {
+      return false;
     }
     await get();
+
+    return true;
   }
 
-  Future<void> edit(Sequence editedSequence, int? locationId) async {
-    await updateService.update(table, editedSequence);
+  Future<bool> edit(Sequence editedSequence, int? locationId) async {
+    try {
+      await updateService.update(table, editedSequence);
+    } catch (_) {
+      return false;
+    }
     if (locationId != null) {
       SequenceLocation newSequenceLocation = SequenceLocation.insert(
         sequence: editedSequence.id,
         location: locationId,
       );
-      await _updateLocation(newSequenceLocation);
+      try {
+        await _updateLocation(newSequenceLocation);
+      } catch (_) {
+        return false;
+      }
     } else {
       state = AsyncData<List<Sequence>>(<Sequence>[
         for (final Sequence sequence in state.value ?? <Sequence>[])
           if (sequence.id != editedSequence.id) sequence else editedSequence,
       ]);
     }
+
+    return true;
   }
 
-  Future<void> delete(int? id) async {
-    await deleteService.delete(table, id);
+  Future<bool> delete(int? id) async {
+    try {
+      await deleteService.delete(table, id);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Sequence>>(<Sequence>[
       for (final Sequence sequence in state.value ?? <Sequence>[])
         if (sequence.id != id) sequence,
     ]);
+
+    return true;
   }
 
   Future<void> _setLocation(int sequenceId, int locationId) async {

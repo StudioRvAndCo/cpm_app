@@ -11,8 +11,9 @@ import '../providers/projects/projects.dart';
 import '../providers/sequences/sequences.dart';
 import '../providers/shots/shots.dart';
 import '../utils/constants_globals.dart';
+import '../utils/snack_bar_manager/custom_snack_bar.dart';
+import '../utils/snack_bar_manager/snack_bar_manager.dart';
 import '../widgets/cards/shot_card.dart';
-import '../widgets/custom_snack_bars.dart';
 import '../widgets/dialogs/shot_dialog.dart';
 import '../widgets/info_headers/sequence_info_header.dart';
 
@@ -42,7 +43,11 @@ class _ShotsState extends ConsumerState<Shots> {
                         return MasonryGridView.count(
                           itemCount: shots.length,
                           padding: const EdgeInsets.only(
-                              bottom: kFloatingActionButtonMargin + 64, top: 4, left: 4, right: 4),
+                            bottom: kFloatingActionButtonMargin + 64,
+                            top: 4,
+                            left: 4,
+                            right: 4,
+                          ),
                           itemBuilder: (BuildContext context, int index) {
                             return ShotCard(
                               shot: shots[index],
@@ -97,11 +102,10 @@ class _ShotsState extends ConsumerState<Shots> {
     );
 
     if (newShot is Shot) {
-      await ref.read(shotsProvider.notifier).add(newShot);
-      if (true) {
-        final String message = true ? 'snack_bars.episode.deleted'.tr() : 'snack_bars.episode.not_deleted'.tr();
-        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBars().getModelSnackBar(context, true));
-      }
+      final added = await ref.read(shotsProvider.notifier).add(newShot);
+      SnackBarManager().show(added
+          ? CustomSnackBar.getInfoSnackBar('snack_bars.shot.added'.tr())
+          : CustomSnackBar.getErrorSnackBar('snack_bars.shot.not_added'.tr()));
     }
   }
 }

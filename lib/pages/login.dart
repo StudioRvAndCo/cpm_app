@@ -1,7 +1,8 @@
 import 'package:cpm/extensions/string_validators.dart';
 import 'package:cpm/providers/authentication/authentication.dart';
 import 'package:cpm/utils/constants_globals.dart';
-import 'package:cpm/widgets/custom_snack_bars.dart';
+import 'package:cpm/utils/snack_bar_manager/custom_snack_bar.dart';
+import 'package:cpm/utils/snack_bar_manager/snack_bar_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,10 +37,8 @@ class _LoginState extends ConsumerState<Login> {
           usernameController.text,
           passwordController.text,
         );
-    if (!logged && scaffoldMessengerKey.currentContext != null && context.mounted) {
-      ScaffoldMessenger.of(scaffoldMessengerKey.currentContext!).showSnackBar(
-        CustomSnackBars().getLoginSnackBar(),
-      );
+    if (!logged) {
+      SnackBarManager().show(CustomSnackBar.getErrorSnackBar('Login failed.'));
     }
   }
 
@@ -47,7 +46,6 @@ class _LoginState extends ConsumerState<Login> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        key: scaffoldMessengerKey,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

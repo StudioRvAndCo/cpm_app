@@ -8,7 +8,8 @@ import '../../providers/navigation/navigation.dart';
 import '../../providers/projects/projects.dart';
 import '../../providers/sequences/sequences.dart';
 import '../../utils/constants_globals.dart';
-import '../custom_snack_bars.dart';
+import '../../utils/snack_bar_manager/custom_snack_bar.dart';
+import '../../utils/snack_bar_manager/snack_bar_manager.dart';
 import '../dialogs/confirm_dialog.dart';
 import '../icon_label.dart';
 import '../info_sheets/sequence_info_sheet.dart';
@@ -102,11 +103,10 @@ class _InfoHeaderSequenceState extends ConsumerState<SequenceInfoHeader> {
 
     showConfirmationDialog(context, 'delete.lower'.tr()).then((bool? result) async {
       if (result ?? false) {
-        await ref.read(sequencesProvider.notifier).delete(sequence.id);
-        if (true) {
-          final String message = true ? 'snack_bars.episode.deleted'.tr() : 'snack_bars.episode.not_deleted'.tr();
-          ScaffoldMessenger.of(context).showSnackBar(CustomSnackBars().getModelSnackBar(context, true));
-        }
+        final deleted = await ref.read(sequencesProvider.notifier).delete(sequence.id);
+        SnackBarManager().show(deleted
+            ? CustomSnackBar.getInfoSnackBar('snack_bars.sequence.added'.tr())
+            : CustomSnackBar.getErrorSnackBar('snack_bars.sequence.not_added'.tr()));
         ref.read(navigationProvider.notifier).set(HomePage.episodes);
       }
     });

@@ -57,25 +57,43 @@ class Episodes extends _$Episodes with BaseProvider {
     ref.read(currentEpisodeProvider.notifier).set(episodes);
   }
 
-  Future<void> add(Episode newEpisode) async {
-    await insertService.insert(table, newEpisode);
+  Future<bool> add(Episode newEpisode) async {
+    try {
+      await insertService.insert(table, newEpisode);
+    } catch (_) {
+      return false;
+    }
     await get();
+
+    return true;
   }
 
-  Future<void> edit(Episode editedEpisode) async {
-    await updateService.update(table, editedEpisode);
+  Future<bool> edit(Episode editedEpisode) async {
+    try {
+      await updateService.update(table, editedEpisode);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Episode>>(<Episode>[
       for (final Episode episode in state.value ?? <Episode>[])
         if (episode.id != editedEpisode.id) episode else editedEpisode,
     ]);
+
+    return true;
   }
 
-  Future<void> delete(int? id) async {
-    await deleteService.delete(table, id);
+  Future<bool> delete(int? id) async {
+    try {
+      await deleteService.delete(table, id);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Episode>>(<Episode>[
       for (final Episode episode in state.value ?? <Episode>[])
         if (episode.id != id) episode,
     ]);
+
+    return true;
   }
 }
 

@@ -25,24 +25,42 @@ class Locations extends _$Locations with BaseProvider {
     state = AsyncData<List<Location>>(locations);
   }
 
-  Future<void> add(Location newLocation) async {
-    await insertService.insert(table, newLocation);
-    await get(); // Get the locations in order to get the new location's ID
+  Future<bool> add(Location newLocation) async {
+    try {
+      await insertService.insert(table, newLocation);
+    } catch (_) {
+      return false;
+    }
+    await get();
+
+    return true;
   }
 
-  Future<void> edit(Location editedLocation) async {
-    await updateService.update(table, editedLocation);
+  Future<bool> edit(Location editedLocation) async {
+    try {
+      await updateService.update(table, editedLocation);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Location>>(<Location>[
       for (final Location location in state.value ?? <Location>[])
         if (location.id != editedLocation.id) location else editedLocation,
     ]);
+
+    return true;
   }
 
-  Future<void> delete(int id) async {
-    await deleteService.delete(table, id);
+  Future<bool> delete(int id) async {
+    try {
+      await deleteService.delete(table, id);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Location>>(<Location>[
       for (final Location location in state.value ?? <Location>[])
         if (location.id != id) location,
     ]);
+
+    return true;
   }
 }

@@ -33,30 +33,48 @@ class Projects extends _$Projects with BaseProvider {
     state = AsyncData<List<Project>>(projects);
   }
 
-  Future<void> add(Project newProject) async {
-    if (newProject.isMovie) {
-      Project project = await insertService.insertAndReturn<Project>(table, newProject, Project.fromJson);
-      await insertService.insert(SupabaseTable.episode, Episode.movie(project: project.id));
-    } else {
-      await insertService.insert(table, newProject);
+  Future<bool> add(Project newProject) async {
+    try {
+      if (newProject.isMovie) {
+        Project project = await insertService.insertAndReturn<Project>(table, newProject, Project.fromJson);
+        await insertService.insert(SupabaseTable.episode, Episode.movie(project: project.id));
+      } else {
+        await insertService.insert(table, newProject);
+      }
+    } catch (_) {
+      return false;
     }
     await get();
+
+    return true;
   }
 
-  Future<void> edit(Project editedProject) async {
-    await updateService.update(table, editedProject);
+  Future<bool> edit(Project editedProject) async {
+    try {
+      await updateService.update(table, editedProject);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Project>>(<Project>[
       for (final Project project in state.value ?? <Project>[])
         if (project.id != editedProject.id) project else editedProject,
     ]);
+
+    return true;
   }
 
-  Future<void> delete(int? id) async {
-    await deleteService.delete(table, id);
+  Future<bool> delete(int? id) async {
+    try {
+      await deleteService.delete(table, id);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Project>>(<Project>[
       for (final Project project in state.value ?? <Project>[])
         if (project.id != id) project,
     ]);
+
+    return true;
   }
 }
 

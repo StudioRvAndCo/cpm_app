@@ -34,7 +34,7 @@ const Divider divider = Divider(height: 0, thickness: 1, indent: 16, endIndent: 
 final GlobalKey<ProjectsState> projectsStateKey = GlobalKey();
 final GlobalKey<EpisodesState> episodesStateKey = GlobalKey();
 
-final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 int getColumnsCount(BoxConstraints constraints) {
   if (constraints.maxWidth < 750) {

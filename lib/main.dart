@@ -1,5 +1,5 @@
 import 'package:cpm/utils/config/config_key.dart';
-import 'package:cpm/utils/favorites/Favorites.dart';
+import 'package:cpm/utils/favorites/favorites.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
 import 'package:flutter/material.dart';

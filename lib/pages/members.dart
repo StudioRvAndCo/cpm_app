@@ -6,7 +6,8 @@ import '../exceptions/invalid_direction.dart';
 import '../models/member/member.dart';
 import '../providers/members/members.dart';
 import '../utils/constants_globals.dart';
-import '../widgets/custom_snack_bars.dart';
+import '../utils/snack_bar_manager/custom_snack_bar.dart';
+import '../utils/snack_bar_manager/snack_bar_manager.dart';
 import '../widgets/dialogs/confirm_dialog.dart';
 import '../widgets/dialogs/member_dialog.dart';
 import '../widgets/tiles/member_tile.dart';
@@ -109,11 +110,10 @@ class _MembersState extends ConsumerState<Members> {
       },
     );
     if (member is Member) {
-      await ref.read(membersProvider.notifier).add(member);
-      if (true) {
-        final String message = true ? 'snack_bars.episode.deleted'.tr() : 'snack_bars.episode.not_deleted'.tr();
-        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBars().getModelSnackBar(context, true));
-      }
+      final added = await ref.read(membersProvider.notifier).add(member);
+      SnackBarManager().show(added
+          ? CustomSnackBar.getInfoSnackBar('snack_bars.member.added'.tr())
+          : CustomSnackBar.getErrorSnackBar('snack_bars.member.not_added'.tr()));
     }
   }
 
@@ -125,19 +125,17 @@ class _MembersState extends ConsumerState<Members> {
       },
     );
     if (editedMember is Member) {
-      await ref.read(membersProvider.notifier).edit(editedMember);
-      if (true) {
-        final String message = true ? 'snack_bars.episode.deleted'.tr() : 'snack_bars.episode.not_deleted'.tr();
-        ScaffoldMessenger.of(context).showSnackBar(CustomSnackBars().getModelSnackBar(context, true));
-      }
+      final edited = await ref.read(membersProvider.notifier).edit(editedMember);
+      SnackBarManager().show(edited
+          ? CustomSnackBar.getInfoSnackBar('snack_bars.member.edited'.tr())
+          : CustomSnackBar.getErrorSnackBar('snack_bars.member.not_edited'.tr()));
     }
   }
 
   Future<void> delete(Member member) async {
-    await ref.read(membersProvider.notifier).delete(member.id);
-    if (true) {
-      final String message = true ? 'snack_bars.episode.deleted'.tr() : 'snack_bars.episode.not_deleted'.tr();
-      ScaffoldMessenger.of(context).showSnackBar(CustomSnackBars().getModelSnackBar(context, true));
-    }
+    final deleted = await ref.read(membersProvider.notifier).delete(member.id);
+    SnackBarManager().show(deleted
+        ? CustomSnackBar.getInfoSnackBar('snack_bars.member.deleted'.tr())
+        : CustomSnackBar.getErrorSnackBar('snack_bars.member.not_deleted'.tr()));
   }
 }

@@ -25,24 +25,42 @@ class Members extends _$Members with BaseProvider {
     state = AsyncData<List<Member>>(members);
   }
 
-  Future<void> add(Member newMember) async {
-    await insertService.insert(table, newMember);
-    await get(); // Get the members in order to get the new member's ID
+  Future<bool> add(Member newMember) async {
+    try {
+      await insertService.insert(table, newMember);
+    } catch (_) {
+      return false;
+    }
+    await get();
+
+    return true;
   }
 
-  Future<void> edit(Member editedMember) async {
-    await updateService.update(table, editedMember);
+  Future<bool> edit(Member editedMember) async {
+    try {
+      await updateService.update(table, editedMember);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Member>>(<Member>[
       for (final Member member in state.value ?? <Member>[])
         if (member.id != editedMember.id) member else editedMember,
     ]);
+
+    return true;
   }
 
-  Future<void> delete(int id) async {
-    await deleteService.delete(table, id);
+  Future<bool> delete(int id) async {
+    try {
+      await deleteService.delete(table, id);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Member>>(<Member>[
       for (final Member members in state.value ?? <Member>[])
         if (members.id != id) members,
     ]);
+
+    return true;
   }
 }

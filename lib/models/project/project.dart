@@ -1,7 +1,7 @@
 import 'package:cpm/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../utils/favorites/Favorites.dart';
+import '../../utils/favorites/favorites.dart';
 import 'link.dart';
 import 'project_type.dart';
 

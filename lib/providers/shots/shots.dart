@@ -44,34 +44,58 @@ class Shots extends _$Shots with BaseProvider {
     );
   }
 
-  Future<void> add(Shot newShot) async {
-    await insertService.insert(table, newShot);
+  Future<bool> add(Shot newShot) async {
+    try {
+      await insertService.insert(table, newShot);
+    } catch (_) {
+      return false;
+    }
     await get();
+
+    return true;
   }
 
-  Future<void> edit(Shot editedShot) async {
-    await updateService.update(table, editedShot);
+  Future<bool> edit(Shot editedShot) async {
+    try {
+      await updateService.update(table, editedShot);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Shot>>(<Shot>[
       for (final Shot shot in state.value ?? <Shot>[])
         if (shot.id != editedShot.id) shot else editedShot,
     ]);
+
+    return true;
   }
 
-  Future<void> toggleCompletion(Shot toToggleShot) async {
+  Future<bool> toggleCompletion(Shot toToggleShot) async {
     toToggleShot.completed = !toToggleShot.completed;
-    await updateService.update(table, toToggleShot);
+    try {
+      await updateService.update(table, toToggleShot);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Shot>>(<Shot>[
       for (final Shot shot in state.value ?? <Shot>[])
         if (shot.id != toToggleShot.id) shot else toToggleShot,
     ]);
+
+    return true;
   }
 
-  Future<void> delete(int id) async {
-    await deleteService.delete(table, id);
+  Future<bool> delete(int id) async {
+    try {
+      await deleteService.delete(table, id);
+    } catch (_) {
+      return false;
+    }
     state = AsyncData<List<Shot>>(<Shot>[
       for (final Shot shot in state.value ?? <Shot>[])
         if (shot.id != id) shot,
     ]);
+
+    return true;
   }
 }
 
@@ -79,7 +103,7 @@ class Shots extends _$Shots with BaseProvider {
 class CurrentShot extends _$CurrentShot {
   @override
   FutureOr<Shot> build() {
-    return Future.value(null);
+    return Future.value(null); // ignore: null_argument_to_non_null_type
   }
 
   void set(Shot shot) {
