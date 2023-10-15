@@ -6,7 +6,7 @@ part of 'shots.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shotsHash() => r'e03f512c94f28cc4faa3d15202d173d99db86a62';
+String _$shotsHash() => r'fc2514086d357a1b84a9d6bb2bca0e099499715f';
 
 /// See also [Shots].
 @ProviderFor(Shots)
@@ -33,4 +33,4 @@ final currentShotProvider = AsyncNotifierProvider<CurrentShot, Shot>.internal(
 
 typedef _$CurrentShot = AsyncNotifier<Shot>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

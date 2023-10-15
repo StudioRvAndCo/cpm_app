@@ -1,3 +1,4 @@
+import 'package:cpm/extensions/date_time_helpers.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,18 +18,20 @@ class SequenceDetailsPane extends ConsumerStatefulWidget {
 }
 
 class _DetailsPaneSequenceState extends ConsumerState<SequenceDetailsPane> {
-  late DateTime start;
-  late DateTime end;
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  late DateTime date;
+  late TimeOfDay startTime;
+  late TimeOfDay endTime;
   Location? selectedLocation;
 
   @override
   Widget build(BuildContext context) {
     return ref.watch(currentSequenceProvider).when(
       data: (Sequence sequence) {
-        start = sequence.getStartDate;
-        end = sequence.getEndDate;
+        date = sequence.getDate;
+        startTime = sequence.getStartTime;
+        endTime = sequence.getEndTime;
         titleController.text = sequence.getTitle;
         descriptionController.text = sequence.description ?? '';
         titleController.selection = TextSelection.collapsed(offset: titleController.text.length);
@@ -109,7 +112,8 @@ class _DetailsPaneSequenceState extends ConsumerState<SequenceDetailsPane> {
                 onTap: () => editDate(sequence),
                 behavior: HitTestBehavior.translucent,
                 child: IconLabel(
-                  text: getDateText(),
+                  text:
+                      '${DateFormat.yMd(context.locale.toString()).format(date)} | ${startTime.format(context)} - ${endTime.format(context)}',
                   icon: Icons.event,
                   textStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
@@ -127,34 +131,37 @@ class _DetailsPaneSequenceState extends ConsumerState<SequenceDetailsPane> {
     );
   }
 
-  String getDateText() {
-    final String firstText = DateFormat.yMd(context.locale.toString()).format(start);
-    final String lastText = DateFormat.yMd(context.locale.toString()).format(end);
-
-    return '$firstText - $lastText';
-  }
-
   Future<void> editDate(Sequence sequence) async {
-    final DateTimeRange? newDates = await showDateRangePicker(
+    await showDatePicker(
       context: context,
-      initialDateRange: DateTimeRange(start: start, end: end),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (newDates != null) {
-      setState(() {
-        start = newDates.start;
-        end = newDates.end;
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().hundredYearsBefore,
+      lastDate: DateTime.now().hundredYearsLater,
+    ).then((newDate) async {
+      if (newDate == null) return;
+
+      await showTimePicker(context: context, initialTime: TimeOfDay.now()).then((newStartTime) async {
+        if (newStartTime == null) return;
+
+        await showTimePicker(context: context, initialTime: TimeOfDay.now()).then((newEndTime) {
+          if (newEndTime == null) return;
+
+          setState(() {
+            date = newDate;
+            startTime = newStartTime;
+            endTime = newEndTime;
+          });
+          edit(sequence);
+        });
       });
-    }
-    edit(sequence);
+    });
   }
 
   void edit(Sequence sequence) {
     sequence.title = titleController.text;
     sequence.description = descriptionController.text;
-    sequence.startDate = start;
-    sequence.endDate = end;
+    sequence.startDate = DateTime(date.year, date.month, date.day, startTime.hour, startTime.minute);
+    sequence.endDate = DateTime(date.year, date.month, date.day, endTime.hour, endTime.minute);
     sequence.location = selectedLocation;
 
     ref.read(sequencesProvider.notifier).edit(sequence, selectedLocation?.id);

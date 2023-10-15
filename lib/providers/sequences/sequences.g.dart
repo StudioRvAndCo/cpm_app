@@ -6,11 +6,11 @@ part of 'sequences.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sequencesHash() => r'ec418d38b1851f6e98edcef364d369e11d279d77';
+String _$sequencesHash() => r'b00625b7f014c0d2b42f573fc7d6659effdbca52';
 
 /// See also [Sequences].
 @ProviderFor(Sequences)
-final sequencesProvider = AutoDisposeAsyncNotifierProvider<Sequences, List<Sequence>>.internal(
+final sequencesProvider = AsyncNotifierProvider<Sequences, List<Sequence>>.internal(
   Sequences.new,
   name: r'sequencesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$sequencesHash,
@@ -18,7 +18,7 @@ final sequencesProvider = AutoDisposeAsyncNotifierProvider<Sequences, List<Seque
   allTransitiveDependencies: null,
 );
 
-typedef _$Sequences = AutoDisposeAsyncNotifier<List<Sequence>>;
+typedef _$Sequences = AsyncNotifier<List<Sequence>>;
 String _$currentSequenceHash() => r'dbd26f4baf421f684db15ed1658aedb9be11e82b';
 
 /// See also [CurrentSequence].

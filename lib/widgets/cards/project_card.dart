@@ -1,4 +1,5 @@
 import 'package:cpm/providers/episodes/episodes.dart';
+import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -85,8 +86,9 @@ class _ProjectCardState extends ConsumerState<ProjectCard> {
     ref.read(navigationProvider.notifier).set(project.isMovie ? HomePage.sequences : HomePage.episodes);
   }
 
-  void openPlanning(Project project) {
-    ref.read(currentProjectProvider.notifier).set(project);
+  Future<void> openPlanning(Project project) async {
+    await ref.read(currentProjectProvider.notifier).set(project);
+    await ref.read(sequencesProvider.notifier).getAll();
     ref.read(navigationProvider.notifier).set(HomePage.planning);
   }
 

@@ -1,3 +1,5 @@
+import 'package:cpm/extensions/date_time_helpers.dart';
+import 'package:cpm/extensions/time_of_day_extensions.dart';
 import 'package:cpm/utils/constants_globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -20,28 +22,13 @@ class SequenceDialog extends ConsumerStatefulWidget {
 class _SequenceDialogState extends ConsumerState<SequenceDialog> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  DateTimeRange? dates;
+  DateTime date = DateTime.now();
+  TimeOfDay startTime = TimeOfDay.now();
+  TimeOfDay endTime = TimeOfDay.now().hourLater;
   Location? selectedLocation;
-  String dateText = '';
-
-  void updateDateText() {
-    String res;
-    if (dates != null) {
-      final String firstText = DateFormat.yMd(context.locale.toString()).format(dates!.start);
-      final String lastText = DateFormat.yMd(context.locale.toString()).format(dates!.end);
-      res = '$firstText - $lastText';
-    } else {
-      res = 'dates_dialog'.tr();
-    }
-    setState(() {
-      dateText = res;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    updateDateText();
-
     return SimpleDialog(
       title: SizedBox(
         width: 300,
@@ -109,7 +96,9 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
                   child: OutlinedButton.icon(
                     onPressed: pickDate,
                     icon: const Icon(Icons.calendar_month),
-                    label: Text(dateText),
+                    label: Text(
+                      '${DateFormat.yMd(context.locale.toString()).format(date)} | ${startTime.format(context)} - ${endTime.format(context)}',
+                    ),
                   ),
                 ),
               ),
@@ -170,16 +159,28 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
   }
 
   void pickDate() async {
-    final DateTimeRange? picked = await showDateRangePicker(
+    await showDatePicker(
       context: context,
-      firstDate: DateTime(1970),
-      lastDate: DateTime(3000),
-      initialDateRange: dates,
-    );
-    if (picked != null) {
-      dates = DateTimeRange(start: picked.start, end: picked.end);
-      updateDateText();
-    }
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().hundredYearsBefore,
+      lastDate: DateTime.now().hundredYearsLater,
+    ).then((newDate) async {
+      if (newDate == null) return;
+
+      await showTimePicker(context: context, initialTime: TimeOfDay.now()).then((newStartTime) async {
+        if (newStartTime == null) return;
+
+        await showTimePicker(context: context, initialTime: TimeOfDay.now()).then((newEndTime) {
+          if (newEndTime == null) return;
+
+          setState(() {
+            date = newDate;
+            startTime = newStartTime;
+            endTime = newEndTime;
+          });
+        });
+      });
+    });
   }
 
   void submit() {
@@ -188,8 +189,8 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
       index: widget.index,
       title: titleController.text,
       description: descriptionController.text,
-      startDate: dates?.start ?? DateTime.now(),
-      endDate: dates?.end ?? DateTime.now(),
+      startDate: DateTime(date.year, date.month, date.day, startTime.hour, startTime.minute),
+      endDate: DateTime(date.year, date.month, date.day, endTime.hour, endTime.minute),
     );
     Navigator.pop(context, (newSequence, selectedLocation?.id));
   }

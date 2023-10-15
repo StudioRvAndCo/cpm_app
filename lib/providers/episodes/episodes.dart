@@ -35,7 +35,7 @@ class Episodes extends _$Episodes with BaseProvider {
     state = const AsyncLoading<List<Episode>>();
 
     return ref.watch(currentProjectProvider).when(
-      data: (Project project) async {
+      data: (project) async {
         final List<Episode> episodes = await selectEpisodeService.selectEpisodes(project.id);
         state = AsyncData<List<Episode>>(episodes);
 

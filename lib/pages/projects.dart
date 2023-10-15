@@ -1,3 +1,4 @@
+import 'package:cpm/pages/schedule/schedule.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +12,6 @@ import '../widgets/cards/project_card.dart';
 import '../widgets/custom_snack_bars.dart';
 import '../widgets/dialogs/project_dialog.dart';
 import 'episodes.dart';
-import 'planning.dart';
 import 'sequences.dart';
 import 'shots.dart';
 
@@ -67,7 +67,7 @@ class ProjectsState extends ConsumerState<Projects> {
       case HomePage.shots:
         return const Shots();
       case HomePage.planning:
-        return const Planning();
+        return const Schedule();
     }
   }
 

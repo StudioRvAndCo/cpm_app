@@ -21,13 +21,6 @@ class SequenceInfoHeader extends ConsumerStatefulWidget {
 }
 
 class _InfoHeaderSequenceState extends ConsumerState<SequenceInfoHeader> {
-  String _getDateText(BuildContext context, Sequence sequence) {
-    final String firstText = DateFormat.yMd(context.locale.toString()).format(sequence.getStartDate);
-    final String lastText = DateFormat.yMd(context.locale.toString()).format(sequence.getEndDate);
-
-    return '$firstText - $lastText';
-  }
-
   @override
   Widget build(BuildContext context) {
     return ref.watch(currentSequenceProvider).when(
@@ -70,7 +63,11 @@ class _InfoHeaderSequenceState extends ConsumerState<SequenceInfoHeader> {
                       ),
                     ),
                     const Padding(padding: EdgeInsets.only(bottom: 8)),
-                    IconLabel(text: _getDateText(context, sequence), icon: Icons.event),
+                    IconLabel(
+                      text:
+                          '${DateFormat.yMd(context.locale.toString()).format(sequence.getDate)} | ${sequence.getStartTime.format(context)} - ${sequence.getEndTime.format(context)}',
+                      icon: Icons.event,
+                    ),
                     if (sequence.location != null) IconLabel(text: sequence.location!.getName, icon: Icons.map),
                   ],
                 ),
