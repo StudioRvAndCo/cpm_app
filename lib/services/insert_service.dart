@@ -1,6 +1,6 @@
-import '../models/base_model.dart';
-import 'config/supabase_table.dart';
-import 'service.dart';
+import 'package:cpm/models/base_model.dart';
+import 'package:cpm/services/config/supabase_table.dart';
+import 'package:cpm/services/service.dart';
 
 class InsertService extends Service {
   Future<void> insert(SupabaseTable table, BaseModel model) async {
@@ -12,8 +12,8 @@ class InsertService extends Service {
     BaseModel model,
     Model Function(Map<String, dynamic>) constructor,
   ) async {
-    final data = await supabase.from(table.name).insert(model.toJson()).select();
+    final List data = await supabase.from(table.name).insert(model.toJson()).select();
 
-    return constructor(data[0]);
+    return constructor(data[0] as Map<String, dynamic>);
   }
 }

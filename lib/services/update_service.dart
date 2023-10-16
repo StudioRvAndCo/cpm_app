@@ -1,6 +1,6 @@
-import '../models/base_model.dart';
-import 'config/supabase_table.dart';
-import 'service.dart';
+import 'package:cpm/models/base_model.dart';
+import 'package:cpm/services/config/supabase_table.dart';
+import 'package:cpm/services/service.dart';
 
 class UpdateService extends Service {
   Future<void> update(SupabaseTable table, BaseModel model) async {

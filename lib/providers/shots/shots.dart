@@ -1,22 +1,21 @@
+import 'package:cpm/models/sequence/sequence.dart';
+import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/providers/base_provider.dart';
+import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/services/config/supabase_table.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../models/sequence/sequence.dart';
-import '../../models/shot/shot.dart';
-import '../sequences/sequences.dart';
 
 part 'shots.g.dart';
 
 @riverpod
 class Shots extends _$Shots with BaseProvider {
-  SupabaseTable table = SupabaseTable.shot;
+  final _table = SupabaseTable.shot;
 
   @override
   FutureOr<List<Shot>> build() {
     return ref.watch(currentSequenceProvider).when(
       data: (Sequence sequence) async {
-        return await selectShotService.selectShots(sequence.id);
+        return selectShotService.selectShots(sequence.id);
       },
       error: (Object error, StackTrace stackTrace) {
         return <Shot>[];
@@ -32,7 +31,7 @@ class Shots extends _$Shots with BaseProvider {
 
     return ref.watch(currentSequenceProvider).when(
       data: (Sequence sequence) async {
-        List<Shot> shots = await selectShotService.selectShots(sequence.id);
+        final List<Shot> shots = await selectShotService.selectShots(sequence.id);
         state = AsyncData<List<Shot>>(shots);
       },
       error: (Object error, StackTrace stackTrace) {
@@ -46,7 +45,7 @@ class Shots extends _$Shots with BaseProvider {
 
   Future<bool> add(Shot newShot) async {
     try {
-      await insertService.insert(table, newShot);
+      await insertService.insert(_table, newShot);
     } catch (_) {
       return false;
     }
@@ -57,7 +56,7 @@ class Shots extends _$Shots with BaseProvider {
 
   Future<bool> edit(Shot editedShot) async {
     try {
-      await updateService.update(table, editedShot);
+      await updateService.update(_table, editedShot);
     } catch (_) {
       return false;
     }
@@ -72,7 +71,7 @@ class Shots extends _$Shots with BaseProvider {
   Future<bool> toggleCompletion(Shot toToggleShot) async {
     toToggleShot.completed = !toToggleShot.completed;
     try {
-      await updateService.update(table, toToggleShot);
+      await updateService.update(_table, toToggleShot);
     } catch (_) {
       return false;
     }
@@ -86,7 +85,7 @@ class Shots extends _$Shots with BaseProvider {
 
   Future<bool> delete(int id) async {
     try {
-      await deleteService.delete(table, id);
+      await deleteService.delete(_table, id);
     } catch (_) {
       return false;
     }
@@ -103,7 +102,7 @@ class Shots extends _$Shots with BaseProvider {
 class CurrentShot extends _$CurrentShot {
   @override
   FutureOr<Shot> build() {
-    return Future.value(null); // ignore: null_argument_to_non_null_type
+    return Future.value(); // ignore: null_argument_to_non_null_type
   }
 
   void set(Shot shot) {

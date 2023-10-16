@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonEnum(fieldRename: FieldRename.snake)
@@ -22,7 +21,7 @@ enum ShotValue {
   final String _name;
   final Color color;
 
-  String get label => 'attributes.values.$_name'.tr();
+  String get label => 'attributes.values.$_name';
 
   static List<String> labels() => ShotValue.values.map((value) => value.label).toList();
 

@@ -6,7 +6,7 @@ part of 'episodes.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$episodesHash() => r'a5d9428dfd09150a5d8355119a78ab8615e8c3d0';
+String _$episodesHash() => r'd73538c3c60b7b28dab13ab9174c5858db8b8092';
 
 /// See also [Episodes].
 @ProviderFor(Episodes)
@@ -19,7 +19,7 @@ final episodesProvider = AutoDisposeAsyncNotifierProvider<Episodes, List<Episode
 );
 
 typedef _$Episodes = AutoDisposeAsyncNotifier<List<Episode>>;
-String _$currentEpisodeHash() => r'4eb9b0aa4a9a02f1af0bb132be456be2897fb46c';
+String _$currentEpisodeHash() => r'19e7c7159cdb655c426391cecd0cc868a90f4f23';
 
 /// See also [CurrentEpisode].
 @ProviderFor(CurrentEpisode)

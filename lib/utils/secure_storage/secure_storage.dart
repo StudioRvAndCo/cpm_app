@@ -14,7 +14,7 @@ class SecureStorage {
   }
 
   Future<String?> read(SecureStorageKey secureStorageKey) async {
-    return await _secureStorage.read(
+    return _secureStorage.read(
       key: secureStorageKey.name,
       aOptions: _getAndroidOptions(),
     );

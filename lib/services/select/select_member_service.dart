@@ -6,8 +6,8 @@ class SelectMemberService extends SelectService {
   SupabaseTable table = SupabaseTable.member;
 
   Future<List<Member>> selectMembers() async {
-    return await select<Member>(
-      await supabase.from(table.name).select('*').order('first_name', ascending: true),
+    return select<Member>(
+      await supabase.from(table.name).select('*').order('first_name', ascending: true) as List,
       Member.fromJson,
     );
   }

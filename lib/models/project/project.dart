@@ -1,9 +1,8 @@
 import 'package:cpm/models/base_model.dart';
+import 'package:cpm/models/project/link.dart';
+import 'package:cpm/models/project/project_type.dart';
+import 'package:cpm/pages/projects/favorites.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../utils/favorites/favorites.dart';
-import 'link.dart';
-import 'project_type.dart';
 
 part 'project.g.dart';
 
@@ -84,8 +83,8 @@ class Project extends BaseModel implements Comparable<Project> {
 
   @override
   int compareTo(Project other) {
-    bool isFavorite = Favorites().isFavorite(getId);
-    bool isOtherFavorite = Favorites().isFavorite(other.getId);
+    final bool isFavorite = Favorites().isFavorite(getId);
+    final bool isOtherFavorite = Favorites().isFavorite(other.getId);
 
     if (isFavorite && !isOtherFavorite) {
       return -1;

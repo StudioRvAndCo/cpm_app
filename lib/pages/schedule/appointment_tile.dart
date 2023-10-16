@@ -1,19 +1,19 @@
-import 'package:cpm/extensions/date_time_helpers.dart';
 import 'package:cpm/models/sequence/sequence.dart';
-import 'package:cpm/providers/navigation/navigation.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
-import 'package:cpm/utils/constants_globals.dart';
+import 'package:cpm/utils/extensions/date_time_extensions.dart';
+import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppointmentTile extends ConsumerWidget {
   const AppointmentTile({super.key, required this.sequence});
 
   final Sequence sequence;
 
-  void _openSequence(WidgetRef ref) {
+  void _openSequence(WidgetRef ref, BuildContext context) {
     ref.read(currentSequenceProvider.notifier).set(sequence);
-    ref.read(navigationProvider.notifier).set(HomePage.shots);
+    context.pushNamed(RouterRoute.shots.name);
   }
 
   @override
@@ -22,7 +22,7 @@ class AppointmentTile extends ConsumerWidget {
       message: '${sequence.startDate?.Hm} - ${sequence.endDate?.Hm}',
       waitDuration: const Duration(seconds: 1),
       child: InkWell(
-        onTap: () => _openSequence(ref),
+        onTap: () => _openSequence(ref, context),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),

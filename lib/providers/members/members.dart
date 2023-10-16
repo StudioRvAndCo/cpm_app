@@ -1,16 +1,15 @@
 import 'dart:async';
 
+import 'package:cpm/models/member/member.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/services/config/supabase_table.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../models/member/member.dart';
 
 part 'members.g.dart';
 
 @riverpod
 class Members extends _$Members with BaseProvider {
-  SupabaseTable table = SupabaseTable.member;
+  final _table = SupabaseTable.member;
 
   @override
   FutureOr<List<Member>> build() {
@@ -21,13 +20,13 @@ class Members extends _$Members with BaseProvider {
 
   Future<void> get() async {
     state = const AsyncLoading<List<Member>>();
-    List<Member> members = await selectMemberService.selectMembers();
+    final List<Member> members = await selectMemberService.selectMembers();
     state = AsyncData<List<Member>>(members);
   }
 
   Future<bool> add(Member newMember) async {
     try {
-      await insertService.insert(table, newMember);
+      await insertService.insert(_table, newMember);
     } catch (_) {
       return false;
     }
@@ -38,7 +37,7 @@ class Members extends _$Members with BaseProvider {
 
   Future<bool> edit(Member editedMember) async {
     try {
-      await updateService.update(table, editedMember);
+      await updateService.update(_table, editedMember);
     } catch (_) {
       return false;
     }
@@ -52,7 +51,7 @@ class Members extends _$Members with BaseProvider {
 
   Future<bool> delete(int id) async {
     try {
-      await deleteService.delete(table, id);
+      await deleteService.delete(_table, id);
     } catch (_) {
       return false;
     }

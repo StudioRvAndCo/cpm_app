@@ -15,10 +15,10 @@ class Config {
 
   Future<void> init() async {
     final String yaml = await rootBundle.loadString('assets/config/config.yaml');
-    config = loadYaml(yaml);
+    config = loadYaml(yaml) as YamlMap;
   }
 
   T get<T>(ConfigKey key) {
-    return config[key.parent][key.name] as T;
+    return (config[key.parent] as YamlMap)[key.name] as T;
   }
 }

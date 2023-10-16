@@ -1,24 +1,23 @@
+import 'package:cpm/models/episode/episode.dart';
+import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/models/sequence_location/sequence_location.dart';
+import 'package:cpm/providers/base_provider.dart';
+import 'package:cpm/providers/episodes/episodes.dart';
+import 'package:cpm/providers/projects/projects.dart';
+import 'package:cpm/services/config/supabase_table.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../models/episode/episode.dart';
-import '../../models/sequence/sequence.dart';
-import '../../services/config/supabase_table.dart';
-import '../base_provider.dart';
-import '../episodes/episodes.dart';
-import '../projects/projects.dart';
 
 part 'sequences.g.dart';
 
 @Riverpod(keepAlive: true)
 class Sequences extends _$Sequences with BaseProvider {
-  SupabaseTable table = SupabaseTable.sequence;
+  final _table = SupabaseTable.sequence;
 
   @override
   FutureOr<List<Sequence>> build() {
     return ref.watch(currentEpisodeProvider).when(
       data: (Episode episode) async {
-        return await selectSequenceService.selectSequences(episode.id);
+        return selectSequenceService.selectSequences(episode.id);
       },
       error: (Object error, StackTrace stackTrace) {
         return <Sequence>[];
@@ -34,7 +33,7 @@ class Sequences extends _$Sequences with BaseProvider {
 
     return ref.watch(currentEpisodeProvider).when(
       data: (Episode episode) async {
-        List<Sequence> sequences = await selectSequenceService.selectSequences(episode.id);
+        final List<Sequence> sequences = await selectSequenceService.selectSequences(episode.id);
         state = AsyncData<List<Sequence>>(sequences);
       },
       error: (Object error, StackTrace stackTrace) {
@@ -71,7 +70,7 @@ class Sequences extends _$Sequences with BaseProvider {
 
   Future<bool> add(Sequence newSequence, [int? locationId]) async {
     try {
-      Sequence createdSequence = await insertService.insertAndReturn(table, newSequence, Sequence.fromJson);
+      final Sequence createdSequence = await insertService.insertAndReturn(_table, newSequence, Sequence.fromJson);
       if (locationId != null) {
         await _setLocation(createdSequence.id, locationId);
       }
@@ -85,12 +84,12 @@ class Sequences extends _$Sequences with BaseProvider {
 
   Future<bool> edit(Sequence editedSequence, int? locationId) async {
     try {
-      await updateService.update(table, editedSequence);
+      await updateService.update(_table, editedSequence);
     } catch (_) {
       return false;
     }
     if (locationId != null) {
-      SequenceLocation newSequenceLocation = SequenceLocation.insert(
+      final SequenceLocation newSequenceLocation = SequenceLocation.insert(
         sequence: editedSequence.id,
         location: locationId,
       );
@@ -111,7 +110,7 @@ class Sequences extends _$Sequences with BaseProvider {
 
   Future<bool> delete(int? id) async {
     try {
-      await deleteService.delete(table, id);
+      await deleteService.delete(_table, id);
     } catch (_) {
       return false;
     }
@@ -124,7 +123,7 @@ class Sequences extends _$Sequences with BaseProvider {
   }
 
   Future<void> _setLocation(int sequenceId, int locationId) async {
-    SequenceLocation sequenceLocation = SequenceLocation.insert(sequence: sequenceId, location: locationId);
+    final SequenceLocation sequenceLocation = SequenceLocation.insert(sequence: sequenceId, location: locationId);
     await upsertService.upsert(SupabaseTable.sequenceLocation, sequenceLocation);
   }
 
@@ -142,7 +141,7 @@ class Sequences extends _$Sequences with BaseProvider {
 class CurrentSequence extends _$CurrentSequence {
   @override
   FutureOr<Sequence> build() {
-    return Future.value(null); // ignore: null_argument_to_non_null_type
+    return Future.value(); // ignore: null_argument_to_non_null_type
   }
 
   void set(Sequence sequence) {

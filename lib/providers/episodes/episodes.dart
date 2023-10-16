@@ -1,18 +1,17 @@
 import 'dart:async';
 
+import 'package:cpm/models/episode/episode.dart';
+import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/base_provider.dart';
+import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/services/config/supabase_table.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../models/episode/episode.dart';
-import '../../models/project/project.dart';
-import '../projects/projects.dart';
 
 part 'episodes.g.dart';
 
 @riverpod
 class Episodes extends _$Episodes with BaseProvider {
-  SupabaseTable table = SupabaseTable.episode;
+  final _table = SupabaseTable.episode;
 
   @override
   FutureOr<List<Episode>> build() {
@@ -59,7 +58,7 @@ class Episodes extends _$Episodes with BaseProvider {
 
   Future<bool> add(Episode newEpisode) async {
     try {
-      await insertService.insert(table, newEpisode);
+      await insertService.insert(_table, newEpisode);
     } catch (_) {
       return false;
     }
@@ -70,7 +69,7 @@ class Episodes extends _$Episodes with BaseProvider {
 
   Future<bool> edit(Episode editedEpisode) async {
     try {
-      await updateService.update(table, editedEpisode);
+      await updateService.update(_table, editedEpisode);
     } catch (_) {
       return false;
     }
@@ -84,7 +83,7 @@ class Episodes extends _$Episodes with BaseProvider {
 
   Future<bool> delete(int? id) async {
     try {
-      await deleteService.delete(table, id);
+      await deleteService.delete(_table, id);
     } catch (_) {
       return false;
     }
@@ -101,7 +100,7 @@ class Episodes extends _$Episodes with BaseProvider {
 class CurrentEpisode extends _$CurrentEpisode {
   @override
   FutureOr<Episode> build() {
-    return Future.value(null); // ignore: null_argument_to_non_null_type
+    return Future.value(); // ignore: null_argument_to_non_null_type
   }
 
   void set(Episode episode) {

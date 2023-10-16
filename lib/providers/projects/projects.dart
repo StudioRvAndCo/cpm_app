@@ -1,18 +1,17 @@
 import 'dart:async';
 
 import 'package:cpm/models/episode/episode.dart';
+import 'package:cpm/models/project/link.dart';
+import 'package:cpm/models/project/project.dart';
+import 'package:cpm/providers/base_provider.dart';
+import 'package:cpm/services/config/supabase_table.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../models/project/link.dart';
-import '../../models/project/project.dart';
-import '../../services/config/supabase_table.dart';
-import '../base_provider.dart';
 
 part 'projects.g.dart';
 
 @riverpod
 class Projects extends _$Projects with BaseProvider {
-  final SupabaseTable table = SupabaseTable.project;
+  final _table = SupabaseTable.project;
 
   @override
   FutureOr<List<Project>> build() {
@@ -36,10 +35,10 @@ class Projects extends _$Projects with BaseProvider {
   Future<bool> add(Project newProject) async {
     try {
       if (newProject.isMovie) {
-        Project project = await insertService.insertAndReturn<Project>(table, newProject, Project.fromJson);
+        final Project project = await insertService.insertAndReturn<Project>(_table, newProject, Project.fromJson);
         await insertService.insert(SupabaseTable.episode, Episode.movie(project: project.id));
       } else {
-        await insertService.insert(table, newProject);
+        await insertService.insert(_table, newProject);
       }
     } catch (_) {
       return false;
@@ -51,7 +50,7 @@ class Projects extends _$Projects with BaseProvider {
 
   Future<bool> edit(Project editedProject) async {
     try {
-      await updateService.update(table, editedProject);
+      await updateService.update(_table, editedProject);
     } catch (_) {
       return false;
     }
@@ -65,7 +64,7 @@ class Projects extends _$Projects with BaseProvider {
 
   Future<bool> delete(int? id) async {
     try {
-      await deleteService.delete(table, id);
+      await deleteService.delete(_table, id);
     } catch (_) {
       return false;
     }
@@ -80,11 +79,11 @@ class Projects extends _$Projects with BaseProvider {
 
 @Riverpod(keepAlive: true)
 class CurrentProject extends _$CurrentProject with BaseProvider {
-  final SupabaseTable linkTable = SupabaseTable.link;
+  final _linkTable = SupabaseTable.link;
 
   @override
   FutureOr<Project> build() {
-    return Future.value(null); // ignore: null_argument_to_non_null_type
+    return Future.value(); // ignore: null_argument_to_non_null_type
   }
 
   Future<void> set(Project project) async {
@@ -93,21 +92,21 @@ class CurrentProject extends _$CurrentProject with BaseProvider {
   }
 
   Future<void> addLink(Link newLink) async {
-    await insertService.insert(linkTable, newLink);
+    await insertService.insert(_linkTable, newLink);
     if (state.value != null) {
       await set(state.value!); // Get the new list of links
     }
   }
 
   Future<void> editLink(Link editedLink) async {
-    await updateService.update(linkTable, editedLink);
+    await updateService.update(_linkTable, editedLink);
     if (state.value != null) {
       await set(state.value!); // Get the new list of links
     }
   }
 
   Future<void> deleteLink(int? id) async {
-    await deleteService.delete(linkTable, id);
+    await deleteService.delete(_linkTable, id);
     if (state.value != null) {
       await set(state.value!); // Get the new list of links
     }

@@ -1,16 +1,15 @@
 import 'dart:async';
 
+import 'package:cpm/models/location/location.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/services/config/supabase_table.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../models/location/location.dart';
 
 part 'locations.g.dart';
 
 @riverpod
 class Locations extends _$Locations with BaseProvider {
-  SupabaseTable table = SupabaseTable.location;
+  final _table = SupabaseTable.location;
 
   @override
   FutureOr<List<Location>> build() {
@@ -21,13 +20,13 @@ class Locations extends _$Locations with BaseProvider {
 
   Future<void> get() async {
     state = const AsyncLoading<List<Location>>();
-    List<Location> locations = await selectLocationService.selectLocations();
+    final List<Location> locations = await selectLocationService.selectLocations();
     state = AsyncData<List<Location>>(locations);
   }
 
   Future<bool> add(Location newLocation) async {
     try {
-      await insertService.insert(table, newLocation);
+      await insertService.insert(_table, newLocation);
     } catch (_) {
       return false;
     }
@@ -38,7 +37,7 @@ class Locations extends _$Locations with BaseProvider {
 
   Future<bool> edit(Location editedLocation) async {
     try {
-      await updateService.update(table, editedLocation);
+      await updateService.update(_table, editedLocation);
     } catch (_) {
       return false;
     }
@@ -52,7 +51,7 @@ class Locations extends _$Locations with BaseProvider {
 
   Future<bool> delete(int id) async {
     try {
-      await deleteService.delete(table, id);
+      await deleteService.delete(_table, id);
     } catch (_) {
       return false;
     }

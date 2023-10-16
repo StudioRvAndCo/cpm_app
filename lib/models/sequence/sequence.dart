@@ -1,9 +1,8 @@
-import 'package:cpm/extensions/time_of_day_extensions.dart';
+import 'package:cpm/models/base_model.dart';
+import 'package:cpm/models/location/location.dart';
+import 'package:cpm/utils/extensions/time_of_day_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../base_model.dart';
-import '../location/location.dart';
 
 part 'sequence.g.dart';
 
@@ -62,7 +61,7 @@ class Sequence extends BaseModel {
         number = -1,
         super(id: -1);
 
-  factory Sequence.fromJson(json) => _$SequenceFromJson(json);
+  factory Sequence.fromJson(Map<String, dynamic> json) => _$SequenceFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$SequenceToJson(this);

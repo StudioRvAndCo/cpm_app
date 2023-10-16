@@ -7,15 +7,15 @@ class SelectProjectService extends SelectService {
   SupabaseTable table = SupabaseTable.project;
 
   Future<List<Project>> selectProjects() async {
-    return await select<Project>(
+    return select<Project>(
       await supabase.from(table.name).select('*'),
       Project.fromJson,
     );
   }
 
   Future<List<Link>> selectLinks(int id) async {
-    return await select<Link>(
-      await supabase.from(SupabaseTable.link.name).select('*').eq('project', id),
+    return select<Link>(
+      await supabase.from(SupabaseTable.link.name).select('*').eq('project', id) as List,
       Link.fromJson,
     );
   }

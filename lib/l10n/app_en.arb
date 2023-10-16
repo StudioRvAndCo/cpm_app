@@ -1,0 +1,15 @@
+{
+  "navigation_home": "Home",
+  "navigation_settings": "Settings",
+  "settings_appearance": "Appearance",
+  "settings_theme": "Theme",
+  "settings_theme_system": "System",
+  "settings_theme_light": "Light",
+  "settings_theme_dark": "Dark",
+  "settings_language": "Language",
+  "settings_about": "About",
+  "settings_github": "GitHub",
+  "settings_github_description": "Take a look at the source code",
+  "settings_licence": "License",
+  "settings_licence_description": "AGPL-3.0"
+}

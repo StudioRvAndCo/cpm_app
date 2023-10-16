@@ -1,16 +1,13 @@
-flutter_icons:
+# dart run flutter_launcher_icons
+flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/logos/cpm_light_1024_square.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
   remove_alpha_ios: true
+  image_path: "assets/logos/cpm_light.png"
+  min_sdk_android: 21
   web:
     generate: true
-    image_path: "assets/logos/cpm_dark_1024_square.png"
   windows:
     generate: true
-    image_path: "assets/logos/cpm_dark_1024_square.png"
-    icon_size: 256 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "assets/logos/cpm_dark_1024_square.png"

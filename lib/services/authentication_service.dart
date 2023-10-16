@@ -1,6 +1,5 @@
+import 'package:cpm/services/service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'service.dart';
 
 class AuthenticationService extends Service {
   bool isAuthenticated() {
@@ -8,7 +7,7 @@ class AuthenticationService extends Service {
   }
 
   Future<bool> login(String email, String password) async {
-    AuthResponse response = await supabase.auth.signInWithPassword(
+    final AuthResponse response = await supabase.auth.signInWithPassword(
       email: email,
       password: password,
     );

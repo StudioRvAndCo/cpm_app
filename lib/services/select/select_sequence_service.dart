@@ -9,21 +9,22 @@ class SelectSequenceService extends SelectService {
   SupabaseTable table = SupabaseTable.sequence;
 
   Future<List<Sequence>> selectSequences(int? episodeId) async {
-    List<Sequence> sequences = await selectAndNumber<Sequence>(
-      await supabase.from(table.name).select('*').eq('episode', episodeId).order('index', ascending: true),
+    final List<Sequence> sequences = await selectAndNumber<Sequence>(
+      await supabase.from(table.name).select('*').eq('episode', episodeId).order('index', ascending: true) as List,
       Sequence.fromJson,
     );
 
-    for (var sequence in sequences) {
+    for (final sequence in sequences) {
       try {
         final sequenceLocationData =
             await supabase.from(SupabaseTable.sequenceLocation.name).select('*').eq('sequence', sequence.id).single();
-        SequenceLocation sequenceLocation = await selectSingle<SequenceLocation>(
-          sequenceLocationData,
+        final SequenceLocation sequenceLocation = await selectSingle<SequenceLocation>(
+          sequenceLocationData as Map<String, dynamic>,
           SequenceLocation.fromJson,
         );
         sequence.location = await selectSingle<Location>(
-          await supabase.from(SupabaseTable.location.name).select('*').eq('id', sequenceLocation.location).single(),
+          await supabase.from(SupabaseTable.location.name).select('*').eq('id', sequenceLocation.location).single()
+              as Map<String, dynamic>,
           Location.fromJson,
         );
       } on PostgrestException catch (_) {}

@@ -6,7 +6,7 @@ part of 'shots.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shotsHash() => r'fc2514086d357a1b84a9d6bb2bca0e099499715f';
+String _$shotsHash() => r'64fa328d3f0f34dd284ebbb34e829c1b8be3cf56';
 
 /// See also [Shots].
 @ProviderFor(Shots)
@@ -19,7 +19,7 @@ final shotsProvider = AutoDisposeAsyncNotifierProvider<Shots, List<Shot>>.intern
 );
 
 typedef _$Shots = AutoDisposeAsyncNotifier<List<Shot>>;
-String _$currentShotHash() => r'55785090a27b839a314b591ccef4e4ecb6c4b5c0';
+String _$currentShotHash() => r'45039fc356017c5eb0883a4b9e7f8cb1e01bfbaf';
 
 /// See also [CurrentShot].
 @ProviderFor(CurrentShot)
