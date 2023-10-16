@@ -17,7 +17,7 @@ class LocaleManager {
   void setLocale(Locale? locale) {
     if (locale == null) return;
 
-    PreferencesManager().set(PreferenceKey.theme.key, locale.languageCode);
+    PreferencesManager().set(PreferenceKey.locale.key, locale.languageCode);
 
     localeNotifier.value = locale;
   }

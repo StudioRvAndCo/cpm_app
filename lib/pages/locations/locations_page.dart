@@ -1,9 +1,11 @@
 import 'package:cpm/common/dialogs/confirm_dialog.dart';
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/pages/locations/location_dialog.dart';
 import 'package:cpm/pages/locations/location_tile.dart';
 import 'package:cpm/providers/locations/locations.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/separators.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
@@ -41,7 +43,11 @@ class _LocationsState extends ConsumerState<LocationsPage> {
                         edit(locations[index]);
                         return false;
                       case DismissDirection.startToEnd:
-                        return await showConfirmationDialog(context, 'delete.lower') ?? false;
+                        return await showConfirmationDialog(
+                              context,
+                              localizations.dialog_delete_name_confirmation(locations[index].getName),
+                            ) ??
+                            false;
                       case DismissDirection.horizontal:
                       case DismissDirection.vertical:
                       case DismissDirection.up:
@@ -66,7 +72,10 @@ class _LocationsState extends ConsumerState<LocationsPage> {
                       edit(location);
                     },
                     onDelete: (Location location) {
-                      showConfirmationDialog(context, 'delete.lower').then((bool? result) {
+                      showConfirmationDialog(
+                        context,
+                        localizations.dialog_delete_name_confirmation(location.getName),
+                      ).then((bool? result) {
                         if (result ?? false) {
                           delete(location);
                         }
@@ -102,7 +111,13 @@ class _LocationsState extends ConsumerState<LocationsPage> {
     if (location is Location) {
       final added = await ref.read(locationsProvider.notifier).add(location);
       SnackBarManager().show(
-        added ? getInfoSnackBar('snack_bars.location.added') : getErrorSnackBar('snack_bars.location.not_added'),
+        added
+            ? getInfoSnackBar(
+                localizations.snack_bar_add_success_item(localizations.item_location, Gender.male.name),
+              )
+            : getErrorSnackBar(
+                localizations.snack_bar_add_fail_item(localizations.item_location, Gender.male.name),
+              ),
       );
     }
   }
@@ -117,7 +132,13 @@ class _LocationsState extends ConsumerState<LocationsPage> {
     if (editedLocation is Location) {
       final edited = await ref.read(locationsProvider.notifier).edit(editedLocation);
       SnackBarManager().show(
-        edited ? getInfoSnackBar('snack_bars.location.edited') : getErrorSnackBar('snack_bars.location.not_edited'),
+        edited
+            ? getInfoSnackBar(
+                localizations.snack_bar_edit_success_item(localizations.item_location, Gender.male.name),
+              )
+            : getErrorSnackBar(
+                localizations.snack_bar_edit_fail_item(localizations.item_location, Gender.male.name),
+              ),
       );
     }
   }
@@ -125,7 +146,13 @@ class _LocationsState extends ConsumerState<LocationsPage> {
   Future<void> delete(Location location) async {
     final deleted = await ref.read(locationsProvider.notifier).delete(location.id);
     SnackBarManager().show(
-      deleted ? getInfoSnackBar('snack_bars.location.deleted') : getErrorSnackBar('snack_bars.location.not_deleted'),
+      deleted
+          ? getInfoSnackBar(
+              localizations.snack_bar_delete_success_item(localizations.item_location, Gender.male.name),
+            )
+          : getErrorSnackBar(
+              localizations.snack_bar_delete_fail_item(localizations.item_location, Gender.male.name),
+            ),
     );
   }
 }

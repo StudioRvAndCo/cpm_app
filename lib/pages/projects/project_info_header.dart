@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cpm/common/dialogs/confirm_dialog.dart';
 import 'package:cpm/common/icon_label.dart';
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/pages/projects/project_info_sheet.dart';
 import 'package:cpm/providers/projects/projects.dart';
@@ -187,11 +188,17 @@ class _InfoHeaderProjectState extends ConsumerState<ProjectInfoHeader> {
   }
 
   Future<void> delete(Project project) async {
-    showConfirmationDialog(context, 'delete.lower').then((bool? result) async {
+    showConfirmationDialog(context, project.getTitle).then((bool? result) async {
       if (result ?? false) {
         final deleted = await ref.read(projectsProvider.notifier).delete(project.id);
         SnackBarManager().show(
-          deleted ? getInfoSnackBar('snack_bars.project.deleted') : getErrorSnackBar('snack_bars.project.not_deleted'),
+          deleted
+              ? getInfoSnackBar(
+                  localizations.snack_bar_delete_success_item(localizations.item_project, Gender.male.name),
+                )
+              : getErrorSnackBar(
+                  localizations.snack_bar_delete_fail_item(localizations.item_project, Gender.male.name),
+                ),
         );
         if (context.mounted) {
           context.pushNamed(RouterRoute.projects.name);

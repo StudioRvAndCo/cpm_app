@@ -1,3 +1,4 @@
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class RequestPlaceholder extends StatelessWidget {
@@ -11,5 +12,5 @@ class RequestPlaceholder extends StatelessWidget {
   }
 }
 
-final RequestPlaceholder requestPlaceholderError = RequestPlaceholder(placeholder: Text('error.request_failed'));
+final RequestPlaceholder requestPlaceholderError = RequestPlaceholder(placeholder: Text(localizations.error_error));
 const RequestPlaceholder requestPlaceholderLoading = RequestPlaceholder(placeholder: CircularProgressIndicator());

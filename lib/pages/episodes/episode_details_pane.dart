@@ -3,6 +3,7 @@ import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -41,7 +42,7 @@ class _DetailsPaneEpisodeState extends ConsumerState<EpisodeDetailsPane> {
                     },
                     child: TextField(
                       style: Theme.of(context).textTheme.titleMedium,
-                      decoration: InputDecoration.collapsed(hintText: 'attributes.title.upper'),
+                      decoration: InputDecoration.collapsed(hintText: localizations.dialog_field_title),
                       controller: titleController,
                       maxLength: 64,
                     ),
@@ -55,7 +56,7 @@ class _DetailsPaneEpisodeState extends ConsumerState<EpisodeDetailsPane> {
                     },
                     child: TextField(
                       style: Theme.of(context).textTheme.bodyMedium,
-                      decoration: InputDecoration.collapsed(hintText: 'attributes.description.upper'),
+                      decoration: InputDecoration.collapsed(hintText: localizations.dialog_field_description),
                       controller: descriptionController,
                       keyboardType: TextInputType.multiline,
                       minLines: 3,

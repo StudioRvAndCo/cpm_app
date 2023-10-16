@@ -1,5 +1,6 @@
 import 'package:cpm/pages/projects/links/links_tab.dart';
 import 'package:cpm/pages/projects/project_details_pane.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class ProjectInfoSheet extends StatefulWidget {
@@ -39,10 +40,10 @@ class _ProjectInfoSheetState extends State<ProjectInfoSheet> with SingleTickerPr
               });
             },
             tabs: [
-              Tab(text: 'details.upper'),
-              Tab(text: 'links.upper'),
-              Tab(text: 'members.member.upper'),
-              Tab(text: 'locations.location.upper'),
+              Tab(text: localizations.projects_details),
+              Tab(text: localizations.projects_links),
+              Tab(text: localizations.members_members(2)),
+              Tab(text: localizations.locations_location(2)),
             ],
           ),
           Builder(
@@ -52,9 +53,9 @@ class _ProjectInfoSheetState extends State<ProjectInfoSheet> with SingleTickerPr
               } else if (_selectedTab == 1) {
                 return const LinksTab();
               } else if (_selectedTab == 2) {
-                return const Center(child: Text('Coming soon!'));
+                return Center(child: Text(localizations.coming_soon));
               } else if (_selectedTab == 3) {
-                return const Center(child: Text('Coming soon!'));
+                return Center(child: Text(localizations.coming_soon));
               } else {
                 throw Exception();
               }

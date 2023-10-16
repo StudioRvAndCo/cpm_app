@@ -44,17 +44,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
               NavigationDestination(
                 icon: const Icon(Icons.movie_outlined),
                 selectedIcon: const Icon(Icons.movie),
-                label: 'Projects',
+                label: localizations.navigation_projects,
               ),
               NavigationDestination(
                 icon: const Icon(Icons.group_outlined),
                 selectedIcon: const Icon(Icons.group),
-                label: 'Members',
+                label: localizations.navigation_members,
               ),
               NavigationDestination(
                 icon: const Icon(Icons.map_outlined),
                 selectedIcon: const Icon(Icons.map),
-                label: 'Locations',
+                label: localizations.navigation_locations,
               ),
               NavigationDestination(
                 icon: const Icon(Icons.settings_outlined),
@@ -70,17 +70,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
               BottomNavigationBarItem(
                 icon: const Icon(CupertinoIcons.film),
                 activeIcon: const Icon(CupertinoIcons.film_fill),
-                label: 'Projects',
+                label: localizations.navigation_projects,
               ),
               BottomNavigationBarItem(
                 icon: const Icon(CupertinoIcons.group),
                 activeIcon: const Icon(CupertinoIcons.group_solid),
-                label: 'Members',
+                label: localizations.navigation_members,
               ),
               BottomNavigationBarItem(
                 icon: const Icon(CupertinoIcons.map),
                 activeIcon: const Icon(CupertinoIcons.map_fill),
-                label: 'Locations',
+                label: localizations.navigation_locations,
               ),
               BottomNavigationBarItem(
                 icon: const Icon(CupertinoIcons.settings),

@@ -1,5 +1,6 @@
 import 'package:cpm/common/grid_view.dart';
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/pages/episodes/episode_info_header.dart';
@@ -9,6 +10,7 @@ import 'package:cpm/pages/sequences/sequence_dialog.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/extensions/list_extensions.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
@@ -103,7 +105,13 @@ class _SequencesState extends ConsumerState<SequencesPage> {
     if (newSequence != null) {
       final added = await ref.read(sequencesProvider.notifier).add(newSequence, locationId);
       SnackBarManager().show(
-        added ? getInfoSnackBar('snack_bars.sequence.added') : getErrorSnackBar('snack_bars.sequence.not_added'),
+        added
+            ? getInfoSnackBar(
+                localizations.snack_bar_add_success_item(localizations.item_sequence, Gender.male.name),
+              )
+            : getErrorSnackBar(
+                localizations.snack_bar_add_fail_item(localizations.item_sequence, Gender.male.name),
+              ),
       );
     }
   }

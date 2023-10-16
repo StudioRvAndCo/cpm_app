@@ -1,4 +1,5 @@
 import 'package:cpm/utils/asset.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -49,19 +50,19 @@ class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
             destinations: [
               NavigationRailDestination(
                 icon: const Icon(Icons.movie),
-                label: Text('Projects'),
+                label: Text(localizations.navigation_projects),
               ),
               NavigationRailDestination(
                 icon: const Icon(Icons.people),
-                label: Text('Members'),
+                label: Text(localizations.navigation_members),
               ),
               NavigationRailDestination(
                 icon: const Icon(Icons.map),
-                label: Text('Locations'),
+                label: Text(localizations.navigation_locations),
               ),
               NavigationRailDestination(
                 icon: const Icon(Icons.settings),
-                label: Text('Settings'),
+                label: Text(localizations.navigation_settings),
               ),
             ],
             selectedIndex: _selectedIndex,

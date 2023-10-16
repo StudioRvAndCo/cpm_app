@@ -1,4 +1,5 @@
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/pages/sequences/sequence_info_header.dart';
 import 'package:cpm/pages/shots/shot_card.dart';
@@ -7,6 +8,7 @@ import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/providers/shots/shots.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/extensions/list_extensions.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
@@ -93,7 +95,13 @@ class _ShotsState extends ConsumerState<ShotsPage> {
     if (newShot is Shot) {
       final added = await ref.read(shotsProvider.notifier).add(newShot);
       SnackBarManager().show(
-        added ? getInfoSnackBar('snack_bars.shot.added') : getErrorSnackBar('snack_bars.shot.not_added'),
+        added
+            ? getInfoSnackBar(
+                localizations.snack_bar_add_success_item(localizations.item_shot, Gender.male.name),
+              )
+            : getErrorSnackBar(
+                localizations.snack_bar_add_fail_item(localizations.item_shot, Gender.male.name),
+              ),
       );
     }
   }

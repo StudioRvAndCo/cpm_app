@@ -1,34 +1,5 @@
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
-
-class ConfirmDialog extends StatelessWidget {
-  const ConfirmDialog({
-    super.key,
-    required this.action,
-  });
-
-  final String action;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('confirm_dialog'),
-      actions: <Widget>[
-        TextButton(
-          child: Text('cancel'),
-          onPressed: () {
-            Navigator.pop(context, false);
-          },
-        ),
-        ElevatedButton(
-          child: Text('confirm'),
-          onPressed: () {
-            Navigator.pop(context, true);
-          },
-        ),
-      ],
-    );
-  }
-}
 
 Widget deleteBackground() {
   return const ColoredBox(
@@ -44,22 +15,22 @@ Widget editBackground() {
   );
 }
 
-Future<bool?> showConfirmationDialog(BuildContext context, String action) {
+Future<bool?> showConfirmationDialog(BuildContext context, String name) {
   return showDialog<bool>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('confirm_dialog'),
+        title: Text(localizations.dialog_delete_name_confirmation(name)),
         actions: <Widget>[
           TextButton(
-            child: Text('cancel'),
+            child: Text(localizations.button_cancel),
             onPressed: () {
               Navigator.pop(context, false);
             },
           ),
           ElevatedButton(
             autofocus: true,
-            child: Text('confirm'),
+            child: Text(localizations.button_delete),
             onPressed: () {
               Navigator.pop(context, true);
             },

@@ -1,4 +1,6 @@
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/location/location.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class LocationDialog extends StatefulWidget {
@@ -24,7 +26,12 @@ class _LocationDialogState extends State<LocationDialog> {
 
     edit = widget.location != null;
 
-    title = edit ? 'edit.upper' : 'new.masc.eau.upper';
+    title = edit
+        ? localizations.dialog_edit_name(widget.location!.getName)
+        : localizations.dialog_add_item(
+            localizations.item_location,
+            Gender.female.name,
+          );
 
     nameController = TextEditingController(text: widget.location?.name);
     positionController = TextEditingController(text: widget.location?.position);
@@ -64,8 +71,8 @@ class _LocationDialogState extends State<LocationDialog> {
                         controller: nameController,
                         maxLength: 64,
                         decoration: InputDecoration(
-                          labelText: 'attributes.name.upper',
-                          errorText: nameController.text.trim().isEmpty ? 'error.empty' : null,
+                          labelText: localizations.dialog_field_label,
+                          errorText: nameController.text.trim().isEmpty ? localizations.error_required : null,
                           border: const OutlineInputBorder(),
                           isDense: true,
                         ),
@@ -83,7 +90,7 @@ class _LocationDialogState extends State<LocationDialog> {
                   child: TextField(
                     controller: positionController,
                     decoration: InputDecoration(
-                      labelText: 'attributes.position.upper',
+                      labelText: localizations.dialog_field_position,
                       border: const OutlineInputBorder(),
                       isDense: true,
                     ),
@@ -101,9 +108,12 @@ class _LocationDialogState extends State<LocationDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('cancel'),
+                    child: Text(localizations.button_cancel),
                   ),
-                  TextButton(onPressed: submit, child: Text('confirm')),
+                  TextButton(
+                    onPressed: submit,
+                    child: Text(edit ? localizations.button_edit : localizations.button_add),
+                  ),
                 ],
               ),
             ],

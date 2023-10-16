@@ -1,9 +1,11 @@
 import 'package:cpm/common/dialogs/confirm_dialog.dart';
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/member/member.dart';
 import 'package:cpm/pages/members/member_dialog.dart';
 import 'package:cpm/pages/members/member_tile.dart';
 import 'package:cpm/providers/members/members.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/separators.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
@@ -47,7 +49,11 @@ class _MembersState extends ConsumerState<MembersPage> {
                         edit(members[index]);
                         return false;
                       case DismissDirection.startToEnd:
-                        return await showConfirmationDialog(context, 'delete.lower') ?? false;
+                        return await showConfirmationDialog(
+                              context,
+                              localizations.dialog_delete_name_confirmation(members[index].fullName),
+                            ) ??
+                            false;
                       case DismissDirection.horizontal:
                       case DismissDirection.vertical:
                       case DismissDirection.up:
@@ -66,7 +72,10 @@ class _MembersState extends ConsumerState<MembersPage> {
                       edit(member);
                     },
                     onDelete: (Member member) {
-                      showConfirmationDialog(context, 'delete.lower').then((bool? result) {
+                      showConfirmationDialog(
+                        context,
+                        localizations.dialog_delete_name_confirmation(member.fullName),
+                      ).then((bool? result) {
                         if (result ?? false) {
                           delete(member);
                         }
@@ -102,7 +111,13 @@ class _MembersState extends ConsumerState<MembersPage> {
     if (member is Member) {
       final added = await ref.read(membersProvider.notifier).add(member);
       SnackBarManager().show(
-        added ? getInfoSnackBar('snack_bars.member.added') : getErrorSnackBar('snack_bars.member.not_added'),
+        added
+            ? getInfoSnackBar(
+                localizations.snack_bar_add_success_item(localizations.item_member, Gender.male.name),
+              )
+            : getErrorSnackBar(
+                localizations.snack_bar_add_fail_item(localizations.item_member, Gender.male.name),
+              ),
       );
     }
   }
@@ -117,7 +132,13 @@ class _MembersState extends ConsumerState<MembersPage> {
     if (editedMember is Member) {
       final edited = await ref.read(membersProvider.notifier).edit(editedMember);
       SnackBarManager().show(
-        edited ? getInfoSnackBar('snack_bars.member.edited') : getErrorSnackBar('snack_bars.member.not_edited'),
+        edited
+            ? getInfoSnackBar(
+                localizations.snack_bar_edit_success_item(localizations.item_member, Gender.male.name),
+              )
+            : getErrorSnackBar(
+                localizations.snack_bar_edit_fail_item(localizations.item_member, Gender.male.name),
+              ),
       );
     }
   }
@@ -125,7 +146,13 @@ class _MembersState extends ConsumerState<MembersPage> {
   Future<void> delete(Member member) async {
     final deleted = await ref.read(membersProvider.notifier).delete(member.id);
     SnackBarManager().show(
-      deleted ? getInfoSnackBar('snack_bars.member.deleted') : getErrorSnackBar('snack_bars.member.not_deleted'),
+      deleted
+          ? getInfoSnackBar(
+              localizations.snack_bar_delete_success_item(localizations.item_member, Gender.male.name),
+            )
+          : getErrorSnackBar(
+              localizations.snack_bar_delete_fail_item(localizations.item_member, Gender.male.name),
+            ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cpm/providers/authentication/authentication.dart';
 import 'package:cpm/utils/asset.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/extensions/string_validators.dart';
 import 'package:cpm/utils/routes/router_route.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
@@ -42,7 +43,7 @@ class _LoginState extends ConsumerState<LoginPage> {
     if (logged && context.mounted) {
       context.goNamed(RouterRoute.projects.name);
     } else {
-      SnackBarManager().show(getErrorSnackBar('Login failed.'));
+      SnackBarManager().show(getErrorSnackBar(localizations.error_login));
     }
   }
 
@@ -81,16 +82,16 @@ class _LoginState extends ConsumerState<LoginPage> {
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Required field';
+                                return localizations.error_required;
                               } else if (!value.isValidEmail()) {
-                                return 'Invalid email';
+                                return localizations.error_invalid_email;
                               }
 
                               return null;
                             },
                             decoration: InputDecoration(
                               prefixIcon: const Icon(Icons.mail),
-                              hintText: 'Email',
+                              hintText: localizations.login_username,
                               filled: true,
                               fillColor: Theme.of(context).colorScheme.surfaceVariant,
                               border: OutlineInputBorder(
@@ -128,14 +129,14 @@ class _LoginState extends ConsumerState<LoginPage> {
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Required field';
+                                return localizations.error_required;
                               }
 
                               return null;
                             },
                             decoration: InputDecoration(
                               prefixIcon: const Icon(Icons.lock),
-                              hintText: 'password',
+                              hintText: localizations.login_password,
                               suffixIcon: Padding(
                                 padding: const EdgeInsets.only(right: 4.0),
                                 child: IconButton(
@@ -172,7 +173,7 @@ class _LoginState extends ConsumerState<LoginPage> {
                             width: double.infinity,
                             child: FilledButton(
                               onPressed: () => _login(),
-                              child: Text('authentication.login.upper'),
+                              child: Text(localizations.login_log_in),
                             ),
                           ),
                           const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),

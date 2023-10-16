@@ -1,4 +1,6 @@
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/member/member.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class MemberDialog extends StatefulWidget {
@@ -25,7 +27,12 @@ class _MemberDialogState extends State<MemberDialog> {
 
     edit = widget.member != null;
 
-    title = edit ? 'edit.upper' : 'new.masc.eau.upper';
+    title = edit
+        ? localizations.dialog_edit_name(widget.member!.fullName)
+        : localizations.dialog_add_item(
+            localizations.item_member,
+            Gender.female.name,
+          );
 
     firstNameController = TextEditingController(text: widget.member?.firstName);
     lastNameController = TextEditingController(text: widget.member?.lastName);
@@ -67,8 +74,8 @@ class _MemberDialogState extends State<MemberDialog> {
                         controller: firstNameController,
                         maxLength: 64,
                         decoration: InputDecoration(
-                          labelText: 'attributes.firstname.upper',
-                          errorText: firstNameController.text.trim().isEmpty ? 'error.empty' : null,
+                          labelText: localizations.dialog_field_first_name,
+                          errorText: firstNameController.text.trim().isEmpty ? localizations.error_required : null,
                           border: const OutlineInputBorder(),
                           isDense: true,
                         ),
@@ -86,7 +93,7 @@ class _MemberDialogState extends State<MemberDialog> {
                     controller: lastNameController,
                     maxLength: 64,
                     decoration: InputDecoration(
-                      labelText: 'attributes.lastname.upper',
+                      labelText: localizations.dialog_field_last_name,
                       border: const OutlineInputBorder(),
                       isDense: true,
                     ),
@@ -104,7 +111,7 @@ class _MemberDialogState extends State<MemberDialog> {
                     controller: phoneController,
                     maxLength: 12,
                     decoration: InputDecoration(
-                      labelText: 'attributes.phone.upper',
+                      labelText: localizations.dialog_field_number,
                       border: const OutlineInputBorder(),
                       isDense: true,
                     ),
@@ -124,9 +131,12 @@ class _MemberDialogState extends State<MemberDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('cancel'),
+                    child: Text(localizations.button_cancel),
                   ),
-                  TextButton(onPressed: submit, child: Text('confirm')),
+                  TextButton(
+                    onPressed: submit,
+                    child: Text(edit ? localizations.button_edit : localizations.button_add),
+                  ),
                 ],
               ),
             ],

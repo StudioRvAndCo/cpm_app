@@ -30,11 +30,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('authentication.logout.upper'),
+          title: Text(localizations.login_log_out),
           content: SingleChildScrollView(
             child: Column(
               children: [
-                Text('authentication.logout_confirmation'),
+                Text(localizations.dialog_log_out),
               ],
             ),
           ),
@@ -43,17 +43,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               onPressed: () {
                 Navigator.pop(context, false);
               },
-              child: Text(
-                'cancel',
-              ),
+              child: Text(localizations.button_cancel),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context, true);
               },
-              child: Text(
-                'authentication.logout.upper',
-              ),
+              child: Text(localizations.login_log_out),
             ),
           ],
         );
@@ -158,17 +154,17 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       ),
       sections: [
         SettingsSection(
-          title: Text('Account'),
+          title: Text(localizations.settings_account),
           tiles: [
             SettingsTile(
               leading: const Icon(Icons.account_circle),
-              title: Text('User'),
+              title: Text(localizations.settings_user),
               value: Text(Supabase.instance.client.auth.currentUser?.email ?? ''),
             ),
             SettingsTile(
               leading: const Icon(Icons.logout),
-              title: Text('Logout'),
-              value: Text('Logout of ${PackageInfoManager().name}'),
+              title: Text(localizations.settings_log_out),
+              value: Text(localizations.settings_log_out_description(PackageInfoManager().name)),
               onPressed: _logout,
             ),
           ],
@@ -184,14 +180,15 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
             SettingsTile.switchTile(
               leading: const Icon(Icons.bolt),
-              title: Text('Use dynamic theming'),
-              description: Text('Generate colors from your background'),
+              title: Text(localizations.settings_dynamic_theming),
+              description: Text(localizations.settings_dynamic_theming_description),
               initialValue: ThemeManager().dynamicTheming,
               onToggle: _toggleDynamicTheming,
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.language),
               title: Text(localizations.settings_language),
+              description: Text(localizations.settings_language_description),
               value: Text(Localizations.localeOf(context).nativeDisplayLanguage.capitalized),
               onPressed: _selectLanguage,
             ),
@@ -207,8 +204,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
             SettingsTile(
               leading: const Icon(Icons.movie),
-              title: Text('Studio Rv & Co'),
-              value: Text('Learn more about us'),
+              title: Text(localizations.settings_studiorvandco),
+              value: Text(localizations.settings_studiorvandco_description),
               onPressed: _openStudioRvAndCo,
             ),
             SettingsTile(

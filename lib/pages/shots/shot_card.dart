@@ -1,6 +1,8 @@
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/pages/shots/shot_info_sheet.dart';
 import 'package:cpm/providers/shots/shots.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,9 @@ class _ShotCardState extends ConsumerState<ShotCard> {
   Future<void> _toggleCompletion() async {
     final toggled = await ref.read(shotsProvider.notifier).toggleCompletion(widget.shot);
     if (!toggled) {
-      SnackBarManager().show(getErrorSnackBar('snack_bars.shot.not_edited'));
+      SnackBarManager().show(
+        getErrorSnackBar(localizations.snack_bar_edit_fail_item(localizations.item_shot, Gender.male.name)),
+      );
     }
 
     setState(() {

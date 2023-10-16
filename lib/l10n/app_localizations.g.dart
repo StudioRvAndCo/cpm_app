@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.g.dart';
+import 'app_localizations_fr.g.dart';
 
 /// Callers can lookup localized strings with an instance of AppLocalizations
 /// returned by `AppLocalizations.of(context)`.
@@ -87,19 +88,241 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('fr')];
 
-  /// No description provided for @navigation_home.
+  /// No description provided for @navigation_projects.
   ///
   /// In en, this message translates to:
-  /// **'Home'**
-  String get navigation_home;
+  /// **'Projects'**
+  String get navigation_projects;
+
+  /// No description provided for @navigation_members.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get navigation_members;
+
+  /// No description provided for @navigation_locations.
+  ///
+  /// In en, this message translates to:
+  /// **'Locations'**
+  String get navigation_locations;
 
   /// No description provided for @navigation_settings.
   ///
   /// In en, this message translates to:
   /// **'Settings'**
   String get navigation_settings;
+
+  /// No description provided for @login_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get login_username;
+
+  /// No description provided for @login_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get login_password;
+
+  /// No description provided for @login_log_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get login_log_in;
+
+  /// No description provided for @login_log_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get login_log_out;
+
+  /// No description provided for @projects_project.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, zero{No projects} one{Project} other{Projects}}'**
+  String projects_project(num count);
+
+  /// No description provided for @projects_movie.
+  ///
+  /// In en, this message translates to:
+  /// **'Movie'**
+  String get projects_movie;
+
+  /// No description provided for @projects_series.
+  ///
+  /// In en, this message translates to:
+  /// **'Series'**
+  String get projects_series;
+
+  /// No description provided for @projects_episode.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, zero{No episodes} one{Episode} other{Episodes}}'**
+  String projects_episode(num count);
+
+  /// No description provided for @projects_sequence.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, zero{No sequences} one{Sequence} other{Sequences}}'**
+  String projects_sequence(num count);
+
+  /// No description provided for @projects_shot.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, zero{No shots} one{Shot} other{Shots}}'**
+  String projects_shot(num count);
+
+  /// No description provided for @projects_shots_value.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, zero{No shot value} one{Value} other{Values}}'**
+  String projects_shots_value(num count);
+
+  /// No description provided for @projects_shots_value_full.
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get projects_shots_value_full;
+
+  /// No description provided for @projects_shots_value_medium_full.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium full'**
+  String get projects_shots_value_medium_full;
+
+  /// No description provided for @projects_shots_value_cowboy.
+  ///
+  /// In en, this message translates to:
+  /// **'Cowboy'**
+  String get projects_shots_value_cowboy;
+
+  /// No description provided for @projects_shots_value_medium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get projects_shots_value_medium;
+
+  /// No description provided for @projects_shots_value_medium_closeup.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium closeup'**
+  String get projects_shots_value_medium_closeup;
+
+  /// No description provided for @projects_shots_value_closeup.
+  ///
+  /// In en, this message translates to:
+  /// **'Closeup'**
+  String get projects_shots_value_closeup;
+
+  /// No description provided for @projects_shots_value_extreme_closeup.
+  ///
+  /// In en, this message translates to:
+  /// **'Extreme closeup'**
+  String get projects_shots_value_extreme_closeup;
+
+  /// No description provided for @projects_shots_value_insert.
+  ///
+  /// In en, this message translates to:
+  /// **'Insert'**
+  String get projects_shots_value_insert;
+
+  /// No description provided for @projects_shots_value_sequence.
+  ///
+  /// In en, this message translates to:
+  /// **'Sequence'**
+  String get projects_shots_value_sequence;
+
+  /// No description provided for @projects_shots_value_landscape.
+  ///
+  /// In en, this message translates to:
+  /// **'Landscape'**
+  String get projects_shots_value_landscape;
+
+  /// No description provided for @projects_shots_value_drone.
+  ///
+  /// In en, this message translates to:
+  /// **'Drone'**
+  String get projects_shots_value_drone;
+
+  /// No description provided for @projects_shots_value_other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get projects_shots_value_other;
+
+  /// No description provided for @projects_links.
+  ///
+  /// In en, this message translates to:
+  /// **'Links'**
+  String get projects_links;
+
+  /// No description provided for @projects_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get projects_details;
+
+  /// No description provided for @schedule_schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get schedule_schedule;
+
+  /// No description provided for @members_members.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, zero{No members} one{Member} other{Members}}'**
+  String members_members(num count);
+
+  /// No description provided for @members_call.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get members_call;
+
+  /// No description provided for @members_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a message'**
+  String get members_message;
+
+  /// No description provided for @locations_location.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, zero{No locations} one{Location} other{Locations}}'**
+  String locations_location(num count);
+
+  /// No description provided for @location_map.
+  ///
+  /// In en, this message translates to:
+  /// **'View on map'**
+  String get location_map;
+
+  /// No description provided for @settings_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settings_account;
+
+  /// No description provided for @settings_user.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get settings_user;
+
+  /// No description provided for @settings_log_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get settings_log_out;
+
+  /// No description provided for @settings_log_out_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out of {appName}'**
+  String settings_log_out_description(Object appName);
 
   /// No description provided for @settings_appearance.
   ///
@@ -131,17 +354,47 @@ abstract class AppLocalizations {
   /// **'Dark'**
   String get settings_theme_dark;
 
+  /// No description provided for @settings_dynamic_theming.
+  ///
+  /// In en, this message translates to:
+  /// **'Use dynamic theming'**
+  String get settings_dynamic_theming;
+
+  /// No description provided for @settings_dynamic_theming_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate colors from your background'**
+  String get settings_dynamic_theming_description;
+
   /// No description provided for @settings_language.
   ///
   /// In en, this message translates to:
   /// **'Language'**
   String get settings_language;
 
+  /// No description provided for @settings_language_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Requires a restart to take effect'**
+  String get settings_language_description;
+
   /// No description provided for @settings_about.
   ///
   /// In en, this message translates to:
   /// **'About'**
   String get settings_about;
+
+  /// No description provided for @settings_studiorvandco.
+  ///
+  /// In en, this message translates to:
+  /// **'Studio Rv & Co'**
+  String get settings_studiorvandco;
+
+  /// No description provided for @settings_studiorvandco_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Visit our website'**
+  String get settings_studiorvandco_description;
 
   /// No description provided for @settings_github.
   ///
@@ -166,6 +419,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'AGPL-3.0'**
   String get settings_licence_description;
+
+  /// No description provided for @button_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get button_add;
+
+  /// No description provided for @button_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get button_edit;
+
+  /// No description provided for @button_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get button_delete;
+
+  /// No description provided for @button_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get button_cancel;
+
+  /// No description provided for @menu_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get menu_add;
+
+  /// No description provided for @menu_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get menu_open;
+
+  /// No description provided for @menu_move_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Move up'**
+  String get menu_move_up;
+
+  /// No description provided for @menu_move_down.
+  ///
+  /// In en, this message translates to:
+  /// **'Move down'**
+  String get menu_move_down;
+
+  /// No description provided for @menu_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get menu_edit;
+
+  /// No description provided for @menu_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get menu_delete;
+
+  /// No description provided for @item_project.
+  ///
+  /// In en, this message translates to:
+  /// **'project'**
+  String get item_project;
+
+  /// No description provided for @item_episode.
+  ///
+  /// In en, this message translates to:
+  /// **'episode'**
+  String get item_episode;
+
+  /// No description provided for @item_sequence.
+  ///
+  /// In en, this message translates to:
+  /// **'sequence'**
+  String get item_sequence;
+
+  /// No description provided for @item_shot.
+  ///
+  /// In en, this message translates to:
+  /// **'shot'**
+  String get item_shot;
+
+  /// No description provided for @item_member.
+  ///
+  /// In en, this message translates to:
+  /// **'member'**
+  String get item_member;
+
+  /// No description provided for @item_location.
+  ///
+  /// In en, this message translates to:
+  /// **'location'**
+  String get item_location;
+
+  /// No description provided for @dialog_log_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want to log out?'**
+  String get dialog_log_out;
+
+  /// No description provided for @dialog_add_item.
+  ///
+  /// In en, this message translates to:
+  /// **'New {item}'**
+  String dialog_add_item(Object item, String sex);
+
+  /// No description provided for @dialog_edit_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit {name}'**
+  String dialog_edit_name(Object name);
+
+  /// No description provided for @dialog_delete_name_confirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you really want to delete this {name}'**
+  String dialog_delete_name_confirmation(Object name);
+
+  /// No description provided for @dialog_field_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get dialog_field_title;
+
+  /// No description provided for @dialog_field_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get dialog_field_description;
+
+  /// No description provided for @dialog_field_value.
+  ///
+  /// In en, this message translates to:
+  /// **'Value'**
+  String get dialog_field_value;
+
+  /// No description provided for @dialog_field_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get dialog_field_label;
+
+  /// No description provided for @dialog_field_url.
+  ///
+  /// In en, this message translates to:
+  /// **'URL'**
+  String get dialog_field_url;
+
+  /// No description provided for @dialog_field_first_name.
+  ///
+  /// In en, this message translates to:
+  /// **'First name'**
+  String get dialog_field_first_name;
+
+  /// No description provided for @dialog_field_last_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Last name'**
+  String get dialog_field_last_name;
+
+  /// No description provided for @dialog_field_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Number'**
+  String get dialog_field_number;
+
+  /// No description provided for @dialog_field_position.
+  ///
+  /// In en, this message translates to:
+  /// **'Position'**
+  String get dialog_field_position;
+
+  /// No description provided for @snack_bar_add_success_item.
+  ///
+  /// In en, this message translates to:
+  /// **'The {item} was added successfully.'**
+  String snack_bar_add_success_item(Object item, String sex);
+
+  /// No description provided for @snack_bar_add_fail_item.
+  ///
+  /// In en, this message translates to:
+  /// **'The {item} could not be added.'**
+  String snack_bar_add_fail_item(Object item, String sex);
+
+  /// No description provided for @snack_bar_delete_success_item.
+  ///
+  /// In en, this message translates to:
+  /// **'The {item} was deleted successfully.'**
+  String snack_bar_delete_success_item(Object item, String sex);
+
+  /// No description provided for @snack_bar_delete_fail_item.
+  ///
+  /// In en, this message translates to:
+  /// **'The {item} could not be deleted.'**
+  String snack_bar_delete_fail_item(Object item, String sex);
+
+  /// No description provided for @snack_bar_edit_success_item.
+  ///
+  /// In en, this message translates to:
+  /// **'The {item} was edited successfully.'**
+  String snack_bar_edit_success_item(Object item, String sex);
+
+  /// No description provided for @snack_bar_edit_fail_item.
+  ///
+  /// In en, this message translates to:
+  /// **'The {item} could not be edited.'**
+  String snack_bar_edit_fail_item(Object item, String sex);
+
+  /// No description provided for @error_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error_error;
+
+  /// No description provided for @error_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong username or password.'**
+  String get error_login;
+
+  /// No description provided for @error_invalid_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email'**
+  String get error_invalid_email;
+
+  /// No description provided for @error_invalid_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid URL'**
+  String get error_invalid_url;
+
+  /// No description provided for @error_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get error_required;
+
+  /// No description provided for @coming_soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon!'**
+  String get coming_soon;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -177,7 +676,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'fr'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -188,6 +687,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'fr':
+      return AppLocalizationsFr();
   }
 
   throw FlutterError('AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '

@@ -55,7 +55,7 @@ class _DetailsPaneSequenceState extends ConsumerState<SequenceDetailsPane> {
                 },
                 child: TextField(
                   style: Theme.of(context).textTheme.titleMedium,
-                  decoration: InputDecoration.collapsed(hintText: 'attributes.title.upper'),
+                  decoration: InputDecoration.collapsed(hintText: localizations.dialog_field_title),
                   controller: titleController,
                 ),
               ),
@@ -68,7 +68,7 @@ class _DetailsPaneSequenceState extends ConsumerState<SequenceDetailsPane> {
                 },
                 child: TextField(
                   style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: InputDecoration.collapsed(hintText: 'attributes.description.upper'),
+                  decoration: InputDecoration.collapsed(hintText: localizations.dialog_field_description),
                   controller: descriptionController,
                   keyboardType: TextInputType.multiline,
                   minLines: 3,
@@ -83,7 +83,7 @@ class _DetailsPaneSequenceState extends ConsumerState<SequenceDetailsPane> {
                     padding: const EdgeInsets.all(8.0),
                     child: DropdownButtonFormField<Location>(
                       isExpanded: true,
-                      hint: Text('attributes.position.upper'),
+                      hint: Text(localizations.dialog_field_position),
                       items: locations.map<DropdownMenuItem<Location>>((location) {
                         return DropdownMenuItem<Location>(
                           value: location,
@@ -98,7 +98,7 @@ class _DetailsPaneSequenceState extends ConsumerState<SequenceDetailsPane> {
                         edit(sequence);
                       },
                       decoration: InputDecoration(
-                        labelText: 'locations.location.upper',
+                        labelText: localizations.locations_location(1),
                         border: const OutlineInputBorder(),
                         isDense: true,
                       ),

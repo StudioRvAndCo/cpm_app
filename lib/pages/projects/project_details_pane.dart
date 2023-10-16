@@ -44,7 +44,7 @@ class _DetailsPaneProjectState extends ConsumerState<ProjectDetailsPane> {
                 },
                 child: TextField(
                   style: Theme.of(context).textTheme.titleMedium,
-                  decoration: InputDecoration.collapsed(hintText: 'attributes.title.upper'),
+                  decoration: InputDecoration.collapsed(hintText: localizations.dialog_field_title),
                   controller: titleController,
                   maxLength: 64,
                 ),
@@ -58,7 +58,7 @@ class _DetailsPaneProjectState extends ConsumerState<ProjectDetailsPane> {
                 },
                 child: TextField(
                   style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: InputDecoration.collapsed(hintText: 'attributes.description.upper'),
+                  decoration: InputDecoration.collapsed(hintText: localizations.dialog_field_description),
                   controller: descriptionController,
                   keyboardType: TextInputType.multiline,
                   minLines: 3,

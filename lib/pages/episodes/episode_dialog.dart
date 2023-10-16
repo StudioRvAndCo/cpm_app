@@ -1,3 +1,4 @@
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -44,11 +45,7 @@ class _EpisodeDialogState extends State<EpisodeDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Text>[
-                  Text('${'new.masc.el.upper'} ${'episodes.episode.lower'}'),
-                  Text(
-                    '${'add.upper'} ${'articles.a.masc.lower'} ${'new.masc.el.lower'} ${'episodes.episode.lower'}.',
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  Text(localizations.dialog_add_item(localizations.item_episode, Gender.male.name)),
                 ],
               ),
             ],
@@ -70,7 +67,7 @@ class _EpisodeDialogState extends State<EpisodeDialog> {
                       maxLength: 64,
                       controller: titleController,
                       decoration: InputDecoration(
-                        labelText: 'attributes.title.upper',
+                        labelText: localizations.dialog_field_title,
                         border: const OutlineInputBorder(),
                         isDense: true,
                       ),
@@ -88,7 +85,7 @@ class _EpisodeDialogState extends State<EpisodeDialog> {
                       maxLines: 4,
                       controller: descriptionController,
                       decoration: InputDecoration(
-                        labelText: 'attributes.description.upper',
+                        labelText: localizations.dialog_field_description,
                         border: const OutlineInputBorder(),
                         isDense: true,
                       ),
@@ -116,9 +113,9 @@ class _EpisodeDialogState extends State<EpisodeDialog> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text('cancel.upper'),
+                      child: Text(localizations.button_cancel),
                     ),
-                    TextButton(onPressed: submit, child: Text('confirm.upper')),
+                    TextButton(onPressed: submit, child: Text(localizations.button_add)),
                   ],
                 ),
               ],

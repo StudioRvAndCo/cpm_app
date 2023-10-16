@@ -1,4 +1,5 @@
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/providers/locations/locations.dart';
@@ -40,11 +41,7 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Text>[
-                  Text('${'new.fem.upper'} ${'sequences.sequence.lower'}'),
-                  Text(
-                    '${'add.upper'} ${'articles.a.fem.lower'} ${'new.fem.lower'} ${'sequences.sequence.lower'}.',
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  Text(localizations.dialog_add_item(localizations.item_sequence, Gender.female.name)),
                 ],
               ),
             ],
@@ -66,7 +63,7 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
                       maxLength: 64,
                       controller: titleController,
                       decoration: InputDecoration(
-                        labelText: 'attributes.title.upper',
+                        labelText: localizations.dialog_field_title,
                         border: const OutlineInputBorder(),
                         isDense: true,
                       ),
@@ -84,7 +81,7 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
                       maxLines: 4,
                       controller: descriptionController,
                       decoration: InputDecoration(
-                        labelText: 'attributes.description.upper',
+                        labelText: localizations.dialog_field_description,
                         border: const OutlineInputBorder(),
                         isDense: true,
                       ),
@@ -110,7 +107,7 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownButtonFormField<Location>(
                         isExpanded: true,
-                        hint: Text('attributes.position.upper'),
+                        hint: Text(localizations.dialog_field_position),
                         items: locations.map<DropdownMenuItem<Location>>((location) {
                           return DropdownMenuItem<Location>(
                             value: location,
@@ -124,7 +121,6 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
                           });
                         },
                         decoration: InputDecoration(
-                          labelText: 'locations.location.upper',
                           border: const OutlineInputBorder(),
                           isDense: true,
                         ),
@@ -148,9 +144,9 @@ class _SequenceDialogState extends ConsumerState<SequenceDialog> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text('cancel.upper'),
+                      child: Text(localizations.button_cancel),
                     ),
-                    TextButton(onPressed: submit, child: Text('confirm.upper')),
+                    TextButton(onPressed: submit, child: Text(localizations.button_add)),
                   ],
                 ),
               ],

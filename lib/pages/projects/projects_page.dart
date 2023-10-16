@@ -1,9 +1,11 @@
 import 'package:cpm/common/grid_view.dart';
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/pages/projects/project_card.dart';
 import 'package:cpm/pages/projects/project_dialog.dart';
 import 'package:cpm/providers/projects/projects.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +64,13 @@ class ProjectsState extends ConsumerState<ProjectsPage> {
     if (project is Project) {
       final added = await ref.read(projectsProvider.notifier).add(project);
       SnackBarManager().show(
-        added ? getInfoSnackBar('snack_bars.project.added') : getErrorSnackBar('snack_bars.project.not_added'),
+        added
+            ? getInfoSnackBar(
+                localizations.snack_bar_add_success_item(localizations.item_project, Gender.male.name),
+              )
+            : getErrorSnackBar(
+                localizations.snack_bar_add_fail_item(localizations.item_project, Gender.male.name),
+              ),
       );
     }
   }

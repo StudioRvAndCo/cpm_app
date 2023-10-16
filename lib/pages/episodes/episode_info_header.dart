@@ -1,9 +1,11 @@
 import 'package:cpm/common/dialogs/confirm_dialog.dart';
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/pages/episodes/episode_info_sheet.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/routes/router_route.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
@@ -104,11 +106,17 @@ class _InfoHeaderEpisodeState extends ConsumerState<EpisodeInfoHeader> {
       return;
     }
 
-    showConfirmationDialog(context, 'delete.lower').then((bool? result) async {
+    showConfirmationDialog(context, episode.getTitle).then((bool? result) async {
       if (result ?? false) {
         final deleted = await ref.read(episodesProvider.notifier).delete(episode.id);
         SnackBarManager().show(
-          deleted ? getInfoSnackBar('snack_bars.episode.added') : getErrorSnackBar('snack_bars.episode.not_added'),
+          deleted
+              ? getInfoSnackBar(
+                  localizations.snack_bar_delete_success_item(localizations.item_episode, Gender.male.name),
+                )
+              : getErrorSnackBar(
+                  localizations.snack_bar_delete_fail_item(localizations.item_episode, Gender.male.name),
+                ),
         );
         if (context.mounted) {
           context.pushNamed(RouterRoute.episodes.name);

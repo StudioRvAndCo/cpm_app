@@ -1,4 +1,5 @@
 import 'package:cpm/pages/sequences/sequence_details_pane.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class SequenceInfoSheet extends StatelessWidget {
@@ -12,15 +13,15 @@ class SequenceInfoSheet extends StatelessWidget {
         children: <Widget>[
           TabBar(
             tabs: <Tab>[
-              Tab(text: 'details.upper'),
-              Tab(text: 'members.member.upper'),
+              Tab(text: localizations.projects_details),
+              Tab(text: localizations.members_members(2)),
             ],
           ),
-          const Expanded(
+          Expanded(
             child: TabBarView(
               children: <Widget>[
-                SequenceDetailsPane(),
-                Center(child: Text('Coming soon!')),
+                const SequenceDetailsPane(),
+                Center(child: Text(localizations.coming_soon)),
               ],
             ),
           ),

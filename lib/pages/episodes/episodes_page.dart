@@ -1,11 +1,13 @@
 import 'package:cpm/common/grid_view.dart';
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/pages/episodes/episode_card.dart';
 import 'package:cpm/pages/episodes/episode_dialog.dart';
 import 'package:cpm/pages/projects/project_info_header.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/extensions/list_extensions.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
@@ -81,7 +83,13 @@ class EpisodesState extends ConsumerState<EpisodesPage> {
     if (newEpisode is Episode) {
       final added = await ref.read(episodesProvider.notifier).add(newEpisode);
       SnackBarManager().show(
-        added ? getInfoSnackBar('snack_bars.episode.added') : getErrorSnackBar('snack_bars.episode.not_added'),
+        added
+            ? getInfoSnackBar(
+                localizations.snack_bar_add_success_item(localizations.item_episode, Gender.male.name),
+              )
+            : getErrorSnackBar(
+                localizations.snack_bar_add_fail_item(localizations.item_episode, Gender.male.name),
+              ),
       );
     }
   }

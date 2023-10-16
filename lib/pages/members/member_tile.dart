@@ -1,5 +1,6 @@
 import 'package:cpm/common/menus/menu_action.dart';
 import 'package:cpm/models/member/member.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,7 +42,7 @@ class _MemberTileState extends State<MemberTile> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             IconButton(
-              tooltip: 'members.call',
+              tooltip: localizations.members_call,
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: hasPhone()
                   ? () {
@@ -51,7 +52,7 @@ class _MemberTileState extends State<MemberTile> {
               icon: const Icon(Icons.phone),
             ),
             IconButton(
-              tooltip: 'members.message',
+              tooltip: localizations.members_message,
               color: Theme.of(context).colorScheme.onBackground,
               onPressed: hasPhone()
                   ? () {
@@ -73,7 +74,7 @@ class _MemberTileState extends State<MemberTile> {
                       Icons.edit,
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
-                    title: Text('edit.upper'),
+                    title: Text(localizations.menu_edit),
                   ),
                 ),
                 PopupMenuItem<MenuAction>(
@@ -83,7 +84,7 @@ class _MemberTileState extends State<MemberTile> {
                       Icons.delete,
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
-                    title: Text('delete.upper'),
+                    title: Text(localizations.menu_delete),
                   ),
                 ),
               ],

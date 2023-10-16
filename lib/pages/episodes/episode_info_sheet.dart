@@ -1,4 +1,5 @@
 import 'package:cpm/pages/episodes/episode_details_pane.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class EpisodeInfoSheet extends StatelessWidget {
@@ -12,17 +13,17 @@ class EpisodeInfoSheet extends StatelessWidget {
         children: <Widget>[
           TabBar(
             tabs: <Tab>[
-              Tab(text: 'details.upper'),
-              Tab(text: 'members.member.upper'),
-              Tab(text: 'locations.location.upper'),
+              Tab(text: localizations.projects_details),
+              Tab(text: localizations.members_members(2)),
+              Tab(text: localizations.locations_location(2)),
             ],
           ),
-          const Expanded(
+          Expanded(
             child: TabBarView(
               children: <Widget>[
-                EpisodeDetailsPane(),
-                Center(child: Text('Coming soon!')),
-                Center(child: Text('Coming soon!')),
+                const EpisodeDetailsPane(),
+                Center(child: Text(localizations.coming_soon)),
+                Center(child: Text(localizations.coming_soon)),
               ],
             ),
           ),

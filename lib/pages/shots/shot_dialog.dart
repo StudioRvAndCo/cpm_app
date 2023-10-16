@@ -1,5 +1,7 @@
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/models/shot/shot_value.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class ShotDialog extends StatefulWidget {
@@ -28,11 +30,7 @@ class _ShotDialogState extends State<ShotDialog> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Text>[
-                Text('${'new.masc.eau.upper'} ${'shots.shot.lower'}'),
-                Text(
-                  '${'add.upper'} ${'articles.a.masc.lower'} ${'new.masc.eau.lower'} ${'shots.shot.lower'}.',
-                  style: const TextStyle(fontSize: 12),
-                ),
+                Text(localizations.dialog_add_item(localizations.item_shot, Gender.male.name)),
               ],
             ),
           ],
@@ -53,7 +51,7 @@ class _ShotDialogState extends State<ShotDialog> {
                     maxLines: 4,
                     controller: descriptionController,
                     decoration: InputDecoration(
-                      labelText: 'attributes.description.upper',
+                      labelText: localizations.dialog_field_description,
                       border: const OutlineInputBorder(),
                       isDense: true,
                     ),
@@ -66,7 +64,7 @@ class _ShotDialogState extends State<ShotDialog> {
                   width: 330,
                   child: DropdownButtonFormField<String>(
                     isExpanded: true,
-                    hint: Text('shots.value.upper'),
+                    hint: Text(localizations.dialog_field_value),
                     items: values.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -80,7 +78,7 @@ class _ShotDialogState extends State<ShotDialog> {
                       });
                     },
                     decoration: InputDecoration(
-                      labelText: 'shots.value.upper',
+                      labelText: localizations.dialog_field_value,
                       border: const OutlineInputBorder(),
                       isDense: true,
                     ),
@@ -97,9 +95,9 @@ class _ShotDialogState extends State<ShotDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('cancel.upper'),
+                    child: Text(localizations.button_cancel),
                   ),
-                  TextButton(onPressed: submit, child: Text('confirm.upper')),
+                  TextButton(onPressed: submit, child: Text(localizations.button_add)),
                 ],
               ),
             ],

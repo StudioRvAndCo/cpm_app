@@ -1,6 +1,7 @@
 import 'package:cpm/common/dialogs/confirm_dialog.dart';
 import 'package:cpm/common/icon_label.dart';
 import 'package:cpm/common/request_placeholder.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/pages/sequences/sequence_info_sheet.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
@@ -104,11 +105,17 @@ class _InfoHeaderSequenceState extends ConsumerState<SequenceInfoHeader> {
       return;
     }
 
-    showConfirmationDialog(context, 'delete.lower').then((bool? result) async {
+    showConfirmationDialog(context, sequence.getTitle).then((bool? result) async {
       if (result ?? false) {
         final deleted = await ref.read(sequencesProvider.notifier).delete(sequence.id);
         SnackBarManager().show(
-          deleted ? getInfoSnackBar('snack_bars.sequence.added') : getErrorSnackBar('snack_bars.sequence.not_added'),
+          deleted
+              ? getInfoSnackBar(
+                  localizations.snack_bar_delete_success_item(localizations.item_sequence, Gender.male.name),
+                )
+              : getErrorSnackBar(
+                  localizations.snack_bar_delete_fail_item(localizations.item_sequence, Gender.male.name),
+                ),
         );
         if (context.mounted) {
           context.pushNamed(RouterRoute.episodes.name);

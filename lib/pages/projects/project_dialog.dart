@@ -1,3 +1,4 @@
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/models/project/project_type.dart';
 import 'package:cpm/utils/constants/constants.dart';
@@ -42,11 +43,7 @@ class _ProjectDialogState extends State<ProjectDialog> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Text>[
-                Text('${'new.masc.eau.upper'} ${'projects.project.lower'}'),
-                Text(
-                  '${'add.upper'} ${'articles.a.masc.lower'} ${'new.masc.eau.lower'} ${'projects.project.lower'}.',
-                  style: const TextStyle(fontSize: 12),
-                ),
+                Text(localizations.dialog_add_item(localizations.item_project, Gender.male.name)),
               ],
             ),
           ],
@@ -66,7 +63,7 @@ class _ProjectDialogState extends State<ProjectDialog> {
                     maxLength: 64,
                     controller: titleController,
                     decoration: InputDecoration(
-                      labelText: 'attributes.title.upper',
+                      labelText: localizations.dialog_field_title,
                       border: const OutlineInputBorder(),
                       isDense: true,
                     ),
@@ -84,7 +81,7 @@ class _ProjectDialogState extends State<ProjectDialog> {
                     maxLines: 4,
                     controller: descriptionController,
                     decoration: InputDecoration(
-                      labelText: 'attributes.description.upper',
+                      labelText: localizations.dialog_field_description,
                       border: const OutlineInputBorder(),
                       isDense: true,
                     ),
@@ -108,8 +105,8 @@ class _ProjectDialogState extends State<ProjectDialog> {
                   width: 330,
                   child: SegmentedButton<ProjectType>(
                     segments: <ButtonSegment<ProjectType>>[
-                      ButtonSegment<ProjectType>(label: Text('projects.movie.upper'), value: ProjectType.movie),
-                      ButtonSegment<ProjectType>(label: Text('projects.series.upper'), value: ProjectType.series),
+                      ButtonSegment<ProjectType>(label: Text(localizations.projects_movie), value: ProjectType.movie),
+                      ButtonSegment<ProjectType>(label: Text(localizations.projects_series), value: ProjectType.series),
                     ],
                     selected: <ProjectType>{type},
                     onSelectionChanged: (Set<ProjectType> newSelection) {
@@ -130,9 +127,9 @@ class _ProjectDialogState extends State<ProjectDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('cancel.upper'),
+                    child: Text(localizations.button_cancel),
                   ),
-                  TextButton(onPressed: submit, child: Text('confirm.upper')),
+                  TextButton(onPressed: submit, child: Text(localizations.button_add)),
                 ],
               ),
             ],

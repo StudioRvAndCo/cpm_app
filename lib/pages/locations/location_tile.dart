@@ -1,5 +1,6 @@
 import 'package:cpm/common/menus/menu_action.dart';
 import 'package:cpm/models/location/location.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
@@ -28,7 +29,7 @@ class _LocationTileState extends State<LocationTile> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           IconButton(
-            tooltip: 'locations.view',
+            tooltip: localizations.location_map,
             color: Theme.of(context).colorScheme.onBackground,
             onPressed: checkPosition()
                 ? () {
@@ -50,7 +51,7 @@ class _LocationTileState extends State<LocationTile> {
                     Icons.edit,
                     color: Theme.of(context).colorScheme.onBackground,
                   ),
-                  title: Text('edit.upper'),
+                  title: Text(localizations.menu_edit),
                 ),
               ),
               PopupMenuItem<MenuAction>(
@@ -60,7 +61,7 @@ class _LocationTileState extends State<LocationTile> {
                     Icons.delete,
                     color: Theme.of(context).colorScheme.onBackground,
                   ),
-                  title: Text('delete.upper'),
+                  title: Text(localizations.menu_delete),
                 ),
               ),
             ],
