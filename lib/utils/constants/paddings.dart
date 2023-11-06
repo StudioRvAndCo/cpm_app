@@ -28,9 +28,11 @@ enum Paddings {
 
   EdgeInsets get fab => const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64);
 
-  EdgeInsets get page => EdgeInsets.all(Paddings.padding16._padding);
+  EdgeInsets get page => EdgeInsets.all(Paddings.padding8._padding);
 
-  EdgeInsets get drawer => EdgeInsets.all(Paddings.padding8._padding);
+  EdgeInsets get drawer => EdgeInsets.all(Paddings.padding16._padding);
+
+  static EdgeInsets withFab(EdgeInsets padding) => padding.copyWith(bottom: kFloatingActionButtonMargin + 64);
 
   final double _padding;
 

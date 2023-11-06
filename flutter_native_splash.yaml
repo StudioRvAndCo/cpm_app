@@ -1,18 +1,14 @@
 # dart run flutter_native_splash:create
 flutter_native_splash:
   color: "#ffffff"
-  image: "assets/logos/cpm_light.png"
+  image: "assets/icons/cpm.png"
 
   color_dark: "#181c1f"
-  image_dark: "assets/logos/cpm_light.png"
+  image_dark: "assets/icons/cpm.png"
 
   android_12:
-    image: "assets/logos/cpm_light.png"
+    image: "assets/icons/cpm.png"
     color: "#42a5f5"
 
-    image_dark: "assets/logos/cpm_light.png"
+    image_dark: "assets/icons/cpm.png"
     color_dark: "#042a49"
-
-  # android: false
-  # ios: false
-  web: false

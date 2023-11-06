@@ -139,6 +139,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get projects_details => 'Details';
 
   @override
+  String get projects_no_title => 'Untitled';
+
+  @override
+  String get projects_no_description => 'No description';
+
+  @override
+  String get projects_no_dates => 'No dates';
+
+  @override
+  String get projects_no_director => 'No director';
+
+  @override
+  String get projects_no_writer => 'No writer';
+
+  @override
+  String get projects_no_links => 'No links';
+
+  @override
+  String get projects_no_location => 'No location';
+
+  @override
+  String get projects_no_name => 'Unnamed';
+
+  @override
+  String get projects_no_value => 'No value';
+
+  @override
   String get schedule_schedule => 'Schedule';
 
   @override
@@ -154,12 +181,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get members_call => 'Call';
-
-  @override
-  String get members_message => 'Send a message';
-
-  @override
   String locations_location(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -170,9 +191,6 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
-
-  @override
-  String get location_map => 'View on map';
 
   @override
   String get settings_account => 'Account';
@@ -204,7 +222,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_theme_dark => 'Dark';
 
   @override
-  String get settings_dynamic_theming => 'Use dynamic theming';
+  String get settings_dynamic_theming => 'Dynamic theming';
 
   @override
   String get settings_dynamic_theming_description => 'Generate colors from your background';
@@ -213,7 +231,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_language => 'Language';
 
   @override
-  String get settings_language_description => 'Requires a restart to take effect';
+  String get settings_language_restart => 'Please restart the app for the changes to take effect.';
 
   @override
   String get settings_about => 'About';
@@ -261,6 +279,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menu_move_down => 'Move down';
 
   @override
+  String get menu_call => 'Call';
+
+  @override
+  String get menu_message => 'Send a message';
+
+  @override
+  String get menu_email => 'Send an email';
+
+  @override
+  String get menu_map => 'See on map';
+
+  @override
   String get menu_edit => 'Edit';
 
   @override
@@ -293,20 +323,29 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String dialog_edit_name(Object name) {
-    return 'Edit $name';
+  String dialog_edit_item(Object item) {
+    return 'Edit $item';
   }
 
   @override
-  String dialog_delete_name_confirmation(Object name) {
-    return 'Do you really want to delete this $name';
+  String dialog_delete_item_confirmation(Object item, String sex) {
+    return 'Do you really want to delete this $item?';
   }
+
+  @override
+  String get dialog_delete_cannot_be_undone => 'This action cannot be undone.';
 
   @override
   String get dialog_field_title => 'Title';
 
   @override
   String get dialog_field_description => 'Description';
+
+  @override
+  String get dialog_field_director => 'Director';
+
+  @override
+  String get dialog_field_writer => 'Writer';
 
   @override
   String get dialog_field_value => 'Value';
@@ -324,7 +363,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dialog_field_last_name => 'Last name';
 
   @override
-  String get dialog_field_number => 'Number';
+  String get dialog_field_phone => 'Phone';
+
+  @override
+  String get dialog_field_email => 'Email';
+
+  @override
+  String get dialog_field_name => 'Name';
 
   @override
   String get dialog_field_position => 'Position';
@@ -364,6 +409,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error_login => 'Wrong username or password.';
+
+  @override
+  String get error_invalid_phone => 'Invalid phone';
 
   @override
   String get error_invalid_email => 'Invalid email';

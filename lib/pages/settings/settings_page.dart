@@ -188,7 +188,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             SettingsTile.navigation(
               leading: const Icon(Icons.language),
               title: Text(localizations.settings_language),
-              description: Text(localizations.settings_language_description),
               value: Text(Localizations.localeOf(context).nativeDisplayLanguage.capitalized),
               onPressed: _selectLanguage,
             ),

@@ -6,7 +6,7 @@ part of 'locations.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$locationsHash() => r'3981929a3760d5b8924a45e8df723c1f6e407dd4';
+String _$locationsHash() => r'7ebb6853fa41c0b62876a8d212dc68e43718e301';
 
 /// See also [Locations].
 @ProviderFor(Locations)
@@ -19,5 +19,18 @@ final locationsProvider = AutoDisposeAsyncNotifierProvider<Locations, List<Locat
 );
 
 typedef _$Locations = AutoDisposeAsyncNotifier<List<Location>>;
+String _$currentLocationHash() => r'f957567221f933b6e65020b319854f7aec845710';
+
+/// See also [CurrentLocation].
+@ProviderFor(CurrentLocation)
+final currentLocationProvider = AsyncNotifierProvider<CurrentLocation, Location>.internal(
+  CurrentLocation.new,
+  name: r'currentLocationProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$currentLocationHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CurrentLocation = AsyncNotifier<Location>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

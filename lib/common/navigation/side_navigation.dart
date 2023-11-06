@@ -1,5 +1,6 @@
 import 'package:cpm/utils/asset.dart';
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,6 +35,12 @@ class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
     }
   }
 
+  void _back() {
+    if (!context.canPop()) return;
+
+    context.pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -44,8 +51,8 @@ class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
             labelType: NavigationRailLabelType.all,
             leading: Image.asset(
               Asset.cpm.path,
-              width: 64,
               filterQuality: FilterQuality.medium,
+              width: 64,
             ),
             destinations: [
               NavigationRailDestination(
@@ -65,6 +72,15 @@ class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
                 label: Text(localizations.navigation_settings),
               ),
             ],
+            trailing: Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  BackButton(onPressed: _back),
+                  Padding(padding: Paddings.padding8.bottom),
+                ],
+              ),
+            ),
             selectedIndex: _selectedIndex,
             onDestinationSelected: _onDestinationSelected,
           ),

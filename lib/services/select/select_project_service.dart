@@ -7,10 +7,23 @@ class SelectProjectService extends SelectService {
   SupabaseTable table = SupabaseTable.project;
 
   Future<List<Project>> selectProjects() async {
-    return select<Project>(
+    final projects = await select<Project>(
       await supabase.from(table.name).select('*'),
       Project.fromJson,
     );
+
+    for (final project in projects) {
+      project.shotsTotal = await supabase.rpc(
+        'shots_total',
+        params: {'project_id': project.id},
+      ) as int;
+      project.shotsCompleted = await supabase.rpc(
+        'shots_completed',
+        params: {'project_id': project.id},
+      ) as int;
+    }
+
+    return projects;
   }
 
   Future<List<Link>> selectLinks(int id) async {

@@ -4,7 +4,7 @@ import 'package:cpm/utils/preferences/preferences_manager.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
-const _customPrimaryColor = Color(0xFF5865f2);
+const _customPrimaryColor = Color(0xFF8189c6);
 
 class ThemeManager {
   final _customLightColorScheme = ColorScheme.fromSeed(

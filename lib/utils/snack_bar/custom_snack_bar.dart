@@ -12,6 +12,5 @@ SnackBar getErrorSnackBar(String error) {
 SnackBar _getBaseSnackBar(String data) {
   return SnackBar(
     content: Text(data),
-    behavior: SnackBarBehavior.floating,
   );
 }

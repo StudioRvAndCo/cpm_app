@@ -83,6 +83,6 @@ class _EpisodeCardState extends ConsumerState<EpisodeCard> {
 
   void openEpisode(Episode episode) {
     ref.read(currentEpisodeProvider.notifier).set(episode);
-    context.pushNamed(RouterRoute.episodes.name);
+    context.pushNamed(RouterRoute.sequences.name);
   }
 }

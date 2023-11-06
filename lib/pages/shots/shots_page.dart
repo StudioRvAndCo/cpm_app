@@ -1,17 +1,16 @@
-import 'package:cpm/common/request_placeholder.dart';
-import 'package:cpm/l10n/gender.dart';
+import 'package:cpm/common/actions/add_action.dart';
+import 'package:cpm/common/actions/delete_action.dart';
+import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/widgets/project_header.dart';
+import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/models/shot/shot.dart';
-import 'package:cpm/pages/sequences/sequence_info_header.dart';
 import 'package:cpm/pages/shots/shot_card.dart';
-import 'package:cpm/pages/shots/shot_dialog.dart';
-import 'package:cpm/providers/episodes/episodes.dart';
-import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/providers/shots/shots.dart';
-import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/list_extensions.dart';
-import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
-import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
+import 'package:cpm/utils/pages.dart';
+import 'package:cpm/utils/platform_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,85 +23,83 @@ class ShotsPage extends ConsumerStatefulWidget {
 }
 
 class _ShotsState extends ConsumerState<ShotsPage> {
+  Future<void> _refresh() async {
+    await ref.read(shotsProvider.notifier).get();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => add(),
+        onPressed: () => AddAction<Shot>().add(
+          context,
+          ref,
+          parentId: ref.read(currentSequenceProvider).value!.id,
+          index: ref.read(shotsProvider).value!.getNextIndex<Sequence>(),
+        ),
         child: const Icon(Icons.add),
       ),
-      body: ref.watch(shotsProvider).when(
-        data: (List<Shot> shots) {
-          return Column(
-            children: <Widget>[
-              const SequenceInfoHeader(),
-              Expanded(
-                child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    return MasonryGridView.count(
-                      itemCount: shots.length,
-                      padding: const EdgeInsets.only(
-                        bottom: kFloatingActionButtonMargin + 64,
-                        top: 4,
-                        left: 4,
-                        right: 4,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return ShotCard(
-                          shot: shots[index],
-                        );
-                      },
-                      crossAxisCount: 1,
-                      mainAxisSpacing: 2,
-                      crossAxisSpacing: 2,
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        notificationPredicate: (notification) {
+          return notification.depth == 0 || notification.depth == 1;
         },
-        error: (Object error, StackTrace stackTrace) {
-          return requestPlaceholderError;
-        },
-        loading: () {
-          return requestPlaceholderLoading;
-        },
+        child: ref.watch(shotsProvider).when(
+          data: (shots) {
+            final sequence = ref.watch(currentSequenceProvider).unwrapPrevious().valueOrNull;
+
+            final header = ProjectHeader.sequence(
+              delete: () => DeleteAction<Sequence>().delete(context, ref, id: sequence?.id),
+              title: sequence?.title,
+              description: sequence?.description,
+              startDate: sequence?.startDate,
+              endDate: sequence?.endDate,
+              location: sequence?.location,
+            );
+
+            final body = LayoutBuilder(
+              builder: (context, constraints) {
+                return ScrollConfiguration(
+                  behavior: scrollBehavior,
+                  child: AlignedGridView.count(
+                    crossAxisCount: getColumnsCount(constraints),
+                    itemCount: shots.length,
+                    itemBuilder: (context, index) {
+                      return ShotCard(shots[index]);
+                    },
+                    padding: Paddings.withFab(Paddings.padding8.all),
+                  ),
+                );
+              },
+            );
+
+            return PlatformManager().isMobile
+                ? NestedScrollView(
+                    floatHeaderSlivers: true,
+                    headerSliverBuilder: (context, innerBoxIsScrolled) {
+                      return [
+                        SliverToBoxAdapter(
+                          child: header,
+                        ),
+                      ];
+                    },
+                    body: body,
+                  )
+                : Column(
+                    children: [
+                      header,
+                      Expanded(child: body),
+                    ],
+                  );
+          },
+          error: (Object error, StackTrace stackTrace) {
+            return requestPlaceholderError;
+          },
+          loading: () {
+            return requestPlaceholderLoading;
+          },
+        ),
       ),
     );
-  }
-
-  Future<void> add() async {
-    final currentProjectReader = ref.read(currentProjectProvider);
-    final currentEpisodeReader = ref.read(currentEpisodeProvider);
-    final currentSequenceReader = ref.read(currentSequenceProvider);
-
-    if (!currentProjectReader.hasValue || !currentEpisodeReader.hasValue || !currentSequenceReader.hasValue) {
-      return;
-    }
-
-    final int sequence = currentSequenceReader.value!.id;
-    final newShot = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return ShotDialog(
-          sequence: sequence,
-          index: ref.read(shotsProvider).value!.getNextIndex<Shot>(),
-        );
-      },
-    );
-
-    if (newShot is Shot) {
-      final added = await ref.read(shotsProvider.notifier).add(newShot);
-      SnackBarManager().show(
-        added
-            ? getInfoSnackBar(
-                localizations.snack_bar_add_success_item(localizations.item_shot, Gender.male.name),
-              )
-            : getErrorSnackBar(
-                localizations.snack_bar_add_fail_item(localizations.item_shot, Gender.male.name),
-              ),
-      );
-    }
   }
 }

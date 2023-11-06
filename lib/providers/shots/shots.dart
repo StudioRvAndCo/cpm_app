@@ -1,8 +1,9 @@
-import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/services/config/supabase_table.dart';
+import 'package:cpm/utils/cache/cache_key.dart';
+import 'package:cpm/utils/cache/cache_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shots.g.dart';
@@ -10,37 +11,33 @@ part 'shots.g.dart';
 @riverpod
 class Shots extends _$Shots with BaseProvider {
   final _table = SupabaseTable.shot;
+  final _cacheKey = CacheKey.shots;
 
   @override
   FutureOr<List<Shot>> build() {
-    return ref.watch(currentSequenceProvider).when(
-      data: (Sequence sequence) async {
-        return selectShotService.selectShots(sequence.id);
-      },
-      error: (Object error, StackTrace stackTrace) {
-        return <Shot>[];
-      },
-      loading: () {
-        return <Shot>[];
-      },
-    );
+    get();
+
+    return <Shot>[];
   }
 
-  Future<void> get() {
+  Future<void> get() async {
     state = const AsyncLoading<List<Shot>>();
 
-    return ref.watch(currentSequenceProvider).when(
-      data: (Sequence sequence) async {
-        final List<Shot> shots = await selectShotService.selectShots(sequence.id);
-        state = AsyncData<List<Shot>>(shots);
-      },
-      error: (Object error, StackTrace stackTrace) {
-        return Future.value();
-      },
-      loading: () {
-        return Future.value();
-      },
-    );
+    ref.watch(currentSequenceProvider).when(
+          data: (sequence) async {
+            if (await CacheManager().contains(_cacheKey, sequence.id)) {
+              state = AsyncData<List<Shot>>(
+                await CacheManager().get<Shot>(_cacheKey, Shot.fromJson, sequence.id),
+              );
+            }
+
+            final List<Shot> shots = await selectShotService.selectShots(sequence.id);
+            CacheManager().set(_cacheKey, shots, sequence.id);
+            state = AsyncData<List<Shot>>(shots);
+          },
+          error: (Object error, StackTrace stackTrace) {},
+          loading: () {},
+        );
   }
 
   Future<bool> add(Shot newShot) async {

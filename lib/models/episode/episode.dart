@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cpm/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -17,6 +19,8 @@ class Episode extends BaseModel {
   String get getTitle => title ?? 'Untitled';
 
   String get getDescription => description ?? '';
+
+  String get getNumber => number.toString();
 
   Episode({
     required super.id,
@@ -54,4 +58,13 @@ class Episode extends BaseModel {
 
   @override
   Map<String, dynamic> toJson() => _$EpisodeToJson(this);
+
+  @override
+  Map<String, dynamic> toJsonCache() {
+    return _$EpisodeToJson(this)
+      ..addAll({
+        'id': id,
+        'number': number,
+      });
+  }
 }

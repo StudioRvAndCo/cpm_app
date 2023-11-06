@@ -5,6 +5,8 @@ import 'package:cpm/models/project/link.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/services/config/supabase_table.dart';
+import 'package:cpm/utils/cache/cache_key.dart';
+import 'package:cpm/utils/cache/cache_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'projects.g.dart';
@@ -12,6 +14,7 @@ part 'projects.g.dart';
 @riverpod
 class Projects extends _$Projects with BaseProvider {
   final _table = SupabaseTable.project;
+  final _cacheKey = CacheKey.projects;
 
   @override
   FutureOr<List<Project>> build() {
@@ -26,8 +29,16 @@ class Projects extends _$Projects with BaseProvider {
       projects = (state.value ?? [])..sort();
     } else {
       state = const AsyncLoading<List<Project>>();
+
+      if (await CacheManager().contains(_cacheKey)) {
+        state = AsyncData<List<Project>>(
+          await CacheManager().get<Project>(_cacheKey, Project.fromJson),
+        );
+      }
+
       projects = await selectProjectService.selectProjects()
         ..sort();
+      CacheManager().set(_cacheKey, projects);
     }
     state = AsyncData<List<Project>>(projects);
   }

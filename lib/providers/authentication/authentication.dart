@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/services/authentication_service.dart';
+import 'package:cpm/utils/cache/cache_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication.g.dart';
@@ -26,6 +27,7 @@ class Authentication extends _$Authentication with BaseProvider {
   }
 
   Future<void> logout() async {
+    await CacheManager().clear();
     await AuthenticationService().logout();
     state = const AsyncValue<bool>.data(false);
   }

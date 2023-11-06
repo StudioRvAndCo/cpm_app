@@ -1,10 +1,11 @@
-import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/models/sequence_location/sequence_location.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/services/config/supabase_table.dart';
+import 'package:cpm/utils/cache/cache_key.dart';
+import 'package:cpm/utils/cache/cache_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sequences.g.dart';
@@ -12,51 +13,28 @@ part 'sequences.g.dart';
 @Riverpod(keepAlive: true)
 class Sequences extends _$Sequences with BaseProvider {
   final _table = SupabaseTable.sequence;
+  final _cacheKey = CacheKey.sequences;
 
   @override
   FutureOr<List<Sequence>> build() {
-    return ref.watch(currentEpisodeProvider).when(
-      data: (Episode episode) async {
-        return selectSequenceService.selectSequences(episode.id);
-      },
-      error: (Object error, StackTrace stackTrace) {
-        return <Sequence>[];
-      },
-      loading: () {
-        return <Sequence>[];
-      },
-    );
+    get();
+
+    return <Sequence>[];
   }
 
-  Future<void> get() {
+  Future<void> get() async {
     state = const AsyncLoading<List<Sequence>>();
 
-    return ref.watch(currentEpisodeProvider).when(
-      data: (Episode episode) async {
-        final List<Sequence> sequences = await selectSequenceService.selectSequences(episode.id);
-        state = AsyncData<List<Sequence>>(sequences);
-      },
-      error: (Object error, StackTrace stackTrace) {
-        return Future.value();
-      },
-      loading: () {
-        return Future.value();
-      },
-    );
-  }
-
-  Future<void> getAll() {
-    state = const AsyncLoading<List<Sequence>>();
-
-    return ref.watch(currentProjectProvider).when(
-      data: (project) async {
-        final episodes = await selectEpisodeService.selectEpisodes(project.id);
-        final List<Sequence> sequences = [];
-
-        for (final episode in episodes) {
-          sequences.addAll(await selectSequenceService.selectSequences(episode.id));
+    ref.watch(currentEpisodeProvider).when(
+      data: (episode) async {
+        if (await CacheManager().contains(_cacheKey, episode.id)) {
+          state = AsyncData<List<Sequence>>(
+            await CacheManager().get<Sequence>(_cacheKey, Sequence.fromJson, episode.id),
+          );
         }
 
+        final List<Sequence> sequences = await selectSequenceService.selectSequences(episode.id);
+        CacheManager().set(_cacheKey, sequences, episode.id);
         state = AsyncData<List<Sequence>>(sequences);
       },
       error: (Object error, StackTrace stackTrace) {
@@ -66,6 +44,25 @@ class Sequences extends _$Sequences with BaseProvider {
         return Future.value();
       },
     );
+  }
+
+  Future<void> getAll() async {
+    state = const AsyncLoading<List<Sequence>>();
+
+    ref.watch(currentProjectProvider).when(
+          data: (project) async {
+            final episodes = await selectEpisodeService.selectEpisodes(project.id);
+            final List<Sequence> sequences = [];
+
+            for (final episode in episodes) {
+              sequences.addAll(await selectSequenceService.selectSequences(episode.id));
+            }
+
+            state = AsyncData<List<Sequence>>(sequences);
+          },
+          error: (Object error, StackTrace stackTrace) {},
+          loading: () {},
+        );
   }
 
   Future<bool> add(Sequence newSequence, [int? locationId]) async {
@@ -128,7 +125,7 @@ class Sequences extends _$Sequences with BaseProvider {
   }
 
   Future<void> _updateLocation(SequenceLocation sequenceLocation) async {
-    await updateService.updateWhere(
+    await updateService.updateOrInsert(
       SupabaseTable.sequenceLocation,
       sequenceLocation,
       'sequence',

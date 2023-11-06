@@ -264,6 +264,60 @@ abstract class AppLocalizations {
   /// **'Details'**
   String get projects_details;
 
+  /// No description provided for @projects_no_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Untitled'**
+  String get projects_no_title;
+
+  /// No description provided for @projects_no_description.
+  ///
+  /// In en, this message translates to:
+  /// **'No description'**
+  String get projects_no_description;
+
+  /// No description provided for @projects_no_dates.
+  ///
+  /// In en, this message translates to:
+  /// **'No dates'**
+  String get projects_no_dates;
+
+  /// No description provided for @projects_no_director.
+  ///
+  /// In en, this message translates to:
+  /// **'No director'**
+  String get projects_no_director;
+
+  /// No description provided for @projects_no_writer.
+  ///
+  /// In en, this message translates to:
+  /// **'No writer'**
+  String get projects_no_writer;
+
+  /// No description provided for @projects_no_links.
+  ///
+  /// In en, this message translates to:
+  /// **'No links'**
+  String get projects_no_links;
+
+  /// No description provided for @projects_no_location.
+  ///
+  /// In en, this message translates to:
+  /// **'No location'**
+  String get projects_no_location;
+
+  /// No description provided for @projects_no_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Unnamed'**
+  String get projects_no_name;
+
+  /// No description provided for @projects_no_value.
+  ///
+  /// In en, this message translates to:
+  /// **'No value'**
+  String get projects_no_value;
+
   /// No description provided for @schedule_schedule.
   ///
   /// In en, this message translates to:
@@ -276,29 +330,11 @@ abstract class AppLocalizations {
   /// **'{count, plural, zero{No members} one{Member} other{Members}}'**
   String members_members(num count);
 
-  /// No description provided for @members_call.
-  ///
-  /// In en, this message translates to:
-  /// **'Call'**
-  String get members_call;
-
-  /// No description provided for @members_message.
-  ///
-  /// In en, this message translates to:
-  /// **'Send a message'**
-  String get members_message;
-
   /// No description provided for @locations_location.
   ///
   /// In en, this message translates to:
   /// **'{count, plural, zero{No locations} one{Location} other{Locations}}'**
   String locations_location(num count);
-
-  /// No description provided for @location_map.
-  ///
-  /// In en, this message translates to:
-  /// **'View on map'**
-  String get location_map;
 
   /// No description provided for @settings_account.
   ///
@@ -357,7 +393,7 @@ abstract class AppLocalizations {
   /// No description provided for @settings_dynamic_theming.
   ///
   /// In en, this message translates to:
-  /// **'Use dynamic theming'**
+  /// **'Dynamic theming'**
   String get settings_dynamic_theming;
 
   /// No description provided for @settings_dynamic_theming_description.
@@ -372,11 +408,11 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get settings_language;
 
-  /// No description provided for @settings_language_description.
+  /// No description provided for @settings_language_restart.
   ///
   /// In en, this message translates to:
-  /// **'Requires a restart to take effect'**
-  String get settings_language_description;
+  /// **'Please restart the app for the changes to take effect.'**
+  String get settings_language_restart;
 
   /// No description provided for @settings_about.
   ///
@@ -468,6 +504,30 @@ abstract class AppLocalizations {
   /// **'Move down'**
   String get menu_move_down;
 
+  /// No description provided for @menu_call.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get menu_call;
+
+  /// No description provided for @menu_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a message'**
+  String get menu_message;
+
+  /// No description provided for @menu_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Send an email'**
+  String get menu_email;
+
+  /// No description provided for @menu_map.
+  ///
+  /// In en, this message translates to:
+  /// **'See on map'**
+  String get menu_map;
+
   /// No description provided for @menu_edit.
   ///
   /// In en, this message translates to:
@@ -528,17 +588,23 @@ abstract class AppLocalizations {
   /// **'New {item}'**
   String dialog_add_item(Object item, String sex);
 
-  /// No description provided for @dialog_edit_name.
+  /// No description provided for @dialog_edit_item.
   ///
   /// In en, this message translates to:
-  /// **'Edit {name}'**
-  String dialog_edit_name(Object name);
+  /// **'Edit {item}'**
+  String dialog_edit_item(Object item);
 
-  /// No description provided for @dialog_delete_name_confirmation.
+  /// No description provided for @dialog_delete_item_confirmation.
   ///
   /// In en, this message translates to:
-  /// **'Do you really want to delete this {name}'**
-  String dialog_delete_name_confirmation(Object name);
+  /// **'Do you really want to delete this {item}?'**
+  String dialog_delete_item_confirmation(Object item, String sex);
+
+  /// No description provided for @dialog_delete_cannot_be_undone.
+  ///
+  /// In en, this message translates to:
+  /// **'This action cannot be undone.'**
+  String get dialog_delete_cannot_be_undone;
 
   /// No description provided for @dialog_field_title.
   ///
@@ -551,6 +617,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Description'**
   String get dialog_field_description;
+
+  /// No description provided for @dialog_field_director.
+  ///
+  /// In en, this message translates to:
+  /// **'Director'**
+  String get dialog_field_director;
+
+  /// No description provided for @dialog_field_writer.
+  ///
+  /// In en, this message translates to:
+  /// **'Writer'**
+  String get dialog_field_writer;
 
   /// No description provided for @dialog_field_value.
   ///
@@ -582,11 +660,23 @@ abstract class AppLocalizations {
   /// **'Last name'**
   String get dialog_field_last_name;
 
-  /// No description provided for @dialog_field_number.
+  /// No description provided for @dialog_field_phone.
   ///
   /// In en, this message translates to:
-  /// **'Number'**
-  String get dialog_field_number;
+  /// **'Phone'**
+  String get dialog_field_phone;
+
+  /// No description provided for @dialog_field_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get dialog_field_email;
+
+  /// No description provided for @dialog_field_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get dialog_field_name;
 
   /// No description provided for @dialog_field_position.
   ///
@@ -641,6 +731,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wrong username or password.'**
   String get error_login;
+
+  /// No description provided for @error_invalid_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid phone'**
+  String get error_invalid_phone;
 
   /// No description provided for @error_invalid_email.
   ///

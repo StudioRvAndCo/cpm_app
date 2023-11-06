@@ -14,7 +14,7 @@ class SequenceLocation extends BaseModel {
     required this.location,
   });
 
-  SequenceLocation.insert({
+  const SequenceLocation.insert({
     required this.sequence,
     required this.location,
   }) : super(id: -1);
@@ -23,4 +23,12 @@ class SequenceLocation extends BaseModel {
 
   @override
   Map<String, dynamic> toJson() => _$SequenceLocationToJson(this);
+
+  @override
+  Map<String, dynamic> toJsonCache() {
+    return _$SequenceLocationToJson(this)
+      ..addAll({
+        'id': id,
+      });
+  }
 }

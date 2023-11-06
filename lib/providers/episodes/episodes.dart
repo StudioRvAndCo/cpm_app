@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:cpm/models/episode/episode.dart';
-import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/services/config/supabase_table.dart';
+import 'package:cpm/utils/cache/cache_key.dart';
+import 'package:cpm/utils/cache/cache_manager.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'episodes.g.dart';
@@ -12,43 +13,37 @@ part 'episodes.g.dart';
 @riverpod
 class Episodes extends _$Episodes with BaseProvider {
   final _table = SupabaseTable.episode;
+  final _cacheKey = CacheKey.episodes;
 
   @override
   FutureOr<List<Episode>> build() {
-    return ref.watch(currentProjectProvider).when(
-      data: (Project project) async {
-        final List<Episode> episodes = await selectEpisodeService.selectEpisodes(project.id);
+    get();
 
-        return episodes;
-      },
-      error: (Object error, StackTrace stackTrace) {
-        return <Episode>[];
-      },
-      loading: () {
-        return <Episode>[];
-      },
-    );
+    return <Episode>[];
   }
 
-  Future<void> get() {
+  Future<void> get() async {
     state = const AsyncLoading<List<Episode>>();
 
-    return ref.watch(currentProjectProvider).when(
-      data: (project) async {
-        final List<Episode> episodes = await selectEpisodeService.selectEpisodes(project.id);
-        state = AsyncData<List<Episode>>(episodes);
+    ref.watch(currentProjectProvider).when(
+          data: (project) async {
+            if (await CacheManager().contains(_cacheKey, project.id)) {
+              state = AsyncData<List<Episode>>(
+                await CacheManager().get<Episode>(_cacheKey, Episode.fromJson, project.id),
+              );
+            }
 
-        if (project.isMovie) {
-          ref.read(currentEpisodeProvider.notifier).set(episodes.first);
-        }
-      },
-      error: (Object error, StackTrace stackTrace) {
-        return Future.value();
-      },
-      loading: () {
-        return Future.value();
-      },
-    );
+            final List<Episode> episodes = await selectEpisodeService.selectEpisodes(project.id);
+            CacheManager().set(_cacheKey, episodes, project.id);
+            state = AsyncData<List<Episode>>(episodes);
+
+            if (project.isMovie) {
+              ref.read(currentEpisodeProvider.notifier).set(episodes.first);
+            }
+          },
+          error: (Object error, StackTrace stackTrace) {},
+          loading: () {},
+        );
   }
 
   Future<void> set(int projectId) async {

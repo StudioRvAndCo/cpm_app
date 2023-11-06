@@ -17,12 +17,20 @@ Project _$ProjectFromJson(Map<String, dynamic> json) => $checkedCreate(
           description: $checkedConvert('description', (v) => v as String?),
           startDate: $checkedConvert('start_date', (v) => v == null ? null : DateTime.parse(v as String)),
           endDate: $checkedConvert('end_date', (v) => v == null ? null : DateTime.parse(v as String)),
+          shotsTotal: $checkedConvert('shots_total', (v) => v as int?),
+          shotsCompleted: $checkedConvert('shots_completed', (v) => v as int?),
           director: $checkedConvert('director', (v) => v as String?),
           writer: $checkedConvert('writer', (v) => v as String?),
         );
         return val;
       },
-      fieldKeyMap: const {'projectType': 'project_type', 'startDate': 'start_date', 'endDate': 'end_date'},
+      fieldKeyMap: const {
+        'projectType': 'project_type',
+        'startDate': 'start_date',
+        'endDate': 'end_date',
+        'shotsTotal': 'shots_total',
+        'shotsCompleted': 'shots_completed'
+      },
     );
 
 Map<String, dynamic> _$ProjectToJson(Project instance) => <String, dynamic>{

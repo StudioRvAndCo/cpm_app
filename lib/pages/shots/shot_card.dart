@@ -1,15 +1,20 @@
+import 'package:cpm/common/actions/delete_action.dart';
+import 'package:cpm/common/menus/menu_action.dart';
+import 'package:cpm/common/sheets/sheet.dart';
+import 'package:cpm/common/sheets/sheet_manager.dart';
+import 'package:cpm/common/sheets/shot/shot_details_tab.dart';
 import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/shot/shot.dart';
-import 'package:cpm/pages/shots/shot_info_sheet.dart';
 import 'package:cpm/providers/shots/shots.dart';
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ShotCard extends ConsumerStatefulWidget {
-  const ShotCard({super.key, required this.shot});
+  const ShotCard(this.shot, {super.key});
 
   final Shot shot;
 
@@ -18,22 +23,21 @@ class ShotCard extends ConsumerStatefulWidget {
 }
 
 class _ShotCardState extends ConsumerState<ShotCard> {
-  late bool completed;
-
-  @override
-  void initState() {
-    super.initState();
-    completed = widget.shot.completed;
+  void _onMenuSelected(BuildContext context, MenuAction action) {
+    switch (action) {
+      case MenuAction.edit:
+        _showDetails();
+      case MenuAction.delete:
+        DeleteAction<Shot>().delete(context, ref, id: widget.shot.id);
+      default:
+    }
   }
 
   void _showDetails() {
     ref.read(currentShotProvider.notifier).set(widget.shot);
-    showModalBottomSheet(
-      context: context,
-      clipBehavior: Clip.hardEdge,
-      builder: (context) {
-        return const ShotInfoSheet();
-      },
+    SheetManager().showSheet(
+      context,
+      Sheet(tabs: const [ShotDetailsTab()]),
     );
   }
 
@@ -44,16 +48,12 @@ class _ShotCardState extends ConsumerState<ShotCard> {
         getErrorSnackBar(localizations.snack_bar_edit_fail_item(localizations.item_shot, Gender.male.name)),
       );
     }
-
-    setState(() {
-      completed = !completed;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     Color? cardColor;
-    if (completed) {
+    if (widget.shot.completed) {
       cardColor = Theme.of(context).brightness == Brightness.light
           ? Colors.green.shade200
           : Colors.green.shade900.withOpacity(0.75);
@@ -84,9 +84,9 @@ class _ShotCardState extends ConsumerState<ShotCard> {
                           ),
                           const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
                           Badge(
-                            label: Text(widget.shot.getValue),
+                            label: Text(widget.shot.getValueName),
                             backgroundColor: widget.shot.value?.color,
-                            textColor: Theme.of(context).colorScheme.onPrimary,
+                            textColor: Colors.white,
                           ),
                         ],
                       ),
@@ -94,7 +94,7 @@ class _ShotCardState extends ConsumerState<ShotCard> {
                         const Padding(padding: EdgeInsets.symmetric(vertical: 4)),
                         Text(
                           widget.shot.getDescription,
-                          maxLines: completed ? 1 : 5,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -104,6 +104,21 @@ class _ShotCardState extends ConsumerState<ShotCard> {
                 IconButton(
                   onPressed: () => _toggleCompletion(),
                   icon: Icon(widget.shot.completed ? Icons.remove_done : Icons.done_all),
+                ),
+                PopupMenuButton(
+                  itemBuilder: (BuildContext context) {
+                    return MenuAction.defaults.map((action) {
+                      return PopupMenuItem(
+                        value: action,
+                        child: ListTile(
+                          leading: Icon(action.icon),
+                          title: Text(action.title),
+                          contentPadding: Paddings.custom.zero,
+                        ),
+                      );
+                    }).toList();
+                  },
+                  onSelected: (action) => _onMenuSelected(context, action),
                 ),
               ],
             ),

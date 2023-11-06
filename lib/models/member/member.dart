@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cpm/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -11,6 +13,18 @@ class Member extends BaseModel {
   String? email;
 
   String get fullName => '$firstName${firstName != null ? ' ' : ''}${lastName?.toUpperCase()}';
+
+  String get phoneAndEmail {
+    if (phone != null && phone!.isNotEmpty && email != null && email!.isNotEmpty) {
+      return '$phone • $email';
+    } else if (email == null || email!.isEmpty) {
+      return phone!;
+    } else if (phone == null || phone!.isEmpty) {
+      return email!;
+    } else {
+      return '';
+    }
+  }
 
   Member({
     required super.id,
@@ -31,4 +45,12 @@ class Member extends BaseModel {
 
   @override
   Map<String, dynamic> toJson() => _$MemberToJson(this);
+
+  @override
+  Map<String, dynamic> toJsonCache() {
+    return _$MemberToJson(this)
+      ..addAll({
+        'id': id,
+      });
+  }
 }

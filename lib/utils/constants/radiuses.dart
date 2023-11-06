@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 enum Radiuses {
   custom(0),
+  radius0(0),
   radius2(2),
   radius4(4),
   radius8(8),

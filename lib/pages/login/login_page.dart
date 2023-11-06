@@ -62,122 +62,126 @@ class _LoginState extends ConsumerState<LoginPage> {
                     width: 512,
                     child: Form(
                       key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-                          Image.asset(
-                            Asset.cpm.path,
-                            filterQuality: FilterQuality.medium,
-                            fit: BoxFit.fitWidth,
-                            width: 192,
-                          ),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 32.0)),
-                          TextFormField(
-                            controller: usernameController,
-                            textInputAction: TextInputAction.next,
-                            keyboardType: TextInputType.emailAddress,
-                            onEditingComplete: () {
-                              FocusScope.of(context).nextFocus();
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return localizations.error_required;
-                              } else if (!value.isValidEmail()) {
-                                return localizations.error_invalid_email;
-                              }
+                      child: AutofillGroup(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
+                            Image.asset(
+                              Asset.cpm.path,
+                              filterQuality: FilterQuality.medium,
+                              fit: BoxFit.fitWidth,
+                              width: 192,
+                            ),
+                            const Padding(padding: EdgeInsets.symmetric(vertical: 32.0)),
+                            TextFormField(
+                              controller: usernameController,
+                              textInputAction: TextInputAction.next,
+                              keyboardType: TextInputType.emailAddress,
+                              autofillHints: const [AutofillHints.email],
+                              onEditingComplete: () {
+                                FocusScope.of(context).nextFocus();
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return localizations.error_required;
+                                } else if (!value.isValidEmail) {
+                                  return localizations.error_invalid_email;
+                                }
 
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              prefixIcon: const Icon(Icons.mail),
-                              hintText: localizations.login_username,
-                              filled: true,
-                              fillColor: Theme.of(context).colorScheme.surfaceVariant,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(64.0),
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(64.0),
-                                borderSide: BorderSide(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.mail),
+                                hintText: localizations.login_username,
+                                filled: true,
+                                fillColor: Theme.of(context).colorScheme.surfaceVariant,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(64.0),
+                                  borderSide: BorderSide.none,
                                 ),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(64.0),
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(64.0),
-                                borderSide: BorderSide(
-                                  color: Theme.of(context).colorScheme.error,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(64.0),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(context).colorScheme.secondary,
+                                  ),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(64.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(64.0),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-                          TextFormField(
-                            controller: passwordController,
-                            enableSuggestions: false,
-                            autocorrect: false,
-                            obscureText: obscurePassword,
-                            keyboardType: obscurePassword ? null : TextInputType.visiblePassword,
-                            onEditingComplete: () {
-                              FocusScope.of(context).unfocus();
-                              _login();
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return localizations.error_required;
-                              }
+                            const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
+                            TextFormField(
+                              controller: passwordController,
+                              enableSuggestions: false,
+                              autocorrect: false,
+                              obscureText: obscurePassword,
+                              keyboardType: obscurePassword ? null : TextInputType.visiblePassword,
+                              autofillHints: const [AutofillHints.password],
+                              onEditingComplete: () {
+                                FocusScope.of(context).unfocus();
+                                _login();
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return localizations.error_required;
+                                }
 
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              prefixIcon: const Icon(Icons.lock),
-                              hintText: localizations.login_password,
-                              suffixIcon: Padding(
-                                padding: const EdgeInsets.only(right: 4.0),
-                                child: IconButton(
-                                  icon: Icon(obscurePassword ? Icons.visibility : Icons.visibility_off),
-                                  onPressed: _obscurePassword,
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.lock),
+                                hintText: localizations.login_password,
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 4.0),
+                                  child: IconButton(
+                                    icon: Icon(obscurePassword ? Icons.visibility : Icons.visibility_off),
+                                    onPressed: _obscurePassword,
+                                  ),
                                 ),
-                              ),
-                              filled: true,
-                              fillColor: Theme.of(context).colorScheme.surfaceVariant,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(64.0),
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(64.0),
-                                borderSide: BorderSide(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                filled: true,
+                                fillColor: Theme.of(context).colorScheme.surfaceVariant,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(64.0),
+                                  borderSide: BorderSide.none,
                                 ),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(64.0),
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(64.0),
-                                borderSide: BorderSide(
-                                  color: Theme.of(context).colorScheme.error,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(64.0),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(context).colorScheme.secondary,
+                                  ),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(64.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(64.0),
+                                  borderSide: BorderSide(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 32.0)),
-                          SizedBox(
-                            width: double.infinity,
-                            child: FilledButton(
-                              onPressed: () => _login(),
-                              child: Text(localizations.login_log_in),
+                            const Padding(padding: EdgeInsets.symmetric(vertical: 32.0)),
+                            SizedBox(
+                              width: double.infinity,
+                              child: FilledButton(
+                                onPressed: () => _login(),
+                                child: Text(localizations.login_log_in),
+                              ),
                             ),
-                          ),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-                        ],
+                            const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
+                          ],
+                        ),
                       ),
                     ),
                   ),

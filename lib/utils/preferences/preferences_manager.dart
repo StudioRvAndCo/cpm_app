@@ -17,7 +17,7 @@ class PreferencesManager {
   }
 
   void set<T>(String key, T value) {
-    if (T == dynamic) throw ArgumentError('The type T is required.');
+    assert(T != dynamic);
 
     if (T == bool) {
       _preferences.setBool(key, value as bool);
@@ -33,7 +33,7 @@ class PreferencesManager {
   }
 
   T? get<T>(PreferenceKey key) {
-    if (T == dynamic) throw ArgumentError('The type T is required.');
+    assert(T != dynamic);
 
     return _preferences.get(key.name) as T?;
   }

@@ -1,9 +1,9 @@
 # dart run flutter_launcher_icons
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/logos/cpm_light.png"
+  image_path: "assets/icons/cpm.png"
   min_sdk_android: 21
   web:
     generate: true

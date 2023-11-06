@@ -1,25 +1,42 @@
-import 'dart:ui';
-
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonEnum(fieldRename: FieldRename.snake)
 enum ShotValue {
-  full(Color(0xFFff69b4)),
-  mediumFull(Color(0xFF7f0000)),
-  cowboy(Color(0xFF008000)),
-  medium(Color(0xFF000080)),
-  mediumCloseup(Color(0xFFff8c00)),
-  closeup(Color(0xFFffff00)),
-  extremeCloseup(Color(0xFF00ff00)),
-  insert(Color(0xFF00ffff)),
-  sequence(Color(0xFFff00ff)),
-  landscape(Color(0xFF1e90ff)),
-  drone(Color(0xFFffdead)),
-  other(Color(0xFF2f4f4f)),
+  extremeCloseup(0),
+  closeup(1),
+  mediumCloseup(2),
+  medium(3),
+  cowboy(4),
+  mediumFull(5),
+  full(6),
+  landscape(7),
+  drone(8),
+  sequence(9),
+  insert(10),
+  other(17),
   ;
 
-  final Color color;
+  /// Index of the color in the [Colors.primaries] array
+  final int colorIndex;
+
+  static List<String> labels() {
+    return ShotValue.values.map((value) => value.label).toList();
+  }
+
+  const ShotValue(this.colorIndex);
+
+  factory ShotValue.fromString(String? label) {
+    return ShotValue.values.firstWhere(
+      (value) => value.label == label,
+      orElse: () => ShotValue.other,
+    );
+  }
+
+  Color get color {
+    return Colors.primaries[colorIndex].shade700;
+  }
 
   String get label {
     switch (this) {
@@ -48,18 +65,5 @@ enum ShotValue {
       case ShotValue.other:
         return localizations.projects_shots_value_other;
     }
-  }
-
-  static List<String> labels() {
-    return ShotValue.values.map((value) => value.label).toList();
-  }
-
-  const ShotValue(this.color);
-
-  factory ShotValue.fromString(String? label) {
-    return ShotValue.values.firstWhere(
-      (value) => value.label == label,
-      orElse: () => ShotValue.other,
-    );
   }
 }
