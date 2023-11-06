@@ -348,6 +348,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dialog_field_writer => 'Writer';
 
   @override
+  String get dialog_field_start_time => 'Pick a start time';
+
+  @override
+  String get dialog_field_end_time => 'Pick an end time';
+
+  @override
   String get dialog_field_value => 'Value';
 
   @override

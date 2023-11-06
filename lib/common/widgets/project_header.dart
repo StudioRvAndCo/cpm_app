@@ -14,7 +14,6 @@ import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/constants/radiuses.dart';
 import 'package:cpm/utils/constants/sizes.dart';
-import 'package:cpm/utils/extensions/date_time_extensions.dart';
 import 'package:cpm/utils/extensions/string_validators.dart';
 import 'package:cpm/utils/platform_manager.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +25,7 @@ class ProjectHeader extends StatelessWidget {
     required this.delete,
     this.title,
     this.description,
-    this.startDate,
-    this.endDate,
+    this.dateText,
     this.director,
     this.writer,
     this.links,
@@ -40,8 +38,7 @@ class ProjectHeader extends StatelessWidget {
     this.title,
     this.description,
   })  : type = Episode,
-        startDate = null,
-        endDate = null,
+        dateText = null,
         director = null,
         writer = null,
         links = null,
@@ -52,8 +49,7 @@ class ProjectHeader extends StatelessWidget {
     required this.delete,
     this.title,
     this.description,
-    this.startDate,
-    this.endDate,
+    this.dateText,
     this.location,
   })  : type = Sequence,
         director = null,
@@ -65,8 +61,7 @@ class ProjectHeader extends StatelessWidget {
   final Type type;
   final String? title;
   final String? description;
-  final DateTime? startDate;
-  final DateTime? endDate;
+  final String? dateText;
   final String? director;
   final String? writer;
   final List<Link>? links;
@@ -120,7 +115,7 @@ class ProjectHeader extends StatelessWidget {
 
     final noTitle = title == null || title!.isEmpty;
     final noDescription = description == null || description!.isEmpty;
-    final noDates = startDate == null || endDate == null;
+    final noDates = dateText == null;
     final noDirector = director == null || director!.isEmpty;
     final noWriter = writer == null || writer!.isEmpty;
     final noLinks = links == null || links!.isEmpty;
@@ -188,7 +183,7 @@ class ProjectHeader extends StatelessWidget {
                     Padding(padding: Paddings.padding4.horizontal),
                     Expanded(
                       child: Text(
-                        noDates ? localizations.projects_no_dates : '${startDate?.yMd} - ${endDate?.yMd}',
+                        noDates ? localizations.projects_no_dates : dateText!,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               fontStyle: noDates ? FontStyle.italic : null,
                             ),

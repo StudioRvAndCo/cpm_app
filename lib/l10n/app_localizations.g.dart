@@ -630,6 +630,18 @@ abstract class AppLocalizations {
   /// **'Writer'**
   String get dialog_field_writer;
 
+  /// No description provided for @dialog_field_start_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a start time'**
+  String get dialog_field_start_time;
+
+  /// No description provided for @dialog_field_end_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick an end time'**
+  String get dialog_field_end_time;
+
   /// No description provided for @dialog_field_value.
   ///
   /// In en, this message translates to:

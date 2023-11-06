@@ -364,6 +364,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dialog_field_writer => 'Scénariste';
 
   @override
+  String get dialog_field_start_time => 'Choisir une heure de début';
+
+  @override
+  String get dialog_field_end_time => 'Choisir une heure de fin';
+
+  @override
   String get dialog_field_value => 'Valeur';
 
   @override

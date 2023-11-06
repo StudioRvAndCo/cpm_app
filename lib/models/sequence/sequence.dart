@@ -2,6 +2,8 @@
 
 import 'package:cpm/models/base_model.dart';
 import 'package:cpm/models/location/location.dart';
+import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/extensions/date_time_extensions.dart';
 import 'package:cpm/utils/extensions/time_of_day_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -23,9 +25,9 @@ class Sequence extends BaseModel {
 
   String get getNumber => number.toString();
 
-  String get getTitle => title ?? 'Untitled';
+  String get getTitle => title ?? localizations.projects_no_title;
 
-  String get getDescription => description ?? '';
+  String get getDescription => description ?? localizations.projects_no_description;
 
   DateTime get getDate => startDate ?? DateTime.now();
 
@@ -34,6 +36,12 @@ class Sequence extends BaseModel {
 
   TimeOfDay get getEndTime =>
       endDate != null ? TimeOfDay(hour: endDate!.hour, minute: endDate!.minute) : TimeOfDay.now().hourLater;
+
+  String? get dateText {
+    if (startDate == null || endDate == null) return null;
+
+    return '${startDate!.yMd} | ${startDate!.Hm} - ${endDate!.Hm}';
+  }
 
   Sequence({
     required super.id,

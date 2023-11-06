@@ -89,6 +89,8 @@
   "dialog_field_description": "Description",
   "dialog_field_director": "Réalisateur",
   "dialog_field_writer": "Scénariste",
+  "dialog_field_start_time": "Choisir une heure de début",
+  "dialog_field_end_time": "Choisir une heure de fin",
   "dialog_field_value": "Valeur",
   "dialog_field_label": "Label",
   "dialog_field_url": "URL",

@@ -2,6 +2,7 @@ import 'package:cpm/common/placeholders/request_placeholder.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/providers/locations/locations.dart';
+import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
@@ -39,23 +40,27 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
   }
 
   Future<void> _pickDateTime(Sequence sequence) async {
+    final project = ref.read(currentProjectProvider).value;
+
     await showDatePicker(
       context: context,
       initialDate: date ?? DateTime.now(),
-      firstDate: DateTime.now().hundredYearsBefore,
-      lastDate: DateTime.now().hundredYearsLater,
+      firstDate: project?.startDate ?? DateTime.now().hundredYearsBefore,
+      lastDate: project?.endDate ?? DateTime.now().hundredYearsLater,
     ).then((pickedDate) async {
       if (pickedDate == null) return;
 
       await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
+        helpText: localizations.dialog_field_start_time,
       ).then((pickedStartTime) async {
         if (pickedStartTime == null) return;
 
         await showTimePicker(
           context: context,
           initialTime: TimeOfDay.now(),
+          helpText: localizations.dialog_field_end_time,
         ).then((pickedEndTime) {
           if (pickedEndTime == null) return;
 

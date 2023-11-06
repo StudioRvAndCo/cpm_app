@@ -4,6 +4,7 @@ import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/providers/locations/locations.dart';
+import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/date_time_extensions.dart';
@@ -29,29 +30,41 @@ class AddSequenceDialog extends ConsumerStatefulWidget {
 class _AddSequenceState extends ConsumerState<AddSequenceDialog> {
   final TextEditingController title = TextEditingController();
   final TextEditingController description = TextEditingController();
-  DateTime date = DateTime.now();
+  late DateTime date;
   TimeOfDay startTime = TimeOfDay.now();
   TimeOfDay endTime = TimeOfDay.now().hourLater;
   Location? location;
 
+  @override
+  void initState() {
+    super.initState();
+
+    final project = ref.read(currentProjectProvider).value;
+    date = project?.startDate ?? DateTime.now();
+  }
+
   Future<void> _pickDateTime() async {
+    final project = ref.read(currentProjectProvider).value;
+
     await showDatePicker(
       context: context,
       initialDate: date,
-      firstDate: DateTime.now().hundredYearsBefore,
-      lastDate: DateTime.now().hundredYearsLater,
+      firstDate: project?.startDate ?? DateTime.now().hundredYearsBefore,
+      lastDate: project?.endDate ?? DateTime.now().hundredYearsLater,
     ).then((pickedDate) async {
       if (pickedDate == null) return;
 
       await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
+        helpText: localizations.dialog_field_start_time,
       ).then((pickedStartTime) async {
         if (pickedStartTime == null) return;
 
         await showTimePicker(
           context: context,
           initialTime: TimeOfDay.now(),
+          helpText: localizations.dialog_field_end_time,
         ).then((pickedEndTime) {
           if (pickedEndTime == null) return;
 

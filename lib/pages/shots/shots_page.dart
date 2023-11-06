@@ -52,8 +52,7 @@ class _ShotsState extends ConsumerState<ShotsPage> {
               delete: () => DeleteAction<Sequence>().delete(context, ref, id: sequence?.id),
               title: sequence?.title,
               description: sequence?.description,
-              startDate: sequence?.startDate,
-              endDate: sequence?.endDate,
+              dateText: sequence?.dateText,
               location: sequence?.location,
             );
 

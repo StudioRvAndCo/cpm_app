@@ -89,6 +89,8 @@
   "dialog_field_description": "Description",
   "dialog_field_director": "Director",
   "dialog_field_writer": "Writer",
+  "dialog_field_start_time": "Pick a start time",
+  "dialog_field_end_time": "Pick an end time",
   "dialog_field_value": "Value",
   "dialog_field_label": "Label",
   "dialog_field_url": "URL",

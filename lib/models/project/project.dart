@@ -5,6 +5,7 @@ import 'package:cpm/models/project/link.dart';
 import 'package:cpm/models/project/project_type.dart';
 import 'package:cpm/pages/projects/favorites.dart';
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/extensions/date_time_extensions.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'project.g.dart';
@@ -35,6 +36,12 @@ class Project extends BaseModel implements Comparable<Project> {
   DateTime get getStartDate => startDate ?? DateTime.now();
 
   DateTime get getEndDate => endDate ?? DateTime.now();
+
+  String? get dateText {
+    if (startDate == null || endDate == null) return null;
+
+    return '${startDate?.yMd} - ${endDate?.yMd}';
+  }
 
   bool get isMovie {
     return projectType == ProjectType.movie;
