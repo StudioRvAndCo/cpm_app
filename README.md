@@ -17,9 +17,9 @@
 
 </div>
 
-# CPM-frontend
+# CPM app
 
-Frontend of Cinema Project Manager, a tool to efficiently manage the production of a cinema project
+Multiplatform app of Cinema Project Manager, a tool to efficiently manage the production of a cinema project.
 
 ## Build
 
