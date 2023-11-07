@@ -315,7 +315,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get item_location => 'lieu';
 
   @override
-  String get dialog_log_out => 'Voulez-vous vraiment vous déconnecter?';
+  String get dialog_log_out => 'Voulez-vous vraiment vous déconnecter ?';
 
   @override
   String dialog_add_item(Object item, String sex) {

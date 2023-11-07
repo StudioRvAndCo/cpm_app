@@ -80,7 +80,7 @@
   "item_shot": "plan",
   "item_member": "membre",
   "item_location": "lieu",
-  "dialog_log_out": "Voulez-vous vraiment vous déconnecter?",
+  "dialog_log_out": "Voulez-vous vraiment vous déconnecter ?",
   "dialog_add_item": "{sex, select, male{Nouveau} female{Nouvelle} other{}} {item}",
   "dialog_edit_item": "Éditer {item}",
   "dialog_delete_item_confirmation": "Voulez-vous vraiment supprimer {sex, select, male{ce} female{cette} other{}} {item} ?",
