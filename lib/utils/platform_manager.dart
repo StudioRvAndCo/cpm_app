@@ -18,4 +18,8 @@ class PlatformManager {
       return Platform.isAndroid || Platform.isIOS;
     }
   }
+
+  bool get isWeb {
+    return kIsWeb;
+  }
 }

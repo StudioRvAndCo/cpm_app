@@ -56,7 +56,6 @@ class _AddMemberDialogState extends State<AddMemberDialog> {
         TextField(
           controller: lastName,
           textInputAction: TextInputAction.next,
-          autofocus: true,
           decoration: InputDecoration(
             labelText: localizations.dialog_field_last_name,
             border: const OutlineInputBorder(),
@@ -66,8 +65,8 @@ class _AddMemberDialogState extends State<AddMemberDialog> {
         Padding(padding: Paddings.padding8.vertical),
         TextField(
           controller: phone,
+          keyboardType: TextInputType.phone,
           textInputAction: TextInputAction.next,
-          autofocus: true,
           decoration: InputDecoration(
             labelText: localizations.dialog_field_phone,
             border: const OutlineInputBorder(),
@@ -77,6 +76,7 @@ class _AddMemberDialogState extends State<AddMemberDialog> {
         Padding(padding: Paddings.padding8.vertical),
         TextField(
           controller: email,
+          keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             labelText: localizations.dialog_field_email,
             border: const OutlineInputBorder(),
