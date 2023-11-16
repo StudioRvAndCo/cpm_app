@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cpm/models/episode/episode.dart';
-import 'package:cpm/models/project/link.dart';
+import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/services/config/supabase_table.dart';
@@ -47,7 +47,7 @@ class Projects extends _$Projects with BaseProvider {
     try {
       if (newProject.isMovie) {
         final Project project = await insertService.insertAndReturn<Project>(_table, newProject, Project.fromJson);
-        await insertService.insert(SupabaseTable.episode, Episode.movie(project: project.id));
+        await insertService.insert(SupabaseTable.episode, Episode(project: project.id));
       } else {
         await insertService.insert(_table, newProject);
       }

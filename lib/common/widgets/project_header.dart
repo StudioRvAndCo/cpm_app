@@ -7,7 +7,7 @@ import 'package:cpm/common/sheets/sheet.dart';
 import 'package:cpm/common/sheets/sheet_manager.dart';
 import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/models/location/location.dart';
-import 'package:cpm/models/project/link.dart';
+import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/utils/constants/constants.dart';

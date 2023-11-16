@@ -1,6 +1,7 @@
 import 'package:cpm/common/placeholders/request_placeholder.dart';
 import 'package:cpm/common/sheets/project/link/project_link_editor.dart';
-import 'package:cpm/models/project/link.dart';
+import 'package:cpm/models/project/link/link.dart';
+import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/utils/extensions/list_extensions.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,12 @@ class ProjectLinksTab extends ConsumerStatefulWidget {
 }
 
 class _LinksEditorState extends ConsumerState<ProjectLinksTab> {
-  void _add(Link link) {
+  void _add(Project project) {
+    final link = Link(
+      project: project.id,
+      index: project.links.getNextIndex<Link>(),
+    );
+
     ref.read(currentProjectProvider.notifier).addLink(link);
   }
 
@@ -51,39 +57,30 @@ class _LinksEditorState extends ConsumerState<ProjectLinksTab> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            if (links != null)
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: links.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final link = links[index];
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: links.length,
+              itemBuilder: (BuildContext context, int index) {
+                final link = links[index];
 
-                  return ProjectLinkEditor(
-                    key: ValueKey(link),
-                    link: link,
-                    edit: (editedLink) => _edit(editedLink),
-                    delete: (id) => _delete(id),
-                    moveUp: index != 0 ? () => _move(link, project.links![index - 1]) : null,
-                    moveDown: index != links.length - 1 ? () => _move(project.links![index + 1], link) : null,
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4),
-                  );
-                },
-              ),
-            IconButton.filledTonal(
-              onPressed: () {
-                project.links ??= [];
-                final Link newLink = Link.empty(
-                  project: project.id,
-                  index: project.links!.getNextIndex<Link>(),
+                return ProjectLinkEditor(
+                  key: ValueKey(link),
+                  link: link,
+                  edit: (editedLink) => _edit(editedLink),
+                  delete: (id) => _delete(id),
+                  moveUp: index != 0 ? () => _move(link, project.links[index - 1]) : null,
+                  moveDown: index != links.length - 1 ? () => _move(project.links[index + 1], link) : null,
                 );
-                project.links!.add(newLink);
-                _add(newLink);
               },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                );
+              },
+            ),
+            IconButton.filledTonal(
+              onPressed: () => _add(project),
               icon: const Icon(Icons.add),
             ),
           ],

@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:cpm/models/base_model.dart';
-import 'package:cpm/models/project/link.dart';
+import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/models/project/project_type.dart';
 import 'package:cpm/pages/projects/favorites.dart';
 import 'package:cpm/utils/constants/constants.dart';
@@ -19,32 +19,47 @@ class Project extends BaseModel implements Comparable<Project> {
   DateTime? endDate;
   String? director;
   String? writer;
-
   @JsonKey(includeToJson: false)
   int? shotsTotal;
   @JsonKey(includeToJson: false)
   int? shotsCompleted;
   @JsonKey(includeFromJson: false, includeToJson: false)
-  List<Link>? links;
+  List<Link> links;
 
-  String get getId => id.toString();
+  Project({
+    super.id,
+    this.projectType = ProjectType.unknown,
+    this.title,
+    this.description,
+    this.startDate,
+    this.endDate,
+    this.shotsTotal,
+    this.shotsCompleted,
+    this.director,
+    this.writer,
+    this.links = const [],
+  });
 
-  String get getTitle => title ?? localizations.projects_no_title;
+  factory Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
 
-  String get getDescription => description ?? localizations.projects_no_description;
+  bool get isMovie => projectType == ProjectType.movie;
+
+  String get getTitle {
+    return title == null || title!.isEmpty ? localizations.projects_no_title : title!;
+  }
+
+  String get getDescription {
+    return description == null || description!.isEmpty ? localizations.projects_no_description : description!;
+  }
 
   DateTime get getStartDate => startDate ?? DateTime.now();
 
-  DateTime get getEndDate => endDate ?? DateTime.now();
+  DateTime get getEndDate => endDate ?? DateTime.now().weekLater;
 
-  String? get dateText {
-    if (startDate == null || endDate == null) return null;
+  String get dateText {
+    if (startDate == null || endDate == null) return localizations.projects_no_dates;
 
     return '${startDate?.yMd} - ${endDate?.yMd}';
-  }
-
-  bool get isMovie {
-    return projectType == ProjectType.movie;
   }
 
   double get progress {
@@ -64,7 +79,7 @@ class Project extends BaseModel implements Comparable<Project> {
   }
 
   void sortLinks() {
-    links?.sort(
+    links.sort(
       (Link a, Link b) {
         if (a.index == null && b.index == null) {
           return 0;
@@ -79,50 +94,18 @@ class Project extends BaseModel implements Comparable<Project> {
     );
   }
 
-  Project({
-    required super.id,
-    required this.projectType,
-    this.title,
-    this.description,
-    this.startDate,
-    this.endDate,
-    this.shotsTotal,
-    this.shotsCompleted,
-    this.director,
-    this.writer,
-    this.links = const [],
-  });
-
-  Project.insert({
-    required this.projectType,
-    this.title,
-    this.description,
-    this.startDate,
-    this.endDate,
-    this.shotsTotal,
-    this.shotsCompleted,
-    this.director,
-    this.writer,
-    this.links = const [],
-  }) : super(id: -1);
-
-  Project.empty()
-      : projectType = ProjectType.unknown,
-        super(id: -1);
-
-  factory Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
-
   @override
   Map<String, dynamic> toJson() => _$ProjectToJson(this);
 
   @override
   Map<String, dynamic> toJsonCache() {
-    return _$ProjectToJson(this)
-      ..addAll({
-        'id': id,
-        'shots_total': shotsTotal,
-        'shots_completed': shotsCompleted,
-      });
+    return toJsonCacheBase(
+      _$ProjectToJson(this)
+        ..addAll({
+          'shots_total': shotsTotal,
+          'shots_completed': shotsCompleted,
+        }),
+    );
   }
 
   @override
@@ -139,7 +122,7 @@ class Project extends BaseModel implements Comparable<Project> {
     } else if (startDate != null && other.startDate == null) {
       return -1;
     } else {
-      return id.compareTo(other.id);
+      return super.compareIds(other.id);
     }
   }
 }

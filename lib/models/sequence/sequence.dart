@@ -12,10 +12,10 @@ part 'sequence.g.dart';
 
 @JsonSerializable()
 class Sequence extends BaseModel {
-  int episode;
-  int index;
+  int? episode;
+  int? index;
   @JsonKey(defaultValue: -1, includeToJson: false)
-  int number;
+  int? number;
   String? title;
   String? description;
   DateTime? startDate;
@@ -23,31 +23,11 @@ class Sequence extends BaseModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   Location? location;
 
-  String get getNumber => number.toString();
-
-  String get getTitle => title ?? localizations.projects_no_title;
-
-  String get getDescription => description ?? localizations.projects_no_description;
-
-  DateTime get getDate => startDate ?? DateTime.now();
-
-  TimeOfDay get getStartTime =>
-      startDate != null ? TimeOfDay(hour: startDate!.hour, minute: startDate!.minute) : TimeOfDay.now();
-
-  TimeOfDay get getEndTime =>
-      endDate != null ? TimeOfDay(hour: endDate!.hour, minute: endDate!.minute) : TimeOfDay.now().hourLater;
-
-  String? get dateText {
-    if (startDate == null || endDate == null) return null;
-
-    return '${startDate!.yMd} | ${startDate!.Hm} - ${endDate!.Hm}';
-  }
-
   Sequence({
-    required super.id,
-    required this.episode,
-    required this.index,
-    required this.number,
+    super.id,
+    this.episode,
+    this.index,
+    this.number,
     this.title,
     this.description,
     this.startDate,
@@ -55,33 +35,44 @@ class Sequence extends BaseModel {
     this.location,
   });
 
-  Sequence.insert({
-    required this.episode,
-    required this.index,
-    this.title,
-    this.description,
-    this.startDate,
-    this.endDate,
-  })  : number = -1,
-        super(id: -1);
-
-  Sequence.empty()
-      : episode = -1,
-        index = -1,
-        number = -1,
-        super(id: -1);
-
   factory Sequence.fromJson(Map<String, dynamic> json) => _$SequenceFromJson(json);
+
+  String get getNumber => number.toString();
+
+  String get getTitle {
+    return title == null || title!.isEmpty ? localizations.projects_no_title : title!;
+  }
+
+  String get getDescription {
+    return description == null || description!.isEmpty ? localizations.projects_no_description : description!;
+  }
+
+  DateTime get getDate => startDate ?? DateTime.now();
+
+  TimeOfDay get getStartTime {
+    return startDate != null ? TimeOfDay(hour: startDate!.hour, minute: startDate!.minute) : TimeOfDay.now();
+  }
+
+  TimeOfDay get getEndTime {
+    return endDate != null ? TimeOfDay(hour: endDate!.hour, minute: endDate!.minute) : TimeOfDay.now().hourLater;
+  }
+
+  String? get dateText {
+    if (startDate == null || endDate == null) return null;
+
+    return '${startDate!.yMd} | ${startDate!.Hm} - ${endDate!.Hm}';
+  }
 
   @override
   Map<String, dynamic> toJson() => _$SequenceToJson(this);
 
   @override
   Map<String, dynamic> toJsonCache() {
-    return _$SequenceToJson(this)
-      ..addAll({
-        'id': id,
-        'number': number,
-      });
+    return toJsonCacheBase(
+      _$SequenceToJson(this)
+        ..addAll({
+          'number': number,
+        }),
+    );
   }
 }

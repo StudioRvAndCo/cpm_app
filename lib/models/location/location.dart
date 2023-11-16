@@ -11,29 +11,21 @@ class Location extends BaseModel {
   String? name;
   String? position;
 
-  String get getName => name ?? localizations.projects_no_name;
-
   Location({
-    required super.id,
+    super.id,
     this.name,
     this.position,
   });
 
-  Location.insert({
-    this.name,
-    this.position,
-  }) : super(id: -1);
-
   factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
+
+  String get getName => name == null || name!.isEmpty ? localizations.projects_no_name : name!;
 
   @override
   Map<String, dynamic> toJson() => _$LocationToJson(this);
 
   @override
   Map<String, dynamic> toJsonCache() {
-    return _$LocationToJson(this)
-      ..addAll({
-        'id': id,
-      });
+    return toJsonCacheBase(_$LocationToJson(this));
   }
 }

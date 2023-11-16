@@ -86,7 +86,7 @@ class Sequences extends _$Sequences with BaseProvider {
       return false;
     }
     if (locationId != null) {
-      final SequenceLocation newSequenceLocation = SequenceLocation.insert(
+      final SequenceLocation newSequenceLocation = SequenceLocation(
         sequence: editedSequence.id,
         location: locationId,
       );
@@ -120,7 +120,7 @@ class Sequences extends _$Sequences with BaseProvider {
   }
 
   Future<void> _setLocation(int sequenceId, int locationId) async {
-    final SequenceLocation sequenceLocation = SequenceLocation.insert(sequence: sequenceId, location: locationId);
+    final SequenceLocation sequenceLocation = SequenceLocation(sequence: sequenceId, location: locationId);
     await upsertService.upsert(SupabaseTable.sequenceLocation, sequenceLocation);
   }
 

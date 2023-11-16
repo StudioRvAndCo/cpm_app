@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cpm/models/base_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -8,16 +10,11 @@ class SequenceLocation extends BaseModel {
   final int sequence;
   final int location;
 
-  const SequenceLocation({
-    required super.id,
+  SequenceLocation({
+    super.id,
     required this.sequence,
     required this.location,
   });
-
-  const SequenceLocation.insert({
-    required this.sequence,
-    required this.location,
-  }) : super(id: -1);
 
   factory SequenceLocation.fromJson(Map<String, dynamic> json) => _$SequenceLocationFromJson(json);
 
@@ -26,9 +23,6 @@ class SequenceLocation extends BaseModel {
 
   @override
   Map<String, dynamic> toJsonCache() {
-    return _$SequenceLocationToJson(this)
-      ..addAll({
-        'id': id,
-      });
+    return toJsonCacheBase(_$SequenceLocationToJson(this));
   }
 }

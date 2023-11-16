@@ -51,7 +51,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
 
   void _add(BuildContext context) {
     context.pop(
-      Project.insert(
+      Project(
         projectType: projectType,
         title: title.text,
         description: description.text,

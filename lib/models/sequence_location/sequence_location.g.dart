@@ -11,7 +11,7 @@ SequenceLocation _$SequenceLocationFromJson(Map<String, dynamic> json) => $check
       json,
       ($checkedConvert) {
         final val = SequenceLocation(
-          id: $checkedConvert('id', (v) => v as int),
+          id: $checkedConvert('id', (v) => v as int?),
           sequence: $checkedConvert('sequence', (v) => v as int),
           location: $checkedConvert('location', (v) => v as int),
         );

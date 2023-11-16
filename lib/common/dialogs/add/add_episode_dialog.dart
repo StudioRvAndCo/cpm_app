@@ -30,7 +30,7 @@ class _AddEpisodeDialogState extends State<AddEpisodeDialog> {
 
   void _add(BuildContext context) {
     context.pop(
-      Episode.insert(
+      Episode(
         project: widget.projectId,
         index: widget.index,
         title: title.text,

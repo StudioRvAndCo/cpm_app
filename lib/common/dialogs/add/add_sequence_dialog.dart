@@ -93,7 +93,7 @@ class _AddSequenceState extends ConsumerState<AddSequenceDialog> {
   void _add(BuildContext context) {
     context.pop(
       (
-        Sequence.insert(
+        Sequence(
           episode: widget.episodeId,
           index: widget.index,
           title: title.text,

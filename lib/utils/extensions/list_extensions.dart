@@ -1,6 +1,6 @@
 import 'package:cpm/models/base_model.dart';
 import 'package:cpm/models/episode/episode.dart';
-import 'package:cpm/models/project/link.dart';
+import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/models/shot/shot.dart';
 

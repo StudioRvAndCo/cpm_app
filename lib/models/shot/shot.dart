@@ -9,57 +9,44 @@ part 'shot.g.dart';
 
 @JsonSerializable()
 class Shot extends BaseModel {
-  int sequence;
-  int index;
+  int? sequence;
+  int? index;
   @JsonKey(includeToJson: false)
-  int number;
+  int? number;
   ShotValue? value;
   String? description;
   bool completed;
 
-  String get getNumber => number.toString();
-
-  String get getDescription => description ?? '';
-
-  String get getValueName => value?.label ?? localizations.projects_no_value;
-
   Shot({
-    required super.id,
-    required this.sequence,
-    required this.index,
-    required this.number,
+    super.id,
+    this.sequence,
+    this.index,
+    this.number,
     this.value,
     this.description,
-    required this.completed,
+    this.completed = false,
   });
 
-  Shot.insert({
-    required this.sequence,
-    required this.index,
-    this.value,
-    this.description,
-  })  : number = -1,
-        completed = false,
-        super(id: -1);
-
-  Shot.empty()
-      : sequence = -1,
-        index = -1,
-        number = -1,
-        completed = false,
-        super(id: -1);
-
   factory Shot.fromJson(Map<String, dynamic> json) => _$ShotFromJson(json);
+
+  String get getNumber => number.toString();
+
+  String get getDescription {
+    return description == null || description!.isEmpty ? localizations.projects_no_description : description!;
+  }
+
+  String get getValue => value?.label ?? localizations.projects_no_value;
 
   @override
   Map<String, dynamic> toJson() => _$ShotToJson(this);
 
   @override
   Map<String, dynamic> toJsonCache() {
-    return _$ShotToJson(this)
-      ..addAll({
-        'id': id,
-        'number': number,
-      });
+    return toJsonCacheBase(
+      _$ShotToJson(this)
+        ..addAll({
+          'number': number,
+        }),
+    );
   }
 }

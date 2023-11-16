@@ -23,7 +23,7 @@ class _AddLocationDialogState extends State<AddLocationDialog> {
 
   void _add(BuildContext context) {
     context.pop(
-      Location.insert(
+      Location(
         name: name.text,
         position: position.text,
       ),

@@ -25,7 +25,7 @@ class _AddMemberDialogState extends State<AddMemberDialog> {
 
   void _add(BuildContext context) {
     context.pop(
-      Member.insert(
+      Member(
         firstName: firstName.text,
         lastName: lastName.text,
         phone: phone.text,

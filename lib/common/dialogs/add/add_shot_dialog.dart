@@ -40,7 +40,7 @@ class _AddShotDialogState extends State<AddShotDialog> {
 
   void _add(BuildContext context) {
     context.pop(
-      Shot.insert(
+      Shot(
         sequence: widget.sequenceId,
         index: widget.index,
         value: value,

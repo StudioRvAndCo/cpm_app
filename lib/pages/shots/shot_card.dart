@@ -84,7 +84,7 @@ class _ShotCardState extends ConsumerState<ShotCard> {
                           ),
                           const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
                           Badge(
-                            label: Text(widget.shot.getValueName),
+                            label: Text(widget.shot.getValue),
                             backgroundColor: widget.shot.value?.color,
                             textColor: Colors.white,
                           ),

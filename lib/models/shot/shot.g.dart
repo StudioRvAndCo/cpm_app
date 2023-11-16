@@ -11,13 +11,13 @@ Shot _$ShotFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = Shot(
-          id: $checkedConvert('id', (v) => v as int),
-          sequence: $checkedConvert('sequence', (v) => v as int),
-          index: $checkedConvert('index', (v) => v as int),
-          number: $checkedConvert('number', (v) => v as int),
+          id: $checkedConvert('id', (v) => v as int?),
+          sequence: $checkedConvert('sequence', (v) => v as int?),
+          index: $checkedConvert('index', (v) => v as int?),
+          number: $checkedConvert('number', (v) => v as int?),
           value: $checkedConvert('value', (v) => $enumDecodeNullable(_$ShotValueEnumMap, v)),
           description: $checkedConvert('description', (v) => v as String?),
-          completed: $checkedConvert('completed', (v) => v as bool),
+          completed: $checkedConvert('completed', (v) => v as bool? ?? false),
         );
         return val;
       },

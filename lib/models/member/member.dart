@@ -12,7 +12,19 @@ class Member extends BaseModel {
   String? phone;
   String? email;
 
-  String get fullName => '$firstName${firstName != null ? ' ' : ''}${lastName?.toUpperCase()}';
+  Member({
+    super.id,
+    this.firstName,
+    this.lastName,
+    this.phone,
+    this.email,
+  });
+
+  factory Member.fromJson(Map<String, dynamic> json) => _$MemberFromJson(json);
+
+  String get fullName {
+    return '$firstName${firstName != null ? ' ' : ''}${lastName?.toUpperCase()}';
+  }
 
   String get phoneAndEmail {
     if (phone != null && phone!.isNotEmpty && email != null && email!.isNotEmpty) {
@@ -26,31 +38,11 @@ class Member extends BaseModel {
     }
   }
 
-  Member({
-    required super.id,
-    this.firstName,
-    this.lastName,
-    this.phone,
-    this.email,
-  });
-
-  Member.insert({
-    this.firstName,
-    this.lastName,
-    this.phone,
-    this.email,
-  }) : super(id: -1);
-
-  factory Member.fromJson(Map<String, dynamic> json) => _$MemberFromJson(json);
-
   @override
   Map<String, dynamic> toJson() => _$MemberToJson(this);
 
   @override
   Map<String, dynamic> toJsonCache() {
-    return _$MemberToJson(this)
-      ..addAll({
-        'id': id,
-      });
+    return toJsonCacheBase(_$MemberToJson(this));
   }
 }

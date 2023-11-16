@@ -11,7 +11,7 @@ Member _$MemberFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = Member(
-          id: $checkedConvert('id', (v) => v as int),
+          id: $checkedConvert('id', (v) => v as int?),
           firstName: $checkedConvert('first_name', (v) => v as String?),
           lastName: $checkedConvert('last_name', (v) => v as String?),
           phone: $checkedConvert('phone', (v) => v as String?),
