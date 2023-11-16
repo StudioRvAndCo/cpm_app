@@ -22,4 +22,8 @@ class PlatformManager {
   bool get isWeb {
     return kIsWeb;
   }
+
+  bool get isAndroid {
+    return kIsWeb ? defaultTargetPlatform == TargetPlatform.android : Platform.isAndroid;
+  }
 }
