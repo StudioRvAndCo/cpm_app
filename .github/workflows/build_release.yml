@@ -70,7 +70,7 @@ jobs:
       - name: Build MSI
         uses: caphyon/advinst-github-action@v1.0
         with:
-          aip-path: 'Cinema Project Manager.aip'
+          aip-path: 'windows/Cinema Project Manager.aip'
           aip-build-name: 'DefaultBuild'
           aip-package-name: 'CPM_Windows.msi'
           aip-commands: |
