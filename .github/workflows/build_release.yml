@@ -28,10 +28,14 @@ jobs:
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > android/studiorvandco_keystore.jks
       - name: Add key properties
         run: echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" > android/key.properties
+      - name: Get version
+        run: |
+          choco install yq
+          echo "VERSION=$(yq -r .version pubspec.yaml)" >> $env:GITHUB_ENV
       - name: Build app
         run: flutter build apk --release
       - name: Rename APK
-        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/CPM_Android.apk
+        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/CPM_${{ env.VERSION }}.apk
       - name: Archive APK
         uses: actions/upload-artifact@v3
         with:
@@ -59,27 +63,28 @@ jobs:
           channel: 'stable'
       - name: Add config
         run: echo "${{ vars.CPM_CONFIG }}" > assets/config/config.yaml
-      - name: Build app
-        run: flutter build windows --release
-      - name: Create setup directory
-        run: mkdir setup
       - name: Get version
         run: |
           choco install yq
           echo "VERSION=$(yq -r .version pubspec.yaml)" >> $env:GITHUB_ENV
-      - name: Build MSI
-        uses: caphyon/advinst-github-action@v1.0
+      - name: Replace version
+        uses: MathieuSoysal/replace-string-in-file@v1.0.0
         with:
-          aip-path: 'windows/Cinema Project Manager.aip'
-          aip-build-name: 'DefaultBuild'
-          aip-package-name: 'CPM_Windows.msi'
-          aip-commands: |
-            SetVersion ${{ env.VERSION }}
-      - name: Archive MSI
+          file: windows/CPM.iss
+          old-string: 0.1.0
+          new-string: ${{ env.VERSION }}
+      - name: Build app
+        run: flutter build windows --release
+      - name: Run InnoSetup
+        uses: Minionguyjpro/Inno-Setup-Action@v1.0.0
+        with:
+          path: windows/CPM.iss
+          options: /O+
+      - name: Archive installer
         uses: actions/upload-artifact@v3
         with:
           name: Windows
-          path: ${{ github.workspace }}/setup/CPM_Windows.msi
+          path: windows\Output\CPM_${{ env.VERSION }}.exe
 
   # TODO: release
   build_linux:
@@ -156,6 +161,6 @@ jobs:
       - name: Upload to releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: 'Android/CPM_Android.apk, Windows/CPM_Windows.msi'
+          artifacts: 'Android/CPM_${{ env.VERSION }}.apk, Windows/CPM_${{ env.VERSION }}.exe'
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.yq.outputs.result }}
