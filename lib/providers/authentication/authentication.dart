@@ -11,7 +11,7 @@ part 'authentication.g.dart';
 class Authentication extends _$Authentication with BaseProvider {
   @override
   FutureOr<bool> build() {
-    return authenticationService.isAuthenticated();
+    return authenticationService.isAuthenticated;
   }
 
   Future<bool> login(String email, String password) async {

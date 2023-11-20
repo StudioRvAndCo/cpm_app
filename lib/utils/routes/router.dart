@@ -33,7 +33,7 @@ final router = GoRouter(
   navigatorKey: navigatorKey,
   initialLocation: RouterRoute.projects.path,
   redirect: (context, state) {
-    if (!AuthenticationService().isAuthenticated()) {
+    if (!AuthenticationService().isAuthenticated) {
       return RouterRoute.login.path;
     }
 

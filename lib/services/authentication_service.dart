@@ -2,7 +2,7 @@ import 'package:cpm/services/service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthenticationService extends Service {
-  bool isAuthenticated() {
+  bool get isAuthenticated {
     return supabase.auth.currentSession != null;
   }
 
