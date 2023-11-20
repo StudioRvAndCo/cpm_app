@@ -17,6 +17,18 @@ import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+Page<dynamic> Function(BuildContext, GoRouterState) defaultPageBuilder<T>(Widget child) {
+  return (BuildContext context, GoRouterState state) {
+    return CustomTransitionPage<T>(
+      key: state.pageKey,
+      child: child,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+    );
+  };
+}
+
 final router = GoRouter(
   navigatorKey: navigatorKey,
   initialLocation: RouterRoute.projects.path,
@@ -52,44 +64,44 @@ final router = GoRouter(
         GoRoute(
           name: RouterRoute.projects.name,
           path: RouterRoute.projects.path,
-          builder: (context, state) => const ProjectsPage(),
+          pageBuilder: defaultPageBuilder(const ProjectsPage()),
           routes: [
             GoRoute(
               name: RouterRoute.episodes.name,
               path: RouterRoute.episodes.path,
-              builder: (context, state) => const EpisodesPage(),
+              pageBuilder: defaultPageBuilder(const EpisodesPage()),
             ),
             GoRoute(
               name: RouterRoute.sequences.name,
               path: RouterRoute.sequences.path,
-              builder: (context, state) => const SequencesPage(),
+              pageBuilder: defaultPageBuilder(const SequencesPage()),
             ),
             GoRoute(
               name: RouterRoute.shots.name,
               path: RouterRoute.shots.path,
-              builder: (context, state) => const ShotsPage(),
+              pageBuilder: defaultPageBuilder(const ShotsPage()),
             ),
             GoRoute(
               name: RouterRoute.schedule.name,
               path: RouterRoute.schedule.path,
-              builder: (context, state) => const SchedulePage(),
+              pageBuilder: defaultPageBuilder(const SchedulePage()),
             ),
           ],
         ),
         GoRoute(
           name: RouterRoute.members.name,
           path: RouterRoute.members.path,
-          builder: (context, state) => const MembersPage(),
+          pageBuilder: defaultPageBuilder(const MembersPage()),
         ),
         GoRoute(
           name: RouterRoute.locations.name,
           path: RouterRoute.locations.path,
-          builder: (context, state) => const LocationsPage(),
+          pageBuilder: defaultPageBuilder(const LocationsPage()),
         ),
         GoRoute(
           name: RouterRoute.settings.name,
           path: RouterRoute.settings.path,
-          builder: (context, state) => const SettingsPage(),
+          pageBuilder: defaultPageBuilder(const SettingsPage()),
         ),
       ],
     ),

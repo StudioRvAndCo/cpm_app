@@ -46,15 +46,9 @@ class _MembersState extends ConsumerState<MembersPage> {
                     leadingIcon: Icons.person,
                     title: member.fullName,
                     subtitle: member.phoneAndEmail,
-                    trailing: [
-                      IconButton(
-                        icon: Icon(MenuAction.call.icon),
-                        onPressed: member.phone != null && member.phone!.isValidPhone
-                            ? () => MenuAction.call.function!(member.phone!)
-                            : null,
-                      ),
-                    ],
-                    menuActions: [
+                    actions: [
+                      if (member.phone != null && member.phone!.isNotEmpty && member.phone!.isValidPhone)
+                        MenuAction.call,
                       if (member.phone != null && member.phone!.isNotEmpty && member.phone!.isValidPhone)
                         MenuAction.message,
                       if (member.email != null && member.email!.isNotEmpty && member.email!.isValidEmail)

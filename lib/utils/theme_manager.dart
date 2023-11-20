@@ -7,6 +7,20 @@ import 'package:flutter/material.dart';
 const _customPrimaryColor = Color(0xFF8189c6);
 
 class ThemeManager {
+  static final ThemeManager _singleton = ThemeManager._internal();
+
+  factory ThemeManager() {
+    return _singleton;
+  }
+
+  ThemeManager._internal();
+
+  late final bool isDynamicThemingAvailable;
+
+  Future<void> init() async {
+    isDynamicThemingAvailable = await DynamicColorPlugin.getAccentColor() != null;
+  }
+
   final _customLightColorScheme = ColorScheme.fromSeed(
     seedColor: _customPrimaryColor,
   );
@@ -20,7 +34,7 @@ class ThemeManager {
     return Theme.of(navigatorKey.currentContext!).brightness == Brightness.light;
   }
 
-  bool get dynamicTheming {
+  bool get useDynamicTheming {
     return PreferencesManager().get<bool>(PreferenceKey.dynamicTheming) ?? PreferenceKey.dynamicTheming.defaultValue!;
   }
 

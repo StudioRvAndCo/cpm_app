@@ -15,7 +15,7 @@ class PackageInfoManager {
     _packageInfo = await PackageInfo.fromPlatform();
   }
 
-  String get name => _packageInfo.appName;
+  String get name => _packageInfo.appName.toUpperCase();
 
   String get version => _packageInfo.version;
 }

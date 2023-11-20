@@ -1,8 +1,10 @@
 import 'package:cpm/utils/asset.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
+import 'package:cpm/utils/constants/sizes.dart';
 import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -49,10 +51,9 @@ class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
         child: IntrinsicHeight(
           child: NavigationRail(
             labelType: NavigationRailLabelType.all,
-            leading: Image.asset(
-              Asset.cpm.path,
-              filterQuality: FilterQuality.medium,
-              width: 64,
+            leading: SvgPicture.asset(
+              Asset.cpmSvg.path,
+              width: Sizes.size64.size,
             ),
             destinations: [
               NavigationRailDestination(

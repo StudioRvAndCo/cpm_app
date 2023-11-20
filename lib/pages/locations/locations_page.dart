@@ -45,13 +45,8 @@ class _LocationsState extends ConsumerState<LocationsPage> {
                     leadingIcon: Icons.image,
                     title: location.getName,
                     subtitle: location.position,
-                    trailing: [
-                      IconButton(
-                        icon: Icon(MenuAction.map.icon),
-                        onPressed: location.position != null && location.position!.isNotEmpty
-                            ? () => MenuAction.map.function!(location.position!)
-                            : null,
-                      ),
+                    actions: [
+                      if (location.position != null && location.position!.isNotEmpty) MenuAction.map,
                     ],
                   );
                 },

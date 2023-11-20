@@ -3,7 +3,7 @@ import 'package:cpm/models/member/member.dart';
 import 'package:cpm/providers/members/members.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
-import 'package:cpm/utils/extensions/string_validators.dart';
+import 'package:cpm/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -32,23 +32,11 @@ class _MemberSheetState extends ConsumerState<MemberSheet> with SingleTickerProv
     email.text = member?.email ?? '';
   }
 
-  String? _validatePhone(String? phone) {
-    if (phone == null || phone.isEmpty && phone.isValidPhone) return null;
-
-    return localizations.error_invalid_phone;
-  }
-
-  String? _validateEmail(String? email) {
-    if (email == null || email.isEmpty || email.isValidEmail) return null;
-
-    return localizations.error_invalid_email;
-  }
-
   void _onSubmitted(Member member) {
     if (firstName.text == member.firstName &&
-        lastName.text == member.lastName &&
-        phone.text == member.phone &&
-        email.text == member.email &&
+            lastName.text == member.lastName &&
+            phone.text == member.phone &&
+            email.text == member.email ||
         !formKey.currentState!.validate()) return;
 
     _edit(member);
@@ -114,7 +102,7 @@ class _MemberSheetState extends ConsumerState<MemberSheet> with SingleTickerProv
                   decoration: InputDecoration.collapsed(
                     hintText: localizations.dialog_field_phone,
                   ),
-                  onChanged: _validatePhone,
+                  validator: validatePhone,
                   onFieldSubmitted: (_) => _onSubmitted(member),
                 ),
               ),
@@ -126,7 +114,7 @@ class _MemberSheetState extends ConsumerState<MemberSheet> with SingleTickerProv
                   decoration: InputDecoration.collapsed(
                     hintText: localizations.dialog_field_email,
                   ),
-                  onChanged: _validateEmail,
+                  validator: validateEmail,
                   onFieldSubmitted: (_) => _onSubmitted(member),
                 ),
               ),

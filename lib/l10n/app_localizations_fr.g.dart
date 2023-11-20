@@ -7,6 +7,12 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
+  String get app_name => 'CPM';
+
+  @override
+  String get app_name_full => 'Cinema Project Manager';
+
+  @override
   String get navigation_projects => 'Projets';
 
   @override
@@ -246,10 +252,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settings_github => 'GitHub';
 
   @override
-  String get settings_github_description => 'Jeter un coup d\'œuil au code source';
+  String get settings_github_description => 'Jeter un coup d\'œil au code source';
 
   @override
-  String get settings_licence => 'License';
+  String get settings_licence => 'Licence';
 
   @override
   String get settings_licence_description => 'AGPL-3.0';

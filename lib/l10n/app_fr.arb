@@ -1,4 +1,6 @@
 {
+  "app_name": "CPM",
+  "app_name_full": "Cinema Project Manager",
   "navigation_projects": "Projets",
   "navigation_members": "Membres",
   "navigation_locations": "Lieux",
@@ -57,8 +59,8 @@
   "settings_studiorvandco": "Studio Rv & Co",
   "settings_studiorvandco_description": "Visiter notre site",
   "settings_github": "GitHub",
-  "settings_github_description": "Jeter un coup d'œuil au code source",
-  "settings_licence": "License",
+  "settings_github_description": "Jeter un coup d'œil au code source",
+  "settings_licence": "Licence",
   "settings_licence_description": "AGPL-3.0",
   "button_add": "Ajouter",
   "button_edit": "Éditer",

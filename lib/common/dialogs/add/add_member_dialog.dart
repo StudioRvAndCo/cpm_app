@@ -3,6 +3,7 @@ import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/member/member.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
+import 'package:cpm/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,6 +15,8 @@ class AddMemberDialog extends StatefulWidget {
 }
 
 class _AddMemberDialogState extends State<AddMemberDialog> {
+  final formKey = GlobalKey<FormState>();
+
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
   final TextEditingController phone = TextEditingController();
@@ -24,6 +27,8 @@ class _AddMemberDialogState extends State<AddMemberDialog> {
   }
 
   void _add(BuildContext context) {
+    if (!formKey.currentState!.validate()) return;
+
     context.pop(
       Member(
         firstName: firstName.text,
@@ -36,54 +41,59 @@ class _AddMemberDialogState extends State<AddMemberDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return ModelDialog(
-      cancel: () => _cancel(context),
-      submit: () => _add(context),
-      title: localizations.dialog_add_item(localizations.item_member, Gender.male.name),
-      action: localizations.button_add,
-      fields: [
-        TextField(
-          controller: firstName,
-          textInputAction: TextInputAction.next,
-          autofocus: true,
-          decoration: InputDecoration(
-            labelText: localizations.dialog_field_first_name,
-            border: const OutlineInputBorder(),
-            isDense: true,
+    return Form(
+      key: formKey,
+      child: ModelDialog(
+        cancel: () => _cancel(context),
+        submit: () => _add(context),
+        title: localizations.dialog_add_item(localizations.item_member, Gender.male.name),
+        action: localizations.button_add,
+        fields: [
+          TextField(
+            controller: firstName,
+            textInputAction: TextInputAction.next,
+            autofocus: true,
+            decoration: InputDecoration(
+              labelText: localizations.dialog_field_first_name,
+              border: const OutlineInputBorder(),
+              isDense: true,
+            ),
           ),
-        ),
-        Padding(padding: Paddings.padding8.vertical),
-        TextField(
-          controller: lastName,
-          textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            labelText: localizations.dialog_field_last_name,
-            border: const OutlineInputBorder(),
-            isDense: true,
+          Padding(padding: Paddings.padding8.vertical),
+          TextField(
+            controller: lastName,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              labelText: localizations.dialog_field_last_name,
+              border: const OutlineInputBorder(),
+              isDense: true,
+            ),
           ),
-        ),
-        Padding(padding: Paddings.padding8.vertical),
-        TextField(
-          controller: phone,
-          keyboardType: TextInputType.phone,
-          textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            labelText: localizations.dialog_field_phone,
-            border: const OutlineInputBorder(),
-            isDense: true,
+          Padding(padding: Paddings.padding8.vertical),
+          TextFormField(
+            controller: phone,
+            keyboardType: TextInputType.phone,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              labelText: localizations.dialog_field_phone,
+              border: const OutlineInputBorder(),
+              isDense: true,
+            ),
+            validator: validatePhone,
           ),
-        ),
-        Padding(padding: Paddings.padding8.vertical),
-        TextField(
-          controller: email,
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            labelText: localizations.dialog_field_email,
-            border: const OutlineInputBorder(),
-            isDense: true,
+          Padding(padding: Paddings.padding8.vertical),
+          TextFormField(
+            controller: email,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              labelText: localizations.dialog_field_email,
+              border: const OutlineInputBorder(),
+              isDense: true,
+            ),
+            validator: validateEmail,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

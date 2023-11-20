@@ -164,7 +164,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             SettingsTile(
               leading: const Icon(Icons.logout),
               title: Text(localizations.settings_log_out),
-              value: Text(localizations.settings_log_out_description(PackageInfoManager().name)),
+              value: Text(localizations.settings_log_out_description(localizations.app_name_full)),
               onPressed: _logout,
             ),
           ],
@@ -178,13 +178,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               value: Text(ThemeManager().themeModeName),
               onPressed: _selectTheme,
             ),
-            SettingsTile.switchTile(
-              leading: const Icon(Icons.bolt),
-              title: Text(localizations.settings_dynamic_theming),
-              description: Text(localizations.settings_dynamic_theming_description),
-              initialValue: ThemeManager().dynamicTheming,
-              onToggle: _toggleDynamicTheming,
-            ),
+            if (ThemeManager().isDynamicThemingAvailable)
+              SettingsTile.switchTile(
+                leading: const Icon(Icons.bolt),
+                title: Text(localizations.settings_dynamic_theming),
+                description: Text(localizations.settings_dynamic_theming_description),
+                initialValue: ThemeManager().useDynamicTheming,
+                onToggle: _toggleDynamicTheming,
+              ),
             SettingsTile.navigation(
               leading: const Icon(Icons.language),
               title: Text(localizations.settings_language),
@@ -198,7 +199,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           tiles: [
             SettingsTile(
               leading: const Icon(Icons.info),
-              title: Text(PackageInfoManager().name),
+              title: Text(localizations.app_name_full),
               value: Text(PackageInfoManager().version),
             ),
             SettingsTile(

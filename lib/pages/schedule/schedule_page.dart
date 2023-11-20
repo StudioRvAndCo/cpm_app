@@ -36,10 +36,12 @@ class _ScheduleState extends ConsumerState<SchedulePage> {
           firstDayOfWeek: 1,
           showNavigationArrow: true,
           showTodayButton: true,
+          view: CalendarView.schedule,
           allowedViews: const [
             CalendarView.schedule,
             CalendarView.day,
             CalendarView.week,
+            CalendarView.month,
           ],
           appointmentBuilder: (context, details) {
             return AppointmentTile(sequence: details.appointments.first as Sequence);

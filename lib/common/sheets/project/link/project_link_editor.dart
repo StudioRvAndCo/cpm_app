@@ -2,6 +2,7 @@ import 'package:cpm/common/sheets/project/link/project_link_action.dart';
 import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/extensions/string_validators.dart';
+import 'package:cpm/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -51,19 +52,8 @@ class _ProjectLinkEditorState extends State<ProjectLinkEditor> {
     }
   }
 
-  void _validateForm(_) {
-    formKey.currentState!.validate();
-  }
-
-  String? _validateUrl(String? url) {
-    if (url == null || url.isEmpty || Uri.tryParse(url)!.isAbsolute) return null;
-
-    return localizations.error_invalid_url;
-  }
-
   void _onSubmitted() {
-    if (labelController.text == widget.link.label ||
-        urlController.text == widget.link.url ||
+    if (labelController.text == widget.link.label && urlController.text == widget.link.url ||
         !formKey.currentState!.validate()) return;
 
     widget.edit(
@@ -86,7 +76,7 @@ class _ProjectLinkEditorState extends State<ProjectLinkEditor> {
         child: Row(
           children: [
             Expanded(
-              child: TextFormField(
+              child: TextField(
                 controller: labelController,
                 decoration: InputDecoration.collapsed(hintText: localizations.dialog_field_label),
                 textInputAction: TextInputAction.next,
@@ -98,8 +88,7 @@ class _ProjectLinkEditorState extends State<ProjectLinkEditor> {
               child: TextFormField(
                 controller: urlController,
                 decoration: InputDecoration.collapsed(hintText: localizations.dialog_field_url),
-                validator: _validateUrl,
-                onChanged: _validateForm,
+                validator: validateUrl,
               ),
             ),
             PopupMenuButton(

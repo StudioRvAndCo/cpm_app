@@ -4,6 +4,7 @@ import 'package:path/path.dart';
 
 enum Asset {
   cpm('logos', 'cpm.png', true),
+  cpmSvg('logos', 'cpm.svg', true),
   rvandco('logos', 'rvandco.png', true),
   camera('logos', 'camera.png', true),
   ;

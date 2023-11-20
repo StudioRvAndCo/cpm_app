@@ -17,7 +17,7 @@ class App extends StatelessWidget {
             return ValueListenableBuilder(
               valueListenable: themeModeNotifier,
               builder: (context, themeMode, child) {
-                final useDynamicTheming = ThemeManager().dynamicTheming;
+                final useDynamicTheming = ThemeManager().useDynamicTheming;
 
                 return MaterialApp.router(
                   title: PackageInfoManager().name,

@@ -1,6 +1,6 @@
 import 'package:cpm/utils/asset.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
-import 'package:cpm/utils/package_info_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,7 +17,7 @@ class TopNavigation extends StatelessWidget implements PreferredSizeWidget {
           filterQuality: FilterQuality.medium,
         ),
       ),
-      title: Text(PackageInfoManager().name),
+      title: Text(localizations.app_name),
       systemOverlayStyle: SystemUiOverlayStyle(
         systemNavigationBarColor: ElevationOverlay.applySurfaceTint(
           Theme.of(context).colorScheme.surface,

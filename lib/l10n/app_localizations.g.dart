@@ -90,6 +90,18 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('fr')];
 
+  /// No description provided for @app_name.
+  ///
+  /// In en, this message translates to:
+  /// **'CPM'**
+  String get app_name;
+
+  /// No description provided for @app_name_full.
+  ///
+  /// In en, this message translates to:
+  /// **'Cinema Project Manager'**
+  String get app_name_full;
+
   /// No description provided for @navigation_projects.
   ///
   /// In en, this message translates to:

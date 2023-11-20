@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cpm/common/menus/menu_action.dart';
 import 'package:cpm/common/sheets/location_sheet.dart';
 import 'package:cpm/common/sheets/member_sheet.dart';
@@ -10,6 +12,7 @@ import 'package:cpm/models/member/member.dart';
 import 'package:cpm/providers/locations/locations.dart';
 import 'package:cpm/providers/members/members.dart';
 import 'package:cpm/utils/constants/radiuses.dart';
+import 'package:cpm/utils/platform_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,8 +25,7 @@ class ModelTile<T extends BaseModel> extends ConsumerStatefulWidget {
     this.leadingImage,
     required this.title,
     this.subtitle,
-    this.trailing,
-    this.menuActions,
+    this.actions,
   });
 
   final Function() delete;
@@ -33,8 +35,7 @@ class ModelTile<T extends BaseModel> extends ConsumerStatefulWidget {
   final ImageProvider? leadingImage;
   final String title;
   final String? subtitle;
-  final List<Widget>? trailing;
-  final List<MenuAction>? menuActions;
+  final List<MenuAction>? actions;
 
   @override
   ConsumerState<ModelTile> createState() => _InfoTileState<T>();
@@ -58,7 +59,7 @@ class _InfoTileState<T extends BaseModel> extends ConsumerState<ModelTile> {
     SheetManager().showSheet(context, sheet);
   }
 
-  void _onMenuSelected(MenuAction action) {
+  void _onActionSelected(MenuAction action) {
     switch (action) {
       case MenuAction.edit:
         _showSheet(context);
@@ -77,6 +78,16 @@ class _InfoTileState<T extends BaseModel> extends ConsumerState<ModelTile> {
 
   @override
   Widget build(BuildContext context) {
+    List<MenuAction> primaryActions = [];
+    List<MenuAction> secondaryActions = [];
+    if (widget.actions != null && widget.actions!.isNotEmpty) {
+      final isMobile = PlatformManager().isMobile;
+      final nbActions = widget.actions!.length;
+      primaryActions = widget.actions!.sublist(0, isMobile ? 0 : min(nbActions, 3));
+      secondaryActions = widget.actions!.sublist(isMobile ? 1 : min(nbActions, 3));
+    }
+    secondaryActions.addAll(MenuAction.defaults);
+
     return Material(
       child: ListTile(
         leading: CircleAvatar(
@@ -99,17 +110,19 @@ class _InfoTileState<T extends BaseModel> extends ConsumerState<ModelTile> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ...?widget.trailing,
+            ...primaryActions.map((action) {
+              return IconButton(
+                icon: Icon(action.icon),
+                onPressed: () => _onActionSelected(action),
+              );
+            }),
             PopupMenuButton(
               itemBuilder: (BuildContext context) {
-                return <PopupMenuEntry<MenuAction>>[
-                  ...?widget.menuActions?.map((action) => action.popupMenuItem),
-                  if (widget.menuActions != null && widget.menuActions!.isNotEmpty) const PopupMenuDivider(),
-                  MenuAction.edit.popupMenuItem,
-                  MenuAction.delete.popupMenuItem,
-                ];
+                return secondaryActions.map((action) {
+                  return action.popupMenuItem;
+                }).toList();
               },
-              onSelected: _onMenuSelected,
+              onSelected: _onActionSelected,
             ),
           ],
         ),

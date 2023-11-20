@@ -1,47 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 195.59 228.19">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #fff;
-      }
-
-      .cls-1, .cls-2, .cls-3, .cls-4 {
-        stroke-width: 0px;
-      }
-
-      .cls-2 {
-        fill: #8189c6;
-      }
-
-      .cls-3 {
-        fill: url(#Dégradé_sans_nom_70);
-        opacity: .61;
-      }
-
-      .cls-4 {
-        fill: url(#Dégradé_sans_nom_4);
-        opacity: .6;
-      }
-    </style>
-    <linearGradient id="Dégradé_sans_nom_70" data-name="Dégradé sans nom 70" x1="83.5" y1="152.13" x2="47.91" y2="152.13" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#000"/>
-      <stop offset=".75" stop-color="#ababab" stop-opacity=".33"/>
-      <stop offset=".86" stop-color="#fff" stop-opacity="0"/>
-    </linearGradient>
-    <radialGradient id="Dégradé_sans_nom_4" data-name="Dégradé sans nom 4" cx="76.26" cy="136.07" fx="76.26" fy="136.07" r="94.06" gradientUnits="userSpaceOnUse">
-      <stop offset=".36" stop-color="#000"/>
-      <stop offset=".89" stop-color="#777" stop-opacity=".53"/>
-      <stop offset=".98" stop-color="#fff" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <g id="Calque_3" data-name="Calque 3">
-    <g>
-      <polygon class="cls-1" points="195.59 0 195.59 162.99 152.13 162.99 152.13 141.26 173.86 141.26 173.86 51.92 160.53 121.94 143.72 121.94 130.4 51.92 130.4 88.66 108.66 88.66 108.66 0 134.28 0 152.13 84.51 169.98 0 195.59 0"/>
-      <path class="cls-1" d="m43.47,43.47v-15.45c0-3.47-2.81-6.28-6.28-6.28h-9.18c-3.47,0-6.28,2.81-6.28,6.28v106.97c0,3.47,2.81,6.28,6.28,6.28h37.19v21.73H21.64c-11.95,0-21.64-9.68-21.64-21.64V21.64C0,9.68,9.68,0,21.64,0h21.93c11.95,0,21.64,9.68,21.64,21.64v21.83h-21.73Z"/>
-      <rect class="cls-3" x="45.98" y="141.26" width="22.36" height="21.73"/>
-      <path class="cls-4" d="m130.4,56.24v44.91l-21.73-22.46v-37.04h1.57c8.37,0,15.74,5.77,20.16,14.59Z"/>
-      <path class="cls-2" d="m65.2,65.2v162.99h21.73v-65.2h21.83c11.95,0,21.63-9.68,21.63-21.63v-54.54c0-11.95-9.68-21.63-21.63-21.63h-43.57Zm37.18,76.06h-15.45v-54.33h15.45c3.47,0,6.28,2.81,6.28,6.28v41.77c0,3.47-2.81,6.28-6.28,6.28Z"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="CPM" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 195.6 228.2" style="enable-background:new 0 0 195.6 228.2;" xml:space="preserve">
+<g id="CPM_00000132810793384308171990000017767566885361046460_">
+	<polygon id="M" style="fill:#FFFFFF;" points="195.6,0 195.6,163 152.1,163 152.1,141.3 173.9,141.3 173.9,51.9 160.5,121.9 
+		143.7,121.9 130.4,51.9 130.4,88.7 108.7,88.7 108.7,0 134.3,0 152.1,84.5 170,0 	"/>
+	<path id="C" style="fill:#FFFFFF;" d="M43.5,43.5V28c0-3.5-2.8-6.3-6.3-6.3H28c-3.5,0-6.3,2.8-6.3,6.3v107c0,3.5,2.8,6.3,6.3,6.3
+		h37.2V163H21.6C9.7,163,0,153.3,0,141.4V21.6C0,9.7,9.7,0,21.6,0h21.9c12,0,21.6,9.7,21.6,21.6v21.8H43.5L43.5,43.5z"/>
+	
+		<linearGradient id="CP_00000103975363995904125080000000453240067082790544_" gradientUnits="userSpaceOnUse" x1="83.5" y1="77.875" x2="47.91" y2="77.875" gradientTransform="matrix(1 0 0 -1 0 230)">
+		<stop  offset="0" style="stop-color:#000000"/>
+		<stop  offset="0.75" style="stop-color:#ABABAB;stop-opacity:0.33"/>
+		<stop  offset="0.86" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</linearGradient>
+	
+		<rect id="CP" x="46" y="141.3" style="opacity:0.61;fill:url(#CP_00000103975363995904125080000000453240067082790544_);enable-background:new    ;" width="22.4" height="21.7"/>
+	
+		<radialGradient id="PM_00000160894030010695750310000006139150633913326228_" cx="76.26" cy="93.93" r="94.06" gradientTransform="matrix(1 0 0 -1 0 230)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0.36" style="stop-color:#000000"/>
+		<stop  offset="0.89" style="stop-color:#777777;stop-opacity:0.53"/>
+		<stop  offset="0.98" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</radialGradient>
+	
+		<path id="PM" style="opacity:0.6;fill:url(#PM_00000160894030010695750310000006139150633913326228_);enable-background:new    ;" d="
+		M130.4,56.2v44.9l-21.7-22.5v-37h1.6C118.6,41.7,126,47.4,130.4,56.2z"/>
+	<path id="P" style="fill:#8189C6;" d="M65.2,65.2v163h21.7V163h21.8c11.9,0,21.6-9.7,21.6-21.6V86.8c0-11.9-9.7-21.6-21.6-21.6
+		L65.2,65.2L65.2,65.2z M102.4,141.3H86.9V86.9h15.4c3.5,0,6.3,2.8,6.3,6.3V135C108.7,138.4,105.8,141.3,102.4,141.3z"/>
+</g>
 </svg>

@@ -178,7 +178,6 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
                   hintText: localizations.dialog_field_description,
                 ),
                 keyboardType: TextInputType.multiline,
-                minLines: 3,
                 maxLines: null,
                 onSubmitted: (_) => _onSubmitted(sequence),
               ),
