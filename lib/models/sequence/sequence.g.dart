@@ -19,10 +19,17 @@ Sequence _$SequenceFromJson(Map<String, dynamic> json) => $checkedCreate(
           description: $checkedConvert('description', (v) => v as String?),
           startDate: $checkedConvert('start_date', (v) => v == null ? null : DateTime.parse(v as String)),
           endDate: $checkedConvert('end_date', (v) => v == null ? null : DateTime.parse(v as String)),
+          shotsTotal: $checkedConvert('shots_total', (v) => v as int?),
+          shotsCompleted: $checkedConvert('shots_completed', (v) => v as int?),
         );
         return val;
       },
-      fieldKeyMap: const {'startDate': 'start_date', 'endDate': 'end_date'},
+      fieldKeyMap: const {
+        'startDate': 'start_date',
+        'endDate': 'end_date',
+        'shotsTotal': 'shots_total',
+        'shotsCompleted': 'shots_completed'
+      },
     );
 
 Map<String, dynamic> _$SequenceToJson(Sequence instance) => <String, dynamic>{

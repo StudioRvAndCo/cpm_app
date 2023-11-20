@@ -18,10 +18,10 @@ Project _$ProjectFromJson(Map<String, dynamic> json) => $checkedCreate(
           description: $checkedConvert('description', (v) => v as String?),
           startDate: $checkedConvert('start_date', (v) => v == null ? null : DateTime.parse(v as String)),
           endDate: $checkedConvert('end_date', (v) => v == null ? null : DateTime.parse(v as String)),
-          shotsTotal: $checkedConvert('shots_total', (v) => v as int?),
-          shotsCompleted: $checkedConvert('shots_completed', (v) => v as int?),
           director: $checkedConvert('director', (v) => v as String?),
           writer: $checkedConvert('writer', (v) => v as String?),
+          shotsTotal: $checkedConvert('shots_total', (v) => v as int?),
+          shotsCompleted: $checkedConvert('shots_completed', (v) => v as int?),
         );
         return val;
       },

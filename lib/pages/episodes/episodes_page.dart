@@ -83,8 +83,8 @@ class EpisodesState extends ConsumerState<EpisodesPage> {
                         number: episode.getNumber,
                         title: episode.title,
                         description: episode.description,
-                        progress: 0,
-                        progressText: '',
+                        progress: episode.progress,
+                        progressText: episode.progressText,
                       );
                     },
                     padding: Paddings.withFab(Paddings.padding8.all),

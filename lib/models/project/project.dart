@@ -33,10 +33,10 @@ class Project extends BaseModel implements Comparable<Project> {
     this.description,
     this.startDate,
     this.endDate,
-    this.shotsTotal,
-    this.shotsCompleted,
     this.director,
     this.writer,
+    this.shotsTotal,
+    this.shotsCompleted,
     this.links = const [],
   });
 

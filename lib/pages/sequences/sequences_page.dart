@@ -87,16 +87,16 @@ class _SequencesState extends ConsumerState<SequencesPage> {
                     crossAxisCount: getColumnsCount(constraints),
                     itemCount: sequences.length,
                     itemBuilder: (context, index) {
-                      final episode = sequences[index];
+                      final sequence = sequences[index];
 
                       return ProjectCard.sequence(
                         key: UniqueKey(),
-                        open: () => _open(episode),
-                        number: episode.getNumber,
-                        title: episode.title,
-                        description: episode.description,
-                        progress: 0,
-                        progressText: '',
+                        open: () => _open(sequence),
+                        number: sequence.getNumber,
+                        title: sequence.title,
+                        description: sequence.description,
+                        progress: sequence.progress,
+                        progressText: sequence.progressText,
                       );
                     },
                     padding: Paddings.withFab(Paddings.padding8.all),

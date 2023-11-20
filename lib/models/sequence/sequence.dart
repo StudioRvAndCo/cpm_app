@@ -22,6 +22,10 @@ class Sequence extends BaseModel {
   DateTime? endDate;
   @JsonKey(includeFromJson: false, includeToJson: false)
   Location? location;
+  @JsonKey(includeToJson: false)
+  int? shotsTotal;
+  @JsonKey(includeToJson: false)
+  int? shotsCompleted;
 
   Sequence({
     super.id,
@@ -33,6 +37,8 @@ class Sequence extends BaseModel {
     this.startDate,
     this.endDate,
     this.location,
+    this.shotsTotal,
+    this.shotsCompleted,
   });
 
   factory Sequence.fromJson(Map<String, dynamic> json) => _$SequenceFromJson(json);
@@ -63,6 +69,22 @@ class Sequence extends BaseModel {
     return '${startDate!.yMd} | ${startDate!.Hm} - ${endDate!.Hm}';
   }
 
+  double get progress {
+    if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
+      return 0.0;
+    }
+
+    return shotsCompleted! / shotsTotal!;
+  }
+
+  String get progressText {
+    if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
+      return '';
+    }
+
+    return '$shotsCompleted/$shotsTotal';
+  }
+
   @override
   Map<String, dynamic> toJson() => _$SequenceToJson(this);
 
@@ -72,6 +94,8 @@ class Sequence extends BaseModel {
       _$SequenceToJson(this)
         ..addAll({
           'number': number,
+          'shots_total': shotsTotal,
+          'shots_completed': shotsCompleted,
         }),
     );
   }

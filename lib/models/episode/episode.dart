@@ -16,6 +16,10 @@ class Episode extends BaseModel {
   String? description;
   String? director;
   String? writer;
+  @JsonKey(includeToJson: false)
+  int? shotsTotal;
+  @JsonKey(includeToJson: false)
+  int? shotsCompleted;
 
   Episode({
     super.id,
@@ -26,6 +30,8 @@ class Episode extends BaseModel {
     this.description,
     this.director,
     this.writer,
+    this.shotsTotal,
+    this.shotsCompleted,
   });
 
   factory Episode.fromJson(Map<String, dynamic> json) => _$EpisodeFromJson(json);
@@ -40,6 +46,22 @@ class Episode extends BaseModel {
     return description == null || description!.isEmpty ? localizations.projects_no_description : description!;
   }
 
+  double get progress {
+    if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
+      return 0.0;
+    }
+
+    return shotsCompleted! / shotsTotal!;
+  }
+
+  String get progressText {
+    if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
+      return '';
+    }
+
+    return '$shotsCompleted/$shotsTotal';
+  }
+
   @override
   Map<String, dynamic> toJson() => _$EpisodeToJson(this);
 
@@ -49,6 +71,8 @@ class Episode extends BaseModel {
       _$EpisodeToJson(this)
         ..addAll({
           'number': number,
+          'shots_total': shotsTotal,
+          'shots_completed': shotsCompleted,
         }),
     );
   }

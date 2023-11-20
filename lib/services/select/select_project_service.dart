@@ -1,6 +1,7 @@
 import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/services/config/supabase_table.dart';
+import 'package:cpm/services/database_function.dart';
 import 'package:cpm/services/select/select_service.dart';
 
 class SelectProjectService extends SelectService {
@@ -14,12 +15,12 @@ class SelectProjectService extends SelectService {
 
     for (final project in projects) {
       project.shotsTotal = await supabase.rpc(
-        'shots_total',
-        params: {'project_id': project.id},
+        DatabaseFunction.projectShotsTotal.name,
+        params: {DatabaseFunction.projectShotsTotal.argument: project.id},
       ) as int;
       project.shotsCompleted = await supabase.rpc(
-        'shots_completed',
-        params: {'project_id': project.id},
+        DatabaseFunction.projectShotsCompleted.name,
+        params: {DatabaseFunction.projectShotsCompleted.argument: project.id},
       ) as int;
     }
 
