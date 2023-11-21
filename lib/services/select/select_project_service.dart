@@ -9,7 +9,9 @@ class SelectProjectService extends SelectService {
 
   Future<List<Project>> selectProjects() async {
     final projects = await select<Project>(
-      await supabase.from(table.name).select('*'),
+      await supabase
+          .from(table.name)
+          .select('*, director: member!project_director_fkey(*), writer:member!project_writer_fkey(*)'),
       Project.fromJson,
     );
 

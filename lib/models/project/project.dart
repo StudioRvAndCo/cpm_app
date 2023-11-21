@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:cpm/models/base_model.dart';
+import 'package:cpm/models/member/member.dart';
 import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/models/project/project_type.dart';
 import 'package:cpm/pages/projects/favorites.dart';
@@ -10,15 +11,17 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'project.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Project extends BaseModel implements Comparable<Project> {
   ProjectType projectType;
   String? title;
   String? description;
   DateTime? startDate;
   DateTime? endDate;
-  String? director;
-  String? writer;
+  @JsonKey(toJson: idToJson)
+  Member? director;
+  @JsonKey(toJson: idToJson)
+  Member? writer;
   @JsonKey(includeToJson: false)
   int? shotsTotal;
   @JsonKey(includeToJson: false)
@@ -102,6 +105,8 @@ class Project extends BaseModel implements Comparable<Project> {
     return toJsonCacheBase(
       _$ProjectToJson(this)
         ..addAll({
+          'director': director?.toJsonCache(),
+          'writer': writer?.toJsonCache(),
           'shots_total': shotsTotal,
           'shots_completed': shotsCompleted,
         }),

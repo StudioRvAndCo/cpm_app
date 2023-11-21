@@ -92,16 +92,14 @@ class _AddSequenceState extends ConsumerState<AddSequenceDialog> {
 
   void _add(BuildContext context) {
     context.pop(
-      (
-        Sequence(
-          episode: widget.episodeId,
-          index: widget.index,
-          title: title.text,
-          description: description.text,
-          startDate: DateTime(date.year, date.month, date.day, startTime.hour, startTime.minute),
-          endDate: DateTime(date.year, date.month, date.day, endTime.hour, endTime.minute),
-        ),
-        location?.id,
+      Sequence(
+        episode: widget.episodeId,
+        index: widget.index,
+        title: title.text,
+        description: description.text,
+        startDate: DateTime(date.year, date.month, date.day, startTime.hour, startTime.minute),
+        endDate: DateTime(date.year, date.month, date.day, endTime.hour, endTime.minute),
+        location: location,
       ),
     );
   }

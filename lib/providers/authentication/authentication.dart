@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/services/authentication_service.dart';
@@ -18,7 +19,8 @@ class Authentication extends _$Authentication with BaseProvider {
     bool logged;
     try {
       logged = await authenticationService.login(email, password);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       logged = false;
     }
     state = AsyncValue<bool>.data(logged);

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/models/project/link/link.dart';
@@ -47,11 +48,12 @@ class Projects extends _$Projects with BaseProvider {
     try {
       if (newProject.isMovie) {
         final Project project = await insertService.insertAndReturn<Project>(_table, newProject, Project.fromJson);
-        await insertService.insert(SupabaseTable.episode, Episode(project: project.id));
+        await insertService.insert(SupabaseTable.episode, Episode(project: project.id, index: 1));
       } else {
         await insertService.insert(_table, newProject);
       }
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     await get();
@@ -62,7 +64,8 @@ class Projects extends _$Projects with BaseProvider {
   Future<bool> edit(Project editedProject) async {
     try {
       await updateService.update(_table, editedProject);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Project>>(<Project>[
@@ -76,7 +79,8 @@ class Projects extends _$Projects with BaseProvider {
   Future<bool> delete(int? id) async {
     try {
       await deleteService.delete(_table, id);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Project>>(<Project>[

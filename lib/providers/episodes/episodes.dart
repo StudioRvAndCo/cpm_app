@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/providers/base_provider.dart';
@@ -54,7 +55,8 @@ class Episodes extends _$Episodes with BaseProvider {
   Future<bool> add(Episode newEpisode) async {
     try {
       await insertService.insert(_table, newEpisode);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     await get();
@@ -65,7 +67,8 @@ class Episodes extends _$Episodes with BaseProvider {
   Future<bool> edit(Episode editedEpisode) async {
     try {
       await updateService.update(_table, editedEpisode);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Episode>>(<Episode>[
@@ -79,7 +82,8 @@ class Episodes extends _$Episodes with BaseProvider {
   Future<bool> delete(int? id) async {
     try {
       await deleteService.delete(_table, id);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Episode>>(<Episode>[

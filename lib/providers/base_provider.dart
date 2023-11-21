@@ -6,7 +6,6 @@ import 'package:cpm/services/select/select_link_service.dart';
 import 'package:cpm/services/select/select_location_service.dart';
 import 'package:cpm/services/select/select_member_service.dart';
 import 'package:cpm/services/select/select_project_service.dart';
-import 'package:cpm/services/select/select_sequence_location_service.dart';
 import 'package:cpm/services/select/select_sequence_service.dart';
 import 'package:cpm/services/select/select_shot_service.dart';
 import 'package:cpm/services/update_service.dart';
@@ -22,7 +21,6 @@ mixin BaseProvider {
   final SelectShotService selectShotService = SelectShotService();
   final SelectMemberService selectMemberService = SelectMemberService();
   final SelectLocationService selectLocationService = SelectLocationService();
-  final SelectSequenceLocationService selectSequenceLocationService = SelectSequenceLocationService();
 
   final InsertService insertService = InsertService();
 

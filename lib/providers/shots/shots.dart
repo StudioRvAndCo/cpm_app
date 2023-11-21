@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
@@ -43,7 +45,8 @@ class Shots extends _$Shots with BaseProvider {
   Future<bool> add(Shot newShot) async {
     try {
       await insertService.insert(_table, newShot);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     await get();
@@ -54,7 +57,8 @@ class Shots extends _$Shots with BaseProvider {
   Future<bool> edit(Shot editedShot) async {
     try {
       await updateService.update(_table, editedShot);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Shot>>(<Shot>[
@@ -69,7 +73,8 @@ class Shots extends _$Shots with BaseProvider {
     toToggleShot.completed = !toToggleShot.completed;
     try {
       await updateService.update(_table, toToggleShot);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Shot>>(<Shot>[
@@ -83,7 +88,8 @@ class Shots extends _$Shots with BaseProvider {
   Future<bool> delete(int id) async {
     try {
       await deleteService.delete(_table, id);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Shot>>(<Shot>[

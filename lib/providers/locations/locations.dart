@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/providers/base_provider.dart';
@@ -37,7 +38,8 @@ class Locations extends _$Locations with BaseProvider {
   Future<bool> add(Location newLocation) async {
     try {
       await insertService.insert(_table, newLocation);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     await get();
@@ -48,7 +50,8 @@ class Locations extends _$Locations with BaseProvider {
   Future<bool> edit(Location editedLocation) async {
     try {
       await updateService.update(_table, editedLocation);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Location>>(<Location>[
@@ -62,7 +65,8 @@ class Locations extends _$Locations with BaseProvider {
   Future<bool> delete(int id) async {
     try {
       await deleteService.delete(_table, id);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Location>>(<Location>[

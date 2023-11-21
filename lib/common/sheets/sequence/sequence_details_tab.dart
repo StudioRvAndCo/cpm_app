@@ -100,15 +100,9 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
     if (date != null && endTime != null) {
       sequence.endDate = DateTime(date!.year, date!.month, date!.day, endTime!.hour, endTime!.minute);
     }
-    if (location != null) {
-      sequence.location = Location(
-        id: location!.id,
-        name: location!.name,
-        position: location!.position,
-      );
-    }
+    sequence.location = location;
 
-    ref.read(sequencesProvider.notifier).edit(sequence, location?.id);
+    ref.read(sequencesProvider.notifier).edit(sequence);
     ref.read(currentSequenceProvider.notifier).set(sequence);
   }
 
@@ -122,7 +116,7 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
               children: [
                 OutlinedButton.icon(
                   icon: const Icon(Icons.calendar_month),
-                  label: Text('${date?.yMd} | ${startTime?.format(context)} - ${endTime?.format(context)}'),
+                  label: Text(sequence.dateText),
                   onPressed: () => _pickDateTime(sequence),
                 ),
                 Padding(padding: Paddings.padding8.horizontal),
@@ -133,8 +127,9 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
                         isExpanded: true,
                         hint: Text(localizations.dialog_field_position),
                         value: location,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          label: Text(localizations.dialog_field_position),
+                          border: const OutlineInputBorder(),
                           isDense: true,
                         ),
                         items: locations.map<DropdownMenuItem<Location>>((location) {

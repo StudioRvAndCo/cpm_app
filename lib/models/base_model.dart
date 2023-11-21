@@ -3,6 +3,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+int? idToJson(BaseModel? model) => model?.id;
+
 abstract class BaseModel extends Equatable {
   int? _id;
 

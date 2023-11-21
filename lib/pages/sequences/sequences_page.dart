@@ -68,8 +68,8 @@ class _SequencesState extends ConsumerState<SequencesPage> {
                 title: project?.title,
                 description: project?.description,
                 dateText: project?.dateText,
-                director: project?.director,
-                writer: project?.writer,
+                director: project?.director?.fullName,
+                writer: project?.writer?.fullName,
                 links: project?.links,
               );
             } else {

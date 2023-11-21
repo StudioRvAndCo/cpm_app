@@ -1,5 +1,7 @@
 import 'package:cpm/common/placeholders/custom_placeholder.dart';
+import 'package:cpm/models/member/member.dart';
 import 'package:cpm/models/project/project.dart';
+import 'package:cpm/providers/members/members.dart';
 import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
@@ -21,6 +23,8 @@ class _ProjectDetailsTabState extends ConsumerState<ProjectDetailsTab> {
     start: DateTime.now(),
     end: DateTime.now().weekLater,
   );
+  Member? director;
+  Member? writer;
 
   @override
   void initState() {
@@ -33,6 +37,8 @@ class _ProjectDetailsTabState extends ConsumerState<ProjectDetailsTab> {
       start: project?.startDate ?? DateTime.now(),
       end: project?.endDate ?? DateTime.now().weekLater,
     );
+    director = project?.director;
+    writer = project?.writer;
   }
 
   Future<void> _pickDateRange(Project project) async {
@@ -49,6 +55,20 @@ class _ProjectDetailsTabState extends ConsumerState<ProjectDetailsTab> {
     });
   }
 
+  void _onDirectorSelected(Project project, Member? newDirector) {
+    if (newDirector == null) return;
+
+    director = newDirector;
+    _edit(project);
+  }
+
+  void _onWriterSelected(Project project, Member? newWriter) {
+    if (newWriter == null) return;
+
+    writer = newWriter;
+    _edit(project);
+  }
+
   void _onSubmitted(Project project) {
     if (title.text == project.title && description.text == project.description) return;
 
@@ -60,6 +80,8 @@ class _ProjectDetailsTabState extends ConsumerState<ProjectDetailsTab> {
     project.description = description.text;
     project.startDate = dateRange.start;
     project.endDate = dateRange.end;
+    project.director = director;
+    project.writer = writer;
 
     ref.read(projectsProvider.notifier).edit(project);
     ref.read(currentProjectProvider.notifier).set(project);
@@ -73,8 +95,65 @@ class _ProjectDetailsTabState extends ConsumerState<ProjectDetailsTab> {
           children: [
             OutlinedButton.icon(
               icon: const Icon(Icons.calendar_month),
-              label: Text('${dateRange.start.yMd} - ${dateRange.end.yMd}'),
+              label: Text(project.dateText),
               onPressed: () => _pickDateRange(project),
+            ),
+            Padding(padding: Paddings.padding8.vertical),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ...ref.watch(membersProvider).when(
+                  data: (members) {
+                    return [
+                      Expanded(
+                        child: DropdownButtonFormField<Member>(
+                          isExpanded: true,
+                          hint: Text(localizations.dialog_field_director),
+                          value: director,
+                          decoration: InputDecoration(
+                            label: Text(localizations.dialog_field_director),
+                            border: const OutlineInputBorder(),
+                            isDense: true,
+                          ),
+                          items: members.map<DropdownMenuItem<Member>>((member) {
+                            return DropdownMenuItem<Member>(
+                              value: member,
+                              child: Text(member.fullName),
+                            );
+                          }).toList(),
+                          onChanged: (director) => _onDirectorSelected(project, director),
+                        ),
+                      ),
+                      Padding(padding: Paddings.padding8.horizontal),
+                      Expanded(
+                        child: DropdownButtonFormField<Member>(
+                          isExpanded: true,
+                          hint: Text(localizations.dialog_field_writer),
+                          value: writer,
+                          decoration: InputDecoration(
+                            label: Text(localizations.dialog_field_writer),
+                            border: const OutlineInputBorder(),
+                            isDense: true,
+                          ),
+                          items: members.map<DropdownMenuItem<Member>>((member) {
+                            return DropdownMenuItem<Member>(
+                              value: member,
+                              child: Text(member.fullName),
+                            );
+                          }).toList(),
+                          onChanged: (writer) => _onWriterSelected(project, writer),
+                        ),
+                      ),
+                    ];
+                  },
+                  loading: () {
+                    return [CustomPlaceholder.loading()];
+                  },
+                  error: (Object error, StackTrace stackTrace) {
+                    return [CustomPlaceholder.error()];
+                  },
+                ),
+              ],
             ),
             Padding(padding: Paddings.padding8.vertical),
             Focus(

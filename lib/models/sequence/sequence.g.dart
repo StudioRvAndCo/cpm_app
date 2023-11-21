@@ -19,6 +19,7 @@ Sequence _$SequenceFromJson(Map<String, dynamic> json) => $checkedCreate(
           description: $checkedConvert('description', (v) => v as String?),
           startDate: $checkedConvert('start_date', (v) => v == null ? null : DateTime.parse(v as String)),
           endDate: $checkedConvert('end_date', (v) => v == null ? null : DateTime.parse(v as String)),
+          location: $checkedConvert('location', (v) => v == null ? null : Location.fromJson(v as Map<String, dynamic>)),
           shotsTotal: $checkedConvert('shots_total', (v) => v as int?),
           shotsCompleted: $checkedConvert('shots_completed', (v) => v as int?),
         );
@@ -39,4 +40,5 @@ Map<String, dynamic> _$SequenceToJson(Sequence instance) => <String, dynamic>{
       'description': instance.description,
       'start_date': instance.startDate?.toIso8601String(),
       'end_date': instance.endDate?.toIso8601String(),
+      'location': idToJson(instance.location),
     };

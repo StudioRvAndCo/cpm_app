@@ -70,9 +70,7 @@ class AddAction<T extends BaseModel> extends ModelGeneric<T> {
         case const (Episode):
           added = await ref.read(episodesProvider.notifier).add(element as Episode);
         case const (Sequence):
-          final sequence = (element as (Sequence, int?)).$1;
-          final locationId = element.$2;
-          added = await ref.read(sequencesProvider.notifier).add(sequence, locationId);
+          added = await ref.read(sequencesProvider.notifier).add(element as Sequence);
         case const (Shot):
           added = await ref.read(shotsProvider.notifier).add(element as Shot);
         case const (Member):

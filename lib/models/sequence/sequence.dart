@@ -10,7 +10,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'sequence.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Sequence extends BaseModel {
   int? episode;
   int? index;
@@ -20,7 +20,7 @@ class Sequence extends BaseModel {
   String? description;
   DateTime? startDate;
   DateTime? endDate;
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(toJson: idToJson)
   Location? location;
   @JsonKey(includeToJson: false)
   int? shotsTotal;
@@ -63,8 +63,8 @@ class Sequence extends BaseModel {
     return endDate != null ? TimeOfDay(hour: endDate!.hour, minute: endDate!.minute) : TimeOfDay.now().hourLater;
   }
 
-  String? get dateText {
-    if (startDate == null || endDate == null) return null;
+  String get dateText {
+    if (startDate == null || endDate == null) return '';
 
     return '${startDate!.yMd} | ${startDate!.Hm} - ${endDate!.Hm}';
   }
@@ -94,6 +94,7 @@ class Sequence extends BaseModel {
       _$SequenceToJson(this)
         ..addAll({
           'number': number,
+          'location': location?.toJsonCache(),
           'shots_total': shotsTotal,
           'shots_completed': shotsCompleted,
         }),

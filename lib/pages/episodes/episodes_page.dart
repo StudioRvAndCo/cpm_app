@@ -63,8 +63,8 @@ class EpisodesState extends ConsumerState<EpisodesPage> {
               title: project?.title,
               description: project?.description,
               dateText: project?.dateText,
-              director: project?.director,
-              writer: project?.writer,
+              director: project?.director?.fullName,
+              writer: project?.writer?.fullName,
               links: project?.links,
             );
 

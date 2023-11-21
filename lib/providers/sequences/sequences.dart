@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:cpm/models/sequence/sequence.dart';
-import 'package:cpm/models/sequence_location/sequence_location.dart';
 import 'package:cpm/providers/base_provider.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
@@ -65,13 +66,11 @@ class Sequences extends _$Sequences with BaseProvider {
         );
   }
 
-  Future<bool> add(Sequence newSequence, [int? locationId]) async {
+  Future<bool> add(Sequence newSequence) async {
     try {
-      final Sequence createdSequence = await insertService.insertAndReturn(_table, newSequence, Sequence.fromJson);
-      if (locationId != null) {
-        await _setLocation(createdSequence.id, locationId);
-      }
-    } catch (_) {
+      await insertService.insert(_table, newSequence);
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     await get();
@@ -79,28 +78,17 @@ class Sequences extends _$Sequences with BaseProvider {
     return true;
   }
 
-  Future<bool> edit(Sequence editedSequence, int? locationId) async {
+  Future<bool> edit(Sequence editedSequence) async {
     try {
       await updateService.update(_table, editedSequence);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
-    if (locationId != null) {
-      final SequenceLocation newSequenceLocation = SequenceLocation(
-        sequence: editedSequence.id,
-        location: locationId,
-      );
-      try {
-        await _updateLocation(newSequenceLocation);
-      } catch (_) {
-        return false;
-      }
-    } else {
-      state = AsyncData<List<Sequence>>(<Sequence>[
-        for (final Sequence sequence in state.value ?? <Sequence>[])
-          if (sequence.id != editedSequence.id) sequence else editedSequence,
-      ]);
-    }
+    state = AsyncData<List<Sequence>>(<Sequence>[
+      for (final Sequence sequence in state.value ?? <Sequence>[])
+        if (sequence.id != editedSequence.id) sequence else editedSequence,
+    ]);
 
     return true;
   }
@@ -108,7 +96,8 @@ class Sequences extends _$Sequences with BaseProvider {
   Future<bool> delete(int? id) async {
     try {
       await deleteService.delete(_table, id);
-    } catch (_) {
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
     state = AsyncData<List<Sequence>>(<Sequence>[
@@ -117,20 +106,6 @@ class Sequences extends _$Sequences with BaseProvider {
     ]);
 
     return true;
-  }
-
-  Future<void> _setLocation(int sequenceId, int locationId) async {
-    final SequenceLocation sequenceLocation = SequenceLocation(sequence: sequenceId, location: locationId);
-    await upsertService.upsert(SupabaseTable.sequenceLocation, sequenceLocation);
-  }
-
-  Future<void> _updateLocation(SequenceLocation sequenceLocation) async {
-    await updateService.updateOrInsert(
-      SupabaseTable.sequenceLocation,
-      sequenceLocation,
-      'sequence',
-      sequenceLocation.sequence.toString(),
-    );
   }
 }
 
