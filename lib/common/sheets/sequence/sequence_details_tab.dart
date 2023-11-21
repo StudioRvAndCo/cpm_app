@@ -1,4 +1,4 @@
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/providers/locations/locations.dart';
@@ -147,10 +147,10 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
                       );
                     },
                     loading: () {
-                      return requestPlaceholderLoading;
+                      return CustomPlaceholder.loading();
                     },
                     error: (Object error, StackTrace stackTrace) {
-                      return requestPlaceholderError;
+                      return CustomPlaceholder.error();
                     },
                   ),
                 ),
@@ -186,10 +186,10 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
         );
       },
       error: (Object error, StackTrace stackTrace) {
-        return requestPlaceholderError;
+        return CustomPlaceholder.error();
       },
       loading: () {
-        return requestPlaceholderLoading;
+        return CustomPlaceholder.loading();
       },
     );
   }

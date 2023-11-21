@@ -35,7 +35,7 @@ class _AddLocationDialogState extends State<AddLocationDialog> {
     return ModelDialog(
       cancel: () => _cancel(context),
       submit: () => _add(context),
-      title: localizations.dialog_add_item(localizations.item_location, Gender.male.name),
+      title: localizations.dialog_add_item(localizations.item_location(1), Gender.male.name),
       action: localizations.button_add,
       fields: [
         TextField(

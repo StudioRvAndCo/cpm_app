@@ -1,4 +1,4 @@
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/pages/schedule/appointment_tile.dart';
 import 'package:cpm/pages/schedule/sequences_data_source.dart';
@@ -50,10 +50,10 @@ class _ScheduleState extends ConsumerState<SchedulePage> {
         );
       },
       error: (Object error, StackTrace stackTrace) {
-        return requestPlaceholderError;
+        return CustomPlaceholder.error();
       },
       loading: () {
-        return requestPlaceholderLoading;
+        return CustomPlaceholder.loading();
       },
     );
   }

@@ -1,4 +1,4 @@
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/utils/constants/constants.dart';
@@ -106,10 +106,10 @@ class _ProjectDetailsTabState extends ConsumerState<ProjectDetailsTab> {
         );
       },
       error: (Object error, StackTrace stackTrace) {
-        return requestPlaceholderError;
+        return CustomPlaceholder.error();
       },
       loading: () {
-        return requestPlaceholderLoading;
+        return CustomPlaceholder.loading();
       },
     );
   }

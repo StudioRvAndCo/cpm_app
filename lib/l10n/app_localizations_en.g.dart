@@ -303,22 +303,81 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menu_delete => 'Delete';
 
   @override
-  String get item_project => 'project';
+  String item_project(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'projects',
+      one: 'project',
+      zero: 'projects',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_episode => 'episode';
+  String item_episode(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'episodes',
+      one: 'episode',
+      zero: 'episodes',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_sequence => 'sequence';
+  String item_sequence(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'sequences',
+      one: 'sequence',
+      zero: 'sequences',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_shot => 'shot';
+  String item_shot(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'shots',
+      one: 'shot',
+      zero: 'shots',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_member => 'member';
+  String item_member(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'members',
+      one: 'member',
+      zero: 'members',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_location => 'location';
+  String item_location(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'locations',
+      one: 'location',
+      zero: 'locations',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String placeholder_empty(Object item, String sex) {
+    return 'There are no $item';
+  }
 
   @override
   String get dialog_log_out => 'Do you really want to log out?';
@@ -433,7 +492,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error_required => 'Required';
-
-  @override
-  String get coming_soon => 'Coming soon!';
 }

@@ -19,7 +19,7 @@ enum ProjectType {
       case ProjectType.series:
         return localizations.projects_series;
       case ProjectType.unknown:
-        throw TypeError();
+        throw Error();
     }
   }
 }

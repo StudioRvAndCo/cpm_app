@@ -1,6 +1,7 @@
 import 'package:cpm/common/actions/add_action.dart';
 import 'package:cpm/common/actions/delete_action.dart';
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
+import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/project_card.dart';
 import 'package:cpm/common/widgets/project_header.dart';
 import 'package:cpm/models/episode/episode.dart';
@@ -67,31 +68,33 @@ class EpisodesState extends ConsumerState<EpisodesPage> {
               links: project?.links,
             );
 
-            final body = LayoutBuilder(
-              builder: (context, constraints) {
-                return ScrollConfiguration(
-                  behavior: scrollBehavior,
-                  child: AlignedGridView.count(
-                    crossAxisCount: getColumnsCount(constraints),
-                    itemCount: episodes.length,
-                    itemBuilder: (context, index) {
-                      final episode = episodes[index];
+            final body = episodes.isEmpty
+                ? CustomPlaceholder.empty(EmptyPlaceholder.episodes)
+                : LayoutBuilder(
+                    builder: (context, constraints) {
+                      return ScrollConfiguration(
+                        behavior: scrollBehavior,
+                        child: AlignedGridView.count(
+                          crossAxisCount: getColumnsCount(constraints),
+                          itemCount: episodes.length,
+                          itemBuilder: (context, index) {
+                            final episode = episodes[index];
 
-                      return ProjectCard.episode(
-                        key: UniqueKey(),
-                        open: () => _open(episode),
-                        number: episode.getNumber,
-                        title: episode.title,
-                        description: episode.description,
-                        progress: episode.progress,
-                        progressText: episode.progressText,
+                            return ProjectCard.episode(
+                              key: UniqueKey(),
+                              open: () => _open(episode),
+                              number: episode.getNumber,
+                              title: episode.title,
+                              description: episode.description,
+                              progress: episode.progress,
+                              progressText: episode.progressText,
+                            );
+                          },
+                          padding: Paddings.withFab(Paddings.padding8.all),
+                        ),
                       );
                     },
-                    padding: Paddings.withFab(Paddings.padding8.all),
-                  ),
-                );
-              },
-            );
+                  );
 
             return PlatformManager().isMobile
                 ? NestedScrollView(
@@ -113,10 +116,10 @@ class EpisodesState extends ConsumerState<EpisodesPage> {
                   );
           },
           error: (Object error, StackTrace stackTrace) {
-            return requestPlaceholderError;
+            return CustomPlaceholder.error();
           },
           loading: () {
-            return requestPlaceholderLoading;
+            return CustomPlaceholder.loading();
           },
         ),
       ),

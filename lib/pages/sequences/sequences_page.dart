@@ -1,6 +1,7 @@
 import 'package:cpm/common/actions/add_action.dart';
 import 'package:cpm/common/actions/delete_action.dart';
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
+import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/project_card.dart';
 import 'package:cpm/common/widgets/project_header.dart';
 import 'package:cpm/models/episode/episode.dart';
@@ -79,31 +80,33 @@ class _SequencesState extends ConsumerState<SequencesPage> {
               );
             }
 
-            final body = LayoutBuilder(
-              builder: (context, constraints) {
-                return ScrollConfiguration(
-                  behavior: scrollBehavior,
-                  child: AlignedGridView.count(
-                    crossAxisCount: getColumnsCount(constraints),
-                    itemCount: sequences.length,
-                    itemBuilder: (context, index) {
-                      final sequence = sequences[index];
+            final body = sequences.isEmpty
+                ? CustomPlaceholder.empty(EmptyPlaceholder.sequences)
+                : LayoutBuilder(
+                    builder: (context, constraints) {
+                      return ScrollConfiguration(
+                        behavior: scrollBehavior,
+                        child: AlignedGridView.count(
+                          crossAxisCount: getColumnsCount(constraints),
+                          itemCount: sequences.length,
+                          itemBuilder: (context, index) {
+                            final sequence = sequences[index];
 
-                      return ProjectCard.sequence(
-                        key: UniqueKey(),
-                        open: () => _open(sequence),
-                        number: sequence.getNumber,
-                        title: sequence.title,
-                        description: sequence.description,
-                        progress: sequence.progress,
-                        progressText: sequence.progressText,
+                            return ProjectCard.sequence(
+                              key: UniqueKey(),
+                              open: () => _open(sequence),
+                              number: sequence.getNumber,
+                              title: sequence.title,
+                              description: sequence.description,
+                              progress: sequence.progress,
+                              progressText: sequence.progressText,
+                            );
+                          },
+                          padding: Paddings.withFab(Paddings.padding8.all),
+                        ),
                       );
                     },
-                    padding: Paddings.withFab(Paddings.padding8.all),
-                  ),
-                );
-              },
-            );
+                  );
 
             return PlatformManager().isMobile
                 ? NestedScrollView(
@@ -125,10 +128,10 @@ class _SequencesState extends ConsumerState<SequencesPage> {
                   );
           },
           error: (Object error, StackTrace stackTrace) {
-            return requestPlaceholderError;
+            return CustomPlaceholder.error();
           },
           loading: () {
-            return requestPlaceholderLoading;
+            return CustomPlaceholder.loading();
           },
         ),
       ),

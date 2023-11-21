@@ -19,6 +19,12 @@ class PlatformManager {
     }
   }
 
+  bool get isDesktop {
+    if (isWeb) return false;
+
+    return Platform.isWindows || Platform.isLinux || Platform.isMacOS;
+  }
+
   bool get isWeb {
     return kIsWeb;
   }

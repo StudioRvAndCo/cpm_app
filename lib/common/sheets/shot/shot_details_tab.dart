@@ -1,4 +1,4 @@
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/common/widgets/colored_circle.dart';
 import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/models/shot/shot_value.dart';
@@ -95,10 +95,10 @@ class _ProjectDetailsTabState extends ConsumerState<ShotDetailsTab> {
         );
       },
       error: (Object error, StackTrace stackTrace) {
-        return requestPlaceholderError;
+        return CustomPlaceholder.error();
       },
       loading: () {
-        return requestPlaceholderLoading;
+        return CustomPlaceholder.loading();
       },
     );
   }

@@ -555,38 +555,44 @@ abstract class AppLocalizations {
   /// No description provided for @item_project.
   ///
   /// In en, this message translates to:
-  /// **'project'**
-  String get item_project;
+  /// **'{count, plural, zero{projects} one{project} other{projects}}'**
+  String item_project(num count);
 
   /// No description provided for @item_episode.
   ///
   /// In en, this message translates to:
-  /// **'episode'**
-  String get item_episode;
+  /// **'{count, plural, zero{episodes} one{episode} other{episodes}}'**
+  String item_episode(num count);
 
   /// No description provided for @item_sequence.
   ///
   /// In en, this message translates to:
-  /// **'sequence'**
-  String get item_sequence;
+  /// **'{count, plural, zero{sequences} one{sequence} other{sequences}}'**
+  String item_sequence(num count);
 
   /// No description provided for @item_shot.
   ///
   /// In en, this message translates to:
-  /// **'shot'**
-  String get item_shot;
+  /// **'{count, plural, zero{shots} one{shot} other{shots}}'**
+  String item_shot(num count);
 
   /// No description provided for @item_member.
   ///
   /// In en, this message translates to:
-  /// **'member'**
-  String get item_member;
+  /// **'{count, plural, zero{members} one{member} other{members}}'**
+  String item_member(num count);
 
   /// No description provided for @item_location.
   ///
   /// In en, this message translates to:
-  /// **'location'**
-  String get item_location;
+  /// **'{count, plural, zero{locations} one{location} other{locations}}'**
+  String item_location(num count);
+
+  /// No description provided for @placeholder_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'There are no {item}'**
+  String placeholder_empty(Object item, String sex);
 
   /// No description provided for @dialog_log_out.
   ///
@@ -779,12 +785,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Required'**
   String get error_required;
-
-  /// No description provided for @coming_soon.
-  ///
-  /// In en, this message translates to:
-  /// **'Coming soon!'**
-  String get coming_soon;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

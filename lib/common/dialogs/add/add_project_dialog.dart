@@ -66,7 +66,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
     return ModelDialog(
       cancel: () => _cancel(context),
       submit: () => _add(context),
-      title: localizations.dialog_add_item(localizations.item_project, Gender.male.name),
+      title: localizations.dialog_add_item(localizations.item_project(1), Gender.male.name),
       action: localizations.button_add,
       fields: [
         Row(

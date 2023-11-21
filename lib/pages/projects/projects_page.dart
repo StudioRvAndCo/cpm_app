@@ -1,5 +1,6 @@
 import 'package:cpm/common/actions/add_action.dart';
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
+import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/project_card.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/pages/projects/favorites.dart';
@@ -64,40 +65,44 @@ class ProjectsState extends ConsumerState<ProjectsPage> {
             builder: (BuildContext context, BoxConstraints constraints) {
               return ref.watch(projectsProvider).when(
                 data: (projects) {
-                  return MasonryGridView.count(
-                    itemCount: projects.length,
-                    padding: Paddings.withFab(Paddings.custom.page),
-                    itemBuilder: (BuildContext context, int index) {
-                      return ProjectCard.project(
-                        key: UniqueKey(),
-                        open: () => _open(projects[index]),
-                        title: projects[index].title,
-                        description: projects[index].description,
-                        progress: projects[index].progress,
-                        progressText: projects[index].progressText,
-                        trailing: [
-                          IconButton(
-                            onPressed: () => _toggleFavorite(projects[index]),
-                            icon: Icon(Favorites().isFavorite(projects[index].getId) ? Icons.star : Icons.star_border),
-                          ),
-                          Padding(padding: Paddings.padding2.horizontal),
-                          IconButton(
-                            onPressed: () => _openSchedule(projects[index]),
-                            icon: const Icon(Icons.event),
-                          ),
-                        ],
-                      );
-                    },
-                    crossAxisCount: getColumnsCount(constraints),
-                    mainAxisSpacing: 2,
-                    crossAxisSpacing: 2,
-                  );
+                  return projects.isEmpty
+                      ? CustomPlaceholder.empty(EmptyPlaceholder.projects)
+                      : MasonryGridView.count(
+                          itemCount: projects.length,
+                          padding: Paddings.withFab(Paddings.custom.page),
+                          itemBuilder: (BuildContext context, int index) {
+                            return ProjectCard.project(
+                              key: UniqueKey(),
+                              open: () => _open(projects[index]),
+                              title: projects[index].title,
+                              description: projects[index].description,
+                              progress: projects[index].progress,
+                              progressText: projects[index].progressText,
+                              trailing: [
+                                IconButton(
+                                  onPressed: () => _toggleFavorite(projects[index]),
+                                  icon: Icon(
+                                    Favorites().isFavorite(projects[index].getId) ? Icons.star : Icons.star_border,
+                                  ),
+                                ),
+                                Padding(padding: Paddings.padding2.horizontal),
+                                IconButton(
+                                  onPressed: () => _openSchedule(projects[index]),
+                                  icon: const Icon(Icons.event),
+                                ),
+                              ],
+                            );
+                          },
+                          crossAxisCount: getColumnsCount(constraints),
+                          mainAxisSpacing: 2,
+                          crossAxisSpacing: 2,
+                        );
                 },
                 error: (Object error, StackTrace stackTrace) {
-                  return requestPlaceholderError;
+                  return CustomPlaceholder.error();
                 },
                 loading: () {
-                  return requestPlaceholderLoading;
+                  return CustomPlaceholder.loading();
                 },
               );
             },

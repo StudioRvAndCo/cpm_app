@@ -1,4 +1,4 @@
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/models/member/member.dart';
 import 'package:cpm/providers/members/members.dart';
 import 'package:cpm/utils/constants/constants.dart';
@@ -123,10 +123,10 @@ class _MemberSheetState extends ConsumerState<MemberSheet> with SingleTickerProv
         );
       },
       error: (Object error, StackTrace stackTrace) {
-        return requestPlaceholderError;
+        return CustomPlaceholder.error();
       },
       loading: () {
-        return requestPlaceholderLoading;
+        return CustomPlaceholder.loading();
       },
     );
   }

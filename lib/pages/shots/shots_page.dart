@@ -1,6 +1,7 @@
 import 'package:cpm/common/actions/add_action.dart';
 import 'package:cpm/common/actions/delete_action.dart';
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
+import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/project_header.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/models/shot/shot.dart';
@@ -56,21 +57,23 @@ class _ShotsState extends ConsumerState<ShotsPage> {
               location: sequence?.location,
             );
 
-            final body = LayoutBuilder(
-              builder: (context, constraints) {
-                return ScrollConfiguration(
-                  behavior: scrollBehavior,
-                  child: AlignedGridView.count(
-                    crossAxisCount: getColumnsCount(constraints),
-                    itemCount: shots.length,
-                    itemBuilder: (context, index) {
-                      return ShotCard(shots[index]);
+            final body = shots.isEmpty
+                ? CustomPlaceholder.empty(EmptyPlaceholder.shots)
+                : LayoutBuilder(
+                    builder: (context, constraints) {
+                      return ScrollConfiguration(
+                        behavior: scrollBehavior,
+                        child: AlignedGridView.count(
+                          crossAxisCount: getColumnsCount(constraints),
+                          itemCount: shots.length,
+                          itemBuilder: (context, index) {
+                            return ShotCard(shots[index]);
+                          },
+                          padding: Paddings.withFab(Paddings.padding8.all),
+                        ),
+                      );
                     },
-                    padding: Paddings.withFab(Paddings.padding8.all),
-                  ),
-                );
-              },
-            );
+                  );
 
             return PlatformManager().isMobile
                 ? NestedScrollView(
@@ -92,10 +95,10 @@ class _ShotsState extends ConsumerState<ShotsPage> {
                   );
           },
           error: (Object error, StackTrace stackTrace) {
-            return requestPlaceholderError;
+            return CustomPlaceholder.error();
           },
           loading: () {
-            return requestPlaceholderLoading;
+            return CustomPlaceholder.loading();
           },
         ),
       ),

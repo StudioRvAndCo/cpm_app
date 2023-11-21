@@ -1,7 +1,8 @@
 import 'package:cpm/common/actions/add_action.dart';
 import 'package:cpm/common/actions/delete_action.dart';
 import 'package:cpm/common/menus/menu_action.dart';
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
+import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/model_tile.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/providers/locations/locations.dart';
@@ -35,33 +36,35 @@ class _LocationsState extends ConsumerState<LocationsPage> {
           behavior: scrollBehavior,
           child: ref.watch(locationsProvider).when(
             data: (locations) {
-              return ListView.separated(
-                itemBuilder: (BuildContext context, int index) {
-                  final location = locations[index];
+              return locations.isEmpty
+                  ? CustomPlaceholder.empty(EmptyPlaceholder.locations)
+                  : ListView.separated(
+                      itemBuilder: (BuildContext context, int index) {
+                        final location = locations[index];
 
-                  return ModelTile<Location>(
-                    delete: () => DeleteAction<Location>().delete(context, ref, id: location.id),
-                    model: location,
-                    leadingIcon: Icons.image,
-                    title: location.getName,
-                    subtitle: location.position,
-                    actions: [
-                      if (location.position != null && location.position!.isNotEmpty) MenuAction.map,
-                    ],
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Padding(padding: Paddings.padding4.vertical);
-                },
-                itemCount: locations.length,
-                padding: Paddings.withFab(Paddings.custom.page),
-              );
+                        return ModelTile<Location>(
+                          delete: () => DeleteAction<Location>().delete(context, ref, id: location.id),
+                          model: location,
+                          leadingIcon: Icons.image,
+                          title: location.getName,
+                          subtitle: location.position,
+                          actions: [
+                            if (location.position != null && location.position!.isNotEmpty) MenuAction.map,
+                          ],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Padding(padding: Paddings.padding4.vertical);
+                      },
+                      itemCount: locations.length,
+                      padding: Paddings.withFab(Paddings.custom.page),
+                    );
             },
             error: (Object error, StackTrace stackTrace) {
-              return requestPlaceholderError;
+              return CustomPlaceholder.error();
             },
             loading: () {
-              return requestPlaceholderLoading;
+              return CustomPlaceholder.loading();
             },
           ),
         ),

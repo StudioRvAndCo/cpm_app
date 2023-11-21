@@ -303,22 +303,89 @@ class AppLocalizationsFr extends AppLocalizations {
   String get menu_delete => 'Supprimer';
 
   @override
-  String get item_project => 'projet';
+  String item_project(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'projets',
+      one: 'projet',
+      zero: 'projet',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_episode => 'épisode';
+  String item_episode(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'épisodes',
+      one: 'épisode',
+      zero: 'épisode',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_sequence => 'séquence';
+  String item_sequence(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'séquences',
+      one: 'séquence',
+      zero: 'séquence',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_shot => 'plan';
+  String item_shot(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'plans',
+      one: 'plan',
+      zero: 'plan',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_member => 'membre';
+  String item_member(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'membres',
+      one: 'membre',
+      zero: 'membre',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get item_location => 'lieu';
+  String item_location(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'lieux',
+      one: 'lieu',
+      zero: 'lieu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String placeholder_empty(Object item, String sex) {
+    String _temp0 = intl.Intl.selectLogic(
+      sex,
+      {
+        'male': 'aucun',
+        'female': 'aucune',
+        'other': '',
+      },
+    );
+    return 'Il n\'y a $_temp0 $item';
+  }
 
   @override
   String get dialog_log_out => 'Voulez-vous vraiment vous déconnecter ?';
@@ -545,7 +612,4 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get error_required => 'Requis';
-
-  @override
-  String get coming_soon => 'Prochainement disponible!';
 }

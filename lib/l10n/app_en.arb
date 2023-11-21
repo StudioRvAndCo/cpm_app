@@ -76,12 +76,13 @@
   "menu_map": "See on map",
   "menu_edit": "Edit",
   "menu_delete": "Delete",
-  "item_project": "project",
-  "item_episode": "episode",
-  "item_sequence": "sequence",
-  "item_shot": "shot",
-  "item_member": "member",
-  "item_location": "location",
+  "item_project": "{count, plural, zero{projects} one{project} other{projects}}",
+  "item_episode": "{count, plural, zero{episodes} one{episode} other{episodes}}",
+  "item_sequence": "{count, plural, zero{sequences} one{sequence} other{sequences}}",
+  "item_shot": "{count, plural, zero{shots} one{shot} other{shots}}",
+  "item_member": "{count, plural, zero{members} one{member} other{members}}",
+  "item_location": "{count, plural, zero{locations} one{location} other{locations}}",
+  "placeholder_empty": "There are no {item}",
   "dialog_log_out": "Do you really want to log out?",
   "dialog_add_item": "New {item}",
   "dialog_edit_item": "Edit {item}",
@@ -113,6 +114,5 @@
   "error_invalid_phone": "Invalid phone",
   "error_invalid_email": "Invalid email",
   "error_invalid_url": "Invalid URL",
-  "error_required": "Required",
-  "coming_soon": "Coming soon!"
+  "error_required": "Required"
 }

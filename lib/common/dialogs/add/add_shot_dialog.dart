@@ -54,7 +54,7 @@ class _AddShotDialogState extends State<AddShotDialog> {
     return ModelDialog(
       cancel: () => _cancel(context),
       submit: () => _add(context),
-      title: localizations.dialog_add_item(localizations.item_shot, Gender.male.name),
+      title: localizations.dialog_add_item(localizations.item_shot(1), Gender.male.name),
       action: localizations.button_add,
       fields: [
         TextField(

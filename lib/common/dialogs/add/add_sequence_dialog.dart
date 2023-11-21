@@ -1,5 +1,5 @@
 import 'package:cpm/common/dialogs/model_dialog.dart';
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/models/sequence/sequence.dart';
@@ -111,7 +111,7 @@ class _AddSequenceState extends ConsumerState<AddSequenceDialog> {
     return ModelDialog(
       cancel: () => _cancel(context),
       submit: () => _add(context),
-      title: localizations.dialog_add_item(localizations.item_sequence, Gender.female.name),
+      title: localizations.dialog_add_item(localizations.item_sequence(1), Gender.female.name),
       action: localizations.button_add,
       fields: [
         TextField(
@@ -154,10 +154,10 @@ class _AddSequenceState extends ConsumerState<AddSequenceDialog> {
             );
           },
           loading: () {
-            return requestPlaceholderLoading;
+            return CustomPlaceholder.loading();
           },
           error: (Object error, StackTrace stackTrace) {
-            return requestPlaceholderError;
+            return CustomPlaceholder.error();
           },
         ),
         Padding(padding: Paddings.padding8.vertical),

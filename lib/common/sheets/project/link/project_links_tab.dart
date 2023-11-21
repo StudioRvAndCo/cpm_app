@@ -1,4 +1,4 @@
-import 'package:cpm/common/placeholders/request_placeholder.dart';
+import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/common/sheets/project/link/project_link_editor.dart';
 import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/models/project/project.dart';
@@ -87,10 +87,10 @@ class _LinksEditorState extends ConsumerState<ProjectLinksTab> {
         );
       },
       error: (Object error, StackTrace stackTrace) {
-        return requestPlaceholderError;
+        return CustomPlaceholder.error();
       },
       loading: () {
-        return requestPlaceholderLoading;
+        return CustomPlaceholder.loading();
       },
     );
   }

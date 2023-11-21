@@ -12,17 +12,17 @@ abstract class ModelGeneric<T extends BaseModel> {
   String get item {
     switch (T) {
       case const (Project):
-        return localizations.item_project;
+        return localizations.item_project(1);
       case const (Episode):
-        return localizations.item_episode;
+        return localizations.item_episode(1);
       case const (Sequence):
-        return localizations.item_sequence;
+        return localizations.item_sequence(1);
       case const (Shot):
-        return localizations.item_shot;
+        return localizations.item_shot(1);
       case const (Member):
-        return localizations.item_member;
+        return localizations.item_member(1);
       case const (Location):
-        return localizations.item_location;
+        return localizations.item_location(1);
       default:
         throw TypeError();
     }
