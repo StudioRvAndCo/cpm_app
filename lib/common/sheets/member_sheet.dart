@@ -14,7 +14,7 @@ class MemberSheet extends ConsumerStatefulWidget {
   ConsumerState<MemberSheet> createState() => _MemberSheetState();
 }
 
-class _MemberSheetState extends ConsumerState<MemberSheet> with SingleTickerProviderStateMixin {
+class _MemberSheetState extends ConsumerState<MemberSheet> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();

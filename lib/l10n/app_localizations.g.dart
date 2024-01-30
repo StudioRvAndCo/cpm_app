@@ -594,6 +594,18 @@ abstract class AppLocalizations {
   /// **'There are no {item}'**
   String placeholder_empty(Object item, String sex);
 
+  /// No description provided for @fab_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get fab_create;
+
+  /// No description provided for @fab_import.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get fab_import;
+
   /// No description provided for @dialog_log_out.
   ///
   /// In en, this message translates to:
@@ -725,6 +737,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The {item} could not be added.'**
   String snack_bar_add_fail_item(Object item, String sex);
+
+  /// No description provided for @snack_bar_import_item.
+  ///
+  /// In en, this message translates to:
+  /// **'The {item} is being imported, it can take a few seconds.'**
+  String snack_bar_import_item(Object item, String sex);
 
   /// No description provided for @snack_bar_delete_success_item.
   ///

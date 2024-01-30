@@ -42,9 +42,9 @@ class Shots extends _$Shots with BaseProvider {
         );
   }
 
-  Future<bool> add(Shot newShot) async {
+  Future<bool> add(dynamic newShots) async {
     try {
-      await insertService.insert(_table, newShot);
+      await insertService.insert(_table, newShots);
     } catch (exception, stackTrace) {
       log(exception.toString(), stackTrace: stackTrace);
       return false;

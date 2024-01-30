@@ -27,9 +27,9 @@ enum ShotValue {
 
   const ShotValue(this.colorIndex);
 
-  factory ShotValue.fromString(String? label) {
+  factory ShotValue.fromName(String? name) {
     return ShotValue.values.firstWhere(
-      (value) => value.label == label,
+      (value) => value.name == name,
       orElse: () => ShotValue.other,
     );
   }

@@ -8,6 +8,7 @@ import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/list_extensions.dart';
 import 'package:cpm/utils/pages.dart';
@@ -47,6 +48,7 @@ class EpisodesState extends ConsumerState<EpisodesPage> {
           parentId: ref.read(currentProjectProvider).value!.id,
           index: ref.read(episodesProvider).value!.getNextIndex<Episode>(),
         ),
+        tooltip: localizations.fab_create,
         child: const Icon(Icons.add),
       ),
       body: RefreshIndicator(

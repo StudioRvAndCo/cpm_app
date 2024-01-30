@@ -5,11 +5,13 @@ import 'package:cpm/common/dialogs/add/add_project_dialog.dart';
 import 'package:cpm/common/dialogs/add/add_sequence_dialog.dart';
 import 'package:cpm/common/dialogs/add/add_shot_dialog.dart';
 import 'package:cpm/common/model_generic.dart';
+import 'package:cpm/l10n/gender.dart';
 import 'package:cpm/models/base_model.dart';
 import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/models/member/member.dart';
 import 'package:cpm/models/project/project.dart';
+import 'package:cpm/models/project/project_type.dart';
 import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
@@ -21,6 +23,7 @@ import 'package:cpm/providers/shots/shots.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
 import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -85,5 +88,26 @@ class AddAction<T extends BaseModel> extends ModelGeneric<T> {
             : getErrorSnackBar(localizations.snack_bar_add_fail_item(item, gender.name)),
       );
     });
+  }
+
+  Future<void> import(BuildContext context, WidgetRef ref) async {
+    final file = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['xlsx'],
+    );
+
+    if (file == null || !file.paths.first!.endsWith('xlsx')) return;
+
+    SnackBarManager().show(
+      getInfoSnackBar(localizations.snack_bar_import_item(localizations.item_project(1), Gender.male.name)),
+    );
+
+    final added = await ref.read(projectsProvider.notifier).import(ProjectType.movie, file.paths.first!);
+
+    SnackBarManager().show(
+      added
+          ? getInfoSnackBar(localizations.snack_bar_add_success_item(item, gender.name))
+          : getErrorSnackBar(localizations.snack_bar_add_fail_item(item, gender.name)),
+    );
   }
 }

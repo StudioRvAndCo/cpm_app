@@ -78,6 +78,16 @@ class Sequences extends _$Sequences with BaseProvider {
     return true;
   }
 
+  Future<int> import(Sequence importedSequence) async {
+    try {
+      final sequence = await insertService.insertAndReturn(_table, importedSequence, Sequence.fromJson);
+      return sequence.id;
+    } catch (exception, stackTrace) {
+      log(exception.toString(), stackTrace: stackTrace);
+      return -1;
+    }
+  }
+
   Future<bool> edit(Sequence editedSequence) async {
     try {
       await updateService.update(_table, editedSequence);

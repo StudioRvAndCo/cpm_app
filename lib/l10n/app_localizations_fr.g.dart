@@ -388,6 +388,12 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get fab_create => 'Créer';
+
+  @override
+  String get fab_import => 'Importer';
+
+  @override
   String get dialog_log_out => 'Voulez-vous vraiment vous déconnecter ?';
 
   @override
@@ -509,6 +515,19 @@ class AppLocalizationsFr extends AppLocalizations {
       },
     );
     return '$_temp0 $item n\'a pas pu être $_temp1.';
+  }
+
+  @override
+  String snack_bar_import_item(Object item, String sex) {
+    String _temp0 = intl.Intl.selectLogic(
+      sex,
+      {
+        'male': 'Le',
+        'female': 'La',
+        'other': '',
+      },
+    );
+    return '$_temp0 $item est en cours d\'importation, cela peut prendre quelques secondes.';
   }
 
   @override

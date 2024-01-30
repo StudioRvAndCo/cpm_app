@@ -115,7 +115,7 @@ class ProjectHeader extends StatelessWidget {
 
     final noTitle = title == null || title!.isEmpty;
     final noDescription = description == null || description!.isEmpty;
-    final noDates = dateText == null;
+    final noDates = dateText == null || dateText!.isEmpty;
     final noDirector = director == null || director!.isEmpty;
     final noWriter = writer == null || writer!.isEmpty;
     final noLinks = links == null || links!.isEmpty;

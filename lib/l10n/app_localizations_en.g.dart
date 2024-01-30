@@ -380,6 +380,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get fab_create => 'Create';
+
+  @override
+  String get fab_import => 'Import';
+
+  @override
   String get dialog_log_out => 'Do you really want to log out?';
 
   @override
@@ -453,6 +459,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String snack_bar_add_fail_item(Object item, String sex) {
     return 'The $item could not be added.';
+  }
+
+  @override
+  String snack_bar_import_item(Object item, String sex) {
+    return 'The $item is being imported, it can take a few seconds.';
   }
 
   @override

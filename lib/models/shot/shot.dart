@@ -3,6 +3,7 @@
 import 'package:cpm/models/base_model.dart';
 import 'package:cpm/models/shot/shot_value.dart';
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:excel/excel.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'shot.g.dart';
@@ -22,12 +23,29 @@ class Shot extends BaseModel {
     this.sequence,
     this.index,
     this.number,
-    this.value,
+    this.value = ShotValue.other,
     this.description,
     this.completed = false,
   });
 
   factory Shot.fromJson(Map<String, dynamic> json) => _$ShotFromJson(json);
+
+  factory Shot.parseExcel(int sequenceId, List<Data?> row, int index) {
+    final description = StringBuffer();
+    for (final data in row.sublist(2)) {
+      if (data != null && data.value != null) {
+        description.write(data.value);
+        description.write('\n\n');
+      }
+    }
+
+    return Shot(
+      sequence: sequenceId,
+      index: index,
+      description: description.toString(),
+      value: ShotValue.fromName(row[1]?.value.toString()),
+    );
+  }
 
   String get getNumber => number.toString();
 

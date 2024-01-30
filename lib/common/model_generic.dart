@@ -50,7 +50,7 @@ abstract class ModelGeneric<T extends BaseModel> {
   bool get shouldPop {
     switch (T) {
       case const (Project):
-        return false;
+        return true;
       case const (Episode):
         return true;
       case const (Sequence):

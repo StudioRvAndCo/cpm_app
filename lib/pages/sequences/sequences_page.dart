@@ -10,6 +10,7 @@ import 'package:cpm/models/sequence/sequence.dart';
 import 'package:cpm/providers/episodes/episodes.dart';
 import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/list_extensions.dart';
 import 'package:cpm/utils/pages.dart';
@@ -49,6 +50,7 @@ class _SequencesState extends ConsumerState<SequencesPage> {
           parentId: ref.read(currentEpisodeProvider).value!.id,
           index: ref.read(sequencesProvider).value!.getNextIndex<Sequence>(),
         ),
+        tooltip: localizations.fab_create,
         child: const Icon(Icons.add),
       ),
       body: RefreshIndicator(

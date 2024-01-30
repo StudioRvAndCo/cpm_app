@@ -6,6 +6,7 @@ import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/model_tile.dart';
 import 'package:cpm/models/member/member.dart';
 import 'package:cpm/providers/members/members.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/string_validators.dart';
 import 'package:cpm/utils/pages.dart';
@@ -29,6 +30,7 @@ class _MembersState extends ConsumerState<MembersPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => AddAction<Member>().add(context, ref),
+        tooltip: localizations.fab_create,
         child: const Icon(Icons.add),
       ),
       body: RefreshIndicator(

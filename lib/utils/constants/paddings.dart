@@ -34,6 +34,8 @@ enum Paddings {
 
   static EdgeInsets withFab(EdgeInsets padding) => padding.copyWith(bottom: kFloatingActionButtonMargin + 64);
 
+  static EdgeInsets withTwoFabs(EdgeInsets padding) => padding.copyWith(bottom: kFloatingActionButtonMargin + 112);
+
   final double _padding;
 
   const Paddings(this._padding);

@@ -13,7 +13,7 @@ class LocationSheet extends ConsumerStatefulWidget {
   ConsumerState<LocationSheet> createState() => _MemberSheetState();
 }
 
-class _MemberSheetState extends ConsumerState<LocationSheet> with SingleTickerProviderStateMixin {
+class _MemberSheetState extends ConsumerState<LocationSheet> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController name = TextEditingController();
   final TextEditingController position = TextEditingController();

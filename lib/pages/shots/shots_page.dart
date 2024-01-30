@@ -8,6 +8,7 @@ import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/pages/shots/shot_card.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/providers/shots/shots.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/list_extensions.dart';
 import 'package:cpm/utils/pages.dart';
@@ -38,6 +39,7 @@ class _ShotsState extends ConsumerState<ShotsPage> {
           parentId: ref.read(currentSequenceProvider).value!.id,
           index: ref.read(shotsProvider).value!.getNextIndex<Sequence>(),
         ),
+        tooltip: localizations.fab_create,
         child: const Icon(Icons.add),
       ),
       body: RefreshIndicator(

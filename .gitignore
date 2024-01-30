@@ -122,3 +122,6 @@ Cinema Project Manager-cache/
 setup/
 config.yaml
 untranslated.txt
+
+# Tests
+assets/tests

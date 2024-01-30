@@ -6,6 +6,7 @@ import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/model_tile.dart';
 import 'package:cpm/models/location/location.dart';
 import 'package:cpm/providers/locations/locations.dart';
+import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/pages.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class _LocationsState extends ConsumerState<LocationsPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => AddAction<Location>().add(context, ref),
+        tooltip: localizations.fab_create,
         child: const Icon(Icons.add),
       ),
       body: RefreshIndicator(

@@ -5,6 +5,7 @@ import 'package:cpm/models/location/location.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/extensions/date_time_extensions.dart';
 import 'package:cpm/utils/extensions/time_of_day_extensions.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -42,6 +43,15 @@ class Sequence extends BaseModel {
   });
 
   factory Sequence.fromJson(Map<String, dynamic> json) => _$SequenceFromJson(json);
+
+  factory Sequence.parseExcel(int episodeId, String name, List<Data?> firstRow, int index) {
+    return Sequence(
+      episode: episodeId,
+      index: index,
+      title: name,
+      description: firstRow.first?.value.toString(),
+    );
+  }
 
   String get getNumber => number.toString();
 
