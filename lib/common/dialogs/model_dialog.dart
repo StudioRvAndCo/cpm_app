@@ -1,7 +1,7 @@
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/constants/sizes.dart';
-import 'package:cpm/utils/platform_manager.dart';
+import 'package:cpm/utils/platform.dart';
 import 'package:flutter/material.dart';
 
 class ModelDialog extends StatelessWidget {
@@ -23,7 +23,7 @@ class ModelDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformManager().isMobile
+    return kIsMobile
         ? Dialog.fullscreen(
             child: Column(
               children: [

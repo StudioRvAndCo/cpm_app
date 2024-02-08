@@ -12,9 +12,8 @@ Sequence _$SequenceFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = Sequence(
           id: $checkedConvert('id', (v) => v as int?),
+          index: $checkedConvert('index', (v) => v as String?),
           episode: $checkedConvert('episode', (v) => v as int?),
-          index: $checkedConvert('index', (v) => v as int?),
-          number: $checkedConvert('number', (v) => v as int? ?? -1),
           title: $checkedConvert('title', (v) => v as String?),
           description: $checkedConvert('description', (v) => v as String?),
           startDate: $checkedConvert('start_date', (v) => v == null ? null : DateTime.parse(v as String)),
@@ -35,7 +34,6 @@ Sequence _$SequenceFromJson(Map<String, dynamic> json) => $checkedCreate(
 
 Map<String, dynamic> _$SequenceToJson(Sequence instance) => <String, dynamic>{
       'episode': instance.episode,
-      'index': instance.index,
       'title': instance.title,
       'description': instance.description,
       'start_date': instance.startDate?.toIso8601String(),

@@ -21,7 +21,7 @@ class AddSequenceDialog extends ConsumerStatefulWidget {
   });
 
   final int episodeId;
-  final int index;
+  final String index;
 
   @override
   ConsumerState<AddSequenceDialog> createState() => _AddSequenceState();

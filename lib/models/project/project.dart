@@ -75,7 +75,7 @@ class Project extends BaseModel implements Comparable<Project> {
 
   String get progressText {
     if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
-      return '';
+      return '-/-';
     }
 
     return '$shotsCompleted/$shotsTotal';

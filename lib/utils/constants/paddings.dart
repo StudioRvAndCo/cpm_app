@@ -32,6 +32,8 @@ enum Paddings {
 
   EdgeInsets get drawer => EdgeInsets.all(Paddings.padding16._padding);
 
+  EdgeInsets get dragHandle => const EdgeInsets.only(right: 24);
+
   static EdgeInsets withFab(EdgeInsets padding) => padding.copyWith(bottom: kFloatingActionButtonMargin + 64);
 
   static EdgeInsets withTwoFabs(EdgeInsets padding) => padding.copyWith(bottom: kFloatingActionButtonMargin + 112);

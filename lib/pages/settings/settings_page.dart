@@ -146,6 +146,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return SettingsList(
+      platform: DevicePlatform.android,
       lightTheme: SettingsThemeData(
         settingsListBackground: Theme.of(context).colorScheme.background,
       ),

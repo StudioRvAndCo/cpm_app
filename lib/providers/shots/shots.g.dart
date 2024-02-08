@@ -6,7 +6,7 @@ part of 'shots.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shotsHash() => r'ade716414109aca55e57c207701b2b7c7ac7f390';
+String _$shotsHash() => r'64642adea19ecf8b202dd5beb99eca57796eaf3a';
 
 /// See also [Shots].
 @ProviderFor(Shots)

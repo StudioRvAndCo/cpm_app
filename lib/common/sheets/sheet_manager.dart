@@ -1,9 +1,9 @@
-import 'package:cpm/utils/platform_manager.dart';
+import 'package:cpm/utils/platform.dart';
 import 'package:flutter/material.dart';
 
 class SheetManager {
   void showSheet(BuildContext context, Widget sheet) {
-    PlatformManager().isMobile ? _showBottomSheet(context, sheet) : _showSideSheet(context, sheet);
+    kIsMobile ? _showBottomSheet(context, sheet) : _showSideSheet(context, sheet);
   }
 
   void _showBottomSheet(BuildContext context, Widget sheet) {

@@ -13,8 +13,7 @@ import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/providers/shots/shots.dart';
 import 'package:cpm/utils/constants/constants.dart';
-import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
-import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
+import 'package:cpm/utils/snack_bar_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -78,11 +77,11 @@ class DeleteAction<T extends BaseModel> extends ModelGeneric<T> {
         context.pop();
       }
 
-      SnackBarManager().show(
+      SnackBarManager.info(
         deleted
-            ? getInfoSnackBar(localizations.snack_bar_delete_success_item(item, gender.name))
-            : getErrorSnackBar(localizations.snack_bar_delete_fail_item(item, gender.name)),
-      );
+            ? localizations.snack_bar_delete_success_item(item, gender.name)
+            : localizations.snack_bar_delete_fail_item(item, gender.name),
+      ).show();
     });
   }
 }

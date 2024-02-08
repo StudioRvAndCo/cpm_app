@@ -3,8 +3,7 @@ import 'package:cpm/utils/asset.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/extensions/string_validators.dart';
 import 'package:cpm/utils/routes/router_route.dart';
-import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
-import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
+import 'package:cpm/utils/snack_bar_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -43,7 +42,7 @@ class _LoginState extends ConsumerState<LoginPage> {
     if (logged && context.mounted) {
       context.goNamed(RouterRoute.projects.name);
     } else {
-      SnackBarManager().show(getErrorSnackBar(localizations.error_login));
+      SnackBarManager.error(localizations.error_login).show();
     }
   }
 

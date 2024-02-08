@@ -21,23 +21,24 @@ import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/providers/shots/shots.dart';
 import 'package:cpm/utils/constants/constants.dart';
-import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
-import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
+import 'package:cpm/utils/snack_bar_manager.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AddAction<T extends BaseModel> extends ModelGeneric<T> {
+class AddAction<Model extends BaseModel> extends ModelGeneric<Model> {
   Future<void> add(
     BuildContext context,
     WidgetRef ref, {
     int? parentId,
-    int? index,
+    String? index,
   }) async {
+    if (Model != Project && Model != Episode && Model != Sequence && Model != Shot) throw TypeError();
+
     await showAdaptiveDialog(
       context: context,
       builder: (BuildContext context) {
-        switch (T) {
+        switch (Model) {
           case const (Project):
             return const AddProjectDialog();
           case const (Episode):
@@ -60,14 +61,14 @@ class AddAction<T extends BaseModel> extends ModelGeneric<T> {
           case const (Location):
             return const AddLocationDialog();
           default:
-            throw ArgumentError('Invalid type: $T');
+            throw Exception();
         }
       },
     ).then((element) async {
       if (element == null) return;
 
       bool added = false;
-      switch (T) {
+      switch (Model) {
         case const (Project):
           added = await ref.read(projectsProvider.notifier).add(element as Project);
         case const (Episode):
@@ -82,11 +83,11 @@ class AddAction<T extends BaseModel> extends ModelGeneric<T> {
           added = await ref.read(locationsProvider.notifier).add(element as Location);
       }
 
-      SnackBarManager().show(
+      SnackBarManager.info(
         added
-            ? getInfoSnackBar(localizations.snack_bar_add_success_item(item, gender.name))
-            : getErrorSnackBar(localizations.snack_bar_add_fail_item(item, gender.name)),
-      );
+            ? localizations.snack_bar_add_success_item(item, gender.name)
+            : localizations.snack_bar_add_fail_item(item, gender.name),
+      ).show();
     });
   }
 
@@ -98,16 +99,14 @@ class AddAction<T extends BaseModel> extends ModelGeneric<T> {
 
     if (file == null || !file.paths.first!.endsWith('xlsx')) return;
 
-    SnackBarManager().show(
-      getInfoSnackBar(localizations.snack_bar_import_item(localizations.item_project(1), Gender.male.name)),
-    );
+    SnackBarManager.info(localizations.snack_bar_import_item(localizations.item_project(1), Gender.male.name)).show();
 
     final added = await ref.read(projectsProvider.notifier).import(ProjectType.movie, file.paths.first!);
 
-    SnackBarManager().show(
+    SnackBarManager.info(
       added
-          ? getInfoSnackBar(localizations.snack_bar_add_success_item(item, gender.name))
-          : getErrorSnackBar(localizations.snack_bar_add_fail_item(item, gender.name)),
-    );
+          ? localizations.snack_bar_add_success_item(item, gender.name)
+          : localizations.snack_bar_add_fail_item(item, gender.name),
+    ).show();
   }
 }

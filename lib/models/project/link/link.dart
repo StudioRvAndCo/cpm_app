@@ -8,14 +8,13 @@ part 'link.g.dart';
 @JsonSerializable()
 class Link extends BaseModel {
   int? project;
-  int? index;
   String? label;
   String? url;
 
   Link({
     super.id,
+    super.index,
     this.project,
-    this.index,
     this.label,
     this.url,
   });

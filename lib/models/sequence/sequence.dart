@@ -14,9 +14,6 @@ part 'sequence.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Sequence extends BaseModel {
   int? episode;
-  int? index;
-  @JsonKey(defaultValue: -1, includeToJson: false)
-  int? number;
   String? title;
   String? description;
   DateTime? startDate;
@@ -30,9 +27,8 @@ class Sequence extends BaseModel {
 
   Sequence({
     super.id,
+    super.index,
     this.episode,
-    this.index,
-    this.number,
     this.title,
     this.description,
     this.startDate,
@@ -44,7 +40,7 @@ class Sequence extends BaseModel {
 
   factory Sequence.fromJson(Map<String, dynamic> json) => _$SequenceFromJson(json);
 
-  factory Sequence.parseExcel(int episodeId, String name, List<Data?> firstRow, int index) {
+  factory Sequence.parseExcel(int episodeId, String name, List<Data?> firstRow, String index) {
     return Sequence(
       episode: episodeId,
       index: index,
@@ -52,8 +48,6 @@ class Sequence extends BaseModel {
       description: firstRow.first?.value.toString(),
     );
   }
-
-  String get getNumber => number.toString();
 
   String get getTitle {
     return title == null || title!.isEmpty ? localizations.projects_no_title : title!;
@@ -89,21 +83,23 @@ class Sequence extends BaseModel {
 
   String get progressText {
     if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
-      return '';
+      return '-/-';
     }
 
     return '$shotsCompleted/$shotsTotal';
   }
 
   @override
-  Map<String, dynamic> toJson() => _$SequenceToJson(this);
+  Map<String, dynamic> toJson() => _$SequenceToJson(this)
+    ..addAll({
+      'index': index,
+    });
 
   @override
   Map<String, dynamic> toJsonCache() {
     return toJsonCacheBase(
       _$SequenceToJson(this)
         ..addAll({
-          'number': number,
           'location': location?.toJsonCache(),
           'shots_total': shotsTotal,
           'shots_completed': shotsCompleted,

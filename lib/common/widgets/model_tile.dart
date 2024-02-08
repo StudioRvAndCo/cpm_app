@@ -12,7 +12,7 @@ import 'package:cpm/models/member/member.dart';
 import 'package:cpm/providers/locations/locations.dart';
 import 'package:cpm/providers/members/members.dart';
 import 'package:cpm/utils/constants/radiuses.dart';
-import 'package:cpm/utils/platform_manager.dart';
+import 'package:cpm/utils/platform.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -81,10 +81,9 @@ class _InfoTileState<T extends BaseModel> extends ConsumerState<ModelTile> {
     List<MenuAction> primaryActions = [];
     List<MenuAction> secondaryActions = [];
     if (widget.actions != null && widget.actions!.isNotEmpty) {
-      final isMobile = PlatformManager().isMobile;
       final nbActions = widget.actions!.length;
-      primaryActions = widget.actions!.sublist(0, isMobile ? 0 : min(nbActions, 3));
-      secondaryActions = widget.actions!.sublist(isMobile ? 1 : min(nbActions, 3));
+      primaryActions = widget.actions!.sublist(0, kIsMobile ? 0 : min(nbActions, 3));
+      secondaryActions = widget.actions!.sublist(kIsMobile ? 1 : min(nbActions, 3));
     }
     secondaryActions.addAll(MenuAction.defaults);
 

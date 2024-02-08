@@ -15,6 +15,7 @@ Location _$LocationFromJson(Map<String, dynamic> json) => $checkedCreate(
           name: $checkedConvert('name', (v) => v as String?),
           position: $checkedConvert('position', (v) => v as String?),
         );
+        $checkedConvert('index', (v) => val.index = v as String?);
         return val;
       },
     );

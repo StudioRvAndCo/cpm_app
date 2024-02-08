@@ -17,29 +17,32 @@ class Shots extends _$Shots with BaseProvider {
 
   @override
   FutureOr<List<Shot>> build() {
-    get();
-
-    return <Shot>[];
+    return get();
   }
 
-  Future<void> get() async {
-    state = const AsyncLoading<List<Shot>>();
+  Future<List<Shot>> get({bool refreshing = false}) async {
+    if (!refreshing) {
+      state = const AsyncLoading<List<Shot>>();
+    }
 
+    List<Shot> shots = [];
     ref.watch(currentSequenceProvider).when(
           data: (sequence) async {
-            if (await CacheManager().contains(_cacheKey, sequence.id)) {
+            if (!refreshing && await CacheManager().contains(_cacheKey, sequence.id)) {
               state = AsyncData<List<Shot>>(
                 await CacheManager().get<Shot>(_cacheKey, Shot.fromJson, sequence.id),
               );
             }
 
-            final List<Shot> shots = await selectShotService.selectShots(sequence.id);
+            shots = await selectShotService.selectShots(sequence.id);
             CacheManager().set(_cacheKey, shots, sequence.id);
             state = AsyncData<List<Shot>>(shots);
           },
           error: (Object error, StackTrace stackTrace) {},
           loading: () {},
         );
+
+    return shots;
   }
 
   Future<bool> add(dynamic newShots) async {
@@ -55,16 +58,19 @@ class Shots extends _$Shots with BaseProvider {
   }
 
   Future<bool> edit(Shot editedShot) async {
+    state = AsyncData<List<Shot>>(
+      <Shot>[
+        for (final Shot shot in state.value ?? <Shot>[])
+          if (shot.id != editedShot.id) shot else editedShot,
+      ]..sort((s1, s2) => s1.compareIndexes(s2.index)),
+    );
+
     try {
       await updateService.update(_table, editedShot);
     } catch (exception, stackTrace) {
       log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
-    state = AsyncData<List<Shot>>(<Shot>[
-      for (final Shot shot in state.value ?? <Shot>[])
-        if (shot.id != editedShot.id) shot else editedShot,
-    ]);
 
     return true;
   }

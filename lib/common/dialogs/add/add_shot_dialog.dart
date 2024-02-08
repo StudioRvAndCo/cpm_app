@@ -16,7 +16,7 @@ class AddShotDialog extends StatefulWidget {
   });
 
   final int sequenceId;
-  final int index;
+  final String index;
 
   @override
   State<AddShotDialog> createState() => _AddShotDialogState();

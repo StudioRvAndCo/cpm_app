@@ -5,7 +5,10 @@ import 'package:cpm/utils/extensions/date_time_extensions.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentTile extends StatelessWidget {
-  const AppointmentTile({super.key, required this.sequence});
+  const AppointmentTile(
+    this.sequence, {
+    super.key,
+  });
 
   final Sequence sequence;
 
@@ -27,8 +30,6 @@ class AppointmentTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Badge(label: Text(sequence.getNumber)),
-                  Padding(padding: Paddings.padding2.horizontal),
                   Text(
                     sequence.getTitle,
                     maxLines: 1,

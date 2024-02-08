@@ -8,14 +8,15 @@ import 'package:cpm/models/shot/shot.dart';
 import 'package:cpm/providers/shots/shots.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
-import 'package:cpm/utils/snack_bar/custom_snack_bar.dart';
-import 'package:cpm/utils/snack_bar/snack_bar_manager.dart';
+import 'package:cpm/utils/platform.dart';
+import 'package:cpm/utils/snack_bar_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ShotCard extends ConsumerStatefulWidget {
-  const ShotCard(this.shot, {super.key});
+  const ShotCard(this.number, this.shot, {super.key});
 
+  final int number;
   final Shot shot;
 
   @override
@@ -44,9 +45,7 @@ class _ShotCardState extends ConsumerState<ShotCard> {
   Future<void> _toggleCompletion() async {
     final toggled = await ref.read(shotsProvider.notifier).toggleCompletion(widget.shot);
     if (!toggled) {
-      SnackBarManager().show(
-        getErrorSnackBar(localizations.snack_bar_edit_fail_item(localizations.item_shot, Gender.male.name)),
-      );
+      SnackBarManager.info(localizations.snack_bar_edit_fail_item(localizations.item_shot, Gender.male.name)).show();
     }
   }
 
@@ -64,7 +63,6 @@ class _ShotCardState extends ConsumerState<ShotCard> {
       color: cardColor,
       child: InkWell(
         onTap: _showDetails,
-        onLongPress: () => _toggleCompletion(),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: InkWell(
@@ -78,7 +76,7 @@ class _ShotCardState extends ConsumerState<ShotCard> {
                       Row(
                         children: [
                           Badge(
-                            label: Text(widget.shot.getNumber),
+                            label: Text('${widget.number}'),
                             backgroundColor: Theme.of(context).colorScheme.secondary,
                             textColor: Theme.of(context).colorScheme.onSecondary,
                           ),
@@ -120,6 +118,7 @@ class _ShotCardState extends ConsumerState<ShotCard> {
                   },
                   onSelected: (action) => _onMenuSelected(context, action),
                 ),
+                if (kIsDesktop) Padding(padding: Paddings.custom.dragHandle),
               ],
             ),
           ),

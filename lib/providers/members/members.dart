@@ -16,12 +16,10 @@ class Members extends _$Members with BaseProvider {
 
   @override
   FutureOr<List<Member>> build() {
-    get();
-
-    return <Member>[];
+    return get();
   }
 
-  Future<void> get() async {
+  Future<List<Member>> get() async {
     state = const AsyncLoading<List<Member>>();
 
     if (await CacheManager().contains(CacheKey.members)) {
@@ -33,6 +31,8 @@ class Members extends _$Members with BaseProvider {
     final List<Member> members = await selectMemberService.selectMembers();
     CacheManager().set(CacheKey.members, members);
     state = AsyncData<List<Member>>(members);
+
+    return members;
   }
 
   Future<bool> add(Member newMember) async {

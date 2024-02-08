@@ -1,6 +1,7 @@
 import 'package:cpm/common/actions/add_action.dart';
 import 'package:cpm/common/actions/delete_action.dart';
 import 'package:cpm/common/menus/menu_action.dart';
+import 'package:cpm/common/pages.dart';
 import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/model_tile.dart';
@@ -9,7 +10,6 @@ import 'package:cpm/providers/members/members.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/string_validators.dart';
-import 'package:cpm/utils/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

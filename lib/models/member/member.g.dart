@@ -17,6 +17,7 @@ Member _$MemberFromJson(Map<String, dynamic> json) => $checkedCreate(
           phone: $checkedConvert('phone', (v) => v as String?),
           email: $checkedConvert('email', (v) => v as String?),
         );
+        $checkedConvert('index', (v) => val.index = v as String?);
         return val;
       },
       fieldKeyMap: const {'firstName': 'first_name', 'lastName': 'last_name'},

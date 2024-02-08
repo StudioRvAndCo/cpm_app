@@ -12,10 +12,9 @@ Shot _$ShotFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = Shot(
           id: $checkedConvert('id', (v) => v as int?),
+          index: $checkedConvert('index', (v) => v as String?),
           sequence: $checkedConvert('sequence', (v) => v as int?),
-          index: $checkedConvert('index', (v) => v as int?),
-          number: $checkedConvert('number', (v) => v as int?),
-          value: $checkedConvert('value', (v) => $enumDecodeNullable(_$ShotValueEnumMap, v)),
+          value: $checkedConvert('value', (v) => $enumDecodeNullable(_$ShotValueEnumMap, v) ?? ShotValue.other),
           description: $checkedConvert('description', (v) => v as String?),
           completed: $checkedConvert('completed', (v) => v as bool? ?? false),
         );
@@ -25,7 +24,6 @@ Shot _$ShotFromJson(Map<String, dynamic> json) => $checkedCreate(
 
 Map<String, dynamic> _$ShotToJson(Shot instance) => <String, dynamic>{
       'sequence': instance.sequence,
-      'index': instance.index,
       'value': _$ShotValueEnumMap[instance.value],
       'description': instance.description,
       'completed': instance.completed,

@@ -14,7 +14,7 @@ class AddEpisodeDialog extends StatefulWidget {
   });
 
   final int projectId;
-  final int index;
+  final String index;
 
   @override
   State<AddEpisodeDialog> createState() => _AddEpisodeDialogState();

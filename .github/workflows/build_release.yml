@@ -77,7 +77,7 @@ jobs:
       - name: Build app
         run: flutter build windows --release
       - name: Run InnoSetup
-        uses: Minionguyjpro/Inno-Setup-Action@v1.0.0
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
         with:
           path: windows/CPM.iss
           options: /O+

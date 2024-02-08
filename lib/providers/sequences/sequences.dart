@@ -18,23 +18,24 @@ class Sequences extends _$Sequences with BaseProvider {
 
   @override
   FutureOr<List<Sequence>> build() {
-    get();
-
-    return <Sequence>[];
+    return get();
   }
 
-  Future<void> get() async {
-    state = const AsyncLoading<List<Sequence>>();
+  Future<List<Sequence>> get({bool refreshing = false}) async {
+    if (!refreshing) {
+      state = const AsyncLoading<List<Sequence>>();
+    }
 
+    List<Sequence> sequences = [];
     ref.watch(currentEpisodeProvider).when(
       data: (episode) async {
-        if (await CacheManager().contains(_cacheKey, episode.id)) {
+        if (!refreshing && await CacheManager().contains(_cacheKey, episode.id)) {
           state = AsyncData<List<Sequence>>(
             await CacheManager().get<Sequence>(_cacheKey, Sequence.fromJson, episode.id),
           );
         }
 
-        final List<Sequence> sequences = await selectSequenceService.selectSequences(episode.id);
+        sequences = await selectSequenceService.selectSequences(episode.id);
         CacheManager().set(_cacheKey, sequences, episode.id);
         state = AsyncData<List<Sequence>>(sequences);
       },
@@ -45,6 +46,8 @@ class Sequences extends _$Sequences with BaseProvider {
         return Future.value();
       },
     );
+
+    return sequences;
   }
 
   Future<void> getAll() async {
@@ -89,16 +92,19 @@ class Sequences extends _$Sequences with BaseProvider {
   }
 
   Future<bool> edit(Sequence editedSequence) async {
+    state = AsyncData<List<Sequence>>(
+      <Sequence>[
+        for (final Sequence sequence in state.value ?? <Sequence>[])
+          if (sequence.id != editedSequence.id) sequence else editedSequence,
+      ]..sort((s1, s2) => s1.compareIndexes(s2.index)),
+    );
+
     try {
       await updateService.update(_table, editedSequence);
     } catch (exception, stackTrace) {
       log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
-    state = AsyncData<List<Sequence>>(<Sequence>[
-      for (final Sequence sequence in state.value ?? <Sequence>[])
-        if (sequence.id != editedSequence.id) sequence else editedSequence,
-    ]);
 
     return true;
   }

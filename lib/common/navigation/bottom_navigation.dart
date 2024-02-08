@@ -1,5 +1,5 @@
 import 'package:cpm/utils/constants/constants.dart';
-import 'package:cpm/utils/platform_manager.dart';
+import 'package:cpm/utils/platform.dart';
 import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformManager().isAndroid
+    return kIsAndroidApp
         ? NavigationBar(
             surfaceTintColor: Theme.of(context).colorScheme.primary,
             destinations: [

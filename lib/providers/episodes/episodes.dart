@@ -18,23 +18,24 @@ class Episodes extends _$Episodes with BaseProvider {
 
   @override
   FutureOr<List<Episode>> build() {
-    get();
-
-    return <Episode>[];
+    return get();
   }
 
-  Future<void> get() async {
-    state = const AsyncLoading<List<Episode>>();
+  Future<List<Episode>> get({bool refreshing = false}) async {
+    if (!refreshing) {
+      state = const AsyncLoading<List<Episode>>();
+    }
 
+    List<Episode> episodes = [];
     ref.watch(currentProjectProvider).when(
           data: (project) async {
-            if (await CacheManager().contains(_cacheKey, project.id)) {
+            if (!refreshing && await CacheManager().contains(_cacheKey, project.id)) {
               state = AsyncData<List<Episode>>(
                 await CacheManager().get<Episode>(_cacheKey, Episode.fromJson, project.id),
               );
             }
 
-            final List<Episode> episodes = await selectEpisodeService.selectEpisodes(project.id);
+            episodes = await selectEpisodeService.selectEpisodes(project.id);
             CacheManager().set(_cacheKey, episodes, project.id);
             state = AsyncData<List<Episode>>(episodes);
 
@@ -45,6 +46,8 @@ class Episodes extends _$Episodes with BaseProvider {
           error: (Object error, StackTrace stackTrace) {},
           loading: () {},
         );
+
+    return episodes;
   }
 
   Future<void> set(int projectId) async {
@@ -65,16 +68,19 @@ class Episodes extends _$Episodes with BaseProvider {
   }
 
   Future<bool> edit(Episode editedEpisode) async {
+    state = AsyncData<List<Episode>>(
+      <Episode>[
+        for (final Episode episode in state.value ?? <Episode>[])
+          if (episode.id != editedEpisode.id) episode else editedEpisode,
+      ]..sort((e1, e2) => e1.compareIndexes(e2.index)),
+    );
+
     try {
       await updateService.update(_table, editedEpisode);
     } catch (exception, stackTrace) {
       log(exception.toString(), stackTrace: stackTrace);
       return false;
     }
-    state = AsyncData<List<Episode>>(<Episode>[
-      for (final Episode episode in state.value ?? <Episode>[])
-        if (episode.id != editedEpisode.id) episode else editedEpisode,
-    ]);
 
     return true;
   }

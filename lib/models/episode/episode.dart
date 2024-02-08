@@ -2,6 +2,7 @@
 
 import 'package:cpm/models/base_model.dart';
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/lexo_ranker.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'episode.g.dart';
@@ -9,9 +10,6 @@ part 'episode.g.dart';
 @JsonSerializable()
 class Episode extends BaseModel {
   int? project;
-  int? index;
-  @JsonKey(includeToJson: false)
-  int? number;
   String? title;
   String? description;
   String? director;
@@ -23,9 +21,8 @@ class Episode extends BaseModel {
 
   Episode({
     super.id,
+    super.index,
     this.project,
-    this.index,
-    this.number,
     this.title,
     this.description,
     this.director,
@@ -34,9 +31,12 @@ class Episode extends BaseModel {
     this.shotsCompleted,
   });
 
-  factory Episode.fromJson(Map<String, dynamic> json) => _$EpisodeFromJson(json);
+  factory Episode.moviePlaceholder(int projectId) => Episode(
+        project: projectId,
+        index: LexoRanker().defaultRank,
+      );
 
-  String get getNumber => number.toString();
+  factory Episode.fromJson(Map<String, dynamic> json) => _$EpisodeFromJson(json);
 
   String get getTitle {
     return title == null || title!.isEmpty ? localizations.projects_no_title : title!;
@@ -56,21 +56,23 @@ class Episode extends BaseModel {
 
   String get progressText {
     if (shotsCompleted == null || shotsTotal == null || shotsTotal == 0) {
-      return '';
+      return '-/-';
     }
 
     return '$shotsCompleted/$shotsTotal';
   }
 
   @override
-  Map<String, dynamic> toJson() => _$EpisodeToJson(this);
+  Map<String, dynamic> toJson() => _$EpisodeToJson(this)
+    ..addAll({
+      'index': index,
+    });
 
   @override
   Map<String, dynamic> toJsonCache() {
     return toJsonCacheBase(
       _$EpisodeToJson(this)
         ..addAll({
-          'number': number,
           'shots_total': shotsTotal,
           'shots_completed': shotsCompleted,
         }),

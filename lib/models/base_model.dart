@@ -7,8 +7,10 @@ int? idToJson(BaseModel? model) => model?.id;
 
 abstract class BaseModel extends Equatable {
   int? _id;
+  @JsonKey(includeToJson: false)
+  String? index;
 
-  BaseModel({int? id}) {
+  BaseModel({required int? id, this.index}) {
     _id = id;
   }
 
@@ -18,6 +20,8 @@ abstract class BaseModel extends Equatable {
   String get getId => id.toString();
 
   int compareIds(int otherId) => id.compareTo(otherId);
+
+  int compareIndexes(String? otherIndex) => (index ?? '').compareTo(otherIndex ?? '');
 
   Map<String, dynamic> toJson();
 

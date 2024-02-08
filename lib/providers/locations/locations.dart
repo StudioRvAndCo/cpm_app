@@ -16,12 +16,10 @@ class Locations extends _$Locations with BaseProvider {
 
   @override
   FutureOr<List<Location>> build() {
-    get();
-
-    return <Location>[];
+    return get();
   }
 
-  Future<void> get() async {
+  Future<List<Location>> get() async {
     state = const AsyncLoading<List<Location>>();
 
     if (await CacheManager().contains(CacheKey.locations)) {
@@ -33,6 +31,8 @@ class Locations extends _$Locations with BaseProvider {
     final List<Location> locations = await selectLocationService.selectLocations();
     CacheManager().set(CacheKey.locations, locations);
     state = AsyncData<List<Location>>(locations);
+
+    return locations;
   }
 
   Future<bool> add(Location newLocation) async {

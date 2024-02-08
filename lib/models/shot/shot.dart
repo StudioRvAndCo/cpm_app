@@ -11,18 +11,14 @@ part 'shot.g.dart';
 @JsonSerializable()
 class Shot extends BaseModel {
   int? sequence;
-  int? index;
-  @JsonKey(includeToJson: false)
-  int? number;
   ShotValue? value;
   String? description;
   bool completed;
 
   Shot({
     super.id,
+    super.index,
     this.sequence,
-    this.index,
-    this.number,
     this.value = ShotValue.other,
     this.description,
     this.completed = false,
@@ -30,7 +26,7 @@ class Shot extends BaseModel {
 
   factory Shot.fromJson(Map<String, dynamic> json) => _$ShotFromJson(json);
 
-  factory Shot.parseExcel(int sequenceId, List<Data?> row, int index) {
+  factory Shot.parseExcel(int sequenceId, List<Data?> row, String index) {
     final description = StringBuffer();
     for (final data in row.sublist(2)) {
       if (data != null && data.value != null) {
@@ -47,8 +43,6 @@ class Shot extends BaseModel {
     );
   }
 
-  String get getNumber => number.toString();
-
   String get getDescription {
     return description == null || description!.isEmpty ? localizations.projects_no_description : description!;
   }
@@ -56,15 +50,13 @@ class Shot extends BaseModel {
   String get getValue => value?.label ?? localizations.projects_no_value;
 
   @override
-  Map<String, dynamic> toJson() => _$ShotToJson(this);
+  Map<String, dynamic> toJson() => _$ShotToJson(this)
+    ..addAll({
+      'index': index,
+    });
 
   @override
   Map<String, dynamic> toJsonCache() {
-    return toJsonCacheBase(
-      _$ShotToJson(this)
-        ..addAll({
-          'number': number,
-        }),
-    );
+    return toJsonCacheBase(_$ShotToJson(this));
   }
 }

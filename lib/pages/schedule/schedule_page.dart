@@ -44,7 +44,7 @@ class _ScheduleState extends ConsumerState<SchedulePage> {
             CalendarView.month,
           ],
           appointmentBuilder: (context, details) {
-            return AppointmentTile(sequence: details.appointments.first as Sequence);
+            return AppointmentTile(details.appointments.first as Sequence);
           },
           onTap: _open,
         );

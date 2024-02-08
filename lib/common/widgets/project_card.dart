@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
+import 'package:cpm/utils/constants/radiuses.dart';
 import 'package:flutter/material.dart';
 
 class ProjectCard extends StatelessWidget {
@@ -9,7 +12,7 @@ class ProjectCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.progress,
-    this.progressText,
+    required this.progressText,
     required this.trailing,
   }) : number = null;
 
@@ -20,7 +23,7 @@ class ProjectCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.progress,
-    this.progressText,
+    required this.progressText,
   }) : trailing = null;
 
   const ProjectCard.sequence({
@@ -30,21 +33,21 @@ class ProjectCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.progress,
-    this.progressText,
+    required this.progressText,
   }) : trailing = null;
 
   final Function() open;
 
-  final String? number;
+  final int? number;
   final String? title;
   final String? description;
   final double progress;
-  final String? progressText;
+  final String progressText;
   final List<Widget>? trailing;
 
   @override
   Widget build(BuildContext context) {
-    final noNumber = number == null || number!.isEmpty;
+    final noNumber = number == null || number! <= 0;
     final noTitle = title == null || title!.isEmpty;
     final noDescription = description == null || description!.isEmpty;
 
@@ -61,7 +64,7 @@ class ProjectCard extends StatelessWidget {
                 children: [
                   if (!noNumber) ...[
                     Badge(
-                      label: Text(number!),
+                      label: Text('$number'),
                     ),
                     Padding(padding: Paddings.padding4.horizontal),
                   ],
@@ -94,13 +97,11 @@ class ProjectCard extends StatelessWidget {
                       color: Color.lerp(Colors.red, Colors.green, progress),
                     ),
                   ),
-                  if (progressText != null) ...[
-                    Padding(padding: Paddings.padding4.horizontal),
-                    Text(
-                      progressText!,
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ],
+                  Padding(padding: Paddings.padding4.horizontal),
+                  Text(
+                    progressText,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                 ],
               ),
             ],
@@ -109,4 +110,27 @@ class ProjectCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget proxyDecorator(Widget child, int index, Animation<double> animation) {
+  return AnimatedBuilder(
+    animation: animation,
+    builder: (BuildContext context, Widget? child) {
+      final double animValue = Curves.easeInOut.transform(animation.value);
+      final double elevation = lerpDouble(1, 6, animValue)!;
+      final double scale = lerpDouble(1, 1.01, animValue)!;
+
+      return Transform.scale(
+        scale: scale,
+        child: PhysicalModel(
+          elevation: elevation,
+          borderRadius: Radiuses.radius16.circular,
+          color: Colors.transparent,
+          clipBehavior: Clip.hardEdge,
+          child: child,
+        ),
+      );
+    },
+    child: child,
+  );
 }

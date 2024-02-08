@@ -28,12 +28,10 @@ class Projects extends _$Projects with BaseProvider {
 
   @override
   FutureOr<List<Project>> build() {
-    get();
-
-    return <Project>[];
+    return get();
   }
 
-  Future<void> get([bool sortOnly = false]) async {
+  Future<List<Project>> get([bool sortOnly = false]) async {
     List<Project> projects;
     if (sortOnly) {
       projects = (state.value ?? [])..sort();
@@ -51,13 +49,15 @@ class Projects extends _$Projects with BaseProvider {
       CacheManager().set(_cacheKey, projects);
     }
     state = AsyncData<List<Project>>(projects);
+
+    return projects;
   }
 
   Future<bool> add(Project newProject) async {
     try {
       if (newProject.isMovie) {
         final project = await insertService.insertAndReturn<Project>(_table, newProject, Project.fromJson);
-        await insertService.insert(SupabaseTable.episode, Episode(project: project.id, index: 1));
+        await insertService.insert(SupabaseTable.episode, Episode.moviePlaceholder(project.id));
       } else {
         await insertService.insert(_table, newProject);
       }
@@ -103,7 +103,7 @@ class Projects extends _$Projects with BaseProvider {
   Future<void> _importMovie(int projectId, Excel excel) async {
     final episode = await insertService.insertAndReturn(
       SupabaseTable.episode,
-      Episode(project: projectId, index: 1),
+      Episode.moviePlaceholder(projectId),
       Episode.fromJson,
     );
 
@@ -112,14 +112,15 @@ class Projects extends _$Projects with BaseProvider {
       if (name.startsWith('_')) return;
 
       sequenceIndex++;
-      final sequence = Sequence.parseExcel(episode.id, name, sheet.rows.first, sequenceIndex);
+      final sequence =
+          Sequence.parseExcel(episode.id, name, sheet.rows.first, sequenceIndex.toString()); // todo lexorank
       final sequenceId = await ref.read(sequencesProvider.notifier).import(sequence);
       if (sequenceId == -1) throw Exception();
 
       var shotIndex = 0;
       final shots = sheet.rows.skip(2).map((row) {
         shotIndex++;
-        return Shot.parseExcel(sequenceId, row, shotIndex);
+        return Shot.parseExcel(sequenceId, row, shotIndex.toString()); // todo lexorank
       }).toList()
         ..removeLast();
       await ref.read(shotsProvider.notifier).add(shots);

@@ -23,6 +23,7 @@ Project _$ProjectFromJson(Map<String, dynamic> json) => $checkedCreate(
           shotsTotal: $checkedConvert('shots_total', (v) => v as int?),
           shotsCompleted: $checkedConvert('shots_completed', (v) => v as int?),
         );
+        $checkedConvert('index', (v) => val.index = v as String?);
         return val;
       },
       fieldKeyMap: const {

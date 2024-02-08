@@ -1,4 +1,5 @@
 import 'package:cpm/common/actions/add_action.dart';
+import 'package:cpm/common/pages.dart';
 import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/common/placeholders/empty_placeholder.dart';
 import 'package:cpm/common/widgets/project_card.dart';
@@ -9,7 +10,6 @@ import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
-import 'package:cpm/utils/pages.dart';
 import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -29,7 +29,7 @@ class ProjectsState extends ConsumerState<ProjectsPage> {
   }
 
   Future<void> _open(Project project) async {
-    ref.read(currentProjectProvider.notifier).set(project);
+    await ref.read(currentProjectProvider.notifier).set(project);
     if (project.isMovie) {
       await ref.read(episodesProvider.notifier).set(project.id);
     }
@@ -59,12 +59,14 @@ class ProjectsState extends ConsumerState<ProjectsPage> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton.small(
+            heroTag: "add",
             onPressed: () => AddAction<Project>().import(context, ref),
             tooltip: localizations.fab_import,
             child: const Icon(Icons.upload_file),
           ),
           Padding(padding: Paddings.padding4.vertical),
           FloatingActionButton(
+            heroTag: "import",
             onPressed: () => AddAction<Project>().add(context, ref),
             tooltip: localizations.fab_create,
             child: const Icon(Icons.add),

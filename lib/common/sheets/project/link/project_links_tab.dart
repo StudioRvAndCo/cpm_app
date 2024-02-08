@@ -3,7 +3,7 @@ import 'package:cpm/common/sheets/project/link/project_link_editor.dart';
 import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/providers/projects/projects.dart';
-import 'package:cpm/utils/extensions/list_extensions.dart';
+import 'package:cpm/utils/lexo_ranker.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,7 +18,7 @@ class _LinksEditorState extends ConsumerState<ProjectLinksTab> {
   void _add(Project project) {
     final link = Link(
       project: project.id,
-      index: project.links.getNextIndex<Link>(),
+      index: LexoRanker().newRank(previous: project.links.lastOrNull?.index),
     );
 
     ref.read(currentProjectProvider.notifier).addLink(link);

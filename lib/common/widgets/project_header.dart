@@ -15,7 +15,7 @@ import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/constants/radiuses.dart';
 import 'package:cpm/utils/constants/sizes.dart';
 import 'package:cpm/utils/extensions/string_validators.dart';
-import 'package:cpm/utils/platform_manager.dart';
+import 'package:cpm/utils/platform.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -248,7 +248,7 @@ class ProjectHeader extends StatelessWidget {
                               height: Sizes.size32.size,
                               child: Scrollbar(
                                 controller: scrollController,
-                                thickness: !PlatformManager().isMobile ? 4 : 0,
+                                thickness: kIsMobile ? 0 : 4,
                                 child: ListView.builder(
                                   controller: scrollController,
                                   scrollDirection: Axis.horizontal,
