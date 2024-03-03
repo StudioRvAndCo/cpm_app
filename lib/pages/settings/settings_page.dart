@@ -1,3 +1,4 @@
+import 'package:cpm/common/routes/router_route.dart';
 import 'package:cpm/l10n/app_localizations.g.dart';
 import 'package:cpm/providers/authentication/authentication.dart';
 import 'package:cpm/utils/constants/constants.dart';
@@ -6,7 +7,6 @@ import 'package:cpm/utils/locale_manager.dart';
 import 'package:cpm/utils/package_info_manager.dart';
 import 'package:cpm/utils/preferences/preference_key.dart';
 import 'package:cpm/utils/preferences/preferences_manager.dart';
-import 'package:cpm/utils/routes/router_route.dart';
 import 'package:cpm/utils/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -57,7 +57,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     ).then((logout) {
       if (logout != null && logout) {
         ref.read(authenticationProvider.notifier).logout();
-        context.goNamed(RouterRoute.login.name);
+        context.go(RouterRoute.login.path);
       }
     });
   }

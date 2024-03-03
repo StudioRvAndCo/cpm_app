@@ -1,8 +1,8 @@
+import 'package:cpm/common/routes/router_route.dart';
 import 'package:cpm/utils/asset.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/constants/sizes.dart';
-import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -16,25 +16,14 @@ class SideNavigation extends ConsumerStatefulWidget {
 }
 
 class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
-  int _selectedIndex = 0;
+  int _index = RouterRoute.currentDrawerIndex;
 
-  void _onDestinationSelected(int? index) {
-    if (index != null) {
-      setState(() {
-        _selectedIndex = index;
-      });
+  void _navigate(int newIndex) {
+    setState(() {
+      _index = newIndex;
+    });
 
-      switch (index) {
-        case 0:
-          context.goNamed(RouterRoute.projects.name);
-        case 1:
-          context.goNamed(RouterRoute.members.name);
-        case 2:
-          context.goNamed(RouterRoute.locations.name);
-        case 3:
-          context.goNamed(RouterRoute.settings.name);
-      }
-    }
+    context.go(RouterRoute.getRouteFromIndex(_index).path);
   }
 
   void _back() {
@@ -50,6 +39,8 @@ class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
         constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
         child: IntrinsicHeight(
           child: NavigationRail(
+            selectedIndex: _index,
+            onDestinationSelected: _navigate,
             labelType: NavigationRailLabelType.all,
             leading: SvgPicture.asset(
               Asset.cpmSvg.path,
@@ -82,8 +73,6 @@ class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
                 ],
               ),
             ),
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: _onDestinationSelected,
           ),
         ),
       ),

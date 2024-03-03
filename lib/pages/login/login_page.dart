@@ -1,8 +1,8 @@
+import 'package:cpm/common/routes/router_route.dart';
 import 'package:cpm/providers/authentication/authentication.dart';
 import 'package:cpm/utils/asset.dart';
 import 'package:cpm/utils/constants/constants.dart';
-import 'package:cpm/utils/extensions/string_validators.dart';
-import 'package:cpm/utils/routes/router_route.dart';
+import 'package:cpm/utils/extensions/validators/string_validators.dart';
 import 'package:cpm/utils/snack_bar_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -39,8 +39,10 @@ class _LoginState extends ConsumerState<LoginPage> {
           passwordController.text,
         );
 
-    if (logged && context.mounted) {
-      context.goNamed(RouterRoute.projects.name);
+    if (logged) {
+      if (!mounted) return;
+
+      context.go(RouterRoute.projects.path);
     } else {
       SnackBarManager.error(localizations.error_login).show();
     }

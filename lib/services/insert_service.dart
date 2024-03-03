@@ -17,7 +17,7 @@ class InsertService extends Service {
     BaseModel model,
     Model Function(Map<String, dynamic>) constructor,
   ) async {
-    final List data = await supabase.from(table.name).insert(model.toJson()).select('*');
+    final List data = await supabase.from(table.name).insert(model.toJson()).select();
 
     return constructor(data[0] as Map<String, dynamic>);
   }

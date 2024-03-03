@@ -4,6 +4,7 @@ import 'package:cpm/common/actions/reorder_action.dart';
 import 'package:cpm/common/pages.dart';
 import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/common/placeholders/empty_placeholder.dart';
+import 'package:cpm/common/routes/router_route.dart';
 import 'package:cpm/common/widgets/project_card.dart';
 import 'package:cpm/common/widgets/project_header.dart';
 import 'package:cpm/models/episode/episode.dart';
@@ -16,7 +17,6 @@ import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/lexo_ranker.dart';
 import 'package:cpm/utils/platform.dart';
-import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -35,9 +35,10 @@ class _SequencesState extends ConsumerState<SequencesPage> {
 
   Future<void> _open(Sequence sequence) async {
     ref.read(currentSequenceProvider.notifier).set(sequence);
-    if (context.mounted) {
-      context.pushNamed(RouterRoute.shots.name);
-    }
+
+    if (!context.mounted) return;
+
+    context.push(RouterRoute.shots.fullPath!);
   }
 
   @override

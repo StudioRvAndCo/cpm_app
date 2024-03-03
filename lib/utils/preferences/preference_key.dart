@@ -1,11 +1,10 @@
 enum PreferenceKey {
-  locale('locale'),
-  theme('theme'),
-  dynamicTheming('dynamic_theming', false),
+  locale(),
+  theme(),
+  dynamicTheming(false),
   ;
 
-  final String key;
-  final bool? defaultValue;
+  final Object? defaultValue;
 
-  const PreferenceKey(this.key, [this.defaultValue]);
+  const PreferenceKey([this.defaultValue]);
 }

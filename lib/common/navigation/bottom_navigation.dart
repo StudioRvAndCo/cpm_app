@@ -1,6 +1,6 @@
+import 'package:cpm/common/routes/router_route.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/platform.dart';
-import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,32 +13,22 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 0;
+  int _index = RouterRoute.currentDrawerIndex;
 
-  void _onDestinationSelected(int? index) {
-    if (index != null) {
-      setState(() {
-        _selectedIndex = index;
-      });
+  void _navigate(int newIndex) {
+    setState(() {
+      _index = newIndex;
+    });
 
-      switch (index) {
-        case 0:
-          context.goNamed(RouterRoute.projects.name);
-        case 1:
-          context.goNamed(RouterRoute.members.name);
-        case 2:
-          context.goNamed(RouterRoute.locations.name);
-        case 3:
-          context.goNamed(RouterRoute.settings.name);
-      }
-    }
+    context.go(RouterRoute.getRouteFromIndex(_index).path);
   }
 
   @override
   Widget build(BuildContext context) {
     return kIsAndroidApp
         ? NavigationBar(
-            surfaceTintColor: Theme.of(context).colorScheme.primary,
+            selectedIndex: _index,
+            onDestinationSelected: _navigate,
             destinations: [
               NavigationDestination(
                 icon: const Icon(Icons.movie_outlined),
@@ -61,10 +51,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 label: localizations.navigation_settings,
               ),
             ],
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: _onDestinationSelected,
           )
         : CupertinoTabBar(
+            currentIndex: _index,
+            onTap: _navigate,
             items: [
               BottomNavigationBarItem(
                 icon: const Icon(CupertinoIcons.film),
@@ -87,8 +77,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 label: localizations.navigation_settings,
               ),
             ],
-            currentIndex: _selectedIndex,
-            onTap: _onDestinationSelected,
           );
   }
 }

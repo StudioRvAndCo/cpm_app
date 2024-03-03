@@ -1,6 +1,7 @@
 import 'package:cpm/common/navigation/bottom_navigation.dart';
 import 'package:cpm/common/navigation/side_navigation.dart';
 import 'package:cpm/common/navigation/top_navigation.dart';
+import 'package:cpm/common/routes/router_route.dart';
 import 'package:cpm/pages/episodes/episodes_page.dart';
 import 'package:cpm/pages/locations/locations_page.dart';
 import 'package:cpm/pages/login/login_page.dart';
@@ -13,21 +14,8 @@ import 'package:cpm/pages/shots/shots_page.dart';
 import 'package:cpm/services/authentication_service.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/platform.dart';
-import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-Page<dynamic> Function(BuildContext, GoRouterState) defaultPageBuilder<T>(Widget child) {
-  return (BuildContext context, GoRouterState state) {
-    return CustomTransitionPage<T>(
-      key: state.pageKey,
-      child: child,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(opacity: animation, child: child);
-      },
-    );
-  };
-}
 
 final router = GoRouter(
   navigatorKey: navigatorKey,
@@ -41,7 +29,6 @@ final router = GoRouter(
   },
   routes: [
     GoRoute(
-      name: RouterRoute.login.name,
       path: RouterRoute.login.path,
       builder: (context, state) => const LoginPage(),
     ),
@@ -62,46 +49,38 @@ final router = GoRouter(
       },
       routes: [
         GoRoute(
-          name: RouterRoute.projects.name,
           path: RouterRoute.projects.path,
-          pageBuilder: defaultPageBuilder(const ProjectsPage()),
+          builder: (context, state) => const ProjectsPage(),
           routes: [
             GoRoute(
-              name: RouterRoute.episodes.name,
               path: RouterRoute.episodes.path,
-              pageBuilder: defaultPageBuilder(const EpisodesPage()),
+              builder: (context, state) => const EpisodesPage(),
             ),
             GoRoute(
-              name: RouterRoute.sequences.name,
               path: RouterRoute.sequences.path,
-              pageBuilder: defaultPageBuilder(const SequencesPage()),
+              builder: (context, state) => const SequencesPage(),
             ),
             GoRoute(
-              name: RouterRoute.shots.name,
               path: RouterRoute.shots.path,
-              pageBuilder: defaultPageBuilder(const ShotsPage()),
+              builder: (context, state) => const ShotsPage(),
             ),
             GoRoute(
-              name: RouterRoute.schedule.name,
               path: RouterRoute.schedule.path,
-              pageBuilder: defaultPageBuilder(const SchedulePage()),
+              builder: (context, state) => const SchedulePage(),
             ),
           ],
         ),
         GoRoute(
-          name: RouterRoute.members.name,
           path: RouterRoute.members.path,
-          pageBuilder: defaultPageBuilder(const MembersPage()),
+          builder: (context, state) => const MembersPage(),
         ),
         GoRoute(
-          name: RouterRoute.locations.name,
           path: RouterRoute.locations.path,
-          pageBuilder: defaultPageBuilder(const LocationsPage()),
+          builder: (context, state) => const LocationsPage(),
         ),
         GoRoute(
-          name: RouterRoute.settings.name,
           path: RouterRoute.settings.path,
-          pageBuilder: defaultPageBuilder(const SettingsPage()),
+          builder: (context, state) => const SettingsPage(),
         ),
       ],
     ),

@@ -2,7 +2,6 @@ import 'package:cpm/utils/asset.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class TopNavigation extends StatelessWidget implements PreferredSizeWidget {
   const TopNavigation();
@@ -18,13 +17,6 @@ class TopNavigation extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       title: Text(localizations.app_name),
-      systemOverlayStyle: SystemUiOverlayStyle(
-        systemNavigationBarColor: ElevationOverlay.applySurfaceTint(
-          Theme.of(context).colorScheme.surface,
-          Theme.of(context).colorScheme.primary,
-          3,
-        ),
-      ),
     );
   }
 

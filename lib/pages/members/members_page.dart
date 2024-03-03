@@ -9,7 +9,7 @@ import 'package:cpm/models/member/member.dart';
 import 'package:cpm/providers/members/members.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
-import 'package:cpm/utils/extensions/string_validators.dart';
+import 'package:cpm/utils/extensions/validators/string_validators.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -43,14 +43,6 @@ jobs:
           name: Android
           path: build/app/outputs/flutter-apk/CPM_${{ steps.version.outputs.result }}.apk
 
-  # TODO: build and release
-  #  build_ios:
-  #    name: iOS
-  #    environment: release
-  #    runs-on: macos-latest
-  #    steps:
-  #      - run: echo TODO#
-
   build_windows:
     name: Windows
     environment: release
@@ -86,41 +78,6 @@ jobs:
         with:
           name: Windows
           path: windows\Output\CPM_${{ env.VERSION }}.exe
-
-  # TODO: release
-  #  build_linux:
-  #    name: Linux
-  #    environment: release
-  #    runs-on: ubuntu-latest
-  #    steps:
-  #      - name: Checkout
-  #        uses: actions/checkout@v3
-  #      - name: Setup Flutter
-  #        uses: subosito/flutter-action@v2
-  #        with:
-  #          channel: 'stable'
-  #      - name: Install required packages
-  #        run: |
-  #          sudo apt-get update -y
-  #          sudo apt-get install -y ninja-build libgtk-3-dev
-  #          sudo apt-get install -y libsecret-1-dev libjsoncpp-dev
-  #      - name: Add config
-  #        run: echo "${{ vars.CPM_CONFIG }}" > assets/config/config.yaml
-  #      - name: Build app
-  #        run: flutter build linux --release
-  #      - name: Upload to artifacts
-  #        uses: actions/upload-artifact@v3
-  #        with:
-  #          name: Linux
-  #          path: build/linux/x64/release/bundle
-
-  # TODO: build and release
-  #  build_macos:
-  #    name: MacOS
-  #    environment: release
-  #    runs-on: macos-latest
-  #    steps:
-  #      - run: echo TODO
 
   build_publish_web:
     name: Web

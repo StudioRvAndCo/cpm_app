@@ -31,7 +31,7 @@ class LocaleManager {
   void setLocale(Locale? locale) {
     if (locale == null) return;
 
-    PreferencesManager().set(PreferenceKey.locale.key, locale.languageCode);
+    PreferencesManager().set(PreferenceKey.locale.name, locale.languageCode);
 
     SnackBarManager.info(localizations.settings_language_restart).show();
   }

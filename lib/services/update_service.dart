@@ -9,7 +9,7 @@ class UpdateService extends Service {
   }
 
   Future<void> updateOrInsert(SupabaseTable table, BaseModel model, String field, String value) async {
-    final sequences = await supabase.from(table.name).select('*').eq(field, value) as List;
+    final sequences = await supabase.from(table.name).select().eq(field, value) as List;
 
     if (sequences.isEmpty) {
       await InsertService().insert(table, model);

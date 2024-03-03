@@ -7,7 +7,7 @@ class SelectLocationService extends SelectService {
 
   Future<List<Location>> selectLocations() async {
     return select<Location>(
-      await supabase.from(table.name).select('*').order('name', ascending: true) as List,
+      await supabase.from(table.name).select().order('name', ascending: true) as List,
       Location.fromJson,
     );
   }

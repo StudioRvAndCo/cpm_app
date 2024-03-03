@@ -1,7 +1,7 @@
 import 'package:cpm/common/sheets/project/link/project_link_action.dart';
 import 'package:cpm/models/project/link/link.dart';
 import 'package:cpm/utils/constants/constants.dart';
-import 'package:cpm/utils/extensions/string_validators.dart';
+import 'package:cpm/utils/extensions/validators/string_validators.dart';
 import 'package:cpm/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';

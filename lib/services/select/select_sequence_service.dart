@@ -6,7 +6,7 @@ import 'package:cpm/services/select/select_service.dart';
 class SelectSequenceService extends SelectService {
   SupabaseTable table = SupabaseTable.sequence;
 
-  Future<List<Sequence>> selectSequences(int? episodeId) async {
+  Future<List<Sequence>> selectSequences(int episodeId) async {
     final List<Sequence> sequences = await selectAndNumber<Sequence>(
       await supabase
           .from(table.name)

@@ -2,6 +2,7 @@ import 'package:cpm/common/actions/add_action.dart';
 import 'package:cpm/common/pages.dart';
 import 'package:cpm/common/placeholders/custom_placeholder.dart';
 import 'package:cpm/common/placeholders/empty_placeholder.dart';
+import 'package:cpm/common/routes/router_route.dart';
 import 'package:cpm/common/widgets/project_card.dart';
 import 'package:cpm/models/project/project.dart';
 import 'package:cpm/pages/projects/favorites.dart';
@@ -10,7 +11,6 @@ import 'package:cpm/providers/projects/projects.dart';
 import 'package:cpm/providers/sequences/sequences.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
-import 'package:cpm/utils/routes/router_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
@@ -33,17 +33,19 @@ class ProjectsState extends ConsumerState<ProjectsPage> {
     if (project.isMovie) {
       await ref.read(episodesProvider.notifier).set(project.id);
     }
-    if (context.mounted) {
-      context.pushNamed(project.isMovie ? RouterRoute.sequences.name : RouterRoute.episodes.name);
-    }
+
+    if (!mounted) return;
+
+    context.push(project.isMovie ? RouterRoute.sequences.fullPath! : RouterRoute.episodes.fullPath!);
   }
 
   Future<void> _openSchedule(Project project) async {
     await ref.read(currentProjectProvider.notifier).set(project);
     await ref.read(sequencesProvider.notifier).getAll();
-    if (context.mounted) {
-      context.pushNamed(RouterRoute.schedule.name);
-    }
+
+    if (!mounted) return;
+
+    context.push(RouterRoute.schedule.fullPath!);
   }
 
   void _toggleFavorite(Project project) {

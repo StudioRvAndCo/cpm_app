@@ -6,9 +6,9 @@ import 'package:cpm/services/select/select_service.dart';
 class SelectEpisodeService extends SelectService {
   SupabaseTable table = SupabaseTable.episode;
 
-  Future<List<Episode>> selectEpisodes(int? projectId) async {
+  Future<List<Episode>> selectEpisodes(int projectId) async {
     final episodes = await selectAndNumber<Episode>(
-      await supabase.from(table.name).select('*').eq('project', projectId).order('index', ascending: true) as List,
+      await supabase.from(table.name).select().eq('project', projectId).order('index', ascending: true) as List,
       Episode.fromJson,
     );
 
@@ -26,9 +26,9 @@ class SelectEpisodeService extends SelectService {
     return episodes;
   }
 
-  Future<Episode> selectFirstEpisode(int? projectId) async {
+  Future<Episode> selectFirstEpisode(int projectId) async {
     return selectSingle<Episode>(
-      await supabase.from(table.name).select('*').eq('project', projectId).single() as Map<String, dynamic>,
+      await supabase.from(table.name).select().eq('project', projectId).single(),
       Episode.fromJson,
       addPlaceholderNumber: true,
     );

@@ -35,7 +35,8 @@ class ThemeManager {
   }
 
   bool get useDynamicTheming {
-    return PreferencesManager().get<bool>(PreferenceKey.dynamicTheming) ?? PreferenceKey.dynamicTheming.defaultValue!;
+    return PreferencesManager().get<bool>(PreferenceKey.dynamicTheming) ??
+        PreferenceKey.dynamicTheming.defaultValue! as bool;
   }
 
   ThemeMode get themeMode {
@@ -84,7 +85,7 @@ class ThemeManager {
       case ThemeMode.dark:
         value = 2;
     }
-    PreferencesManager().set<int>(PreferenceKey.theme.key, value);
+    PreferencesManager().set<int>(PreferenceKey.theme.name, value);
 
     themeModeNotifier.value = themeMode;
   }

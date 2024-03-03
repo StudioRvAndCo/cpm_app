@@ -1,4 +1,5 @@
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/platform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,9 @@ enum Keybinding {
   final LogicalKeyboardKey key;
   final Function() function;
 
-  LogicalKeySet get logicalKeySet {
+  const Keybinding(this.modifier, this.key, this.function);
+
+  LogicalKeySet get _logicalKeySet {
     return LogicalKeySet(modifier, key);
   }
 
@@ -24,5 +27,11 @@ enum Keybinding {
     if (context != null && context.mounted && context.canPop()) context.pop();
   }
 
-  const Keybinding(this.modifier, this.key, this.function);
+  static Map<LogicalKeySet, Function()> get asMap {
+    return kIsDesktop
+        ? {
+            for (final keybinding in values) keybinding._logicalKeySet: keybinding.function,
+          }
+        : {};
+  }
 }

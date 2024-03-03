@@ -1,5 +1,5 @@
 import 'package:cpm/utils/constants/constants.dart';
-import 'package:cpm/utils/extensions/string_validators.dart';
+import 'package:cpm/utils/extensions/validators/string_validators.dart';
 
 String? validatePhone(String? phone) {
   if (phone == null || phone.isEmpty || phone.isValidPhone) return null;
