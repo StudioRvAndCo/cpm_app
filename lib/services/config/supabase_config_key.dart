@@ -1,0 +1,5 @@
+enum SupabaseConfigKey {
+  url,
+  anonKey,
+  ;
+}

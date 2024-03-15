@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="CPM" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 195.6 228.2" style="enable-background:new 0 0 195.6 228.2;" xml:space="preserve">
+<g id="CPM_00000132810793384308171990000017767566885361046460_">
+	<polygon id="M" style="fill:#FFFFFF;" points="195.6,0 195.6,163 152.1,163 152.1,141.3 173.9,141.3 173.9,51.9 160.5,121.9 
+		143.7,121.9 130.4,51.9 130.4,88.7 108.7,88.7 108.7,0 134.3,0 152.1,84.5 170,0 	"/>
+	<path id="C" style="fill:#FFFFFF;" d="M43.5,43.5V28c0-3.5-2.8-6.3-6.3-6.3H28c-3.5,0-6.3,2.8-6.3,6.3v107c0,3.5,2.8,6.3,6.3,6.3
+		h37.2V163H21.6C9.7,163,0,153.3,0,141.4V21.6C0,9.7,9.7,0,21.6,0h21.9c12,0,21.6,9.7,21.6,21.6v21.8H43.5L43.5,43.5z"/>
+	
+		<linearGradient id="CP_00000103975363995904125080000000453240067082790544_" gradientUnits="userSpaceOnUse" x1="83.5" y1="77.875" x2="47.91" y2="77.875" gradientTransform="matrix(1 0 0 -1 0 230)">
+		<stop  offset="0" style="stop-color:#000000"/>
+		<stop  offset="0.75" style="stop-color:#ABABAB;stop-opacity:0.33"/>
+		<stop  offset="0.86" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</linearGradient>
+	
+		<rect id="CP" x="46" y="141.3" style="opacity:0.61;fill:url(#CP_00000103975363995904125080000000453240067082790544_);enable-background:new    ;" width="22.4" height="21.7"/>
+	
+		<radialGradient id="PM_00000160894030010695750310000006139150633913326228_" cx="76.26" cy="93.93" r="94.06" gradientTransform="matrix(1 0 0 -1 0 230)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0.36" style="stop-color:#000000"/>
+		<stop  offset="0.89" style="stop-color:#777777;stop-opacity:0.53"/>
+		<stop  offset="0.98" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</radialGradient>
+	
+		<path id="PM" style="opacity:0.6;fill:url(#PM_00000160894030010695750310000006139150633913326228_);enable-background:new    ;" d="
+		M130.4,56.2v44.9l-21.7-22.5v-37h1.6C118.6,41.7,126,47.4,130.4,56.2z"/>
+	<path id="P" style="fill:#8189C6;" d="M65.2,65.2v163h21.7V163h21.8c11.9,0,21.6-9.7,21.6-21.6V86.8c0-11.9-9.7-21.6-21.6-21.6
+		L65.2,65.2L65.2,65.2z M102.4,141.3H86.9V86.9h15.4c3.5,0,6.3,2.8,6.3,6.3V135C108.7,138.4,105.8,141.3,102.4,141.3z"/>
+</g>
+</svg>

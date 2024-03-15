@@ -1,11 +1,11 @@
 {
-    "name": "sandbox",
-    "short_name": "sandbox",
+    "name": "Cinema Project Manager",
+    "short_name": "CPM",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Cinema Project Manager is a tool to efficiently manage the production of a cinema project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
