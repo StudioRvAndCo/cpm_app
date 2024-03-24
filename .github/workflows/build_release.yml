@@ -1,5 +1,4 @@
 name: Build | Release
-description: Builds and releases the app on all platforms
 
 on:
   push:
