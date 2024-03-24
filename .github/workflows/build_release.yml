@@ -6,13 +6,32 @@ on:
       - main
 
 jobs:
+  get_version:
+    name: Get version
+    environment: release
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.echo_version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get version
+        id: get_version
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -r '.version' 'pubspec.yaml'
+      - name: Echo version
+        id: echo_version
+        run: echo "version=${{ steps.get_version.outputs.result }}" >> "$GITHUB_OUTPUT"
+
   build_android:
     name: Android
     environment: release
     runs-on: ubuntu-latest
+    needs: [ get_version ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -22,76 +41,63 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Add configuration
-        run: echo "${{ vars.CONFIG }}" > assets/config/config.yaml
       - name: Add keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 -d > android/studiorvandco_keystore.jks
       - name: Add key properties
         run: echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" > android/key.properties
-      - name: Get version
-        id: version
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq -r '.version' 'pubspec.yaml'
       - name: Build app
         run: flutter build apk --release
       - name: Rename APK
-        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/CPM_${{ steps.version.outputs.result }}.apk
+        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/CPM_${{ needs.get_version.outputs.version }}.apk
       - name: Archive APK
         uses: actions/upload-artifact@v3
         with:
           name: Android
-          path: build/app/outputs/flutter-apk/CPM_${{ steps.version.outputs.result }}.apk
+          path: build/app/outputs/flutter-apk/CPM_${{ needs.get_version.outputs.version }}.apk
 
   build_windows:
     name: Windows
     environment: release
     runs-on: windows-latest
+    needs: [ get_version ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Add config
-        run: echo "${{ vars.CPM_CONFIG }}" > assets/config/config.yaml
-      - name: Get version
-        run: |
-          choco install yq
-          echo "VERSION=$(yq -r .version pubspec.yaml)" >> $env:GITHUB_ENV
-      - name: Replace version
-        uses: MathieuSoysal/replace-string-in-file@v1.0.0
-        with:
-          file: windows/CPM.iss
-          old-string: 0.1.0
-          new-string: ${{ env.VERSION }}
       - name: Build app
         run: flutter build windows --release
-      - name: Run InnoSetup
+      - name: Build InnoSetup script
+        run: dart run inno_bundle:build --no-app --release --no-installer
+      - name: Build EXE
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
         with:
-          path: windows/CPM.iss
-          options: /O+
-      - name: Archive installer
+          path: build/windows/x64/installer/Release/inno-script.iss
+      - name: Output InnoSetup env variables
+        id: envs
+        run: echo $(dart run inno_bundle:build --envs --no-hf) | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append
+      - name: Rename EXE
+        run: Rename-Item -Path "build/windows/x64/installer/Release/${{ steps.envs.outputs.APP_NAME_CAMEL_CASE }}-x86_64-${{ steps.envs.outputs.APP_VERSION }}-Installer.exe" -NewName "CPM_${{ needs.get_version.outputs.version }}.exe"
+      - name: Archive EXE
         uses: actions/upload-artifact@v3
         with:
           name: Windows
-          path: windows\Output\CPM_${{ env.VERSION }}.exe
+          path: build/windows/x64/installer/Release/CPM_${{ needs.get_version.outputs.version }}.exe
 
   build_publish_web:
     name: Web
     environment: release
     runs-on: ubuntu-latest
+    needs: [ get_version ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Add config
-        run: echo "${{ vars.CPM_CONFIG }}" > assets/config/config.yaml
       - name: Build app
         run: flutter build web --release
       - name: Upload to artifacts
@@ -100,7 +106,7 @@ jobs:
           name: Web
           path: build/web
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/pages-action@v1.5.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_PAGE_ID }}
@@ -113,26 +119,21 @@ jobs:
   release:
     name: Release
     environment: release
-    needs: [ build_android, build_windows ]
     runs-on: ubuntu-latest
+    needs: [ get_version, build_android, build_windows ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Download all artifacts
         uses: actions/download-artifact@v3
-      - name: Get version
-        id: version
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq -r '.version' 'pubspec.yaml'
       - name: Create tag
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: "v${{ steps.version.outputs.result }}"
-          message: "Release of Cinema Project Manager (version ${{ steps.version.outputs.result }})"
+          tag: "v${{ needs.get_version.outputs.version }}"
+          message: "Cinema Project Manager v${{ needs.get_version.outputs.version }}"
       - name: Upload to releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: 'Android/CPM_${{ steps.version.outputs.result }}.apk, Windows/CPM_${{ steps.version.outputs.result }}.exe'
+          artifacts: 'Android/CPM_${{ needs.get_version.outputs.version }}.apk, Windows/CPM_${{ needs.get_version.outputs.version }}.exe'
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "v${{ steps.version.outputs.result }}"
+          tag: "v${{ needs.get_version.outputs.version }}"
