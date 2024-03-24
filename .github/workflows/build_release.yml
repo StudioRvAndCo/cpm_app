@@ -70,22 +70,22 @@ jobs:
           channel: 'stable'
       - name: Build app
         run: flutter build windows --release
-      - name: Replace InnoSetup version
-        uses: MathieuSoysal/replace-string-in-file@v1.1.0
-        with:
-          file: windows/CPM.iss
-          old-string: 0.1.0
-          new-string: ${{ needs.get_version.outputs.version }}
-      - name: Run InnoSetup
+      - name: Build InnoSetup script
+        run: dart run inno_bundle:build --no-app --release --no-installer
+      - name: Build EXE
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
         with:
-          path: windows/CPM.iss
-          options: /O+
-      - name: Archive installer
+          path: ./build/windows/x64/installer/Release/inno-script.iss
+      - name: Output InnoSetup env variables
+        id: envs
+        run: echo $(dart run inno_bundle:build --envs --no-hf) | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append
+      - name: Rename EXE
+        run: Rename-Item -Path "/build/windows/x64/installer/Release/${{ steps.envs.outputs.APP_NAME_CAMEL_CASE }}-x86_64-${{ steps.envs.outputs.APP_VERSION }}-Installer.exe" -NewName "CPM_${{ needs.get_version.outputs.version }}.exe"
+      - name: Archive EXE
         uses: actions/upload-artifact@v3
         with:
           name: Windows
-          path: windows\Output\CPM_${{ needs.get_version.outputs.version }}.exe
+          path: /build/windows/x64/installer/Release/CPM_${{ needs.get_version.outputs.version }}.exe
 
   build_publish_web:
     name: Web

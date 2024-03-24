@@ -57,6 +57,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.4.7
+  inno_bundle: ^0.4.1
   json_serializable: ^6.7.1
   lint: ^2.3.0
   riverpod_generator: ^2.3.11
@@ -66,3 +67,15 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logos/
+
+# dart run inno_bundle:build --release
+inno_bundle:
+  id: 74c43507-d381-5f15-b818-6d1a6731e317
+  # name: Cinema Project Manager (CPM)
+  publisher: Studio Rv & Co
+  url: https://cpm.rvandco.fr
+  support_url: https://rvandco.fr
+  installer_icon: assets/icons/cpm.ico
+  languages:
+    - english
+    - french
