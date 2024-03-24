@@ -71,7 +71,7 @@ jobs:
       - name: Build app
         run: flutter build windows --release
       - run: |
-          ls -l
+          Get-ChildItem -Path D:\a\cpm_app\cpm_app\build\windows\x64\runner\Release
       - name: Replace InnoSetup version
         uses: MathieuSoysal/replace-string-in-file@v1.1.0
         with:
