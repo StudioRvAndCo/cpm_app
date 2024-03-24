@@ -75,17 +75,17 @@ jobs:
       - name: Build EXE
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
         with:
-          path: ./build/windows/x64/installer/Release/inno-script.iss
+          path: build/windows/x64/installer/Release/inno-script.iss
       - name: Output InnoSetup env variables
         id: envs
         run: echo $(dart run inno_bundle:build --envs --no-hf) | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append
       - name: Rename EXE
-        run: Rename-Item -Path "/build/windows/x64/installer/Release/${{ steps.envs.outputs.APP_NAME_CAMEL_CASE }}-x86_64-${{ steps.envs.outputs.APP_VERSION }}-Installer.exe" -NewName "CPM_${{ needs.get_version.outputs.version }}.exe"
+        run: Rename-Item -Path "build/windows/x64/installer/Release/${{ steps.envs.outputs.APP_NAME_CAMEL_CASE }}-x86_64-${{ steps.envs.outputs.APP_VERSION }}-Installer.exe" -NewName "CPM_${{ needs.get_version.outputs.version }}.exe"
       - name: Archive EXE
         uses: actions/upload-artifact@v3
         with:
           name: Windows
-          path: /build/windows/x64/installer/Release/CPM_${{ needs.get_version.outputs.version }}.exe
+          path: build/windows/x64/installer/Release/CPM_${{ needs.get_version.outputs.version }}.exe
 
   build_publish_web:
     name: Web
