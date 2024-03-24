@@ -135,6 +135,6 @@ jobs:
       - name: Upload to releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: 'Android/CPM_${{ needs.get_version.outputs.version }}.apk, Windows/CPM_${{ needs.get_version.outputs.version }}.exe, Web/web'
+          artifacts: 'Android/CPM_${{ needs.get_version.outputs.version }}.apk, Windows/CPM_${{ needs.get_version.outputs.version }}.exe, Web'
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: "v${{ needs.get_version.outputs.version }}"
