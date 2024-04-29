@@ -1,7 +1,10 @@
 import 'package:cpm/common/routes/router_route.dart';
+import 'package:cpm/common/widgets/input_decorations.dart';
 import 'package:cpm/providers/authentication/authentication.dart';
 import 'package:cpm/utils/asset.dart';
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/constants/paddings.dart';
+import 'package:cpm/utils/constants/sizes.dart';
 import 'package:cpm/utils/extensions/validators/string_validators.dart';
 import 'package:cpm/utils/snack_bar_manager.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +26,7 @@ class _LoginState extends ConsumerState<LoginPage> {
 
   bool obscurePassword = true;
 
-  void _obscurePassword() {
+  void _toggleObscurePassword() {
     setState(() {
       obscurePassword = !obscurePassword;
     });
@@ -50,31 +53,37 @@ class _LoginState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Center(
-            child: ScrollConfiguration(
-              behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SingleChildScrollView(
+    return Scaffold(
+      body: Padding(
+        padding: Paddings.custom.pageHorizontal,
+        child: Center(
+          child: ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: Paddings.custom.pageVerticalWithSystemUi,
                 child: Center(
                   child: SizedBox(
-                    width: 512,
+                    width: Sizes.size512.size,
                     child: Form(
                       key: _formKey,
                       child: AutofillGroup(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
                             Image.asset(
                               Asset.cpm.path,
                               filterQuality: FilterQuality.medium,
                               fit: BoxFit.fitWidth,
-                              width: 192,
+                              width: Sizes.size128.size,
                             ),
-                            const Padding(padding: EdgeInsets.symmetric(vertical: 32.0)),
+                            Padding(padding: Paddings.padding16.vertical),
+                            Text(
+                              localizations.app_name_full,
+                              style: Theme.of(context).textTheme.displaySmall,
+                              textAlign: TextAlign.center,
+                            ),
+                            Padding(padding: Paddings.padding32.vertical),
                             TextFormField(
                               controller: usernameController,
                               textInputAction: TextInputAction.next,
@@ -92,34 +101,13 @@ class _LoginState extends ConsumerState<LoginPage> {
 
                                 return null;
                               },
-                              decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.mail),
-                                hintText: localizations.login_username,
-                                filled: true,
-                                fillColor: Theme.of(context).colorScheme.surfaceVariant,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(64.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(64.0),
-                                  borderSide: BorderSide(
-                                    color: Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(64.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(64.0),
-                                  borderSide: BorderSide(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
-                                ),
+                              decoration: authenticationTextFormFieldDecoration(
+                                context,
+                                Icons.mail,
+                                localizations.login_username,
                               ),
                             ),
-                            const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
+                            Padding(padding: Paddings.padding8.vertical),
                             TextFormField(
                               controller: passwordController,
                               enableSuggestions: false,
@@ -138,49 +126,27 @@ class _LoginState extends ConsumerState<LoginPage> {
 
                                 return null;
                               },
-                              decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.lock),
-                                hintText: localizations.login_password,
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(right: 4.0),
+                              decoration: authenticationTextFormFieldDecoration(
+                                context,
+                                Icons.lock,
+                                localizations.login_password,
+                                Padding(
+                                  padding: Paddings.padding4.right,
                                   child: IconButton(
                                     icon: Icon(obscurePassword ? Icons.visibility : Icons.visibility_off),
-                                    onPressed: _obscurePassword,
-                                  ),
-                                ),
-                                filled: true,
-                                fillColor: Theme.of(context).colorScheme.surfaceVariant,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(64.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(64.0),
-                                  borderSide: BorderSide(
-                                    color: Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(64.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(64.0),
-                                  borderSide: BorderSide(
-                                    color: Theme.of(context).colorScheme.error,
+                                    onPressed: _toggleObscurePassword,
                                   ),
                                 ),
                               ),
                             ),
-                            const Padding(padding: EdgeInsets.symmetric(vertical: 32.0)),
+                            Padding(padding: Paddings.padding32.vertical),
                             SizedBox(
-                              width: double.infinity,
+                              width: Sizes.custom.infinity,
                               child: FilledButton(
-                                onPressed: () => _login(),
+                                onPressed: _login,
                                 child: Text(localizations.login_log_in),
                               ),
                             ),
-                            const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
                           ],
                         ),
                       ),

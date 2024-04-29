@@ -16,6 +16,8 @@ import 'package:cpm/utils/cache/cache_key.dart';
 import 'package:cpm/utils/cache/cache_manager.dart';
 import 'package:cpm/utils/extensions/date_time_extensions.dart';
 import 'package:cpm/utils/extensions/file_extensions.dart';
+import 'package:cpm/utils/extensions/string_extensions.dart';
+import 'package:cpm/utils/lexo_ranker.dart';
 import 'package:excel/excel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -107,22 +109,41 @@ class Projects extends _$Projects with BaseProvider {
       Episode.fromJson,
     );
 
-    var sequenceIndex = 0;
+    String? previousSequenceLexoRank;
     excel.sheets.forEach((name, sheet) async {
       if (name.startsWith('_')) return;
 
-      sequenceIndex++;
-      final sequence =
-          Sequence.parseExcel(episode.id, name, sheet.rows.first, sequenceIndex.toString()); // todo lexorank
+      final sequenceLexoRank = LexoRanker().newRank(previous: previousSequenceLexoRank);
+      previousSequenceLexoRank = sequenceLexoRank;
+      final sequence = Sequence.parseExcel(
+        episode.id,
+        name,
+        sheet.rows.first,
+        sequenceLexoRank,
+      );
       final sequenceId = await ref.read(sequencesProvider.notifier).import(sequence);
+
       if (sequenceId == -1) throw Exception();
 
-      var shotIndex = 0;
-      final shots = sheet.rows.skip(2).map((row) {
-        shotIndex++;
-        return Shot.parseExcel(sequenceId, row, shotIndex.toString()); // todo lexorank
-      }).toList()
-        ..removeLast();
+      String? previousShotLexoRank;
+      final shots = sheet.rows
+          .where((row) {
+            return row.any((data) {
+              return data != null && data.value != null && data.value.toString().isNotBlank;
+            });
+          })
+          .skip(2)
+          .map((row) {
+            final shotLexoRank = LexoRanker().newRank(previous: previousShotLexoRank);
+            previousShotLexoRank = shotLexoRank;
+            return Shot.parseExcel(
+              sequenceId,
+              row,
+              shotLexoRank,
+            );
+          })
+          .toList();
+
       await ref.read(shotsProvider.notifier).add(shots);
     });
   }

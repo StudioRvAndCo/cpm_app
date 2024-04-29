@@ -73,8 +73,8 @@ class _ShotsState extends ConsumerState<ShotsPage> {
                           itemBuilder: (context, index) {
                             return ShotCard(
                               key: Key('$index'),
-                              index,
-                              shots[index],
+                              number: index + 1,
+                              shot: shots[index],
                             );
                           },
                           onReorder: (oldIndex, newIndex) async {
