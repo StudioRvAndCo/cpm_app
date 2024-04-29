@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ShotCard extends ConsumerStatefulWidget {
-  const ShotCard(this.number, this.shot, {super.key});
+  const ShotCard({super.key, required this.number, required this.shot});
 
   final int number;
   final Shot shot;

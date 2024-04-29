@@ -3,7 +3,7 @@ description: Cinema Project Manager is a tool to efficiently manage the producti
 repository: https://github.com/studiorvandco/cpm_app
 documentation: https://github.com/studiorvandco/cpm_app/wiki
 
-version: 1.0.0+1
+version: 1.1.0+2
 publish_to: none
 
 environment:
@@ -16,7 +16,7 @@ dependencies:
   envied: ^0.5.3
   envied_generator: ^0.5.3
   equatable: ^2.0.5
-  excel: ^4.0.2
+  excel: ^4.0.3
   file_picker: ^6.1.1
   flutter:
     sdk: flutter
@@ -57,7 +57,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.4.7
-  inno_bundle: ^0.4.1
+  inno_bundle: ^0.5.0
   json_serializable: ^6.7.1
   lint: ^2.3.0
   riverpod_generator: ^2.3.11
@@ -71,7 +71,7 @@ flutter:
 # dart run inno_bundle:build --release
 inno_bundle:
   id: 74c43507-d381-5f15-b818-6d1a6731e317
-  # name: Cinema Project Manager (CPM)
+  name: Cinema Project Manager (CPM)
   publisher: Studio Rv & Co
   url: https://cpm.rvandco.fr
   support_url: https://rvandco.fr

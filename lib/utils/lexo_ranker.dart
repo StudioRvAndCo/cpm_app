@@ -1,11 +1,11 @@
 import 'package:lexo_rank/lexo_rank.dart';
 
 class LexoRanker {
-  String get defaultRank => LexoRank.middle().value;
+  String get _defaultRank => LexoRank.middle().value;
 
   String newRank({String? previous, String? next}) {
     if (previous == null && next == null) {
-      return defaultRank;
+      return _defaultRank;
     } else if (next == null) {
       return LexoRank.parse(previous!).genNext().value;
     } else if (previous == null) {

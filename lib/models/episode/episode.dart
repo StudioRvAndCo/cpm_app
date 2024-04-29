@@ -33,7 +33,7 @@ class Episode extends BaseModel {
 
   factory Episode.moviePlaceholder(int projectId) => Episode(
         project: projectId,
-        index: LexoRanker().defaultRank,
+        index: LexoRanker().newRank(),
       );
 
   factory Episode.fromJson(Map<String, dynamic> json) => _$EpisodeFromJson(json);
