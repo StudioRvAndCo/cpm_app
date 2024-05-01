@@ -12,10 +12,6 @@ enum Paddings {
   padding64(64),
   ;
 
-  double get bottomSystemUiPadding => MediaQuery.of(navigatorKey.currentContext!).padding.bottom;
-
-  double get topSystemUiPadding => MediaQuery.of(navigatorKey.currentContext!).padding.top;
-
   EdgeInsets get zero => EdgeInsets.zero;
 
   EdgeInsets get all => EdgeInsets.all(_padding);
