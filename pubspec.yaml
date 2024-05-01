@@ -3,7 +3,7 @@ description: Cinema Project Manager is a tool to efficiently manage the producti
 repository: https://github.com/studiorvandco/cpm_app
 documentation: https://github.com/studiorvandco/cpm_app/wiki
 
-version: 1.1.0+2
+version: 1.1.1+3
 publish_to: none
 
 environment:
