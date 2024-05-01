@@ -20,7 +20,7 @@ class _LinksEditorState extends ConsumerState<ProjectLinksTab> {
       project: project.id,
       index: LexoRanker().newRank(previous: project.links.lastOrNull?.index),
     );
-    print(link.index);
+
     ref.read(currentProjectProvider.notifier).addLink(link);
   }
 
