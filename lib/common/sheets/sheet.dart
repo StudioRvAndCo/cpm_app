@@ -7,7 +7,9 @@ class Sheet extends StatefulWidget {
     required this.tabs,
     this.icons,
   }) {
-    if (icons != null && icons!.length != tabs.length) throw ArgumentError();
+    if (icons != null && icons!.length != tabs.length) {
+      throw ArgumentError();
+    }
   }
 
   final List<Widget> tabs;
@@ -31,7 +33,9 @@ class _SheetState extends State<Sheet> with TickerProviderStateMixin {
   }
 
   void _changeTab(int? newIndex) {
-    if (newIndex == null) return;
+    if (newIndex == null) {
+      return;
+    }
 
     setState(() {
       index = newIndex;

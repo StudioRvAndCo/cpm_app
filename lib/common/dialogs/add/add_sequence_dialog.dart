@@ -10,7 +10,6 @@ import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/date_time_extensions.dart';
 import 'package:cpm/utils/extensions/time_of_day_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AddSequenceDialog extends ConsumerStatefulWidget {
@@ -52,21 +51,27 @@ class _AddSequenceState extends ConsumerState<AddSequenceDialog> {
       firstDate: project?.startDate ?? DateTime.now().hundredYearsBefore,
       lastDate: project?.endDate ?? DateTime.now().hundredYearsLater,
     ).then((pickedDate) async {
-      if (pickedDate == null) return;
+      if (pickedDate == null) {
+        return;
+      }
 
       await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
         helpText: localizations.dialog_field_start_time,
       ).then((pickedStartTime) async {
-        if (pickedStartTime == null) return;
+        if (pickedStartTime == null) {
+          return;
+        }
 
         await showTimePicker(
           context: context,
           initialTime: TimeOfDay.now(),
           helpText: localizations.dialog_field_end_time,
         ).then((pickedEndTime) {
-          if (pickedEndTime == null) return;
+          if (pickedEndTime == null) {
+            return;
+          }
 
           setState(() {
             date = pickedDate;
@@ -79,19 +84,18 @@ class _AddSequenceState extends ConsumerState<AddSequenceDialog> {
   }
 
   void _onLocationSelected(Location? newLocation) {
-    if (newLocation == null) return;
+    if (newLocation == null) {
+      return;
+    }
 
     setState(() {
       location = newLocation;
     });
   }
 
-  void _cancel(BuildContext context) {
-    context.pop();
-  }
-
   void _add(BuildContext context) {
-    context.pop(
+    Navigator.pop(
+      context,
       Sequence(
         episode: widget.episodeId,
         index: widget.index,
@@ -107,7 +111,6 @@ class _AddSequenceState extends ConsumerState<AddSequenceDialog> {
   @override
   Widget build(BuildContext context) {
     return ModelDialog(
-      cancel: () => _cancel(context),
       submit: () => _add(context),
       title: localizations.dialog_add_item(localizations.item_sequence(1), Gender.female.name),
       action: localizations.button_add,

@@ -60,7 +60,9 @@ class Project extends BaseModel implements Comparable<Project> {
   DateTime get getEndDate => endDate ?? DateTime.now().weekLater;
 
   String get dateText {
-    if (startDate == null || endDate == null) return '';
+    if (startDate == null || endDate == null) {
+      return '';
+    }
 
     return '${startDate?.yMd} - ${endDate?.yMd}';
   }

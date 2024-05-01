@@ -27,7 +27,9 @@ class _CustomNavigationRailState extends ConsumerState<SideNavigation> {
   }
 
   void _back() {
-    if (!context.canPop()) return;
+    if (!context.canPop()) {
+      return;
+    }
 
     context.pop();
   }

@@ -9,7 +9,6 @@ import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/extensions/date_time_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AddProjectDialog extends ConsumerStatefulWidget {
@@ -43,7 +42,9 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
       firstDate: DateTime.now().hundredYearsBefore,
       lastDate: DateTime.now().hundredYearsLater,
     ).then((pickedDateRange) {
-      if (pickedDateRange == null) return;
+      if (pickedDateRange == null) {
+        return;
+      }
 
       setState(() {
         dateRange = pickedDateRange;
@@ -52,7 +53,9 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
   }
 
   void _onDirectorSelected(Member? newDirector) {
-    if (newDirector == null) return;
+    if (newDirector == null) {
+      return;
+    }
 
     setState(() {
       director = newDirector;
@@ -60,19 +63,18 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
   }
 
   void _onWriterSelected(Member? newWriter) {
-    if (newWriter == null) return;
+    if (newWriter == null) {
+      return;
+    }
 
     setState(() {
       writer = newWriter;
     });
   }
 
-  void _cancel(BuildContext context) {
-    context.pop();
-  }
-
   void _add(BuildContext context) {
-    context.pop(
+    Navigator.pop(
+      context,
       Project(
         projectType: projectType,
         title: title.text,
@@ -88,7 +90,6 @@ class _AddProjectDialogState extends ConsumerState<AddProjectDialog> {
   @override
   Widget build(BuildContext context) {
     return ModelDialog(
-      cancel: () => _cancel(context),
       submit: () => _add(context),
       title: localizations.dialog_add_item(localizations.item_project(1), Gender.male.name),
       action: localizations.button_add,

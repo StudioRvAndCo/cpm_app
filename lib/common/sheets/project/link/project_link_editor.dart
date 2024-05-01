@@ -54,7 +54,9 @@ class _ProjectLinkEditorState extends State<ProjectLinkEditor> {
 
   void _onSubmitted() {
     if (labelController.text == widget.link.label && urlController.text == widget.link.url ||
-        !formKey.currentState!.validate()) return;
+        !formKey.currentState!.validate()) {
+      return;
+    }
 
     widget.edit(
       Link(
@@ -94,7 +96,7 @@ class _ProjectLinkEditorState extends State<ProjectLinkEditor> {
             PopupMenuButton(
               itemBuilder: (context) {
                 return [
-                  if (urlController.text.isOpenableUrl)
+                  if (urlController.text.validUrl)
                     PopupMenuItem(
                       value: ProjectLinkAction.open,
                       child: ListTile(

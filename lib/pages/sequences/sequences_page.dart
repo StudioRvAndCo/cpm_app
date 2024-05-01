@@ -36,7 +36,9 @@ class _SequencesState extends ConsumerState<SequencesPage> {
   Future<void> _open(Sequence sequence) async {
     ref.read(currentSequenceProvider.notifier).set(sequence);
 
-    if (!context.mounted) return;
+    if (!context.mounted) {
+      return;
+    }
 
     context.push(RouterRoute.shots.fullPath!);
   }

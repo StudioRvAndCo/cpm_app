@@ -20,7 +20,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DeleteAction<T extends BaseModel> extends ModelGeneric<T> {
   DeleteAction() {
-    if (T == dynamic) throw TypeError();
+    if (T == dynamic) {
+      throw TypeError();
+    }
   }
 
   Future<void> delete(
@@ -28,8 +30,12 @@ class DeleteAction<T extends BaseModel> extends ModelGeneric<T> {
     WidgetRef ref, {
     required int? id,
   }) async {
-    if (T == dynamic) throw TypeError();
-    if (id == null) return;
+    if (T == dynamic) {
+      throw TypeError();
+    }
+    if (id == null) {
+      return;
+    }
 
     await showAdaptiveDialog<bool>(
       context: context,
@@ -55,7 +61,9 @@ class DeleteAction<T extends BaseModel> extends ModelGeneric<T> {
         );
       },
     ).then((delete) async {
-      if (delete == null) return;
+      if (delete == null) {
+        return;
+      }
 
       bool deleted = false;
       switch (T) {

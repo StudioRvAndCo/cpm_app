@@ -18,7 +18,9 @@ enum Sizes {
 
   double get infinity => double.infinity;
 
-  double get dialog => Sizes.size512.size;
+  double get dialog => 512;
+
+  double get links => 34;
 
   const Sizes(this.size);
 }

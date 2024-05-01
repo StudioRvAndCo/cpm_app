@@ -5,7 +5,6 @@ import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:cpm/utils/validators.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class AddMemberDialog extends StatefulWidget {
   const AddMemberDialog({super.key});
@@ -22,14 +21,13 @@ class _AddMemberDialogState extends State<AddMemberDialog> {
   final TextEditingController phone = TextEditingController();
   final TextEditingController email = TextEditingController();
 
-  void _cancel(BuildContext context) {
-    context.pop();
-  }
-
   void _add(BuildContext context) {
-    if (!formKey.currentState!.validate()) return;
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
 
-    context.pop(
+    Navigator.pop(
+      context,
       Member(
         firstName: firstName.text,
         lastName: lastName.text,
@@ -44,7 +42,6 @@ class _AddMemberDialogState extends State<AddMemberDialog> {
     return Form(
       key: formKey,
       child: ModelDialog(
-        cancel: () => _cancel(context),
         submit: () => _add(context),
         title: localizations.dialog_add_item(localizations.item_member(1), Gender.male.name),
         action: localizations.button_add,

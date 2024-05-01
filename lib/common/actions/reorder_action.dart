@@ -13,7 +13,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ReorderAction<Model extends BaseModel> extends ModelGeneric<Model> {
   ReorderAction() {
-    if (Model == dynamic) throw TypeError();
+    if (Model == dynamic) {
+      throw TypeError();
+    }
   }
 
   Future<void> reorder(
@@ -23,7 +25,9 @@ class ReorderAction<Model extends BaseModel> extends ModelGeneric<Model> {
     required int newIndex,
     required List<Model> models,
   }) async {
-    if (Model != Link && Model != Episode && Model != Sequence && Model != Shot) throw TypeError();
+    if (Model != Link && Model != Episode && Model != Sequence && Model != Shot) {
+      throw TypeError();
+    }
 
     Model? previousModel;
     Model? nextModel;

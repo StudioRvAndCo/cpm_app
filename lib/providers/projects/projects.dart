@@ -111,7 +111,9 @@ class Projects extends _$Projects with BaseProvider {
 
     String? previousSequenceLexoRank;
     excel.sheets.forEach((name, sheet) async {
-      if (name.startsWith('_')) return;
+      if (name.startsWith('_')) {
+        return;
+      }
 
       final sequenceLexoRank = LexoRanker().newRank(previous: previousSequenceLexoRank);
       previousSequenceLexoRank = sequenceLexoRank;
@@ -123,7 +125,9 @@ class Projects extends _$Projects with BaseProvider {
       );
       final sequenceId = await ref.read(sequencesProvider.notifier).import(sequence);
 
-      if (sequenceId == -1) throw Exception();
+      if (sequenceId == -1) {
+        throw Exception();
+      }
 
       String? previousShotLexoRank;
       final shots = sheet.rows

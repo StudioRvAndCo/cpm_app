@@ -25,18 +25,24 @@ class _ProjectDetailsTabState extends ConsumerState<ShotDetailsTab> {
 
     final shot = ref.read(currentShotProvider).value;
     description.text = shot?.description ?? '';
-    if (shot != null && shot.value != null) value = shot.value!;
+    if (shot != null && shot.value != null) {
+      value = shot.value!;
+    }
   }
 
   void _onValueSelected(Shot shot, ShotValue? newValue) {
-    if (newValue == null) return;
+    if (newValue == null) {
+      return;
+    }
 
     value = newValue;
     _edit(shot);
   }
 
   void _onSubmitted(Shot shot) {
-    if (description.text == shot.description && value == shot.value) return;
+    if (description.text == shot.description && value == shot.value) {
+      return;
+    }
 
     _edit(shot);
   }
