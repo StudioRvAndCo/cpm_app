@@ -15,7 +15,9 @@ class LocaleManager {
     if (preferredLocaleLanguageCode != null) {
       return Locale(preferredLocaleLanguageCode);
     } else {
-      if (kIsWeb) return const Locale('en');
+      if (kIsWeb) {
+        return const Locale('en');
+      }
 
       final deviceLocale = Platform.localeName;
       for (final locale in AppLocalizations.supportedLocales) {
@@ -29,7 +31,9 @@ class LocaleManager {
   }
 
   void setLocale(Locale? locale) {
-    if (locale == null) return;
+    if (locale == null) {
+      return;
+    }
 
     PreferencesManager().set(PreferenceKey.locale.name, locale.languageCode);
 

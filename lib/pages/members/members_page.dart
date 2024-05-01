@@ -52,11 +52,11 @@ class _MembersState extends ConsumerState<MembersPage> {
                           title: member.fullName,
                           subtitle: member.phoneAndEmail,
                           actions: [
-                            if (member.phone != null && member.phone!.isNotEmpty && member.phone!.isValidPhone)
+                            if (member.phone != null && member.phone!.isNotEmpty && member.phone!.validPhone)
                               MenuAction.call,
-                            if (member.phone != null && member.phone!.isNotEmpty && member.phone!.isValidPhone)
+                            if (member.phone != null && member.phone!.isNotEmpty && member.phone!.validPhone)
                               MenuAction.message,
-                            if (member.email != null && member.email!.isNotEmpty && member.email!.isValidEmail)
+                            if (member.email != null && member.email!.isNotEmpty && member.email!.validEmail)
                               MenuAction.email,
                           ],
                         );

@@ -48,21 +48,27 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
       firstDate: project?.startDate ?? DateTime.now().hundredYearsBefore,
       lastDate: project?.endDate ?? DateTime.now().hundredYearsLater,
     ).then((pickedDate) async {
-      if (pickedDate == null) return;
+      if (pickedDate == null) {
+        return;
+      }
 
       await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
         helpText: localizations.dialog_field_start_time,
       ).then((pickedStartTime) async {
-        if (pickedStartTime == null) return;
+        if (pickedStartTime == null) {
+          return;
+        }
 
         await showTimePicker(
           context: context,
           initialTime: TimeOfDay.now(),
           helpText: localizations.dialog_field_end_time,
         ).then((pickedEndTime) {
-          if (pickedEndTime == null) return;
+          if (pickedEndTime == null) {
+            return;
+          }
 
           date = pickedDate;
           startTime = pickedStartTime;
@@ -74,7 +80,9 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
   }
 
   void _onLocationSelected(Sequence sequence, Location? newLocation) {
-    if (newLocation == null) return;
+    if (newLocation == null) {
+      return;
+    }
 
     location = newLocation;
     _edit(sequence);
@@ -86,7 +94,9 @@ class _ProjectDetailsTabState extends ConsumerState<SequenceDetailsTab> {
         location == sequence.location &&
         date == sequence.getDate &&
         startTime == sequence.getStartTime &&
-        endTime == sequence.getEndTime) return;
+        endTime == sequence.getEndTime) {
+      return;
+    }
 
     _edit(sequence);
   }

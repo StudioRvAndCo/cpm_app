@@ -37,7 +37,9 @@ class _MemberSheetState extends ConsumerState<MemberSheet> {
             lastName.text == member.lastName &&
             phone.text == member.phone &&
             email.text == member.email ||
-        !formKey.currentState!.validate()) return;
+        !formKey.currentState!.validate()) {
+      return;
+    }
 
     _edit(member);
   }

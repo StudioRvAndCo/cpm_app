@@ -4,7 +4,6 @@ import 'package:cpm/models/location/location.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class AddLocationDialog extends StatefulWidget {
   const AddLocationDialog({super.key});
@@ -17,12 +16,9 @@ class _AddLocationDialogState extends State<AddLocationDialog> {
   final TextEditingController name = TextEditingController();
   final TextEditingController position = TextEditingController();
 
-  void _cancel(BuildContext context) {
-    context.pop();
-  }
-
   void _add(BuildContext context) {
-    context.pop(
+    Navigator.pop(
+      context,
       Location(
         name: name.text,
         position: position.text,
@@ -33,7 +29,6 @@ class _AddLocationDialogState extends State<AddLocationDialog> {
   @override
   Widget build(BuildContext context) {
     return ModelDialog(
-      cancel: () => _cancel(context),
       submit: () => _add(context),
       title: localizations.dialog_add_item(localizations.item_location(1), Gender.male.name),
       action: localizations.button_add,

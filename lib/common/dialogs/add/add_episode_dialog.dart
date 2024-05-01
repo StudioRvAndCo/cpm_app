@@ -4,7 +4,6 @@ import 'package:cpm/models/episode/episode.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class AddEpisodeDialog extends StatefulWidget {
   const AddEpisodeDialog({
@@ -24,12 +23,9 @@ class _AddEpisodeDialogState extends State<AddEpisodeDialog> {
   final TextEditingController title = TextEditingController();
   final TextEditingController description = TextEditingController();
 
-  void _cancel(BuildContext context) {
-    context.pop();
-  }
-
   void _add(BuildContext context) {
-    context.pop(
+    Navigator.pop(
+      context,
       Episode(
         project: widget.projectId,
         index: widget.index,
@@ -42,7 +38,6 @@ class _AddEpisodeDialogState extends State<AddEpisodeDialog> {
   @override
   Widget build(BuildContext context) {
     return ModelDialog(
-      cancel: () => _cancel(context),
       submit: () => _add(context),
       title: localizations.dialog_add_item(localizations.item_episode(1), Gender.male.name),
       action: localizations.button_add,

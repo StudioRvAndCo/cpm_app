@@ -34,7 +34,9 @@ class ProjectsState extends ConsumerState<ProjectsPage> {
       await ref.read(episodesProvider.notifier).set(project.id);
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
 
     context.push(project.isMovie ? RouterRoute.sequences.fullPath! : RouterRoute.episodes.fullPath!);
   }
@@ -43,7 +45,9 @@ class ProjectsState extends ConsumerState<ProjectsPage> {
     await ref.read(currentProjectProvider.notifier).set(project);
     await ref.read(sequencesProvider.notifier).getAll();
 
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
 
     context.push(RouterRoute.schedule.fullPath!);
   }

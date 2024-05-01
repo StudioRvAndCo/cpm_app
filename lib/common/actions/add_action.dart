@@ -33,7 +33,14 @@ class AddAction<Model extends BaseModel> extends ModelGeneric<Model> {
     int? parentId,
     String? index,
   }) async {
-    if (Model != Project && Model != Episode && Model != Sequence && Model != Shot) throw TypeError();
+    if (Model != Project &&
+        Model != Episode &&
+        Model != Sequence &&
+        Model != Shot &&
+        Model != Member &&
+        Model != Location) {
+      throw TypeError();
+    }
 
     await showAdaptiveDialog(
       context: context,
@@ -42,18 +49,30 @@ class AddAction<Model extends BaseModel> extends ModelGeneric<Model> {
           case const (Project):
             return const AddProjectDialog();
           case const (Episode):
-            if (parentId == null) throw ArgumentError('Project parent ID is required');
-            if (index == null) throw ArgumentError('Index is required');
+            if (parentId == null) {
+              throw ArgumentError('Project parent ID is required');
+            }
+            if (index == null) {
+              throw ArgumentError('Index is required');
+            }
 
             return AddEpisodeDialog(projectId: parentId, index: index);
           case const (Sequence):
-            if (parentId == null) throw ArgumentError('Episode parent ID is required');
-            if (index == null) throw ArgumentError('Index is required');
+            if (parentId == null) {
+              throw ArgumentError('Episode parent ID is required');
+            }
+            if (index == null) {
+              throw ArgumentError('Index is required');
+            }
 
             return AddSequenceDialog(episodeId: parentId, index: index);
           case const (Shot):
-            if (parentId == null) throw ArgumentError('Sequence parent ID is required');
-            if (index == null) throw ArgumentError('Index is required');
+            if (parentId == null) {
+              throw ArgumentError('Sequence parent ID is required');
+            }
+            if (index == null) {
+              throw ArgumentError('Index is required');
+            }
 
             return AddShotDialog(sequenceId: parentId, index: index);
           case const (Member):
@@ -65,7 +84,9 @@ class AddAction<Model extends BaseModel> extends ModelGeneric<Model> {
         }
       },
     ).then((element) async {
-      if (element == null) return;
+      if (element == null) {
+        return;
+      }
 
       bool added = false;
       switch (Model) {
@@ -97,7 +118,9 @@ class AddAction<Model extends BaseModel> extends ModelGeneric<Model> {
       allowedExtensions: ['xlsx'],
     );
 
-    if (file == null || !file.paths.first!.endsWith('xlsx')) return;
+    if (file == null || !file.paths.first!.endsWith('xlsx')) {
+      return;
+    }
 
     SnackBarManager.info(localizations.snack_bar_import_item(localizations.item_project(1), Gender.male.name)).show();
 

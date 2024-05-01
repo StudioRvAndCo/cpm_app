@@ -78,7 +78,9 @@ class ProjectHeader extends StatelessWidget {
   }
 
   void _openLink(Link? link) {
-    if (link == null) return;
+    if (link == null) {
+      return;
+    }
 
     launchUrlString(link.getUrl, mode: LaunchMode.externalApplication);
   }
@@ -245,7 +247,7 @@ class ProjectHeader extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             )
                           : SizedBox(
-                              height: Sizes.size32.size,
+                              height: Sizes.custom.links,
                               child: Scrollbar(
                                 controller: scrollController,
                                 thickness: kIsMobile ? 0 : 4,
@@ -257,8 +259,7 @@ class ProjectHeader extends StatelessWidget {
                                     final link = links![index];
 
                                     return TextButton(
-                                      onPressed:
-                                          link.url != null && link.url!.isOpenableUrl ? () => _openLink(link) : null,
+                                      onPressed: link.url != null && link.url!.validUrl ? () => _openLink(link) : null,
                                       child: Text(link.getLabel),
                                     );
                                   },

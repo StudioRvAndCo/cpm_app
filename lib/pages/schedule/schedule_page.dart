@@ -20,7 +20,9 @@ class _ScheduleState extends ConsumerState<SchedulePage> {
   final CalendarController _calendarController = CalendarController();
 
   void _open(CalendarTapDetails? details) {
-    if (details == null || details.appointments == null || details.appointments!.isEmpty) return;
+    if (details == null || details.appointments == null || details.appointments!.isEmpty) {
+      return;
+    }
 
     ref.read(currentSequenceProvider.notifier).set(details.appointments!.first as Sequence);
     context.push(RouterRoute.shots.fullPath!);

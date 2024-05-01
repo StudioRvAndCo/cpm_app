@@ -6,7 +6,6 @@ import 'package:cpm/models/shot/shot_value.dart';
 import 'package:cpm/utils/constants/constants.dart';
 import 'package:cpm/utils/constants/paddings.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class AddShotDialog extends StatefulWidget {
   const AddShotDialog({
@@ -27,19 +26,18 @@ class _AddShotDialogState extends State<AddShotDialog> {
   ShotValue value = ShotValue.other;
 
   void _onValueSelected(ShotValue? newValue) {
-    if (newValue == null) return;
+    if (newValue == null) {
+      return;
+    }
 
     setState(() {
       value = newValue;
     });
   }
 
-  void _cancel(BuildContext context) {
-    context.pop();
-  }
-
-  void _add(BuildContext context) {
-    context.pop(
+  void _add() {
+    Navigator.pop(
+      context,
       Shot(
         sequence: widget.sequenceId,
         index: widget.index,
@@ -52,8 +50,7 @@ class _AddShotDialogState extends State<AddShotDialog> {
   @override
   Widget build(BuildContext context) {
     return ModelDialog(
-      cancel: () => _cancel(context),
-      submit: () => _add(context),
+      submit: _add,
       title: localizations.dialog_add_item(localizations.item_shot(1), Gender.male.name),
       action: localizations.button_add,
       fields: [

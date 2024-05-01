@@ -24,7 +24,9 @@ enum Keybinding {
 
   static void _pop() {
     final context = navigatorKey.currentContext;
-    if (context != null && context.mounted && context.canPop()) context.pop();
+    if (context != null && context.mounted && context.canPop()) {
+      context.pop();
+    }
   }
 
   static Map<LogicalKeySet, Function()> get asMap {

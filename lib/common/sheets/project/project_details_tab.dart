@@ -48,7 +48,9 @@ class _ProjectDetailsTabState extends ConsumerState<ProjectDetailsTab> {
       firstDate: DateTime.now().hundredYearsBefore,
       lastDate: DateTime.now().hundredYearsLater,
     ).then((pickedDateRange) {
-      if (pickedDateRange == null) return;
+      if (pickedDateRange == null) {
+        return;
+      }
 
       dateRange = pickedDateRange;
       _edit(project);
@@ -56,21 +58,27 @@ class _ProjectDetailsTabState extends ConsumerState<ProjectDetailsTab> {
   }
 
   void _onDirectorSelected(Project project, Member? newDirector) {
-    if (newDirector == null) return;
+    if (newDirector == null) {
+      return;
+    }
 
     director = newDirector;
     _edit(project);
   }
 
   void _onWriterSelected(Project project, Member? newWriter) {
-    if (newWriter == null) return;
+    if (newWriter == null) {
+      return;
+    }
 
     writer = newWriter;
     _edit(project);
   }
 
   void _onSubmitted(Project project) {
-    if (title.text == project.title && description.text == project.description) return;
+    if (title.text == project.title && description.text == project.description) {
+      return;
+    }
 
     _edit(project);
   }

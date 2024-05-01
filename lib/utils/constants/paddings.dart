@@ -1,4 +1,5 @@
 import 'package:cpm/utils/constants/constants.dart';
+import 'package:cpm/utils/platform.dart';
 import 'package:flutter/material.dart';
 
 enum Paddings {
@@ -33,15 +34,15 @@ enum Paddings {
 
   EdgeInsets get fab => const EdgeInsets.only(bottom: kFloatingActionButtonMargin + 64);
 
-  EdgeInsets get page => const EdgeInsets.all(16);
+  EdgeInsets get page => EdgeInsets.all(kIsDesktop ? 16 : 8);
 
-  EdgeInsets get pageHorizontal => const EdgeInsets.symmetric(horizontal: 16);
+  EdgeInsets get pageHorizontal => EdgeInsets.symmetric(horizontal: kIsDesktop ? 16 : 8);
 
-  EdgeInsets get pageVertical => const EdgeInsets.symmetric(vertical: 16);
+  EdgeInsets get pageVertical => EdgeInsets.symmetric(vertical: kIsDesktop ? 16 : 8);
 
   EdgeInsets get pageVerticalWithSystemUi => EdgeInsets.only(
-        top: 16 + topSystemUiPadding,
-        bottom: 16 + bottomSystemUiPadding,
+        top: (kIsDesktop ? 16 : 8) + topSystemUiPadding,
+        bottom: (kIsDesktop ? 16 : 8) + bottomSystemUiPadding,
       );
 
   EdgeInsets get drawer => const EdgeInsets.all(8);

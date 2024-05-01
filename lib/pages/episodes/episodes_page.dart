@@ -34,7 +34,9 @@ class EpisodesState extends ConsumerState<EpisodesPage> {
   Future<void> _open(Episode episode) async {
     ref.read(currentEpisodeProvider.notifier).set(episode);
 
-    if (!context.mounted) return;
+    if (!context.mounted) {
+      return;
+    }
 
     context.push(RouterRoute.sequences.fullPath!);
   }

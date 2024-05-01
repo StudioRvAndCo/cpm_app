@@ -7,19 +7,21 @@ import 'package:flutter/material.dart';
 class ModelDialog extends StatelessWidget {
   const ModelDialog({
     super.key,
-    required this.cancel,
     required this.submit,
     required this.title,
     required this.action,
     required this.fields,
   });
 
-  final Function() cancel;
   final Function() submit;
 
   final String title;
   final String action;
   final List<Widget> fields;
+
+  void _cancel(BuildContext context) {
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class ModelDialog extends StatelessWidget {
                   automaticallyImplyLeading: false,
                   leading: IconButton(
                     icon: const Icon(Icons.close),
-                    onPressed: cancel,
+                    onPressed: () => _cancel(context),
                   ),
                   title: Text(title),
                   actions: [
@@ -85,7 +87,7 @@ class ModelDialog extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         TextButton(
-                          onPressed: cancel,
+                          onPressed: () => _cancel(context),
                           child: Text(localizations.button_cancel),
                         ),
                         TextButton(

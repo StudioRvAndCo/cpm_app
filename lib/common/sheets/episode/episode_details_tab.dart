@@ -27,7 +27,9 @@ class _ProjectDetailsTabState extends ConsumerState<EpisodeDetailsTab> {
   }
 
   void _onSubmitted(Episode episode) {
-    if (title.text == episode.title && description.text == episode.description) return;
+    if (title.text == episode.title && description.text == episode.description) {
+      return;
+    }
 
     _edit(episode);
   }

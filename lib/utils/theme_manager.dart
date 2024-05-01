@@ -74,7 +74,9 @@ class ThemeManager {
   }
 
   void setThemeMode(ThemeMode? themeMode) {
-    if (themeMode == null) return;
+    if (themeMode == null) {
+      return;
+    }
 
     int value;
     switch (themeMode) {

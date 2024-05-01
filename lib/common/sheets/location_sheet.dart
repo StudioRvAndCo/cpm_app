@@ -28,7 +28,9 @@ class _MemberSheetState extends ConsumerState<LocationSheet> {
   }
 
   void _onSubmitted(Location location) {
-    if (name.text == location.name && position.text == location.position && !formKey.currentState!.validate()) return;
+    if (name.text == location.name && position.text == location.position && !formKey.currentState!.validate()) {
+      return;
+    }
 
     _edit(location);
   }
